@@ -1,4 +1,12 @@
 /* JavaFX CSS - Leave this comment until you have at least create one rule which uses -fx-Property */
+/*Ventana INICIO */
+
+
+
+/*FIN Ventana INICIO */
+
+
+
 /*Ventana Login */
 .parent{
 	-fx-background-image: url("../img/img_degradado_fondo.png");
@@ -6,3 +14,4 @@
 .fondo_login{
 	-fx-background-color: #11729D;
 }
+/*FIN Ventana Login */
