@@ -9,14 +9,19 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 
-public class Controlador_Registro{
+public class Controlador_Registro {
 
 	@FXML // ResourceBundle that was given to the FXMLLoader
 	private ResourceBundle resources;
 
 	@FXML // URL location of the FXML file that was given to the FXMLLoader
 	private URL location;
+
+	@FXML // URL location of the FXML file that was given to the FXMLLoader
+	private AnchorPane contenidoAreaRegistro;
 
 	@FXML
 	void initialize() {
@@ -29,11 +34,12 @@ public class Controlador_Registro{
 		// Implementa la lógica para cerrar la aplicación
 		System.exit(0);
 	}
+
 	@FXML
 	public void volverALogin(MouseEvent event) throws IOException {
-		Parent root = FXMLLoader.load(getClass().getResource("/vista/Pantalla_Inicio_Login.fxml"));
-		Main.stage.getScene().setRoot(root);
-	
+
+		Parent fxml = FXMLLoader.load(getClass().getResource("/vista/Pantalla_Inicio_Login.fxml"));
+		Main.stage.getScene().setRoot(fxml);
 	}
 	// You can add methods to handle user registration or other events
 }

@@ -1,38 +1,33 @@
 package applications;
-	
+
 import controlador.Controlador_Inicio_Login;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 
-
 public class Main extends Application {
-	
-	public static Stage stage;
+
+	public static Stage stage = null;
+
 	@Override
 	public void start(Stage stage) {
 		try {
-			FXMLLoader loader = new FXMLLoader(getClass().getResource("../vista/Pantalla_Inicio_Login.fxml"));
-			
-			Controlador_Inicio_Login control = new Controlador_Inicio_Login();
-			
-			loader.setController(control);
+			Parent root = FXMLLoader.load(getClass().getResource("../vista/Pantalla_Inicio_Login.fxml"));
 
-			Parent root = loader.load();
-			
 			Scene scene = new Scene(root);
-			scene.getStylesheets().add("/applications/application.css");  // Modifica la ruta según la ubicación real de tu archivo CSS
-
+			stage.initStyle(StageStyle.UNDECORATED);
 			stage.setScene(scene);
+			this.stage = stage;
 			stage.show();
-		} catch(Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public static void main(String[] args) {
 		launch(args);
 	}
