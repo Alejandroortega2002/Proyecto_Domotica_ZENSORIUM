@@ -59,15 +59,15 @@ public class Controlador_Registro {
 
 	@FXML
 	private void registrarUsuario() throws IOException {
-		String username = emailUsuarioRegistro.getText();
+		String email = emailUsuarioRegistro.getText();
 		String password = contrasenaUsuarioRegistro.getText();
 
-		if (username.isEmpty() || password.isEmpty()) {
+		if (email.isEmpty() || password.isEmpty()) {
 			// Mostrar mensaje de error si los campos están vacíos
 			return;
 		}
 
-		Usuario nuevoUsuario = new Usuario(username, password);
+		Usuario nuevoUsuario = new Usuario(email, password);
 		if (RegistroManager.registrarUsuario(nuevoUsuario)) {
 			Parent fxml = FXMLLoader.load(getClass().getResource("/vista/Pantalla_Inicio_Login.fxml"));
 			Main.stage.getScene().setRoot(fxml);

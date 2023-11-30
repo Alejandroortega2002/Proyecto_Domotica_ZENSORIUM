@@ -4,21 +4,21 @@ import java.io.Serializable;
 
 public class Usuario implements Serializable {
 	
-	 private String username;
+	 private String email;
 	 private String password;
 	 
 	public Usuario(String username, String password) {
 		super();
-		this.username = username;
+		this.email = username;
 		this.password = password;
 	}
 
 	public String getUsername() {
-		return username;
+		return email;
 	}
 
 	public void setUsername(String username) {
-		this.username = username;
+		this.email = username;
 	}
 
 	public String getPassword() {
