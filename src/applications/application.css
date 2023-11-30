@@ -83,6 +83,16 @@
 	-fx-background-image: url("../img/img_degradado_fondo.png");
 }
 
+.contenedor_dispositivos{
+	-fx-background: trasparent;
+	
+}
+
+.pane_contenedor_dispositivos{
+	-fx-background: trasparent;
+	
+}
+
 
 /*FIN Ventana Interfaz usuario*/
 
