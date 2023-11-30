@@ -29,32 +29,32 @@
 				<Font name="Book Antiqua" size="19.0" />
 			</font>
 		</Label>
-		<JFXTextField focusColor="WHITE" labelFloat="true" layoutX="110.0" layoutY="328.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="45.0" prefWidth="300.0" promptText="Email" style="-fx-prompt-text-fill: white;" unFocusColor="WHITE">
+		<JFXTextField fx:id="emailUsuarioRegistro" focusColor="WHITE" labelFloat="true" layoutX="110.0" layoutY="328.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="45.0" prefWidth="300.0" promptText="Email" style="-fx-prompt-text-fill: white;" unFocusColor="WHITE">
 			<font>
 				<Font name="Book Antiqua" size="15.0" />
 			</font>
 		</JFXTextField>
-		<JFXPasswordField focusColor="WHITE" labelFloat="true" layoutX="110.0" layoutY="407.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="45.0" prefWidth="300.0" promptText="Contraseña" style="-fx-prompt-text-fill: white;" unFocusColor="WHITE">
+		<JFXPasswordField fx:id="contrasenaUsuarioRegistro" focusColor="WHITE" labelFloat="true" layoutX="110.0" layoutY="407.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="45.0" prefWidth="300.0" promptText="Contraseña" style="-fx-prompt-text-fill: white;" unFocusColor="WHITE">
 			<font>
 				<Font name="Book Antiqua" size="15.0" />
 			</font>
 		</JFXPasswordField>
-		<JFXButton buttonType="RAISED" layoutX="85.0" layoutY="606.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="45.0" prefWidth="350.0" ripplerFill="#c2c3c6" styleClass="btn_login" stylesheets="@../applications/application.css" text="Registrate">
+		<JFXButton buttonType="RAISED" layoutX="85.0" layoutY="606.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#btnRegistrarte" prefHeight="45.0" prefWidth="350.0" ripplerFill="#c2c3c6" styleClass="btn_login" stylesheets="@../applications/application.css" text="Registrate">
 			<font>
 				<Font name="Book Antiqua" size="17.0" />
 			</font>
 		</JFXButton>
-		<JFXTextField focusColor="WHITE" labelFloat="true" layoutX="110.0" layoutY="249.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="45.0" prefWidth="300.0" promptText="Nombre" style="-fx-prompt-text-fill: white;" unFocusColor="WHITE">
+		<JFXTextField fx:id="nombreUsuarioRegistro" focusColor="WHITE" labelFloat="true" layoutX="110.0" layoutY="249.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="45.0" prefWidth="300.0" promptText="Nombre" style="-fx-prompt-text-fill: white;" unFocusColor="WHITE">
 			<font>
 				<Font name="Book Antiqua" size="15.0" />
 			</font>
 		</JFXTextField>
-		<JFXPasswordField focusColor="WHITE" labelFloat="true" layoutX="110.0" layoutY="479.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="45.0" prefWidth="300.0" promptText="Repetir Contraseña" style="-fx-prompt-text-fill: white;" unFocusColor="WHITE">
+		<JFXPasswordField fx:id="repetirContrasenaUsuarioRegistro" focusColor="WHITE" labelFloat="true" layoutX="110.0" layoutY="479.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="45.0" prefWidth="300.0" promptText="Repetir Contraseña" style="-fx-prompt-text-fill: white;" unFocusColor="WHITE">
 			<font>
 				<Font name="Book Antiqua" size="15.0" />
 			</font>
 		</JFXPasswordField>
-		<JFXComboBox focusColor="WHITE" layoutX="232.0" layoutY="544.0" prefHeight="31.0" prefWidth="151.0" unFocusColor="WHITE">
+		<JFXComboBox fx:id="tipoDeCuenta" focusColor="WHITE" layoutX="232.0" layoutY="544.0" prefHeight="31.0" prefWidth="151.0" unFocusColor="WHITE">
 			<cursor>
 				<Cursor fx:constant="HAND" />
 			</cursor>

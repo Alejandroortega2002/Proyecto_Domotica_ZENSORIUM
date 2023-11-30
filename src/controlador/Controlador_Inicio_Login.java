@@ -47,40 +47,39 @@ public class Controlador_Inicio_Login {
         contenidoArea.getChildren().setAll(fxml);
     }
 
-//    @FXML
-//    private void iniciarSesion(MouseEvent event) {
-//        String email = email_login.getText();
-//        String password = password_login.getText();
-//
-//        // Aquí debes realizar la lógica de autenticación, por ejemplo, verificar en una base de datos
-//        boolean autenticado = autenticarUsuario(email, password);
-//
-//        if (autenticado) {
-//            // Si el usuario es autenticado con éxito, puedes navegar a la siguiente vista o realizar otras acciones
-//            // En este ejemplo, simplemente mostramos un mensaje de éxito
-//            mostrarMensaje("Inicio de sesión exitoso", "¡Bienvenido, " + email + "!");
-//        } else {
-//            // Si la autenticación falla, muestra un mensaje de error
-//            mostrarMensaje("Error de inicio de sesión", "Credenciales incorrectas. Por favor, inténtalo de nuevo.", Alert.AlertType.ERROR);
-//        }
-//    }
-//
-//    private boolean autenticarUsuario(String email, String password) {
-//        // Aquí debes implementar la lógica de autenticación, por ejemplo, verificar en una base de datos
-//        // Devuelve true si la autenticación es exitosa, false en caso contrario.
-//        // Este es un ejemplo básico, en una aplicación real debes implementar una lógica de autenticación segura.
-//        return email.equals("usuario@example.com") && password.equals("contraseña123");
-//    }
-//
-//    private void mostrarMensaje(String titulo, String contenido) {
-//        mostrarMensaje(titulo, contenido, Alert.AlertType.INFORMATION);
-//    }
-//
-//    private void mostrarMensaje(String titulo, String contenido, Alert.AlertType tipo) {
-//        Alert alert = new Alert(tipo);
-//        alert.setTitle(titulo);
-//        alert.setHeaderText(null);
-//        alert.setContentText(contenido);
-//        alert.showAndWait();
-//    }
+    @FXML
+    private void iniciarSesion(MouseEvent event) {
+        String email = email_login.getText();
+        String password = password_login.getText();
+
+        // Aquí debes realizar la lógica de autenticación, por ejemplo, verificar en una base de datos
+        boolean autenticado = autenticarUsuario(email, password);
+
+        if (autenticado) {
+            // Si el usuario es autenticado con éxito, puedes navegar a la siguiente vista o realizar otras acciones
+            // En este ejemplo, simplemente mostramos un mensaje de éxito
+            mostrarMensaje("Inicio de sesión exitoso", "¡Bienvenido, " + email + "!");
+        } else {
+            // Si la autenticación falla, muestra un mensaje de error
+            mostrarMensaje("Error de inicio de sesión", "Credenciales incorrectas. Por favor, inténtalo de nuevo.", Alert.AlertType.ERROR);
+        }
+    }
+
+    private boolean autenticarUsuario(String email, String password) {
+        // Aquí debes implementar la lógica de autenticación, por ejemplo, verificar en una base de datos
+        // Devuelve true si la autenticación es exitosa, false en caso contrario.
+        return email.equals("123") && password.equals("123");
+    }
+
+    private void mostrarMensaje(String titulo, String contenido) {
+        mostrarMensaje(titulo, contenido, Alert.AlertType.INFORMATION);
+    }
+
+    private void mostrarMensaje(String titulo, String contenido, Alert.AlertType tipo){
+        Alert alert = new Alert(tipo);
+        alert.setTitle(titulo);
+        alert.setHeaderText(null);
+        alert.setContentText(contenido);
+        alert.showAndWait();
+    }
 }
