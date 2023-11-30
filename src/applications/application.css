@@ -45,3 +45,44 @@
 }
 
 /*FIN Ventana Login */
+/*Ventana Interfaz usuario*/
+
+.btn_Perfil_Menu{
+	-fx-background-image: url("../img/IconoPerfil.png");
+	-fx-background-size: 30.0px;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: 90.0%;
+	-fx-background-radius: 10.0px;
+	-fx-background-color: trasparent;
+}
+.btn_Perfil_Menu:hover{
+	-fx-background-image: url("../img/prueba.png");
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: 90.0%;
+	-fx-background-radius: 10.0px;
+	-fx-background-color: trasparent;
+}
+
+.btn_Inicio_Menu{
+	-fx-background-image: url("../img/IconoInicio.png");
+	-fx-background-size: 30.0px;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: 90.0%;
+	-fx-background-radius: 10.0px;
+	-fx-background-color: trasparent;
+}
+
+.btn_Inicio_Menu:hover{
+	-fx-background-image: url("../img/IconoInicioHover.png");
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: 90.0%;
+	-fx-background-radius: 10.0px;
+	-fx-background-color: trasparent;
+}
+.fondo_Interfaz{
+	-fx-background-image: url("../img/img_degradado_fondo.png");
+}
+
+
+/*FIN Ventana Interfaz usuario*/
+
