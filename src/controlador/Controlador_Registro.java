@@ -21,7 +21,7 @@ import javafx.scene.layout.Pane;
 import modelo.RegistroManager;
 
 public class Controlador_Registro {
-	
+
 	ObservableList<String> listaTipoDeCuenta = FXCollections.observableArrayList("Usuario", "Familiar");
 
 	@FXML // ResourceBundle that was given to the FXMLLoader
@@ -44,10 +44,9 @@ public class Controlador_Registro {
 
 	@FXML
 	private JFXPasswordField repetirContrasenaUsuarioRegistro;
-	
+
 	@FXML
-	private ComboBox tipoDeCuenta;
-	
+	private ComboBox<String> tipoDeCuenta;
 
 	@FXML
 	void initialize() {
@@ -59,15 +58,18 @@ public class Controlador_Registro {
 
 	@FXML
 	private void registrarUsuario() throws IOException {
+		String username = nombreUsuarioRegistro.getText();
 		String email = emailUsuarioRegistro.getText();
 		String password = contrasenaUsuarioRegistro.getText();
+		String repetirPass = repetirContrasenaUsuarioRegistro.getText();
+		String tipoDecuenta = tipoDeCuenta.getValue();
 
 		if (email.isEmpty() || password.isEmpty()) {
 			// Mostrar mensaje de error si los campos están vacíos
 			return;
 		}
 
-		Usuario nuevoUsuario = new Usuario(email, password);
+		Usuario nuevoUsuario = new Usuario(username, email, password, repetirPass, tipoDecuenta);
 		if (RegistroManager.registrarUsuario(nuevoUsuario)) {
 			Parent fxml = FXMLLoader.load(getClass().getResource("/vista/Pantalla_Inicio_Login.fxml"));
 			Main.stage.getScene().setRoot(fxml);
@@ -75,14 +77,13 @@ public class Controlador_Registro {
 			// Mostrar mensaje de error si el usuario ya existe
 		}
 	}
-	
-	
+
 	@FXML
 	public void btnRegistrarte(MouseEvent event) throws IOException {
 		// Implementa la lógica para cerrar la aplicación
 		registrarUsuario();
 	}
-	
+
 	@FXML
 	public void cerrarApp(MouseEvent event) {
 		// Implementa la lógica para cerrar la aplicación

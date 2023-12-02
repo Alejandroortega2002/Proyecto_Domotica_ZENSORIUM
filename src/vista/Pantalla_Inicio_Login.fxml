@@ -65,12 +65,12 @@
 						<Font name="Book Antiqua" size="19.0" />
 					</font>
 				</Label>
-				<JFXTextField focusColor="WHITE" labelFloat="true" layoutX="100.0" layoutY="276.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="45.0" prefWidth="300.0" promptText="Email" style="-fx-prompt-text-fill: white;" unFocusColor="WHITE">
+				<JFXTextField fx:id="email_login" focusColor="WHITE" labelFloat="true" layoutX="100.0" layoutY="276.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="45.0" prefWidth="300.0" promptText="Email" style="-fx-prompt-text-fill: white;" unFocusColor="WHITE">
 					<font>
 						<Font name="Book Antiqua" size="15.0" />
 					</font>
 				</JFXTextField>
-				<JFXPasswordField focusColor="WHITE" labelFloat="true" layoutX="100.0" layoutY="368.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="45.0" prefWidth="300.0" promptText="Contraseña" style="-fx-prompt-text-fill: white;" unFocusColor="WHITE">
+				<JFXPasswordField fx:id="password_login" focusColor="WHITE" labelFloat="true" layoutX="100.0" layoutY="368.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="45.0" prefWidth="300.0" promptText="Contraseña" style="-fx-prompt-text-fill: white;" unFocusColor="WHITE">
 					<font>
 						<Font name="Book Antiqua" size="15.0" />
 					</font>

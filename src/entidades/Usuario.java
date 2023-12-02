@@ -3,22 +3,36 @@ package entidades;
 import java.io.Serializable;
 
 public class Usuario implements Serializable {
-	
-	 private String email;
-	 private String password;
-	 
-	public Usuario(String username, String password) {
+
+	private String username;
+	private String email;
+	private String password;
+	private String repetirPass;
+	private String tipodecuenta;
+
+	public Usuario(String username, String email, String password, String repetirPass, String tipodecuenta) {
 		super();
-		this.email = username;
+		this.username = username;
+		this.email = email;
 		this.password = password;
+		this.repetirPass = repetirPass;
+		this.tipodecuenta = tipodecuenta;
 	}
 
 	public String getUsername() {
-		return email;
+		return username;
 	}
 
 	public void setUsername(String username) {
-		this.email = username;
+		this.username = username;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	public String getPassword() {
@@ -28,5 +42,21 @@ public class Usuario implements Serializable {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	
+
+	public String getRepetirPass() {
+		return repetirPass;
+	}
+
+	public void setRepetirPass(String repetirPass) {
+		this.repetirPass = repetirPass;
+	}
+
+	public String getTipodecuenta() {
+		return tipodecuenta;
+	}
+
+	public void setTipodecuenta(String tipodecuenta) {
+		this.tipodecuenta = tipodecuenta;
+	}
+
 }
