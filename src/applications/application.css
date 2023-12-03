@@ -129,4 +129,32 @@
 	
 }
 /*FIN Ventana Interfaz usuario*/
+/* Ventana Perfil usuario*/
+.Fondo_Pantalla_Perfil{
+	-fx-background-image: url("../img/img_degradado_fondo.png");
+	
+}
+.btn_Foto_Perfil{
+	-fx-background-image: url("../img/IconoFotoPerfil.png");
+	-fx-background-size: 150.00px;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: 90.0%;
+	-fx-background-radius: 10.0px;
+	-fx-background-color: trasparent;
+}
+.btn_EditarFoto_Perfil{
+	-fx-background-image: url("../img/IconoEditarFotoPerfil.png");
+	-fx-background-size: 30.00px;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: 90.0%;
+	-fx-background-radius: 10.0px;
+	-fx-background-color: trasparent;
+}
+.btn_EditarNombre_Perfil{
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: 90.0%;
+	-fx-background-radius: 10.0px;
+	-fx-background-color: trasparent;
+}
+/*FIN Ventana Perfil usuario*/
 
