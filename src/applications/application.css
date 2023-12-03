@@ -93,6 +93,40 @@
 	
 }
 
+.contenedor_dispositivo{
+	-fx-background-color: #11729D;
+	-fx-background-radius: 10.0px;
+	
+	
+}
+.contenedor_anadir_dispositivo{
+	-fx-background-color: #11729D;
+	-fx-background-radius: 10.0px;
+}
+.btn_anadir_dispositivo{
+	-fx-background-image: url("../img/IconoAnadirDispositivo.png");
+	-fx-background-size: 30.0px;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: 90.0%;
+	-fx-background-radius: 10.0px;
+	-fx-background-color: trasparent;
+}
 
+.btn_anadir_dispositivo:hover{
+	-fx-background-image: url("../img/IconoAnadirDispositivoHover.png");
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: 90.0%;
+	-fx-background-radius: 10.0px;
+	-fx-background-color: trasparent;
+}
+.contenedor_temperatura_interfaz{
+	-fx-background-color: #11729D;
+	-fx-background-radius: 10.0px;
+}
+.icono_temp{
+	-fx-background-image: url("../img/IconoAnadirDispositivoHover.png");
+   
+	
+}
 /*FIN Ventana Interfaz usuario*/
 
