@@ -19,7 +19,7 @@ public class Main extends Application {
 			Parent root = FXMLLoader.load(getClass().getResource("../vista/Pantalla_Inicio_Login.fxml"));
 
 			Scene scene = new Scene(root);
-			stage.initStyle(StageStyle.UNDECORATED);
+			//stage.initStyle(StageStyle.UNDECORATED);
 			stage.setScene(scene);
 			this.stage = stage;
 			stage.show();

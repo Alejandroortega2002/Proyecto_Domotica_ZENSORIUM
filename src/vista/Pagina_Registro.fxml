@@ -10,69 +10,75 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="contenidoAreaRegistro" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="500.0" style="-fx-background-color: #11729D;" styleClass="fondo_registro" stylesheets="@../applications/application.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controlador.Controlador_Registro">
-	<children>
-		<ImageView fitHeight="100.0" fitWidth="100.0" layoutX="57.0" layoutY="59.0" pickOnBounds="true" preserveRatio="true">
-			<image>
-				<Image url="@../img/logo_app.png" />
-			</image>
-		</ImageView>
-		<Label layoutX="57.0" layoutY="159.0" text="Registro de Usuarios" textFill="WHITE">
-			<font>
-				<Font name="Impact" size="28.0" />
-			</font>
-		</Label>
-		<Label layoutX="57.0" layoutY="193.0" prefHeight="25.0" prefWidth="239.0" text="Registrate para continuar" textFill="#ffffffb9">
-			<font>
-				<Font name="Book Antiqua" size="19.0" />
-			</font>
-		</Label>
-		<JFXTextField fx:id="emailUsuarioRegistro" focusColor="WHITE" labelFloat="true" layoutX="110.0" layoutY="328.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="45.0" prefWidth="300.0" promptText="Email" style="-fx-prompt-text-fill: white;" unFocusColor="WHITE">
-			<font>
-				<Font name="Book Antiqua" size="15.0" />
-			</font>
-		</JFXTextField>
-		<JFXPasswordField fx:id="contrasenaUsuarioRegistro" focusColor="WHITE" labelFloat="true" layoutX="110.0" layoutY="407.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="45.0" prefWidth="300.0" promptText="Contraseña" style="-fx-prompt-text-fill: white;" unFocusColor="WHITE">
-			<font>
-				<Font name="Book Antiqua" size="15.0" />
-			</font>
-		</JFXPasswordField>
-		<JFXButton buttonType="RAISED" layoutX="85.0" layoutY="606.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#btnRegistrarte" prefHeight="45.0" prefWidth="350.0" ripplerFill="#c2c3c6" styleClass="btn_login" stylesheets="@../applications/application.css" text="Registrate">
-			<font>
-				<Font name="Book Antiqua" size="17.0" />
-			</font>
-		</JFXButton>
-		<JFXTextField fx:id="nombreUsuarioRegistro" focusColor="WHITE" labelFloat="true" layoutX="110.0" layoutY="249.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="45.0" prefWidth="300.0" promptText="Nombre" style="-fx-prompt-text-fill: white;" unFocusColor="WHITE">
-			<font>
-				<Font name="Book Antiqua" size="15.0" />
-			</font>
-		</JFXTextField>
-		<JFXPasswordField fx:id="repetirContrasenaUsuarioRegistro" focusColor="WHITE" labelFloat="true" layoutX="110.0" layoutY="479.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="45.0" prefWidth="300.0" promptText="Repetir Contraseña" style="-fx-prompt-text-fill: white;" unFocusColor="WHITE">
-			<font>
-				<Font name="Book Antiqua" size="15.0" />
-			</font>
-		</JFXPasswordField>
-		<JFXComboBox fx:id="tipoDeCuenta" focusColor="WHITE" layoutX="232.0" layoutY="544.0" prefHeight="31.0" prefWidth="151.0" unFocusColor="WHITE">
-			<cursor>
-				<Cursor fx:constant="HAND" />
-			</cursor>
-		</JFXComboBox>
-		<Label layoutX="107.0" layoutY="550.0" prefHeight="25.0" prefWidth="139.0" text="Tipo de cuenta:" textFill="WHITE">
-			<font>
-				<Font name="Book Antiqua" size="15.0" />
-			</font>
-		</Label>
-		<FontAwesomeIcon fill="WHITE" glyphName="CLOSE" layoutX="462.0" layoutY="40.0" onMouseClicked="#cerrarApp" size="2em" stroke="#faf7f700" styleClass="btn_cerrar_login" text="">
-			<cursor>
-				<Cursor fx:constant="HAND" />
-			</cursor>
-		</FontAwesomeIcon>
-		<FontAwesomeIcon fill="WHITE" glyphName="ARROW_LEFT" layoutX="14.0" layoutY="40.0" onMouseClicked="#volverALogin" size="2em" stroke="#faf7f700" styleClass="btn_cerrar_login">
-			<cursor>
-				<Cursor fx:constant="HAND" />
-			</cursor>
-		</FontAwesomeIcon>
-	</children>
-</AnchorPane>
+
+<VBox alignment="CENTER" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controlador.Controlador_Registro">
+   <children>
+      <AnchorPane fx:id="contenidoAreaRegistro" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="500.0" style="-fx-background-color: #11729D;" styleClass="fondo_registro" stylesheets="@../applications/application.css">
+      	<children>
+      		<ImageView fitHeight="100.0" fitWidth="100.0" layoutX="57.0" layoutY="59.0" pickOnBounds="true" preserveRatio="true">
+      			<image>
+      				<Image url="@../img/logo_app.png" />
+      			</image>
+      		</ImageView>
+      		<Label layoutX="57.0" layoutY="159.0" text="Registro de Usuarios" textFill="WHITE">
+      			<font>
+      				<Font name="Impact" size="28.0" />
+      			</font>
+      		</Label>
+      		<Label layoutX="57.0" layoutY="193.0" prefHeight="25.0" prefWidth="239.0" text="Registrate para continuar" textFill="#ffffffb9">
+      			<font>
+      				<Font name="Book Antiqua" size="19.0" />
+      			</font>
+      		</Label>
+      		<JFXTextField fx:id="emailUsuarioRegistro" focusColor="WHITE" labelFloat="true" layoutX="110.0" layoutY="328.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="45.0" prefWidth="300.0" promptText="Email" style="-fx-prompt-text-fill: white;" unFocusColor="WHITE">
+      			<font>
+      				<Font name="Book Antiqua" size="15.0" />
+      			</font>
+      		</JFXTextField>
+      		<JFXPasswordField fx:id="contrasenaUsuarioRegistro" focusColor="WHITE" labelFloat="true" layoutX="110.0" layoutY="407.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="45.0" prefWidth="300.0" promptText="Contraseña" style="-fx-prompt-text-fill: white;" unFocusColor="WHITE">
+      			<font>
+      				<Font name="Book Antiqua" size="15.0" />
+      			</font>
+      		</JFXPasswordField>
+      		<JFXButton buttonType="RAISED" layoutX="85.0" layoutY="606.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#btnRegistrarte" prefHeight="45.0" prefWidth="350.0" ripplerFill="#c2c3c6" styleClass="btn_login" stylesheets="@../applications/application.css" text="Registrate">
+      			<font>
+      				<Font name="Book Antiqua" size="17.0" />
+      			</font>
+      		</JFXButton>
+      		<JFXTextField fx:id="nombreUsuarioRegistro" focusColor="WHITE" labelFloat="true" layoutX="110.0" layoutY="249.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="45.0" prefWidth="300.0" promptText="Nombre" style="-fx-prompt-text-fill: white;" unFocusColor="WHITE">
+      			<font>
+      				<Font name="Book Antiqua" size="15.0" />
+      			</font>
+      		</JFXTextField>
+      		<JFXPasswordField fx:id="repetirContrasenaUsuarioRegistro" focusColor="WHITE" labelFloat="true" layoutX="110.0" layoutY="479.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="45.0" prefWidth="300.0" promptText="Repetir Contraseña" style="-fx-prompt-text-fill: white;" unFocusColor="WHITE">
+      			<font>
+      				<Font name="Book Antiqua" size="15.0" />
+      			</font>
+      		</JFXPasswordField>
+      		<JFXComboBox fx:id="tipoDeCuenta" focusColor="WHITE" layoutX="232.0" layoutY="544.0" prefHeight="31.0" prefWidth="151.0" unFocusColor="WHITE">
+      			<cursor>
+      				<Cursor fx:constant="HAND" />
+      			</cursor>
+      		</JFXComboBox>
+      		<Label layoutX="107.0" layoutY="550.0" prefHeight="25.0" prefWidth="139.0" text="Tipo de cuenta:" textFill="WHITE">
+      			<font>
+      				<Font name="Book Antiqua" size="15.0" />
+      			</font>
+      		</Label>
+      		<FontAwesomeIcon fill="WHITE" glyphName="CLOSE" layoutX="462.0" layoutY="40.0" onMouseClicked="#cerrarApp" size="2em" stroke="#faf7f700" styleClass="btn_cerrar_login" text="">
+      			<cursor>
+      				<Cursor fx:constant="HAND" />
+      			</cursor>
+      		</FontAwesomeIcon>
+      		<FontAwesomeIcon fill="WHITE" glyphName="ARROW_LEFT" layoutX="14.0" layoutY="40.0" onMouseClicked="#volverALogin" size="2em" stroke="#faf7f700" styleClass="btn_cerrar_login">
+      			<cursor>
+      				<Cursor fx:constant="HAND" />
+      			</cursor>
+      		</FontAwesomeIcon>
+      	</children>
+      </AnchorPane>
+   </children>
+</VBox>
