@@ -7,7 +7,9 @@
 
 /*FIN Ventana INICIO */
 
-
+.contenedor_usuario_prueba{
+	-fx-background-image: url("../img/img_degradado_fondo.png");
+}
 
 /*Ventana Login */
 
