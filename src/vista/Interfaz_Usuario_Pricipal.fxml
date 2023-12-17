@@ -39,7 +39,30 @@
          <content>
             <AnchorPane fx:id="contenedor_dispositivos" prefHeight="388.0" prefWidth="888.0" styleClass="pane_contenedor_dispositivos" stylesheets="@../applications/application.css">
                <children>
-                  <AnchorPane fx:id="contenedor_dispositivo" layoutY="1.0" prefHeight="146.0" prefWidth="236.0" styleClass="contenedor_dispositivo" stylesheets="@../applications/application.css" />
+                  <AnchorPane fx:id="contenedor_dispositivo" layoutY="1.0" prefHeight="146.0" prefWidth="236.0" styleClass="contenedor_dispositivo" stylesheets="@../applications/application.css">
+                     <children>
+                        <Text fill="WHITE" layoutX="8.0" layoutY="99.0" strokeType="OUTSIDE" strokeWidth="0.0" text="CALEFACCION SALON" textAlignment="JUSTIFY" wrappingWidth="216.00000485777855">
+                           <font>
+                              <Font size="22.0" />
+                           </font>
+                        </Text>
+                        <Line endX="116.0" layoutX="108.0" layoutY="107.0" startX="-99.0" stroke="WHITE" strokeMiterLimit="0.0" strokeWidth="3.0" />
+                        <Text fill="WHITE" layoutX="10.0" layoutY="131.0" strokeType="OUTSIDE" strokeWidth="0.0" text="APAGADO" textAlignment="JUSTIFY" wrappingWidth="216.00000485777855">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </Text>
+                        <Text fill="WHITE" layoutX="200.0" layoutY="131.0" strokeType="OUTSIDE" strokeWidth="0.0" text="20º" textAlignment="JUSTIFY" wrappingWidth="24.9999972358346">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </Text>
+                        <Button fx:id="btn_Inicio_Menu1" layoutX="9.0" layoutY="14.0" mnemonicParsing="false" prefHeight="59.0" prefWidth="66.0" styleClass="btn_Inicio_Menu" stylesheets="@../applications/application.css" textAlignment="JUSTIFY">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </Button>
+                     </children></AnchorPane>
                   <AnchorPane fx:id="contenedor_anadir_dispositivo" layoutX="666.0" layoutY="1.0" prefHeight="144.0" prefWidth="216.0" styleClass="contenedor_anadir_dispositivo" stylesheets="@../applications/application.css">
                      <children>
                         <Button fx:id="btn_anadir_dispositivo" layoutX="73.0" layoutY="43.0" mnemonicParsing="false" prefHeight="59.0" prefWidth="59.0" styleClass="btn_anadir_dispositivo" stylesheets="@../applications/application.css" textAlignment="JUSTIFY">

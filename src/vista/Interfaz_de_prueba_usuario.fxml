@@ -148,12 +148,12 @@
       </Button>
       <Text fill="WHITE" layoutX="267.0" layoutY="592.0" strokeType="OUTSIDE" strokeWidth="0.0" text="INICIO" />
       <Text fill="WHITE" layoutX="472.0" layoutY="593.0" strokeType="OUTSIDE" strokeWidth="0.0" text="PERFIL" />
-      <Text layoutX="494.0" layoutY="63.0" strokeType="OUTSIDE" strokeWidth="0.0" text="PERSIANAS">
+      <Text fill="WHITE" layoutX="509.0" layoutY="53.0" strokeType="OUTSIDE" strokeWidth="0.0" text="PERSIANAS">
          <font>
             <Font size="32.0" />
          </font>
       </Text>
-      <Text layoutX="164.0" layoutY="63.0" strokeType="OUTSIDE" strokeWidth="0.0" text="AIRES">
+      <Text fill="WHITE" layoutX="164.0" layoutY="54.0" strokeType="OUTSIDE" strokeWidth="0.0" text="AIRES">
          <font>
             <Font size="32.0" />
          </font>
