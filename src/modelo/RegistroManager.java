@@ -41,7 +41,7 @@ public class RegistroManager {
 		}
 
 		for (Usuario usuario : usuarios) {
-			if (usuario.getUsername().equals(nuevoUsuario.getUsername())) {
+			if (usuario.getUsername().equals(nuevoUsuario.getUsername())|| usuario.getEmail().equals(nuevoUsuario.getEmail())) {
 				// Usuario ya registrado, no se puede registrar de nuevo
 				return false;
 			}

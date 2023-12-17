@@ -3,6 +3,8 @@ package controlador;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
@@ -15,6 +17,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
@@ -49,6 +52,9 @@ public class Controlador_Registro {
 	private ComboBox<String> tipoDeCuenta;
 
 	@FXML
+	private Label Error_Label_Registro;
+
+	@FXML
 	void initialize() {
 		// Initialize the controller
 		// You can add additional initialization logic here
@@ -64,17 +70,46 @@ public class Controlador_Registro {
 		String repetirPass = repetirContrasenaUsuarioRegistro.getText();
 		String tipoDecuenta = tipoDeCuenta.getValue();
 
-		if (email.isEmpty() || password.isEmpty()) {
-			// Mostrar mensaje de error si los campos están vacíos
-			return;
-		}
+		if (!email.isEmpty() || !password.isEmpty() || !username.isEmpty() || !repetirPass.isEmpty()
+				|| !tipoDecuenta.isEmpty()) {
 
-		Usuario nuevoUsuario = new Usuario(username, email, password, repetirPass, tipoDecuenta);
-		if (RegistroManager.registrarUsuario(nuevoUsuario)) {
-			Parent fxml = FXMLLoader.load(getClass().getResource("/vista/Pantalla_Inicio_Login.fxml"));
-			Main.stage.getScene().setRoot(fxml);
+			if (validarEmail(email)) {
+
+				if (contrasenaSegura(password) == true) {
+
+					if (password.equals(repetirPass)) {
+
+						Usuario nuevoUsuario = new Usuario(username, email, password, repetirPass, tipoDecuenta);
+						if (RegistroManager.registrarUsuario(nuevoUsuario)) {
+							Parent fxml = FXMLLoader.load(getClass().getResource("/vista/Pantalla_Inicio_Login.fxml"));
+							Main.stage.getScene().setRoot(fxml);
+							
+						} else {
+							// Mostrar mensaje de error si el usuario ya existe.
+							Error_Label_Registro.setVisible(true);
+							Error_Label_Registro
+									.setText("El nombre de usuario o el email que intentas introducir ya existe");
+						}
+
+					} else {
+						Error_Label_Registro.setVisible(true);
+						Error_Label_Registro.setText("La contraseñas no coinciden.");
+					}
+
+				} else {
+					Error_Label_Registro.setVisible(true);
+					Error_Label_Registro.setText("La contraseña no es segura.");
+				}
+
+			} else {
+				Error_Label_Registro.setVisible(true);
+				Error_Label_Registro.setText("El email no es correcto.");
+			}
+
 		} else {
-			// Mostrar mensaje de error si el usuario ya existe
+			// Mostrar mensaje de error si los campos están vacíos.
+			Error_Label_Registro.setVisible(true);
+			Error_Label_Registro.setText("Hay campos vacios.");
 		}
 	}
 
@@ -95,5 +130,53 @@ public class Controlador_Registro {
 		Parent fxml = FXMLLoader.load(getClass().getResource("/vista/Pantalla_Inicio_Login.fxml"));
 		Main.stage.getScene().setRoot(fxml);
 	}
+
+	public boolean validarEmail(String email) {
+		String regex = "^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$";
+		return email.matches(regex);
+	}
+
+	public boolean contrasenaSegura(String contrasena) {
+
+		if (contrasena.length() > 8) { // una contraseña tiene más de 12 caracteres.
+			boolean mayuscula = false;
+			boolean numero = false;
+			boolean letraOsimbolo = false;
+			boolean especial = false;
+
+			// Define caracteres especiales
+			Pattern special = Pattern.compile("[?!¡@¿.,´)]");
+			Matcher hasSpecial = special.matcher(contrasena);
+
+			int i;
+			char l;
+
+			for (i = 0; i < contrasena.length(); i++) {
+				l = contrasena.charAt(i);
+
+				if (Character.isDigit(l)) {// mínimo un número.
+					numero = true;
+				}
+				if (Character.isLetter(l)) {// contiene letras o símbolos (?!¡@¿.,´)
+					letraOsimbolo = true;
+				}
+				if (Character.isUpperCase(l)) { // mínimo una letra mayúscula
+					mayuscula = true;
+				}
+				if (hasSpecial.find()) { // Valida "caracteres especiales".
+					especial = true;
+				}
+			}
+
+			if (numero == true && mayuscula == true && letraOsimbolo == true && especial == true) {
+				return true;
+			} else {
+				return false;
+			}
+		} else {
+			return false;
+		}
+	}
+
 	// You can add methods to handle user registration or other events
 }

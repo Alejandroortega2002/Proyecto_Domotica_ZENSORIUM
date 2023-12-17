@@ -9,6 +9,7 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 
+import applications.Main;
 import entidades.Usuario;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -55,10 +56,10 @@ public class Controlador_Inicio_Login {
 		// Cargar la lista de usuarios desde el archivo JSON
 		List<Usuario> usuarios = RegistroManager.cargarUsuarios();
 
-		// Verificar si las credenciales coinciden con alg�n usuario registrado
+		// Verificar si las credenciales coinciden con alg�n usuario registrado
 		for (Usuario usuario : usuarios) {
 			if (usuario.getEmail().equals(email) && usuario.getPassword().equals(password)) {
-				return true; // Credenciales v�lidas
+				return true; // Credenciales v�lidas
 			}
 		}
 
@@ -66,7 +67,7 @@ public class Controlador_Inicio_Login {
 	}
 
 	@FXML
-	private void iniciarSesion(MouseEvent event) {
+	private void iniciarSesion(MouseEvent event) throws IOException {
 		if (email_login != null && password_login != null) {
 			String email = email_login.getText();
 			String password = password_login.getText();
@@ -74,10 +75,11 @@ public class Controlador_Inicio_Login {
 			boolean autenticado = autenticarUsuario(email, password);
 
 			if (autenticado) {
-				// Si el usuario es autenticado con éxito, puedes navegar a la siguiente vista
-				// o realizar otras acciones
-				// En este ejemplo, simplemente mostramos un mensaje de éxito
 				mostrarMensaje("Inicio de sesión exitoso", "¡Bienvenido, " + email + "!");
+				
+				Parent fxml = FXMLLoader.load(getClass().getResource("/vista/Interfaz_de_prueba_usuario.fxml"));
+				Main.stage.getScene().setRoot(fxml);
+				
 			} else {
 				// Si la autenticación falla, muestra un mensaje de error
 				mostrarMensaje("Error de inicio de sesión",
