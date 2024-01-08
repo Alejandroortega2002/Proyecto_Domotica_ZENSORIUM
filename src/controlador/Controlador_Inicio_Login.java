@@ -8,12 +8,14 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 
+import Controlador.firstController;
 import applications.Main;
 import entidades.Nodo;
 import entidades.Usuario;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
@@ -80,8 +82,28 @@ public class Controlador_Inicio_Login {
 
 			if (autenticado) {
 				mostrarMensaje("Inicio de sesión exitoso", "¡Bienvenido, " + email + "!");
-				Parent fxml = FXMLLoader.load(getClass().getResource("/vista/Interfaz_de_prueba_usuario.fxml"));
-				Main.stage.getScene().setRoot(fxml);
+				/*Parent fxml = FXMLLoader.load(getClass().getResource("/vista/Interfaz_Usuario_def.fxml"));
+				Main.stage.getScene().setRoot(fxml);*/
+				
+				try {
+					FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/Interfaz_Usuario_def.fxml"));
+					
+					Controlador_pantalla_usuario_def control = new Controlador_pantalla_usuario_def();
+					
+					loader.setController(control);
+
+					Parent root = loader.load();
+					Stage primaryStage = new Stage();
+					primaryStage.setScene(new Scene(root));
+					primaryStage.show();
+					
+					Stage ventatnaActual = (Stage) email_login.getScene().getWindow();
+					ventatnaActual.hide();
+					
+				} catch(Exception e) {
+					e.printStackTrace();
+				}
+				
 			} else {
 				// Si la autenticación falla, muestra un mensaje de error
 				mostrarMensaje("Error de inicio de sesión", "Credenciales incorrectas. Por favor, inténtalo de nuevo.",
