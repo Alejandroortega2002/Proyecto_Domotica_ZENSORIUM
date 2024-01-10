@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <FontAwesomeIcon glyphName="" layoutX="325.0" layoutY="188.0" size="10em" />
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="308.0" layoutY="235.0" prefHeight="38.0" prefWidth="185.0" text="Nombre de Usuario" />
+      <Button layoutX="335.0" layoutY="340.0" mnemonicParsing="false" text="Gestionar Usuarios" />
+      <Button layoutX="360.0" layoutY="395.0" mnemonicParsing="false" text="Editar Perfil" />
+      <Button layoutX="354.0" layoutY="450.0" mnemonicParsing="false" text="Cerrar Sesion" />
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="293.0" layoutY="281.0" prefHeight="38.0" prefWidth="216.0" text="Tipo de Perfil: Administrador" />
+   </children>
+</AnchorPane>

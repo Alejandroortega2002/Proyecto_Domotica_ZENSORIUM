@@ -86,9 +86,9 @@ public class Controlador_Inicio_Login {
 				Main.stage.getScene().setRoot(fxml);*/
 				
 				try {
-					FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/Interfaz_Usuario_def.fxml"));
+					FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/Interfaz_Perfil.fxml"));
 					
-					Controlador_pantalla_usuario_def control = new Controlador_pantalla_usuario_def();
+					Controlador_Pantalla_Perfil control = new Controlador_Pantalla_Perfil();
 					
 					loader.setController(control);
 

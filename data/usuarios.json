@@ -1,1 +1,20 @@
-{"cabeza":{"dato":{"username":"Samuel","email":"samu@gmail.com","password":"Samje@12002","repetirPass":"Samje@12002","tipodecuenta":"Familiar"}}}
+{
+	"cabeza": {
+		"dato": {
+			"username": "Samuel",
+			"email": "samu@gmail.com",
+			"password": "Samje@12002",
+			"repetirPass": "Samje@12002",
+			"tipodecuenta": "Familiar"
+		},
+		"enlace": {
+			"dato": {
+				"username": "a",
+				"email": "a",
+				"password": "a",
+				"repetirPass": "a",
+				"tipodecuenta": "Familiar"
+			}
+		}
+	}
+}
