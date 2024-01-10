@@ -2,7 +2,6 @@ package controlador;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.List;
 import java.util.ResourceBundle;
 
 import com.jfoenix.controls.JFXButton;
@@ -10,6 +9,7 @@ import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 
 import applications.Main;
+import entidades.Nodo;
 import entidades.Usuario;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -21,6 +21,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import modelo.RegistroManager;
+import modelo.ListaEnlazada;
 
 public class Controlador_Inicio_Login {
 
@@ -54,13 +55,16 @@ public class Controlador_Inicio_Login {
 
 	private boolean autenticarUsuario(String email, String password) {
 		// Cargar la lista de usuarios desde el archivo JSON
-		List<Usuario> usuarios = RegistroManager.cargarUsuarios();
+		ListaEnlazada<Usuario> usuarios = RegistroManager.cargarUsuarios();
 
-		// Verificar si las credenciales coinciden con alg�n usuario registrado
-		for (Usuario usuario : usuarios) {
+		// Verificar si las credenciales coinciden con algún usuario registrado
+		Nodo<Usuario> nodoActual = usuarios.getCabeza();
+		while (nodoActual != null) {
+			Usuario usuario = nodoActual.getDato();
 			if (usuario.getEmail().equals(email) && usuario.getPassword().equals(password)) {
-				return true; // Credenciales v�lidas
+				return true; // Credenciales válidas
 			}
+			nodoActual = nodoActual.getEnlace();
 		}
 
 		return false; // Credenciales incorrectas
@@ -76,19 +80,16 @@ public class Controlador_Inicio_Login {
 
 			if (autenticado) {
 				mostrarMensaje("Inicio de sesión exitoso", "¡Bienvenido, " + email + "!");
-				
 				Parent fxml = FXMLLoader.load(getClass().getResource("/vista/Interfaz_de_prueba_usuario.fxml"));
 				Main.stage.getScene().setRoot(fxml);
-				
 			} else {
 				// Si la autenticación falla, muestra un mensaje de error
-				mostrarMensaje("Error de inicio de sesión",
-						"Credenciales incorrectas. Por favor, inténtalo de nuevo.", Alert.AlertType.ERROR);
+				mostrarMensaje("Error de inicio de sesión", "Credenciales incorrectas. Por favor, inténtalo de nuevo.",
+						Alert.AlertType.ERROR);
 			}
 		} else {
 			System.out.println("email_login o password_login es null");
 		}
-
 	}
 
 	private void mostrarMensaje(String titulo, String contenido) {

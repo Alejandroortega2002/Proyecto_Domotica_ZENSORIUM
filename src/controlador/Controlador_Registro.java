@@ -177,6 +177,4 @@ public class Controlador_Registro {
 			return false;
 		}
 	}
-
-	// You can add methods to handle user registration or other events
 }
