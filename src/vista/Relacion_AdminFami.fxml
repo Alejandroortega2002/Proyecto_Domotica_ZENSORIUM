@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controlador.PersonaController">
+   <children>
+      <Button fx:id="btnAgregar" layoutX="39.0" layoutY="353.0" mnemonicParsing="false" onAction="#agregarPersona" prefHeight="31.0" prefWidth="187.0" text="CONECTAR" />
+      <TextField fx:id="txtNombre" layoutX="39.0" layoutY="179.0" />
+      <Label layoutX="42.0" layoutY="144.0" text="Nombre Usuario" />
+      <Label layoutX="39.0" layoutY="235.0" text="Nombre Usuario Familiar" />
+      <TextField fx:id="txtApellidos" layoutX="39.0" layoutY="270.0" />
+      <TableView fx:id="tblPersonas" layoutX="317.0" layoutY="59.0" onMouseClicked="#seleccionar" prefHeight="432.0" prefWidth="450.0">
+        <columns>
+          <TableColumn fx:id="colApellidos" prefWidth="225.0" text="Nombre" />
+            <TableColumn fx:id="colEdad" prefWidth="224.0" text="Correo" />
+        </columns>
+      </TableView>
+   </children>
+</AnchorPane>
