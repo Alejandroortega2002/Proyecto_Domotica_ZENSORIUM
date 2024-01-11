@@ -22,6 +22,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import modelo.RegistroManager;
+import modelo.Sesion;
 import modelo.ListaEnlazada;
 
 public class Controlador_Inicio_Login {
@@ -63,6 +64,7 @@ public class Controlador_Inicio_Login {
 		while (nodoActual != null) {
 			Usuario usuario = nodoActual.getDato();
 			if (usuario.getEmail().equals(email) && usuario.getPassword().equals(password)) {
+			    Sesion.getInstancia().setUsuarioActual(usuario);
 				return true; // Credenciales válidas
 			}
 			nodoActual = nodoActual.getEnlace();

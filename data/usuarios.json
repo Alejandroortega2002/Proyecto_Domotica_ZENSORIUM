@@ -1,1 +1,52 @@
-{"cabeza":{"dato":{"id_user":0,"username":"Samuel","email":"samu@gmail.com","password":"Samje@12002","repetirPass":"Samje@12002","tipodecuenta":"Familiar"},"enlace":{"dato":{"id_user":0,"username":"a","email":"a","password":"a","repetirPass":"a","tipodecuenta":"Familiar"},"enlace":{"dato":{"id_user":1,"username":"juan","email":"alex@gmail.com","password":"Luis@2002","repetirPass":"Luis@2002","tipodecuenta":" "},"enlace":{"dato":{"id_user":2,"username":"pedro","email":"pedro@gmail.com","password":"Pedro@2002","repetirPass":"Pedro@2002","tipodecuenta":"Familiar"}}}}}}
+{
+	"cabeza": {
+		"dato": {
+			"id_user": 0,
+			"username": "Samuel",
+			"email": "samu@gmail.com",
+			"password": "Samje@12002",
+			"repetirPass": "Samje@12002",
+			"tipodecuenta": "Familiar"
+		},
+		"enlace": {
+			"dato": {
+				"id_user": 0,
+				"username": "a",
+				"email": "a",
+				"password": "a",
+				"repetirPass": "a",
+				"tipodecuenta": "Familiar"
+			},
+			"enlace": {
+				"dato": {
+					"id_user": 1,
+					"username": "juan",
+					"email": "alex@gmail.com",
+					"password": "Luis@2002",
+					"repetirPass": "Luis@2002",
+					"tipodecuenta": " "
+				},
+				"enlace": {
+					"dato": {
+						"id_user": 2,
+						"username": "pedro",
+						"email": "pedro@gmail.com",
+						"password": "Pedro@2002",
+						"repetirPass": "Pedro@2002",
+						"tipodecuenta": "Familiar"
+					},
+					"enlace": {
+						"dato": {
+							"id_user": 3,
+							"username": "pedross",
+							"email": "carlos@gmail.com",
+							"password": "Carlos@2002",
+							"repetirPass": "Carlos@2002",
+							"tipodecuenta": "Familiar"
+						}
+					}
+				}
+			}
+		}
+	}
+}
