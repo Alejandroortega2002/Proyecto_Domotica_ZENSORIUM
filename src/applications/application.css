@@ -14,7 +14,34 @@
 .parent {
     -fx-background-image: url("../img/img_degradado_fondo.png");
 }
-
+.grid_fondo_interfaz_def{
+	-fx-background-image: url("../img/img_degradado_fondo.png");
+	
+}
+.contenedor_usuario_prueba{
+	-fx-background-image: url("../img/img_degradado_fondo.png");
+	
+}
+.caja_aires{
+	-fx-border-color: white;
+    -fx-border-width: 2px;
+    -fx-border-radius: 5px;
+}
+.caja_persianas{
+	-fx-border-color: white;
+    -fx-border-width: 2px;
+    -fx-border-radius: 5px;
+}
+.caja_luces{
+	-fx-border-color: white;
+    -fx-border-width: 2px;
+    -fx-border-radius: 5px;
+}
+.caja_avisos{
+	-fx-border-color: white;
+    -fx-border-width: 2px;
+    -fx-border-radius: 5px;
+}
 .fondo_login {
     -fx-background-color: #11729D;
 }
@@ -137,7 +164,7 @@
 
 .btn_Foto_Perfil {
     -fx-background-image: url("../img/IconoFotoPerfil.png");
-    -fx-background-size: 150.00px;
+    -fx-background-size: 150.0px;
     -fx-background-repeat: no-repeat;
     -fx-background-position: 90.0%;
     -fx-background-radius: 10.0px;
@@ -146,7 +173,7 @@
 
 .btn_EditarFoto_Perfil {
     -fx-background-image: url("../img/IconoEditarFotoPerfil.png");
-    -fx-background-size: 30.00px;
+    -fx-background-size: 30.0px;
     -fx-background-repeat: no-repeat;
     -fx-background-position: 90.0%;
     -fx-background-radius: 10.0px;

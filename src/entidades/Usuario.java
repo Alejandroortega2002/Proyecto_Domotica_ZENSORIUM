@@ -4,19 +4,30 @@ import java.io.Serializable;
 
 public class Usuario implements Serializable {
 
+	private long id_user;
 	private String username;
 	private String email;
 	private String password;
 	private String repetirPass;
 	private String tipodecuenta;
 
-	public Usuario(String username, String email, String password, String repetirPass, String tipodecuenta) {
+	public Usuario(long id_user, String username, String email, String password, String repetirPass,
+			String tipodecuenta) {
 		super();
+		this.id_user = id_user;
 		this.username = username;
 		this.email = email;
 		this.password = password;
 		this.repetirPass = repetirPass;
 		this.tipodecuenta = tipodecuenta;
+	}
+
+	public long getId_user() {
+		return id_user;
+	}
+
+	public void setId_user(long id_user) {
+		this.id_user = id_user;
 	}
 
 	public String getUsername() {

@@ -79,7 +79,7 @@ public class Controlador_Registro {
 
 					if (password.equals(repetirPass)) {
 
-						Usuario nuevoUsuario = new Usuario(username, email, password, repetirPass, tipoDecuenta);
+						Usuario nuevoUsuario = new Usuario(0, username, email, password, repetirPass, tipoDecuenta);
 						if (RegistroManager.registrarUsuario(nuevoUsuario)) {
 							Parent fxml = FXMLLoader.load(getClass().getResource("/vista/Pantalla_Inicio_Login.fxml"));
 							Main.stage.getScene().setRoot(fxml);

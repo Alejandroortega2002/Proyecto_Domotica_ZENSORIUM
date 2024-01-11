@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
@@ -14,9 +13,9 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" styleClass="contenedor_usuario_prueba" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane id="contenedor_usuario_prueba" fx:id="contenedor_usuario_prueba" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" styleClass="contenedor_usuario_prueba" stylesheets="@../Documents/GitHub/pii23-jositosclub/bin/applications/application.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
 	<children>
-		<GridPane alignment="CENTER" layoutX="42.0" layoutY="84.0" prefHeight="453.0" prefWidth="722.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+		<GridPane fx:id="grid_fondo_interfaz_def" alignment="CENTER" layoutX="42.0" layoutY="84.0" prefHeight="453.0" prefWidth="722.0" styleClass="grid_fondo_interfaz_def" stylesheets="@../applications/application.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
 			<columnConstraints>
 				<ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
 				<ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -26,7 +25,7 @@
 				<RowConstraints maxHeight="234.0" minHeight="10.0" prefHeight="145.0" vgrow="SOMETIMES" />
 			</rowConstraints>
 			<children>
-				<GridPane alignment="CENTER" style="-fx-background-color: #74BBBD;">
+				<GridPane fx:id="caja_aires" alignment="CENTER" styleClass="caja_aires" stylesheets="@../applications/application.css">
 					<columnConstraints>
 						<ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="102.0" minWidth="37.0" prefWidth="102.0" />
 						<ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="113.0" minWidth="0.0" prefWidth="72.0" />
@@ -67,7 +66,7 @@
 								<Font size="10.0" />
 							</font>
 						</Text>
-						<Button id="on_pasillo" contentDisplay="CENTER" mnemonicParsing="false" text="ON" textAlignment="JUSTIFY" GridPane.columnIndex="1" GridPane.rowIndex="1">
+						<Button id="on_pasillo" fx:id="on_pasillo" contentDisplay="CENTER" mnemonicParsing="false" onAction="#onBotonOnPasilloClicked" onMouseClicked="#onBotonOnPasilloClicked" text="ON" textAlignment="JUSTIFY" GridPane.columnIndex="1" GridPane.rowIndex="1">
 							<font>
 								<Font size="10.0" />
 							</font>
@@ -92,7 +91,7 @@
 								<Font size="10.0" />
 							</font>
 						</Button>
-						<Button id="off_pasillo" contentDisplay="CENTER" mnemonicParsing="false" onAction="#onBotonOffPasilloClicked" text="OFF" textAlignment="JUSTIFY" GridPane.columnIndex="2" GridPane.rowIndex="1">
+						<Button id="off_pasillo" fx:id="off_pasillo" contentDisplay="CENTER" mnemonicParsing="false" onAction="#onBotonOffPasilloClicked" onMouseClicked="#onBotonOffPasilloClicked" text="OFF" textAlignment="JUSTIFY" GridPane.columnIndex="2" GridPane.rowIndex="1">
 							<font>
 								<Font size="10.0" />
 							</font>
@@ -117,7 +116,7 @@
 								<Font size="10.0" />
 							</font>
 						</Button>
-						<Rectangle id="cuadrado_pasillo" arcHeight="5.0" arcWidth="5.0" fill="#ff1f1f" height="30.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="30.0" GridPane.rowIndex="1">
+						<Rectangle id="cuadrado_pasillo" fx:id="cuadrado_pasillo" arcHeight="5.0" arcWidth="5.0" fill="#ff1f1f" height="30.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="30.0" GridPane.rowIndex="1">
 							<GridPane.margin>
 								<Insets />
 							</GridPane.margin>
@@ -131,7 +130,7 @@
 						<Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
 					</GridPane.margin>
 				</GridPane>
-				<GridPane style="-fx-background-color: #74BBBD;" GridPane.columnIndex="1">
+				<GridPane fx:id="caja_persianas" styleClass="caja_persianas" stylesheets="@../applications/application.css" GridPane.columnIndex="1">
 					<columnConstraints>
 						<ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
 						<ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -169,7 +168,7 @@
 						<Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
 					</GridPane.margin>
 				</GridPane>
-				<GridPane alignment="CENTER" style="-fx-background-color: #74BBBD;" GridPane.rowIndex="1">
+				<GridPane fx:id="caja_luces" alignment="CENTER" styleClass="caja_luces" stylesheets="@../applications/application.css" GridPane.rowIndex="1">
 					<columnConstraints>
 						<ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="85.0" minWidth="10.0" prefWidth="65.0" />
 						<ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="111.0" minWidth="10.0" prefWidth="78.0" />
@@ -210,7 +209,7 @@
 						<Insets bottom="60.0" left="10.0" right="10.0" top="10.0" />
 					</GridPane.margin>
 				</GridPane>
-				<GridPane alignment="CENTER" style="-fx-background-color: #74BBBD;" GridPane.columnIndex="1" GridPane.rowIndex="1">
+				<GridPane fx:id="caja_avisos" alignment="CENTER" styleClass="caja_avisos" stylesheets="@../applications/application.css" GridPane.columnIndex="1" GridPane.rowIndex="1">
 					<columnConstraints>
 						<ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="288.0" minWidth="10.0" prefWidth="238.0" />
 						<ColumnConstraints hgrow="SOMETIMES" maxWidth="170.0" minWidth="10.0" prefWidth="113.0" />
@@ -219,7 +218,7 @@
 						<RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
 					</rowConstraints>
 					<children>
-						<Text strokeType="OUTSIDE" strokeWidth="0.0" text="ERRORES DE CONEXION: " />
+						<Text id="texto_aviso" fx:id="texto_aviso" strokeType="OUTSIDE" strokeWidth="0.0" text="ERRORES DE CONEXION: " />
 						<Text strokeType="OUTSIDE" strokeWidth="0.0" text="1" GridPane.columnIndex="1" />
 					</children>
 					<GridPane.margin>
@@ -230,7 +229,7 @@
 		</GridPane>
 		<BorderPane layoutY="542.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="542.0">
 			<bottom>
-				<HBox alignment="CENTER" prefHeight="60.0" prefWidth="800.0" style="-fx-background-color: #74BBBD;" BorderPane.alignment="CENTER">
+				<HBox alignment="CENTER" prefHeight="60.0" prefWidth="800.0" style="-fx-background-color: #74BBBD;" stylesheets="@../applications/application.css" BorderPane.alignment="CENTER">
 					<children>
 						<Button fx:id="btn_Inicio_Menu" mnemonicParsing="false" prefHeight="27.0" prefWidth="32.0" styleClass="btn_Inicio_Menu" stylesheets="@../Documents/GitHub/pii23-jositosclub/bin/applications/application.css" textAlignment="JUSTIFY">
 							<cursor>
@@ -253,8 +252,4 @@
 			</bottom>
 		</BorderPane>
 	</children>
-   <stylesheets>
-      <URL value="@../Documents/GitHub/pii23-jositosclub/bin/applications/application.css" />
-      <URL value="@../applications/application.css" />
-   </stylesheets>
 </AnchorPane>
