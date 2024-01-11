@@ -25,7 +25,8 @@ import modelo.RegistroManager;
 
 public class Controlador_Registro {
 
-	ObservableList<String> listaTipoDeCuenta = FXCollections.observableArrayList("Usuario", "Familiar","Administrador");
+	ObservableList<String> listaTipoDeCuenta = FXCollections.observableArrayList("Usuario", "Familiar",
+			"Administrador");
 
 	@FXML // ResourceBundle that was given to the FXMLLoader
 	private ResourceBundle resources;
@@ -78,12 +79,13 @@ public class Controlador_Registro {
 				if (contrasenaSegura(password) == true) {
 
 					if (password.equals(repetirPass)) {
-
-						Usuario nuevoUsuario = new Usuario(0, username, email, password, repetirPass, tipoDecuenta);
+						long nuevoId = RegistroManager.obtenerNuevoId();
+						Usuario nuevoUsuario = new Usuario(nuevoId, username, email, password, repetirPass,
+								tipoDecuenta);
 						if (RegistroManager.registrarUsuario(nuevoUsuario)) {
 							Parent fxml = FXMLLoader.load(getClass().getResource("/vista/Pantalla_Inicio_Login.fxml"));
 							Main.stage.getScene().setRoot(fxml);
-							
+
 						} else {
 							// Mostrar mensaje de error si el usuario ya existe.
 							Error_Label_Registro.setVisible(true);
