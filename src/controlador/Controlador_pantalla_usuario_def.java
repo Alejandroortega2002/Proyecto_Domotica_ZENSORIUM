@@ -49,13 +49,12 @@ public class Controlador_pantalla_usuario_def {
 	@FXML
 	private void onBotonOffPasilloClicked() {
 		System.out.println("off");
-
 		estadoPasillo = false;
 		actualizarInterfaz();
 	}
 
 	@FXML
-	private void cambiarPantallaPerfil(MouseEvent event) {
+	void cambiarPantallaPerfil(MouseEvent event) {
 		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/Interfaz_Perfil.fxml"));
 
@@ -68,12 +67,10 @@ public class Controlador_pantalla_usuario_def {
 			primaryStage.setScene(new Scene(root));
 			primaryStage.show();
 
-			Stage ventatnaActual = (Stage) btn_Perfil_Menu.getScene().getWindow();
-			ventatnaActual.hide();
-
+			Stage ventanaActual = (Stage) btn_Perfil_Menu.getScene().getWindow();
+			ventanaActual.hide();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
 	}
 }

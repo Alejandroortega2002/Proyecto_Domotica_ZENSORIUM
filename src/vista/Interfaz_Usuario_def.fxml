@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
@@ -13,7 +14,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" styleClass="contenedor_usuario_prueba" stylesheets="@../Documents/GitHub/pii23-jositosclub/bin/applications/application.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" styleClass="contenedor_usuario_prueba" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
 	<children>
 		<GridPane alignment="CENTER" layoutX="42.0" layoutY="84.0" prefHeight="453.0" prefWidth="722.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
 			<columnConstraints>
@@ -66,7 +67,7 @@
 								<Font size="10.0" />
 							</font>
 						</Text>
-						<Button id="on_pasillo" contentDisplay="CENTER" mnemonicParsing="false" onAction="#onBotonOnPasilloClicked" text="ON" textAlignment="JUSTIFY" GridPane.columnIndex="1" GridPane.rowIndex="1">
+						<Button id="on_pasillo" contentDisplay="CENTER" mnemonicParsing="false" text="ON" textAlignment="JUSTIFY" GridPane.columnIndex="1" GridPane.rowIndex="1">
 							<font>
 								<Font size="10.0" />
 							</font>
@@ -252,4 +253,8 @@
 			</bottom>
 		</BorderPane>
 	</children>
+   <stylesheets>
+      <URL value="@../Documents/GitHub/pii23-jositosclub/bin/applications/application.css" />
+      <URL value="@../applications/application.css" />
+   </stylesheets>
 </AnchorPane>

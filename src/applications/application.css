@@ -1,162 +1,163 @@
-/* JavaFX CSS - Leave this comment until you have at least create one rule which uses -fx-Property */
-/*Ventana INICIO */
-
-.pagina_inicio{
-	-fx-background-image: url("../img/img_degradado_fondo.png");
+/* JavaFX CSS - Leave this comment until you have at least created one rule which uses -fx-Property */
+/* Ventana INICIO */
+.pagina_inicio {
+    -fx-background-image: url("../img/img_degradado_fondo.png");
 }
 
-/*FIN Ventana INICIO */
+/* FIN Ventana INICIO */
 
-.contenedor_usuario_prueba{
-	-fx-background-image: url("../img/img_degradado_fondo.png");
+.contenedor_usuario_prueba {
+    -fx-background-image: url("../img/img_degradado_fondo.png");
 }
 
-/*Ventana Login */
-
-.parent{
-	-fx-background-image: url("../img/img_degradado_fondo.png");
+/* Ventana Login */
+.parent {
+    -fx-background-image: url("../img/img_degradado_fondo.png");
 }
 
-.fondo_login{
-	-fx-background-color: #11729D;
+.fondo_login {
+    -fx-background-color: #11729D;
 }
 
-.recordad_cotrasena_login:hover{
-	-fx-text-fill: white;
-	-fx-underline: true;
+.recordad_cotrasena_login:hover {
+    -fx-text-fill: white;
+    -fx-underline: true;
 }
 
-.btn_login{
-	-fx-background-color: white;
-	-fx-text-fill: #11729D;
-	-fx-background-radius: 10.0px;
+.btn_login {
+    -fx-background-color: white;
+    -fx-text-fill: #11729D;
+    -fx-background-radius: 10.0px;
 }
 
-.btn_login:hover{
-	-fx-background-color: transparent;
-	-fx-background-radius: 10.0px;
-	-fx-text-fill: white;
-	-fx-border-color: white;
-	-fx-border-width: 1.0px;
-	-fx-border-style:solid;
-	-fx-border-radius: 10.0px;
+.btn_login:hover {
+    -fx-background-color: transparent;
+    -fx-background-radius: 10.0px;
+    -fx-text-fill: white;
+    -fx-border-color: white;
+    -fx-border-width: 1.0px;
+    -fx-border-style: solid;
+    -fx-border-radius: 10.0px;
 }
 
-.btn_cerrar_login:hover{
-	-fx-fill: red;
+.btn_cerrar_login:hover {
+    -fx-fill: red;
 }
 
-/*FIN Ventana Login */
-/*Ventana Interfaz usuario*/
+/* FIN Ventana Login */
+/* Ventana Interfaz usuario */
 
-.btn_Perfil_Menu{
-	-fx-background-image: url("../img/IconoPerfil.png");
-	-fx-background-size: 30.0px;
+.btn_Perfil_Menu {
+    -fx-background-image: url("../img/IconoPerfil.png");
+    -fx-background-size: 30.0px;
     -fx-background-repeat: no-repeat;
     -fx-background-position: 90.0%;
-	-fx-background-radius: 10.0px;
-	-fx-background-color: trasparent;
-}
-.btn_Perfil_Menu:hover{
-	-fx-background-image: url("../img/prueba.png");
-    -fx-background-repeat: no-repeat;
-    -fx-background-position: 90.0%;
-	-fx-background-radius: 10.0px;
-	-fx-background-color: trasparent;
+    -fx-background-radius: 10.0px;
+    -fx-background-color: transparent;
 }
 
-.btn_Inicio_Menu{
-	-fx-background-image: url("../img/IconoInicio.png");
-	-fx-background-size: 30.0px;
+.btn_Perfil_Menu:hover {
+    -fx-background-image: url("../img/prueba.png");
     -fx-background-repeat: no-repeat;
     -fx-background-position: 90.0%;
-	-fx-background-radius: 10.0px;
-	-fx-background-color: trasparent;
+    -fx-background-radius: 10.0px;
 }
 
-.btn_Inicio_Menu:hover{
-	-fx-background-image: url("../img/IconoInicioHover.png");
+.btn_Inicio_Menu {
+    -fx-background-image: url("../img/IconoInicio.png");
+    -fx-background-size: 30.0px;
     -fx-background-repeat: no-repeat;
     -fx-background-position: 90.0%;
-	-fx-background-radius: 10.0px;
-	-fx-background-color: trasparent;
-}
-.fondo_Interfaz{
-	-fx-background-image: url("../img/img_degradado_fondo.png");
+    -fx-background-radius: 10.0px;
+    -fx-background-color: transparent;
 }
 
-.contenedor_dispositivos{
-	-fx-background: trasparent;
-	
+.btn_Inicio_Menu:hover {
+    -fx-background-image: url("../img/IconoInicioHover.png");
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: 90.0%;
+    -fx-background-radius: 10.0px;
+    -fx-background-color: transparent;
 }
 
-.pane_contenedor_dispositivos{
-	-fx-background: trasparent;
-	
+.fondo_Interfaz {
+    -fx-background-image: url("../img/img_degradado_fondo.png");
 }
 
-.contenedor_dispositivo{
-	-fx-background-color: #11729D;
-	-fx-background-radius: 10.0px;
-	
-	
-}
-.contenedor_anadir_dispositivo{
-	-fx-background-color: #11729D;
-	-fx-background-radius: 10.0px;
-}
-.btn_anadir_dispositivo{
-	-fx-background-image: url("../img/IconoAnadirDispositivo.png");
-	-fx-background-size: 30.0px;
-    -fx-background-repeat: no-repeat;
-    -fx-background-position: 90.0%;
-	-fx-background-radius: 10.0px;
-	-fx-background-color: trasparent;
+.contenedor_dispositivos {
+    -fx-background: transparent;
 }
 
-.btn_anadir_dispositivo:hover{
-	-fx-background-image: url("../img/IconoAnadirDispositivoHover.png");
-    -fx-background-repeat: no-repeat;
-    -fx-background-position: 90.0%;
-	-fx-background-radius: 50.0px;
-	-fx-background-color: trasparent;
+.pane_contenedor_dispositivos {
+    -fx-background: transparent;
 }
-.contenedor_temperatura_interfaz{
-	-fx-background-color: #11729D;
-	-fx-background-radius: 10.0px;
-}
-.icono_temp{
-	-fx-background-image: url("../img/IconoAnadirDispositivoHover.png");
-   
-	
-}
-/*FIN Ventana Interfaz usuario*/
-/* Ventana Perfil usuario*/
-.Fondo_Pantalla_Perfil{
-	-fx-background-image: url("../img/img_degradado_fondo.png");
-	
-}
-.btn_Foto_Perfil{
-	-fx-background-image: url("../img/IconoFotoPerfil.png");
-	-fx-background-size: 150.00px;
-    -fx-background-repeat: no-repeat;
-    -fx-background-position: 90.0%;
-	-fx-background-radius: 10.0px;
-	-fx-background-color: trasparent;
-}
-.btn_EditarFoto_Perfil{
-	-fx-background-image: url("../img/IconoEditarFotoPerfil.png");
-	-fx-background-size: 30.00px;
-    -fx-background-repeat: no-repeat;
-    -fx-background-position: 90.0%;
-	-fx-background-radius: 10.0px;
-	-fx-background-color: trasparent;
-}
-.btn_EditarNombre_Perfil{
-    -fx-background-repeat: no-repeat;
-    -fx-background-position: 90.0%;
-	-fx-background-radius: 10.0px;
-	-fx-background-color: trasparent;
-}
-/*FIN Ventana Perfil usuario*/
 
+.contenedor_dispositivo {
+    -fx-background-color: #11729D;
+    -fx-background-radius: 10.0px;
+}
+
+.contenedor_anadir_dispositivo {
+    -fx-background-color: #11729D;
+    -fx-background-radius: 10.0px;
+}
+
+.btn_anadir_dispositivo {
+    -fx-background-image: url("../img/IconoAnadirDispositivo.png");
+    -fx-background-size: 30.0px;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: 90.0%;
+    -fx-background-radius: 10.0px;
+    -fx-background-color: transparent;
+}
+
+.btn_anadir_dispositivo:hover {
+    -fx-background-image: url("../img/IconoAnadirDispositivoHover.png");
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: 90.0%;
+    -fx-background-radius: 50.0px;
+    -fx-background-color: transparent;
+}
+
+.contenedor_temperatura_interfaz {
+    -fx-background-color: #11729D;
+    -fx-background-radius: 10.0px;
+}
+
+.icono_temp {
+    -fx-background-image: url("../img/IconoAnadirDispositivoHover.png");
+}
+
+/* FIN Ventana Interfaz usuario */
+/* Ventana Perfil usuario */
+
+.Fondo_Pantalla_Perfil {
+    -fx-background-image: url("../img/img_degradado_fondo.png");
+}
+
+.btn_Foto_Perfil {
+    -fx-background-image: url("../img/IconoFotoPerfil.png");
+    -fx-background-size: 150.00px;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: 90.0%;
+    -fx-background-radius: 10.0px;
+    -fx-background-color: transparent;
+}
+
+.btn_EditarFoto_Perfil {
+    -fx-background-image: url("../img/IconoEditarFotoPerfil.png");
+    -fx-background-size: 30.00px;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: 90.0%;
+    -fx-background-radius: 10.0px;
+    -fx-background-color: transparent;
+}
+
+.btn_EditarNombre_Perfil {
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: 90.0%;
+    -fx-background-radius: 10.0px;
+    -fx-background-color: transparent;
+}
+
+/* FIN Ventana Perfil usuario */

@@ -6,6 +6,5 @@
 	<classpathentry kind="lib" path="lib/jfoenix-8.0.8.jar"/>
 	<classpathentry kind="lib" path="lib/fontawesomefx-8.2.jar"/>
 	<classpathentry kind="lib" path="lib/gson-2.8.2.jar"/>
-	<classpathentry kind="lib" path="C:/Users/samuj/Downloads/jar_files/jackson-databind-2.16.1.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

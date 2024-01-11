@@ -8,7 +8,6 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 
-import Controlador.firstController;
 import applications.Main;
 import entidades.Nodo;
 import entidades.Usuario;
@@ -86,9 +85,9 @@ public class Controlador_Inicio_Login {
 				Main.stage.getScene().setRoot(fxml);*/
 				
 				try {
-					FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/Interfaz_Perfil.fxml"));
+					FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/Interfaz_Usuario_def.fxml"));
 					
-					Controlador_Pantalla_Perfil control = new Controlador_Pantalla_Perfil();
+					Controlador_pantalla_usuario_def control = new Controlador_pantalla_usuario_def();
 					
 					loader.setController(control);
 

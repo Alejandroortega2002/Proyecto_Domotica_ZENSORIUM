@@ -25,7 +25,7 @@ import modelo.RegistroManager;
 
 public class Controlador_Registro {
 
-	ObservableList<String> listaTipoDeCuenta = FXCollections.observableArrayList("Usuario", "Familiar");
+	ObservableList<String> listaTipoDeCuenta = FXCollections.observableArrayList("Usuario", "Familiar","Administrador");
 
 	@FXML // ResourceBundle that was given to the FXMLLoader
 	private ResourceBundle resources;
@@ -58,7 +58,7 @@ public class Controlador_Registro {
 	void initialize() {
 		// Initialize the controller
 		// You can add additional initialization logic here
-		tipoDeCuenta.setValue("Familiar");
+		tipoDeCuenta.setValue(" ");
 		tipoDeCuenta.setItems(listaTipoDeCuenta);
 	}
 
