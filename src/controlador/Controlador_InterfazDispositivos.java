@@ -2,6 +2,7 @@ package controlador;
 
 import java.io.IOException;
 
+import applications.Main;
 import entidades.Dispositivos;
 import entidades.Nodo;
 import entidades.Usuario;
@@ -11,6 +12,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -47,6 +49,7 @@ public class Controlador_InterfazDispositivos {
 
 	@FXML
 	public void initialize() {
+
 		Usuario usuarioActual = Sesion.getInstancia().getUsuarioActual();
 		if (usuarioActual != null) {
 			String username = usuarioActual.getUsername();
@@ -60,7 +63,7 @@ public class Controlador_InterfazDispositivos {
 		this.columnaIdSensor.setCellValueFactory(new PropertyValueFactory<>("id_sensor"));
 		cargarDispositivos();
 	}
-	
+
 	@FXML
 	private void seleccionarDispositivo() {
 		// Obtén el dispo seleccionado y actualiza el txtnombredispo
@@ -85,7 +88,6 @@ public class Controlador_InterfazDispositivos {
 
 			nodoActual = nodoActual.getEnlace();
 		}
-		dispos.add(dispositivo);
 
 		tablaDsipositivos.setItems(dispos);
 	}
@@ -111,6 +113,8 @@ public class Controlador_InterfazDispositivos {
 		}
 
 	}
+
+
 
 	@FXML
 	private void irInicio(MouseEvent event) throws IOException {

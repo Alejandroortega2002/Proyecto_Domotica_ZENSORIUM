@@ -15,7 +15,6 @@ import java.lang.reflect.Type;
 public class DispositivosManager {
 	private static final String FILE_PATH = "data/Dispositivos.json";
 
-
 	public static ListaEnlazada<Dispositivos> cargarDispos() {
 		try (Reader reader = new FileReader(FILE_PATH)) {
 			Type listType = new TypeToken<ListaEnlazada<Dispositivos>>() {
@@ -46,9 +45,8 @@ public class DispositivosManager {
 		Nodo<Dispositivos> nodoActual = dispos.getCabeza();
 		while (nodoActual != null) {
 			Dispositivos disposs = nodoActual.getDato();
-			if (disposs.getNombre().equals(nuevoDispo.getNombre())
-					|| disposs.getTipo().equals(nuevoDispo.getTipo())) {
-				// Usuario ya registrado, no se puede registrar de nuevo
+			if (disposs.getNombre().equals(nuevoDispo.getNombre())) {
+
 				return false;
 			}
 			nodoActual = nodoActual.getEnlace();
@@ -57,6 +55,40 @@ public class DispositivosManager {
 		dispos.insertarAlFinal(new Nodo<>(nuevoDispo));
 		guardarDispositivos(dispos);
 		return true;
+	}
+	public static boolean eliminarDispositivo(String nombreDispositivo) {
+	    ListaEnlazada<Dispositivos> dispositivos = cargarDispos();
+
+	    if (dispositivos == null) {
+	        return false; // No hay dispositivos para eliminar
+	    }
+
+	    Nodo<Dispositivos> nodoActual = dispositivos.getCabeza();
+	    Nodo<Dispositivos> nodoAnterior = null;
+
+	    while (nodoActual != null) {
+	        Dispositivos dispositivoActual = nodoActual.getDato();
+
+	        if (dispositivoActual.getNombre().equals(nombreDispositivo)) {
+	            // Se ha encontrado el dispositivo a eliminar
+
+	            if (nodoAnterior == null) {
+	                // El dispositivo a eliminar es el primer elemento de la lista
+	                dispositivos.setCabeza(nodoActual.getEnlace());
+	            } else {
+	                // El dispositivo a eliminar está en medio o al final de la lista
+	                nodoAnterior.setEnlace(nodoActual.getEnlace());
+	            }
+
+	            guardarDispositivos(dispositivos);
+	            return true; // Dispositivo eliminado exitosamente
+	        }
+
+	        nodoAnterior = nodoActual;
+	        nodoActual = nodoActual.getEnlace();
+	    }
+
+	    return false; // No se encontró el dispositivo con el nombre especificado
 	}
 
 	public static long obtenerNuevoId() {
@@ -78,7 +110,5 @@ public class DispositivosManager {
 
 		return idMasAlto + 1; // Incrementa el ID más alto en 1
 	}
-	
-
 
 }
