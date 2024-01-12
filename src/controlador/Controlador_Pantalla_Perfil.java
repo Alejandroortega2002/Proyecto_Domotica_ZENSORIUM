@@ -103,9 +103,9 @@ public class Controlador_Pantalla_Perfil {
 	@FXML
 	private void irInicio(MouseEvent event) throws IOException {
 		try {
-			FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/Interfaz_Usuario_def.fxml"));
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/Interfaz_Dispositivos.fxml"));
 
-			Controlador_pantalla_usuario_def control = new Controlador_pantalla_usuario_def();
+			Controlador_InterfazDispositivos control = new Controlador_InterfazDispositivos();
 
 			loader.setController(control);
 

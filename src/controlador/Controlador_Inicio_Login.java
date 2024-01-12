@@ -83,13 +83,12 @@ public class Controlador_Inicio_Login {
 
 			if (autenticado) {
 				mostrarMensaje("Inicio de sesión exitoso", "¡Bienvenido, " + email + "!");
-				/*Parent fxml = FXMLLoader.load(getClass().getResource("/vista/Interfaz_Usuario_def.fxml"));
-				Main.stage.getScene().setRoot(fxml);*/
+			
 				
 				try {
-					FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/Interfaz_Usuario_def.fxml"));
+					FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/Interfaz_Dispositivos.fxml"));
 					
-					Controlador_pantalla_usuario_def control = new Controlador_pantalla_usuario_def();
+					Controlador_InterfazDispositivos control = new Controlador_InterfazDispositivos();
 					
 					loader.setController(control);
 
