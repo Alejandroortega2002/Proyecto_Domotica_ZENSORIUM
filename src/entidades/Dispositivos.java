@@ -1,6 +1,6 @@
 package entidades;
 
-public class Dsipositivos {
+public class Dispositivos {
 
 	private long id_dispo;
 	private long id_sensor;
@@ -9,7 +9,7 @@ public class Dsipositivos {
 	private String Tipo;
 	private String Nombre;
 	
-	public Dsipositivos(long id_dispo, long id_sensor, long id_usu_relacionado, boolean estado, String tipo,
+	public Dispositivos(long id_dispo, long id_sensor, long id_usu_relacionado, boolean estado, String tipo,
 			String nombre) {
 		super();
 		this.id_dispo = id_dispo;

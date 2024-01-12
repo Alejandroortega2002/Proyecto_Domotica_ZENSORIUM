@@ -1,0 +1,32 @@
+{
+  "sensores": [
+    {
+      "dato_actual": 25.5,
+      "nombre": "Temperatura Habitación",
+      "tipo": "Temperatura",
+      "id_user_relacionado": 5,
+      "id_sensor": 101
+    },
+    {
+      "dato_actual": 0.75,
+      "nombre": "Humedad Jardín",
+      "tipo": "Humedad",
+      "id_user_relacionado": 2,
+      "id_sensor": 102
+    },
+    {
+      "dato_actual": 50.0,
+      "nombre": "Luz Salón",
+      "tipo": "Luz",
+      "id_user_relacionado": 6,
+      "id_sensor": 103
+    },
+    {
+      "dato_actual": 1005.0,
+      "nombre": "Presión Luz Garaje",
+      "tipo": "Presión",
+      "id_user_relacionado": 8,
+      "id_sensor": 104
+    }
+  ]
+}
