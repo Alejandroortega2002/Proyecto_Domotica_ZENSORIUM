@@ -1,1 +1,1 @@
-{"cabeza":{"dato":{"tu_id":0,"id_user_relacion":2,"tipo_relacion":"F-\u003eB"},"enlace":{"dato":{"tu_id":0,"id_user_relacion":3,"tipo_relacion":"F-\u003eB"}}}}
+{"cabeza":{"dato":{"tu_id":0,"id_user_relacion":2,"tipo_relacion":"F-\u003eB"},"enlace":{"dato":{"tu_id":0,"id_user_relacion":3,"tipo_relacion":"F-\u003eB"},"enlace":{"dato":{"tu_id":0,"id_user_relacion":0,"tipo_relacion":"AF"}}}}}

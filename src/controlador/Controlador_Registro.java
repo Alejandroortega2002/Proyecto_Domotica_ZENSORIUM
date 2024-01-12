@@ -59,7 +59,6 @@ public class Controlador_Registro {
 	void initialize() {
 		// Initialize the controller
 		// You can add additional initialization logic here
-		tipoDeCuenta.setValue(" ");
 		tipoDeCuenta.setItems(listaTipoDeCuenta);
 	}
 
@@ -71,8 +70,8 @@ public class Controlador_Registro {
 		String repetirPass = repetirContrasenaUsuarioRegistro.getText();
 		String tipoDecuenta = tipoDeCuenta.getValue();
 
-		if (!email.isEmpty() || !password.isEmpty() || !username.isEmpty() || !repetirPass.isEmpty()
-				|| !tipoDecuenta.isEmpty()) {
+		if (!email.isEmpty() && !password.isEmpty() && !username.isEmpty() && !repetirPass.isEmpty()
+				&& tipoDecuenta != null && !tipoDecuenta.isEmpty()) {
 
 			if (validarEmail(email)) {
 
@@ -111,7 +110,7 @@ public class Controlador_Registro {
 		} else {
 			// Mostrar mensaje de error si los campos están vacíos.
 			Error_Label_Registro.setVisible(true);
-			Error_Label_Registro.setText("Hay campos vacios.");
+			Error_Label_Registro.setText("Hay campos vacíos o no se seleccionó un tipo de cuenta.");
 		}
 	}
 

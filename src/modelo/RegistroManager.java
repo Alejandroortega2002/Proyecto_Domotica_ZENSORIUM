@@ -93,13 +93,13 @@ public class RegistroManager {
 	        }
 	    }
 	 
-	 public static boolean verificarRelacionExistente(long idUsuario, long idUsuarioFamiliar) {
+	 public static boolean verificarRelacionExistente(long idUsuario1, long idUsuario2) {
 			ListaEnlazada<Relaciones> relacionesExistentes = RegistroManager.cargarRelaciones();
 
 			Nodo<Relaciones> nodoActual = relacionesExistentes.getCabeza();
 			while (nodoActual != null) {
 				Relaciones rel = nodoActual.getDato();
-				if (rel.getTu_id() == idUsuario && rel.getId_user_relacion() == idUsuarioFamiliar) {
+				if (rel.getTu_id() == idUsuario1 && rel.getId_user_relacion() == idUsuario2) {
 					return true; // La relación ya existe
 				}
 				nodoActual = nodoActual.getEnlace(); // Suponiendo que `getEnlace()` devuelve el siguiente nodo

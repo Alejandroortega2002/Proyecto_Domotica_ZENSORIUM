@@ -10,6 +10,9 @@
     -fx-background-image: url("../img/img_degradado_fondo.png");
 }
 
+.AnchorPaneRelaciones {
+	-fx-background-image: url("../img/img_degradado_fondo.png");
+}
 /* Ventana Login */
 .parent {
     -fx-background-image: url("../img/img_degradado_fondo.png");
@@ -24,23 +27,23 @@
 }
 .caja_aires{
 	-fx-border-color: white;
-    -fx-border-width: 2px;
-    -fx-border-radius: 5px;
+    -fx-border-width: 2.0px;
+    -fx-border-radius: 5.0px;
 }
 .caja_persianas{
 	-fx-border-color: white;
-    -fx-border-width: 2px;
-    -fx-border-radius: 5px;
+    -fx-border-width: 2.0px;
+    -fx-border-radius: 5.0px;
 }
 .caja_luces{
 	-fx-border-color: white;
-    -fx-border-width: 2px;
-    -fx-border-radius: 5px;
+    -fx-border-width: 2.0px;
+    -fx-border-radius: 5.0px;
 }
 .caja_avisos{
 	-fx-border-color: white;
-    -fx-border-width: 2px;
-    -fx-border-radius: 5px;
+    -fx-border-width: 2.0px;
+    -fx-border-radius: 5.0px;
 }
 .fondo_login {
     -fx-background-color: #11729D;
