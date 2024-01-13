@@ -24,7 +24,7 @@
          <font>
             <Font name="System Bold" size="15.0" />
          </font></Label>
-		<TextField id="txtFieldNombreDispo" fx:id="txtFieldNombreDispo" layoutX="39.0" layoutY="170.0" prefHeight="31.0" prefWidth="199.0" />
+		<TextField id="txtFieldNombreDispo" fx:id="txtFieldNombreDispo" editable="false" layoutX="39.0" layoutY="170.0" prefHeight="31.0" prefWidth="199.0" />
 		<TableView id="tablaDsipositivos" fx:id="tablaDsipositivos" layoutX="321.0" layoutY="86.0" onMouseClicked="#seleccionarDispositivo">
 			<columns>
 				<TableColumn id="columnaNombre" fx:id="columnaNombre" prefWidth="203.0" text="Nombre" />
@@ -54,7 +54,7 @@
       </HBox>
       <Label layoutX="39.0" layoutY="141.0" text="Nombre Dispotivo" />
       <Button id="btnVerDatos" fx:id="btnVerDatos" layoutX="41.0" layoutY="305.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="199.0" text="VER DATOS" />
-      <TextField id="txtFieldNombreSensorRelacionado" fx:id="txtFieldNombreSensorRelacionado" layoutX="41.0" layoutY="245.0" prefHeight="31.0" prefWidth="199.0" />
+      <TextField id="txtFieldNombreSensorRelacionado" fx:id="txtFieldNombreSensorRelacionado" editable="false" layoutX="41.0" layoutY="245.0" prefHeight="31.0" prefWidth="199.0" />
       <Label layoutX="41.0" layoutY="216.0" text="Sensor" />
       <Button id="btnAdministarDsipo" fx:id="btnAdministarDsipo" layoutX="322.0" layoutY="494.0" mnemonicParsing="false" onMouseClicked="#irAdministrar" prefHeight="31.0" prefWidth="423.0" text="ADMINISTRAR DISPOSITIVOS" />
       <Button id="btnApagarDispo" fx:id="btnApagarDispo" layoutX="39.0" layoutY="444.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="199.0" text="APAGAR" />

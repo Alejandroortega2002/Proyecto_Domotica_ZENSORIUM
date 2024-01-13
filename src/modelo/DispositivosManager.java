@@ -111,4 +111,32 @@ public class DispositivosManager {
 		return idMasAlto + 1; // Incrementa el ID más alto en 1
 	}
 
+	public static boolean modificarDispositivo(String nombreDispositivo, String nombreNuevoDispositivo) {
+	    ListaEnlazada<Dispositivos> dispositivos = cargarDispos();
+
+	    if (dispositivos == null) {
+	        return false; // No hay dispositivos para modificar
+	    }
+
+	    Nodo<Dispositivos> nodoActual = dispositivos.getCabeza();
+
+	    while (nodoActual != null) {
+	        Dispositivos dispositivoActual = nodoActual.getDato();
+
+	        if (dispositivoActual.getNombre().equals(nombreDispositivo)) {
+	            // Se ha encontrado el dispositivo a modificar
+
+	
+	            dispositivoActual.setNombre(nombreNuevoDispositivo);
+
+	            guardarDispositivos(dispositivos);
+	            return true; // Dispositivo modificado exitosamente
+	        }
+
+	        nodoActual = nodoActual.getEnlace();
+	    }
+
+	    return false; // No se encontró el dispositivo con el nombre especificado
+	}
+
 }

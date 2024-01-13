@@ -54,6 +54,8 @@ public class Controlador_Interfaz_Administrar_Dispositivos {
 	@FXML
 	private Label Error_Label_Registro;
 
+	private String aux;
+	
 	@FXML
 	public void initialize() {
 
@@ -79,7 +81,7 @@ public class Controlador_Interfaz_Administrar_Dispositivos {
 		Dispositivos dispoSeleccionado = tableAdministrarDispos.getSelectionModel().getSelectedItem();
 		if (dispoSeleccionado != null) {
 			lblNombreDispoSelec.setText(dispoSeleccionado.getNombre());
-
+			aux = lblNombreDispoSelec.getText();
 		}
 	}
 
@@ -104,15 +106,15 @@ public class Controlador_Interfaz_Administrar_Dispositivos {
 	private void anadirDsipositivo() throws IOException {
 		Usuario usuarioActual = Sesion.getInstancia().getUsuarioActual();
 
-		long id_dispo;// hacer autoincremental
+		long id_dispo = DispositivosManager.obtenerNuevoId();
 		long id_sensor;// hacer con ortega
 		long id_usu_relacionado = usuarioActual.getId_user();
 		String Tipo = tipoDispositivo.getValue();
 		String Nombre = txtNombreDispo.getText();
 
 		if (Tipo != null && !Nombre.isEmpty() && !Tipo.isEmpty()) {
-			long nuevoId = RegistroManager.obtenerNuevoId();
-			Dispositivos nuevoUsuario = new Dispositivos(nuevoId, 0, id_usu_relacionado, true, Tipo, Nombre);
+			
+			Dispositivos nuevoUsuario = new Dispositivos(id_dispo, 0, id_usu_relacionado, false, Tipo, Nombre);
 			if (DispositivosManager.registrarDispos(nuevoUsuario)) {
 				// hacer alerta de dispo añadido
 				System.out.println(nuevoUsuario.toString());
@@ -146,6 +148,36 @@ public class Controlador_Interfaz_Administrar_Dispositivos {
 			Error_Label_Registro.setVisible(true);
 			Error_Label_Registro.setText("No hay dispositivo seleccionado para eliminar");
 		}
+	}
+
+	private void modificarDispositivo() throws IOException {
+
+
+		String nombre = lblNombreDispoSelec.getText();
+	
+
+		if (!nombre.isEmpty()) {
+
+			if (DispositivosManager.modificarDispositivo(aux, nombre)) {
+				// Hacer alerta de dispositivo modificado
+			
+				Error_Label_Registro.setVisible(false);
+				cargarDispositivos();
+			} else {
+				Error_Label_Registro.setVisible(true);
+				Error_Label_Registro.setText("No se encontró el dispositivo con ese nombre");
+			}
+		} else {
+			Error_Label_Registro.setVisible(true);
+			Error_Label_Registro.setText("Rellene todos los campos.");
+		}
+	}
+
+	@FXML
+	public void btnIrModiDispo(MouseEvent event) throws IOException {
+		modificarDispositivo();
+		lblNombreDispoSelec.setText("");
+
 	}
 
 //////////////////////////////////////////////////////////////////////////////

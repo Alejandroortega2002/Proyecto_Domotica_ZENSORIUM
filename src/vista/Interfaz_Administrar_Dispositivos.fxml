@@ -15,13 +15,14 @@
 
 <AnchorPane id="AnchorPaneRelaciones" prefHeight="600.0" prefWidth="800.0" styleClass="AnchorPaneRelaciones" stylesheets="@../applications/application.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
 	<children>
-      <Label layoutX="446.0" layoutY="35.0" text="Tus Dispositivos">
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1f93ff00" height="60.0" layoutX="23.0" layoutY="19.0" stroke="WHITE" strokeType="INSIDE" width="234.0" />
+      <Label layoutX="443.0" layoutY="34.0" text="Tus Dispositivos">
          <font>
             <Font name="System Bold" size="20.0" />
          </font>
       </Label>
-		<Button layoutX="321.0" layoutY="493.0" mnemonicParsing="false" onMouseClicked="#btnEliminar" prefHeight="31.0" prefWidth="199.0" text="ELIMINAR" />
-      <Label layoutX="41.0" layoutY="39.0" text="Tipo de cuenta" />
+		<Button layoutX="545.0" layoutY="494.0" mnemonicParsing="false" onMouseClicked="#btnEliminar" prefHeight="31.0" prefWidth="199.0" text="ELIMINAR" />
+      <Label layoutX="29.0" layoutY="24.0" text="Tipo de cuenta:" />
 		<TableView fx:id="tableAdministrarDispos" layoutX="321.0" layoutY="86.0" onMouseClicked="#seleccionarDispositivo">
 			<columns>
 				<TableColumn fx:id="columnaNombreDispo" prefWidth="203.0" text="Nombre" />
@@ -49,34 +50,40 @@
             </Button>
          </children>
       </HBox>
-      <Button layoutX="545.0" layoutY="493.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="199.0" text="MODIFICAR" />
-      <Label id="lblNombreUsu" fx:id="lblNombreUsu" layoutX="40.0" layoutY="65.0" text="Nombre Usuario">
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1f93ff00" height="145.0" layoutX="27.0" layoutY="141.0" stroke="WHITE" strokeType="INSIDE" width="234.0" />
+      <Button layoutX="42.0" layoutY="235.0" mnemonicParsing="false" onMouseClicked="#btnIrModiDispo" prefHeight="31.0" prefWidth="199.0" text="MODIFICAR" />
+      <Label id="lblNombreUsu" fx:id="lblNombreUsu" layoutX="28.0" layoutY="50.0" text="Nombre Usuario">
          <font>
             <Font name="System Bold" size="15.0" />
          </font>
       </Label>
-      <Label id="lblTipoCuenta" fx:id="lblTipoCuenta" layoutX="39.0" layoutY="87.0" text="Tipo de cuenta">
+      <Label id="lblTipoCuenta" fx:id="lblTipoCuenta" layoutX="135.0" layoutY="25.0" text="Tipo de cuenta">
          <font>
             <Font name="System Bold" size="15.0" />
          </font>
       </Label>
-      <TextField fx:id="lblNombreDispoSelec" layoutX="41.0" layoutY="157.0" prefHeight="31.0" prefWidth="199.0" />
-      <Label layoutX="41.0" layoutY="128.0" text="Dispositivo seleccionado" />
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1f93ff00" height="205.0" layoutX="39.0" layoutY="268.0" stroke="WHITE" strokeType="INSIDE" width="234.0" />
-      <TextField fx:id="txtNombreDispo" layoutX="57.0" layoutY="311.0" prefHeight="31.0" prefWidth="199.0" />
-      <Label layoutX="57.0" layoutY="282.0" text="Nombre dispositivo" />
-      <Button layoutX="56.0" layoutY="428.0" mnemonicParsing="false" onMouseClicked="#btnAnadirDispo" prefHeight="31.0" prefWidth="199.0" text="AÑADIR " />
-      <Label layoutX="59.0" layoutY="357.0" text="Tipo" />
-      <JFXComboBox id="tipoDispositivo" fx:id="tipoDispositivo" focusColor="WHITE" layoutX="59.0" layoutY="378.0" onAction="#seleccionarDispositivo" prefHeight="31.0" prefWidth="199.0" style="-fx-text-fill: white;" unFocusColor="WHITE">
+      <TextField fx:id="lblNombreDispoSelec" layoutX="41.0" layoutY="186.0" prefHeight="31.0" prefWidth="199.0" />
+      <Label layoutX="41.0" layoutY="157.0" text="Dispositivo seleccionado" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1f93ff00" height="197.0" layoutX="28.0" layoutY="337.0" stroke="WHITE" strokeType="INSIDE" width="234.0" />
+      <TextField fx:id="txtNombreDispo" layoutX="46.0" layoutY="380.0" prefHeight="31.0" prefWidth="199.0" />
+      <Label layoutX="46.0" layoutY="351.0" text="Nombre dispositivo" />
+      <Button layoutX="43.0" layoutY="488.0" mnemonicParsing="false" onMouseClicked="#btnAnadirDispo" prefHeight="31.0" prefWidth="199.0" text="AÑADIR " />
+      <Label layoutX="47.0" layoutY="420.0" text="Tipo" />
+      <JFXComboBox id="tipoDispositivo" fx:id="tipoDispositivo" focusColor="WHITE" layoutX="47.0" layoutY="441.0" onAction="#seleccionarDispositivo" prefHeight="31.0" prefWidth="199.0" style="-fx-text-fill: white;" unFocusColor="WHITE">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
       </JFXComboBox>
-      <Label layoutX="40.0" layoutY="226.0" text="Añadir dispositivo">
+      <Label layoutX="54.0" layoutY="305.0" text="Añadir dispositivo">
          <font>
             <Font name="System Bold" size="20.0" />
          </font>
       </Label>
-      <Label fx:id="Error_Label_Registro" layoutX="59.0" layoutY="483.0" prefHeight="47.0" prefWidth="199.0" text="AVISO ERROR AÑADIR" textFill="RED" visible="false" />
+      <Label fx:id="Error_Label_Registro" layoutX="321.0" layoutY="498.0" prefHeight="31.0" prefWidth="213.0" text="AVISO ERROR AÑADIR" textFill="RED" visible="false" />
+      <Label layoutX="41.0" layoutY="104.0" text="Modificar dispositivo">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font>
+      </Label>
 	</children>
 </AnchorPane>
