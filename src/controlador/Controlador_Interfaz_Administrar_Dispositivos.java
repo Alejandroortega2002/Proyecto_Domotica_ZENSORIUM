@@ -55,7 +55,7 @@ public class Controlador_Interfaz_Administrar_Dispositivos {
 	private Label Error_Label_Registro;
 
 	private String aux;
-	
+
 	@FXML
 	public void initialize() {
 
@@ -86,35 +86,37 @@ public class Controlador_Interfaz_Administrar_Dispositivos {
 	}
 
 	private void cargarDispositivos() {
-		System.out.println("holi");
-		ListaEnlazada<Dispositivos> todosLosDispos = DispositivosManager.cargarDispos();
-		ObservableList<Dispositivos> dispos = FXCollections.observableArrayList();
+	    System.out.println("holi");
+	    ListaEnlazada<Dispositivos> todosLosDispos = DispositivosManager.cargarDispos();
+	    ObservableList<Dispositivos> dispos = FXCollections.observableArrayList();
 
-		Nodo<Dispositivos> nodoActual = todosLosDispos.getCabeza();
-		while (nodoActual != null) {
-			Dispositivos dispo = nodoActual.getDato();
+	    // Comprobar si la lista de dispositivos está vacía
+	    if (todosLosDispos != null && todosLosDispos.getCabeza() != null) {
+	        Nodo<Dispositivos> nodoActual = todosLosDispos.getCabeza();
+	        while (nodoActual != null) {
+	            Dispositivos dispo = nodoActual.getDato();
+	            dispos.add(dispo);
+	            nodoActual = nodoActual.getEnlace();
+	        }
+	    }
 
-			dispos.add(dispo);
-
-			nodoActual = nodoActual.getEnlace();
-		}
-
-		tableAdministrarDispos.setItems(dispos);
+	    tableAdministrarDispos.setItems(dispos);
 	}
+
 
 	@FXML // hay que actualizar este metodo
 	private void anadirDsipositivo() throws IOException {
 		Usuario usuarioActual = Sesion.getInstancia().getUsuarioActual();
-
-		long id_dispo = DispositivosManager.obtenerNuevoId();
-		long id_sensor;// hacer con ortega
-		long id_usu_relacionado = usuarioActual.getId_user();
 		String Tipo = tipoDispositivo.getValue();
 		String Nombre = txtNombreDispo.getText();
+		long id_dispo = DispositivosManager.obtenerNuevoId();
+		long id_sensor = anadirSensorDispo(Tipo);
+		;// hacer con ortega
+		long id_usu_relacionado = usuarioActual.getId_user();
 
 		if (Tipo != null && !Nombre.isEmpty() && !Tipo.isEmpty()) {
-			
-			Dispositivos nuevoUsuario = new Dispositivos(id_dispo, 0, id_usu_relacionado, false, Tipo, Nombre);
+
+			Dispositivos nuevoUsuario = new Dispositivos(id_dispo, id_sensor, id_usu_relacionado, false, Tipo, Nombre);
 			if (DispositivosManager.registrarDispos(nuevoUsuario)) {
 				// hacer alerta de dispo añadido
 				System.out.println(nuevoUsuario.toString());
@@ -128,6 +130,35 @@ public class Controlador_Interfaz_Administrar_Dispositivos {
 			Error_Label_Registro.setVisible(true);
 			Error_Label_Registro.setText("Rellene todos los campos.");
 		}
+	}
+
+	private long anadirSensorDispo(String tipo) {
+
+		String tipoSensor;
+		long id_sensor = 0;
+
+		switch (tipo) {
+		case "Aire":
+			tipoSensor = "Temperatura";
+			id_sensor = DispositivosManager.creaNuevoSensor(0, "Sensor de Temperatura", tipoSensor);
+			break;
+		case "Puerta":
+			tipoSensor = "Movimiento";
+			id_sensor = DispositivosManager.creaNuevoSensor(0, "Sensor de Movimiento", tipoSensor);
+			break;
+		case "Luz":
+			tipoSensor = "Luz";
+			id_sensor = DispositivosManager.creaNuevoSensor(0, "Sensor de Luz", tipoSensor);
+			break;
+		case "Persiana":
+			tipoSensor = "Posición";
+			id_sensor = DispositivosManager.creaNuevoSensor(0, "Sensor de Posición", tipoSensor);
+			break;
+		default:
+			tipoSensor = "Tipo de Sensor Desconocido";
+			break;
+		}
+		return id_sensor;
 	}
 
 	@FXML
@@ -152,15 +183,13 @@ public class Controlador_Interfaz_Administrar_Dispositivos {
 
 	private void modificarDispositivo() throws IOException {
 
-
 		String nombre = lblNombreDispoSelec.getText();
-	
 
 		if (!nombre.isEmpty()) {
 
 			if (DispositivosManager.modificarDispositivo(aux, nombre)) {
 				// Hacer alerta de dispositivo modificado
-			
+
 				Error_Label_Registro.setVisible(false);
 				cargarDispositivos();
 			} else {

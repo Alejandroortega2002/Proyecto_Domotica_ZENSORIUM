@@ -5,14 +5,14 @@ public class Sensores {
 	private float dato_actual;
 	private String nombre;
 	private String tipo;
-	private long id_user_relacionado;
+	private long id_sensor;
 
-	public Sensores(float dato_actual, String nombre, String tipo, long id_user_relacionado) {
+	public Sensores(long id_user_relacionado, float dato_actual, String nombre, String tipo) {
 		super();
+		this.id_sensor = id_user_relacionado;
 		this.dato_actual = dato_actual;
 		this.nombre = nombre;
 		this.tipo = tipo;
-		this.id_user_relacionado = id_user_relacionado;
 	}
 
 	public float getDato_actual() {
@@ -39,12 +39,12 @@ public class Sensores {
 		this.tipo = tipo;
 	}
 
-	public long getId_user_relacionado() {
-		return id_user_relacionado;
+	public long getId_sensor() {
+		return id_sensor;
 	}
 
-	public void setId_user_relacionado(long id_user_relacionado) {
-		this.id_user_relacionado = id_user_relacionado;
+	public void setId_sensor(long id_sensor) {
+		this.id_sensor = id_sensor;
 	}
 
 }

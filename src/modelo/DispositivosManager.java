@@ -7,26 +7,36 @@ import com.google.gson.reflect.TypeToken;
 import entidades.Dispositivos;
 import entidades.Nodo;
 import entidades.Relaciones;
+import entidades.Sensores;
 import entidades.Usuario;
 
 import java.io.*;
 import java.lang.reflect.Type;
 
 public class DispositivosManager {
-	private static final String FILE_PATH = "data/Dispositivos.json";
+	private static final String FILE_PATH_DISPOSITIVOS = "data/Dispositivos.json";
+	private static final String FILE_PATH_SENSORES = "data/Sensores.json";
 
 	public static ListaEnlazada<Dispositivos> cargarDispos() {
-		try (Reader reader = new FileReader(FILE_PATH)) {
-			Type listType = new TypeToken<ListaEnlazada<Dispositivos>>() {
-			}.getType();
-			return new Gson().fromJson(reader, listType);
-		} catch (IOException e) {
-			return new ListaEnlazada<>();
-		}
+	    try (Reader reader = new FileReader(FILE_PATH_DISPOSITIVOS)) {
+	        Type listType = new TypeToken<ListaEnlazada<Dispositivos>>() {}.getType();
+	        ListaEnlazada<Dispositivos> dispositivosCargados = new Gson().fromJson(reader, listType);
+
+	        // Verificar si la deserialización retornó null y, de ser así, retornar una lista vacía
+	        if (dispositivosCargados == null) {
+	            return new ListaEnlazada<>();
+	        }
+
+	        return dispositivosCargados;
+	    } catch (IOException e) {
+	        // En caso de una IOException, también retornar una lista vacía
+	        return new ListaEnlazada<>();
+	    }
 	}
 
+
 	public static void guardarDispositivos(ListaEnlazada<Dispositivos> dispos) {
-		try (Writer writer = new FileWriter(FILE_PATH)) {
+		try (Writer writer = new FileWriter(FILE_PATH_DISPOSITIVOS)) {
 			new Gson().toJson(dispos, writer);
 		} catch (IOException e) {
 			// Manejar la excepción
@@ -56,39 +66,40 @@ public class DispositivosManager {
 		guardarDispositivos(dispos);
 		return true;
 	}
+
 	public static boolean eliminarDispositivo(String nombreDispositivo) {
-	    ListaEnlazada<Dispositivos> dispositivos = cargarDispos();
+		ListaEnlazada<Dispositivos> dispositivos = cargarDispos();
 
-	    if (dispositivos == null) {
-	        return false; // No hay dispositivos para eliminar
-	    }
+		if (dispositivos == null) {
+			return false; // No hay dispositivos para eliminar
+		}
 
-	    Nodo<Dispositivos> nodoActual = dispositivos.getCabeza();
-	    Nodo<Dispositivos> nodoAnterior = null;
+		Nodo<Dispositivos> nodoActual = dispositivos.getCabeza();
+		Nodo<Dispositivos> nodoAnterior = null;
 
-	    while (nodoActual != null) {
-	        Dispositivos dispositivoActual = nodoActual.getDato();
+		while (nodoActual != null) {
+			Dispositivos dispositivoActual = nodoActual.getDato();
 
-	        if (dispositivoActual.getNombre().equals(nombreDispositivo)) {
-	            // Se ha encontrado el dispositivo a eliminar
+			if (dispositivoActual.getNombre().equals(nombreDispositivo)) {
+				// Se ha encontrado el dispositivo a eliminar
 
-	            if (nodoAnterior == null) {
-	                // El dispositivo a eliminar es el primer elemento de la lista
-	                dispositivos.setCabeza(nodoActual.getEnlace());
-	            } else {
-	                // El dispositivo a eliminar está en medio o al final de la lista
-	                nodoAnterior.setEnlace(nodoActual.getEnlace());
-	            }
+				if (nodoAnterior == null) {
+					// El dispositivo a eliminar es el primer elemento de la lista
+					dispositivos.setCabeza(nodoActual.getEnlace());
+				} else {
+					// El dispositivo a eliminar está en medio o al final de la lista
+					nodoAnterior.setEnlace(nodoActual.getEnlace());
+				}
 
-	            guardarDispositivos(dispositivos);
-	            return true; // Dispositivo eliminado exitosamente
-	        }
+				guardarDispositivos(dispositivos);
+				return true; // Dispositivo eliminado exitosamente
+			}
 
-	        nodoAnterior = nodoActual;
-	        nodoActual = nodoActual.getEnlace();
-	    }
+			nodoAnterior = nodoActual;
+			nodoActual = nodoActual.getEnlace();
+		}
 
-	    return false; // No se encontró el dispositivo con el nombre especificado
+		return false; // No se encontró el dispositivo con el nombre especificado
 	}
 
 	public static long obtenerNuevoId() {
@@ -112,31 +123,73 @@ public class DispositivosManager {
 	}
 
 	public static boolean modificarDispositivo(String nombreDispositivo, String nombreNuevoDispositivo) {
-	    ListaEnlazada<Dispositivos> dispositivos = cargarDispos();
+		ListaEnlazada<Dispositivos> dispositivos = cargarDispos();
 
-	    if (dispositivos == null) {
-	        return false; // No hay dispositivos para modificar
-	    }
+		if (dispositivos == null) {
+			return false; // No hay dispositivos para modificar
+		}
 
-	    Nodo<Dispositivos> nodoActual = dispositivos.getCabeza();
+		Nodo<Dispositivos> nodoActual = dispositivos.getCabeza();
 
-	    while (nodoActual != null) {
-	        Dispositivos dispositivoActual = nodoActual.getDato();
+		while (nodoActual != null) {
+			Dispositivos dispositivoActual = nodoActual.getDato();
 
-	        if (dispositivoActual.getNombre().equals(nombreDispositivo)) {
-	            // Se ha encontrado el dispositivo a modificar
+			if (dispositivoActual.getNombre().equals(nombreDispositivo)) {
+				// Se ha encontrado el dispositivo a modificar
 
-	
-	            dispositivoActual.setNombre(nombreNuevoDispositivo);
+				dispositivoActual.setNombre(nombreNuevoDispositivo);
 
-	            guardarDispositivos(dispositivos);
-	            return true; // Dispositivo modificado exitosamente
-	        }
+				guardarDispositivos(dispositivos);
+				return true; // Dispositivo modificado exitosamente
+			}
 
-	        nodoActual = nodoActual.getEnlace();
-	    }
+			nodoActual = nodoActual.getEnlace();
+		}
 
-	    return false; // No se encontró el dispositivo con el nombre especificado
+		return false; // No se encontró el dispositivo con el nombre especificado
+	}
+
+	public static ListaEnlazada<Sensores> cargarSensores() {
+		try (Reader reader = new FileReader(FILE_PATH_SENSORES)) {
+			Type listType = new TypeToken<ListaEnlazada<Sensores>>() {
+			}.getType();
+			return new Gson().fromJson(reader, listType);
+		} catch (IOException e) {
+			return new ListaEnlazada<>();
+		}
+	}
+
+	public static void guardarSensores(ListaEnlazada<Sensores> sensores) {
+		try (Writer writer = new FileWriter(FILE_PATH_SENSORES)) {
+			new Gson().toJson(sensores, writer);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public static long creaNuevoSensor(float dato_actual, String nombre, String tipo) {
+		ListaEnlazada<Sensores> sensores = cargarSensores();
+
+		if (sensores == null) {
+			sensores = new ListaEnlazada<>();
+		}
+
+		long idMasAlto = 0;
+		for (Nodo<Sensores> nodoActual = sensores.getCabeza(); nodoActual != null; nodoActual = nodoActual
+				.getEnlace()) {
+			long idActual = nodoActual.getDato().getId_sensor();
+			if (idActual > idMasAlto) {
+				idMasAlto = idActual;
+			}
+		}
+
+		long nuevoId = idMasAlto + 1;
+		Sensores nuevoSensor = new Sensores(nuevoId, dato_actual, nombre, tipo);
+
+		// Añade el nuevo sensor y guarda la lista
+		sensores.insertarAlFinal(new Nodo<>(nuevoSensor));
+		guardarSensores(sensores);
+		return nuevoId;
 	}
 
 }
