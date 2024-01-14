@@ -8,49 +8,96 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPaneRelaciones" prefHeight="600.0" prefWidth="800.0" styleClass="AnchorPaneRelaciones" stylesheets="@../applications/application.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane id="AnchorPaneRelaciones" prefHeight="600.0" prefWidth="800.0" styleClass="AnchorPaneRelaciones" stylesheets="@../Documents/GitHub/pii23-jositosclub/bin/applications/application.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
 	<children>
-      <Label layoutX="456.0" layoutY="37.0" text="Usuarios Familiares">
-         <font>
-            <Font name="System Bold" size="20.0" />
-         </font>
-      </Label>
-		<Button fx:id="btnConectar" layoutX="39.0" layoutY="353.0" mnemonicParsing="false" onAction="#conectarUsuarios" text="CONECTAR" />
-      <Label layoutX="42.0" layoutY="123.0" text="Mi Username: " />
-		<Label fx:id="lblNombreUsuario" layoutX="42.0" layoutY="151.0" text="Nombre Usuario">
-         <font>
-            <Font name="System Bold" size="15.0" />
-         </font></Label>
-		<TextField fx:id="txtNombreUsuarioFamiliar" layoutX="39.0" layoutY="270.0" />
-		<TableView fx:id="tblUsuariosFamiliares" layoutX="321.0" layoutY="86.0" onMouseClicked="#seleccionarUsuarioFamiliar">
-			<columns>
-				<TableColumn fx:id="colNombre" prefWidth="225.0" text="Nombre" />
-				<TableColumn fx:id="colCorreo" prefWidth="224.0" text="Correo" />
-			</columns>
-		</TableView>
-      <HBox alignment="CENTER" layoutY="550.0" prefHeight="60.0" prefWidth="800.0" style="-fx-background-color: #74BBBD;" stylesheets="@../applications/application.css">
+      <BorderPane prefHeight="600.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <bottom>
+            <HBox alignment="CENTER" prefHeight="60.0" prefWidth="465.0" style="-fx-background-color: #74BBBD;" stylesheets="@../Documents/GitHub/pii23-jositosclub/bin/applications/application.css" BorderPane.alignment="CENTER">
+               <children>
+                  <Button fx:id="btn_Inicio_Menu" mnemonicParsing="false" onMouseClicked="#irInicio" prefHeight="27.0" prefWidth="32.0" styleClass="btn_Inicio_Menu" stylesheets="@../Documents/GitHub/pii23-jositosclub/bin/Documents/GitHub/pii23-jositosclub/bin/applications/application.css" textAlignment="JUSTIFY">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                     <HBox.margin>
+                        <Insets right="125.0" />
+                     </HBox.margin>
+                  </Button>
+                  <Button fx:id="btn_Perfil_Menu" contentDisplay="CENTER" mnemonicParsing="false" onMouseClicked="#irMenuPerfil" prefHeight="30.0" prefWidth="27.0" styleClass="btn_Perfil_Menu" stylesheets="@../Documents/GitHub/pii23-jositosclub/bin/Documents/GitHub/pii23-jositosclub/bin/applications/application.css" textFill="TRANSPARENT">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                     <HBox.margin>
+                        <Insets left="125.0" />
+                     </HBox.margin>
+                  </Button>
+               </children>
+            </HBox>
+         </bottom>
+      </BorderPane>
+      <GridPane alignment="CENTER" prefHeight="550.0" prefWidth="800.0" AnchorPane.bottomAnchor="60.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="395.0" minWidth="10.0" prefWidth="332.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="468.0" minWidth="10.0" prefWidth="468.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints maxHeight="178.0" minHeight="0.0" prefHeight="63.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="473.0" minHeight="10.0" prefHeight="420.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="101.0" minHeight="0.0" prefHeight="42.0" vgrow="SOMETIMES" />
+        </rowConstraints>
          <children>
-            <Button fx:id="btn_Inicio_Menu" mnemonicParsing="false" onMouseClicked="#irInicio" prefHeight="27.0" prefWidth="32.0" styleClass="btn_Inicio_Menu" stylesheets="@../Documents/GitHub/pii23-jositosclub/bin/applications/application.css" textAlignment="JUSTIFY">
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-               <HBox.margin>
-                  <Insets right="125.0" />
-               </HBox.margin>
-            </Button>
-            <Button fx:id="btn_Perfil_Menu" contentDisplay="CENTER" mnemonicParsing="false" onMouseClicked="#irMenuPerfil" prefHeight="30.0" prefWidth="27.0" styleClass="btn_Perfil_Menu" stylesheets="@../Documents/GitHub/pii23-jositosclub/bin/applications/application.css" textFill="TRANSPARENT">
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-               <HBox.margin>
-                  <Insets left="125.0" />
-               </HBox.margin>
+      		<TableView fx:id="tblUsuariosFamiliares" maxWidth="423.0" onMouseClicked="#seleccionarUsuarioFamiliar" prefHeight="385.0" prefWidth="400.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+      			<columns>
+      				<TableColumn fx:id="colNombre" prefWidth="225.0" text="Nombre" />
+      				<TableColumn fx:id="colCorreo" prefWidth="224.0" text="Correo" />
+      			</columns>
+      		</TableView>
+            <Label text="USUARIOS FAMILIARES" GridPane.columnIndex="1" GridPane.halignment="CENTER">
+               <font>
+                  <Font name="System Bold" size="20.0" />
+               </font>
+            </Label>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ffffff00" height="236.0" stroke="WHITE" strokeType="INSIDE" width="272.0" GridPane.rowIndex="1">
+               <GridPane.margin>
+                  <Insets left="20.0" />
+               </GridPane.margin>
+            </Rectangle>
+            <Label text="USERNAME:" GridPane.rowIndex="1">
+               <GridPane.margin>
+                  <Insets left="30.0" top="-200.0" />
+               </GridPane.margin>
+            </Label>
+      		<Label fx:id="lblNombreUsuario" text="Nombre Usuario" GridPane.rowIndex="1">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+               <GridPane.margin>
+                  <Insets left="30.0" top="-150.0" />
+               </GridPane.margin>
+            </Label>
+            <Label text="Username Familiar: " GridPane.rowIndex="1">
+               <GridPane.margin>
+                  <Insets left="30.0" top="-60.0" />
+               </GridPane.margin>
+            </Label>
+      		<TextField fx:id="txtNombreUsuarioFamiliar" maxHeight="31.0" maxWidth="250.0" prefHeight="31.0" prefWidth="254.0" GridPane.rowIndex="1">
+               <GridPane.margin>
+                  <Insets left="30.0" />
+               </GridPane.margin>
+            </TextField>
+      		<Button fx:id="btnConectar" maxHeight="31.0" maxWidth="250.0" mnemonicParsing="false" onAction="#conectarUsuarios" text="CONECTAR" GridPane.rowIndex="1">
+               <GridPane.margin>
+                  <Insets left="30.0" top="160.0" />
+               </GridPane.margin>
             </Button>
          </children>
-      </HBox>
-      <Label layoutX="39.0" layoutY="241.0" text="Username Familiar: " />
+      </GridPane>
 	</children>
 </AnchorPane>

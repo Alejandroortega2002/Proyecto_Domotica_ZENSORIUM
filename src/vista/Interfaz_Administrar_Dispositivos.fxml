@@ -9,81 +9,173 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPaneRelaciones" prefHeight="600.0" prefWidth="800.0" styleClass="AnchorPaneRelaciones" stylesheets="@../applications/application.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane id="AnchorPaneRelaciones" prefHeight="600.0" prefWidth="800.0" styleClass="AnchorPaneRelaciones" stylesheets="@../Documents/GitHub/pii23-jositosclub/bin/applications/application.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
 	<children>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1f93ff00" height="60.0" layoutX="23.0" layoutY="19.0" stroke="WHITE" strokeType="INSIDE" width="234.0" />
-      <Label layoutX="443.0" layoutY="34.0" text="Tus Dispositivos">
-         <font>
-            <Font name="System Bold" size="20.0" />
-         </font>
-      </Label>
-		<Button layoutX="545.0" layoutY="494.0" mnemonicParsing="false" onMouseClicked="#btnEliminar" prefHeight="31.0" prefWidth="199.0" text="ELIMINAR" />
-      <Label layoutX="29.0" layoutY="24.0" text="Tipo de cuenta:" />
-		<TableView fx:id="tableAdministrarDispos" layoutX="321.0" layoutY="86.0" onMouseClicked="#seleccionarDispositivo">
-			<columns>
-				<TableColumn fx:id="columnaNombreDispo" prefWidth="203.0" text="Nombre" />
-				<TableColumn fx:id="columnaTipoDispo" prefWidth="218.0" text="Tipo" />
-            <TableColumn fx:id="columnaIdSensor" minWidth="0.0" prefWidth="0.0" text="ID Sensor" />
-			</columns>
-		</TableView>
-      <HBox alignment="CENTER" layoutY="550.0" prefHeight="60.0" prefWidth="800.0" style="-fx-background-color: #74BBBD;" stylesheets="@../applications/application.css">
+      <BorderPane prefHeight="600.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <bottom>
+            <HBox alignment="CENTER" prefHeight="47.0" prefWidth="800.0" style="-fx-background-color: #74BBBD;" stylesheets="@../Documents/GitHub/pii23-jositosclub/bin/applications/application.css" BorderPane.alignment="CENTER">
+               <children>
+                  <Button fx:id="btn_Inicio_Menu" mnemonicParsing="false" onMouseClicked="#irInicio" prefHeight="27.0" prefWidth="32.0" styleClass="btn_Inicio_Menu" stylesheets="@../Documents/GitHub/pii23-jositosclub/bin/Documents/GitHub/pii23-jositosclub/bin/applications/application.css" textAlignment="JUSTIFY">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                     <HBox.margin>
+                        <Insets right="125.0" />
+                     </HBox.margin>
+                  </Button>
+                  <Button fx:id="btn_Perfil_Menu" contentDisplay="CENTER" mnemonicParsing="false" onMouseClicked="#irMenuPerfil" prefHeight="30.0" prefWidth="27.0" styleClass="btn_Perfil_Menu" stylesheets="@../Documents/GitHub/pii23-jositosclub/bin/Documents/GitHub/pii23-jositosclub/bin/applications/application.css" textFill="TRANSPARENT">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                     <HBox.margin>
+                        <Insets left="125.0" />
+                     </HBox.margin>
+                  </Button>
+               </children>
+            </HBox>
+         </bottom>
+      </BorderPane>
+      <GridPane alignment="CENTER" layoutX="43.0" prefHeight="552.0" prefWidth="800.0" AnchorPane.bottomAnchor="48.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <columnConstraints>
+          <ColumnConstraints maxWidth="508.0" minWidth="10.0" prefWidth="311.0" />
+          <ColumnConstraints maxWidth="640.0" minWidth="10.0" prefWidth="489.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints maxHeight="300.0" minHeight="10.0" prefHeight="88.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="427.0" minHeight="10.0" prefHeight="385.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="309.0" minHeight="10.0" prefHeight="80.0" vgrow="SOMETIMES" />
+        </rowConstraints>
          <children>
-            <Button fx:id="btn_Inicio_Menu" mnemonicParsing="false" onMouseClicked="#irInicio" prefHeight="27.0" prefWidth="32.0" styleClass="btn_Inicio_Menu" stylesheets="@../Documents/GitHub/pii23-jositosclub/bin/applications/application.css" textAlignment="JUSTIFY">
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1f93ff00" height="65.0" stroke="WHITE" strokeType="INSIDE" width="270.0">
+               <GridPane.margin>
+                  <Insets left="20.0" />
+               </GridPane.margin>
+            </Rectangle>
+            <Label contentDisplay="CENTER" prefHeight="30.0" prefWidth="317.0" text="TUS DISPOSITIVOS" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="CENTER">
+               <font>
+                  <Font name="System Bold" size="20.0" />
+               </font>
+               <GridPane.margin>
+                  <Insets left="135.0" />
+               </GridPane.margin>
+            </Label>
+      		<Button mnemonicParsing="false" onMouseClicked="#btnEliminar" prefHeight="31.0" prefWidth="421.0" text="ELIMINAR" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+               <GridPane.margin>
+                  <Insets top="-40.0" />
+               </GridPane.margin>
+            </Button>
+            <Label text="Tipo de cuenta:">
+               <GridPane.margin>
+                  <Insets left="30.0" top="-30.0" />
+               </GridPane.margin>
+            </Label>
+      		<TableView fx:id="tableAdministrarDispos" maxWidth="421.0" onMouseClicked="#seleccionarDispositivo" prefHeight="385.0" prefWidth="486.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+      			<columns>
+      				<TableColumn fx:id="columnaNombreDispo" prefWidth="203.0" text="Nombre" />
+      				<TableColumn fx:id="columnaTipoDispo" prefWidth="218.0" text="Tipo" />
+                  <TableColumn fx:id="columnaIdSensor" minWidth="0.0" prefWidth="0.0" text="ID Sensor" />
+      			</columns>
+      		</TableView>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1f93ff00" height="149.0" stroke="WHITE" strokeType="INSIDE" width="270.0" GridPane.rowIndex="1">
+               <GridPane.margin>
+                  <Insets left="20.0" top="-140.0" />
+               </GridPane.margin>
+            </Rectangle>
+            <Button mnemonicParsing="false" onMouseClicked="#btnIrModiDispo" prefHeight="31.0" prefWidth="250.0" text="MODIFICAR" GridPane.rowIndex="1">
+               <GridPane.margin>
+                  <Insets left="30.0" top="-80.0" />
+               </GridPane.margin>
+            </Button>
+            <Label id="lblNombreUsu" fx:id="lblNombreUsu" text="Nombre Usuario">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+               <GridPane.margin>
+                  <Insets left="85.0" top="20.0" />
+               </GridPane.margin>
+            </Label>
+            <Label id="lblTipoCuenta" fx:id="lblTipoCuenta" text="Tipo de cuenta">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+               <GridPane.margin>
+                  <Insets left="120.0" top="-30.0" />
+               </GridPane.margin>
+            </Label>
+            <TextField fx:id="lblNombreDispoSelec" maxHeight="31.0" maxWidth="250.0" prefHeight="31.0" prefWidth="248.0" GridPane.rowIndex="1">
+               <GridPane.margin>
+                  <Insets left="30.0" top="-190.0" />
+               </GridPane.margin>
+            </TextField>
+            <Label text="Dispositivo seleccionado" GridPane.rowIndex="1">
+               <GridPane.margin>
+                  <Insets left="30.0" top="-260.0" />
+               </GridPane.margin>
+            </Label>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1f93ff00" height="180.0" stroke="WHITE" strokeType="INSIDE" width="273.0" GridPane.rowIndex="2">
+               <GridPane.margin>
+                  <Insets left="20.0" top="-170.0" />
+               </GridPane.margin>
+            </Rectangle>
+            <TextField fx:id="txtNombreDispo" maxHeight="31.0" maxWidth="250.0" prefHeight="31.0" prefWidth="333.0" GridPane.rowIndex="2">
+               <GridPane.margin>
+                  <Insets left="30.0" top="-270.0" />
+               </GridPane.margin>
+            </TextField>
+            <Label text="Nombre dispositivo" GridPane.rowIndex="2">
+               <GridPane.margin>
+                  <Insets left="30.0" top="-325.0" />
+               </GridPane.margin>
+            </Label>
+            <Button maxHeight="31.0" maxWidth="250.0" mnemonicParsing="false" onMouseClicked="#btnAnadirDispo" prefHeight="31.0" prefWidth="199.0" text="AÑADIR " GridPane.rowIndex="2">
+               <GridPane.margin>
+                  <Insets left="30.0" top="-40.0" />
+               </GridPane.margin>
+            </Button>
+            <Label text="Tipo" GridPane.rowIndex="2">
+               <GridPane.margin>
+                  <Insets left="30.0" top="-210.0" />
+               </GridPane.margin>
+            </Label>
+            <JFXComboBox id="tipoDispositivo" fx:id="tipoDispositivo" focusColor="WHITE" maxHeight="31.0" maxWidth="250.0" onAction="#seleccionarDispositivo" prefHeight="31.0" prefWidth="199.0" style="-fx-text-fill: white;" unFocusColor="WHITE" GridPane.rowIndex="2">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
-               <HBox.margin>
-                  <Insets right="125.0" />
-               </HBox.margin>
-            </Button>
-            <Button fx:id="btn_Perfil_Menu" contentDisplay="CENTER" mnemonicParsing="false" onMouseClicked="#irMenuPerfil" prefHeight="30.0" prefWidth="27.0" styleClass="btn_Perfil_Menu" stylesheets="@../Documents/GitHub/pii23-jositosclub/bin/applications/application.css" textFill="TRANSPARENT">
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-               <HBox.margin>
-                  <Insets left="125.0" />
-               </HBox.margin>
-            </Button>
+               <GridPane.margin>
+                  <Insets left="30.0" top="-150.0" />
+               </GridPane.margin>
+            </JFXComboBox>
+            <Label text="Añadir dispositivo" GridPane.rowIndex="2">
+               <font>
+                  <Font name="System Bold" size="20.0" />
+               </font>
+               <GridPane.margin>
+                  <Insets left="72.0" top="-398.0" />
+               </GridPane.margin>
+            </Label>
+            <Label fx:id="Error_Label_Registro" prefHeight="31.0" prefWidth="213.0" text="AVISO ERROR AÑADIR" textFill="RED" visible="false" GridPane.rowIndex="2" />
+            <Label text="Modificar dispositivo" GridPane.rowIndex="1">
+               <font>
+                  <Font name="System Bold" size="20.0" />
+               </font>
+               <GridPane.margin>
+                  <Insets left="50.0" top="-330.0" />
+               </GridPane.margin>
+            </Label>
+            <Label text="Nombre:">
+               <GridPane.margin>
+                  <Insets left="30.0" top="20.0" />
+               </GridPane.margin>
+            </Label>
          </children>
-      </HBox>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1f93ff00" height="145.0" layoutX="27.0" layoutY="141.0" stroke="WHITE" strokeType="INSIDE" width="234.0" />
-      <Button layoutX="42.0" layoutY="235.0" mnemonicParsing="false" onMouseClicked="#btnIrModiDispo" prefHeight="31.0" prefWidth="199.0" text="MODIFICAR" />
-      <Label id="lblNombreUsu" fx:id="lblNombreUsu" layoutX="28.0" layoutY="50.0" text="Nombre Usuario">
-         <font>
-            <Font name="System Bold" size="15.0" />
-         </font>
-      </Label>
-      <Label id="lblTipoCuenta" fx:id="lblTipoCuenta" layoutX="135.0" layoutY="25.0" text="Tipo de cuenta">
-         <font>
-            <Font name="System Bold" size="15.0" />
-         </font>
-      </Label>
-      <TextField fx:id="lblNombreDispoSelec" layoutX="41.0" layoutY="186.0" prefHeight="31.0" prefWidth="199.0" />
-      <Label layoutX="41.0" layoutY="157.0" text="Dispositivo seleccionado" />
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1f93ff00" height="197.0" layoutX="28.0" layoutY="337.0" stroke="WHITE" strokeType="INSIDE" width="234.0" />
-      <TextField fx:id="txtNombreDispo" layoutX="46.0" layoutY="380.0" prefHeight="31.0" prefWidth="199.0" />
-      <Label layoutX="46.0" layoutY="351.0" text="Nombre dispositivo" />
-      <Button layoutX="43.0" layoutY="488.0" mnemonicParsing="false" onMouseClicked="#btnAnadirDispo" prefHeight="31.0" prefWidth="199.0" text="AÑADIR " />
-      <Label layoutX="47.0" layoutY="420.0" text="Tipo" />
-      <JFXComboBox id="tipoDispositivo" fx:id="tipoDispositivo" focusColor="WHITE" layoutX="47.0" layoutY="441.0" onAction="#seleccionarDispositivo" prefHeight="31.0" prefWidth="199.0" style="-fx-text-fill: white;" unFocusColor="WHITE">
-         <cursor>
-            <Cursor fx:constant="HAND" />
-         </cursor>
-      </JFXComboBox>
-      <Label layoutX="54.0" layoutY="305.0" text="Añadir dispositivo">
-         <font>
-            <Font name="System Bold" size="20.0" />
-         </font>
-      </Label>
-      <Label fx:id="Error_Label_Registro" layoutX="321.0" layoutY="498.0" prefHeight="31.0" prefWidth="213.0" text="AVISO ERROR AÑADIR" textFill="RED" visible="false" />
-      <Label layoutX="41.0" layoutY="104.0" text="Modificar dispositivo">
-         <font>
-            <Font name="System Bold" size="20.0" />
-         </font>
-      </Label>
+      </GridPane>
 	</children>
 </AnchorPane>
