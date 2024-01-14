@@ -9,14 +9,26 @@ public class Reporte {
 	private String titulo;
 	private String queja;
 	private Date fecha;
-	public Reporte(long id_user_emisor, long id_user_receptor, String titulo, String queja, Date fecha) {
+	private long id_reporte;
+	
+	public Reporte(long id_user_emisor, long id_user_receptor, String titulo, String queja, Date fecha,long id_reporte) {
 		super();
 		this.id_user_emisor = id_user_emisor;
 		this.id_user_receptor = id_user_receptor;
 		this.titulo = titulo;
 		this.queja = queja;
 		this.fecha = fecha;
+		this.id_reporte = id_reporte;
 	}
+	
+	public long getId_reporte() {
+		return id_reporte;
+	}
+
+	public void setId_reporte(long id_reporte) {
+		this.id_reporte = id_reporte;
+	}
+
 	public long getId_user_emisor() {
 		return id_user_emisor;
 	}

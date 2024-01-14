@@ -151,7 +151,7 @@ public class DispositivosManager {
 
 		return false; // No se encontró el dispositivo con el nombre especificado
 	}
-	
+
 	public static boolean modificarEstadoDispositivo(String nombreDispositivo, Boolean estadoDispositivo) {
 		ListaEnlazada<Dispositivos> dispositivos = cargarDispos();
 
@@ -169,7 +169,7 @@ public class DispositivosManager {
 
 				dispositivoActual.setEstado(estadoDispositivo);
 				System.out.println(dispositivoActual.isEstado());
-				
+
 				guardarDispositivos(dispositivos);
 				return true; // Dispositivo modificado exitosamente
 			}

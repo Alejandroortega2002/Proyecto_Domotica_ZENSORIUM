@@ -16,24 +16,6 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" styleClass="Fondo_Pantalla_Perfil" stylesheets="@../applications/application.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-<<<<<<< Updated upstream
-      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="339.0" layoutY="46.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../img/logo_app.png" />
-         </image>
-      </ImageView>
-      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="268.0" layoutY="208.0" prefHeight="38.0" prefWidth="185.0" text="Nombre de Usuario: " />
-      <Label fx:id="LblUsername" alignment="CENTER" contentDisplay="CENTER" layoutX="417.0" layoutY="208.0" prefHeight="38.0" prefWidth="185.0" text="Nombre de Usuario: ">
-         <font>
-            <Font name="System Bold" size="15.0" />
-         </font>
-      </Label>
-      <Button fx:id="btnRelaciones" layoutX="335.0" layoutY="340.0" mnemonicParsing="false" onMouseClicked="#irRelaciones" text="Gestionar Usuarios" />
-      <Button layoutX="360.0" layoutY="395.0" mnemonicParsing="false" text="Editar Perfil" />
-      <Button fx:id="btnCerrarSseion" layoutX="354.0" layoutY="450.0" mnemonicParsing="false" onMouseClicked="#cerrarSesion" text="Cerrar Sesion" />
-      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="246.0" layoutY="246.0" prefHeight="38.0" prefWidth="216.0" text="Tipo de Cuenta: " />
-      <HBox alignment="CENTER" layoutY="540.0" prefHeight="60.0" prefWidth="800.0" style="-fx-background-color: #74BBBD;">
-=======
       <BorderPane prefHeight="600.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <bottom>
             <HBox alignment="CENTER" prefHeight="60.0" prefWidth="800.0" style="-fx-background-color: #74BBBD;" BorderPane.alignment="CENTER">
@@ -67,14 +49,13 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
->>>>>>> Stashed changes
          <children>
             <Label text="Usuarios Asociados:" GridPane.rowIndex="1">
                <GridPane.margin>
                   <Insets left="-110.0" top="80.0" />
                </GridPane.margin>
             </Label>
-            <Button maxHeight="31.0" maxWidth="170.0" mnemonicParsing="false" text="Enviar Reporte" GridPane.rowIndex="2">
+            <Button maxHeight="31.0" maxWidth="170.0" mnemonicParsing="false" onMouseClicked="#irEnviarReporte" text="Enviar Reporte" GridPane.rowIndex="2">
                <GridPane.margin>
                   <Insets left="-180.0" top="-20.0" />
                </GridPane.margin>
@@ -133,7 +114,7 @@
                   <Insets left="-180.0" top="-110.0" />
                </GridPane.margin>
             </Button>
-            <Button maxHeight="31.0" maxWidth="350.0" mnemonicParsing="false" text="Cerrar Sesion" GridPane.rowIndex="2">
+            <Button maxHeight="31.0" maxWidth="350.0" mnemonicParsing="false" onMouseClicked="#cerrarSesion" text="Cerrar Sesion" GridPane.rowIndex="2">
                <GridPane.margin>
                   <Insets top="65.0" />
                </GridPane.margin>
