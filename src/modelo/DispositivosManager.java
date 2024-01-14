@@ -151,6 +151,34 @@ public class DispositivosManager {
 
 		return false; // No se encontró el dispositivo con el nombre especificado
 	}
+	
+	public static boolean modificarEstadoDispositivo(String nombreDispositivo, Boolean estadoDispositivo) {
+		ListaEnlazada<Dispositivos> dispositivos = cargarDispos();
+
+		if (dispositivos == null) {
+			return false; // No hay dispositivos para modificar
+		}
+
+		Nodo<Dispositivos> nodoActual = dispositivos.getCabeza();
+
+		while (nodoActual != null) {
+			Dispositivos dispositivoActual = nodoActual.getDato();
+
+			if (dispositivoActual.getNombre().equals(nombreDispositivo)) {
+				// Se ha encontrado el dispositivo a modificar
+
+				dispositivoActual.setEstado(estadoDispositivo);
+				System.out.println(dispositivoActual.isEstado());
+				
+				guardarDispositivos(dispositivos);
+				return true; // Dispositivo modificado exitosamente
+			}
+
+			nodoActual = nodoActual.getEnlace();
+		}
+
+		return false; // No se encontró el dispositivo con el nombre especificado
+	}
 
 	public static Dispositivos getDispositivoSeleccionado() {
 		return dispositivoSeleccionado;

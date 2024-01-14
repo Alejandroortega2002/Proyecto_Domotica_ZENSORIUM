@@ -89,12 +89,12 @@
                   <Insets left="20.0" top="-140.0" />
                </GridPane.margin>
             </Rectangle>
-            <Button id="btnApagarDispo" fx:id="btnApagarDispo" mnemonicParsing="false" prefHeight="31.0" prefWidth="250.0" text="APAGAR" GridPane.rowIndex="2">
+            <Button id="btnApagarDispo" fx:id="btnApagarDispo" mnemonicParsing="false" onMouseClicked="#btnApagar" prefHeight="31.0" prefWidth="250.0" text="APAGAR" GridPane.rowIndex="2">
                <GridPane.margin>
                   <Insets left="30.0" top="-100.0" />
                </GridPane.margin>
             </Button>
-      		<Button id="btnEncenderDispo" fx:id="btnEncenderDispo" mnemonicParsing="false" prefHeight="31.0" prefWidth="250.0" text="ENCENDER" GridPane.rowIndex="2">
+      		<Button id="btnEncenderDispo" fx:id="btnEncenderDispo" mnemonicParsing="false" onMouseClicked="#btnEncender" prefHeight="31.0" prefWidth="250.0" text="ENCENDER" GridPane.rowIndex="2">
                <GridPane.margin>
                   <Insets left="30.0" top="-180.0" />
                </GridPane.margin>

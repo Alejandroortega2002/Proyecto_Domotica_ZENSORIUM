@@ -35,6 +35,27 @@ public class Controlador_Pantalla_Perfil {
 			LblTipoCuenta.setText(tipoDeCuenta);
 		}
 	}
+	
+	@FXML
+	private void cerrarSesion(MouseEvent event) {
+		try {
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/Pantalla_Inicio_Login.fxml"));
+
+			Controlador_Inicio_Login control = new Controlador_Inicio_Login();
+
+			loader.setController(control);
+
+			Parent root = loader.load();
+			Stage primaryStage = new Stage();
+			primaryStage.setScene(new Scene(root));
+			primaryStage.show();
+			Stage ventanaActual = (Stage) LblUsername.getScene().getWindow();
+			ventanaActual.hide();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 
 	@FXML
 	private void irRelaciones(MouseEvent event) {

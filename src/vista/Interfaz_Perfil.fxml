@@ -25,7 +25,7 @@
       </Label>
       <Button fx:id="btnRelaciones" layoutX="335.0" layoutY="340.0" mnemonicParsing="false" onMouseClicked="#irRelaciones" text="Gestionar Usuarios" />
       <Button layoutX="360.0" layoutY="395.0" mnemonicParsing="false" text="Editar Perfil" />
-      <Button layoutX="354.0" layoutY="450.0" mnemonicParsing="false" text="Cerrar Sesion" />
+      <Button fx:id="btnCerrarSseion" layoutX="354.0" layoutY="450.0" mnemonicParsing="false" onMouseClicked="#cerrarSesion" text="Cerrar Sesion" />
       <Label alignment="CENTER" contentDisplay="CENTER" layoutX="246.0" layoutY="246.0" prefHeight="38.0" prefWidth="216.0" text="Tipo de Cuenta: " />
       <HBox alignment="CENTER" layoutY="540.0" prefHeight="60.0" prefWidth="800.0" style="-fx-background-color: #74BBBD;">
          <children>

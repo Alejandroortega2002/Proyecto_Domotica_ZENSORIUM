@@ -37,7 +37,7 @@ public class Controlador_InterfazDispositivos {
 
 	@FXML
 	private Button btnVerDatos;
-	
+
 	@FXML
 	private TextField txtFieldNombreDispo; // Para ingresar el nombre del usuario familiar
 	@FXML
@@ -51,7 +51,6 @@ public class Controlador_InterfazDispositivos {
 	private TableColumn<Dispositivos, String> columnaEstado;
 	@FXML
 	private TableColumn<Dispositivos, String> columnaIdSensor;
-	
 
 	@FXML
 	public void initialize() {
@@ -98,6 +97,34 @@ public class Controlador_InterfazDispositivos {
 
 		tablaDsipositivos.setItems(dispos);
 	}
+
+	@FXML
+	private void btnEncender(MouseEvent event) throws IOException {
+		// Obtén el dispo seleccionado y actualiza el estado del dispo
+		Dispositivos dispoSeleccionado = tablaDsipositivos.getSelectionModel().getSelectedItem();
+		String nombre = dispoSeleccionado.getNombre();
+		if (dispoSeleccionado != null) {
+
+			DispositivosManager.modificarEstadoDispositivo(nombre, true);
+			cargarDispositivos();
+		}
+
+	}
+
+	@FXML
+	private void btnApagar(MouseEvent event) throws IOException {
+		// Obtén el dispo seleccionado y actualiza el estado del dispo
+		Dispositivos dispoSeleccionado = tablaDsipositivos.getSelectionModel().getSelectedItem();
+		String nombre = dispoSeleccionado.getNombre();
+		if (dispoSeleccionado != null) {
+
+			DispositivosManager.modificarEstadoDispositivo(nombre, false);
+			cargarDispositivos();
+
+		}
+
+	}
+/////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	@FXML
 	private void irMenuPerfil(MouseEvent event) throws IOException {
@@ -166,11 +193,11 @@ public class Controlador_InterfazDispositivos {
 		}
 
 	}
-	
+
 	@FXML
 	private void IrVerDato(MouseEvent event) throws IOException {
 		try {
-			if(DispositivosManager.getDispositivoSeleccionado() != null) {
+			if (DispositivosManager.getDispositivoSeleccionado() != null) {
 				FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/Interfaz_Visualizacion_Datos.fxml"));
 
 				Controlador_Ver_Datos control = new Controlador_Ver_Datos();
@@ -185,7 +212,7 @@ public class Controlador_InterfazDispositivos {
 				Stage ventatnaActual = (Stage) lblNombreUsu.getScene().getWindow();
 				ventatnaActual.hide();
 
-			}else {
+			} else {
 				// Mostrar mensaje de error o no hacer nada
 				Alert alert = new Alert(Alert.AlertType.ERROR);
 				alert.setTitle("Acceso Restringido");
@@ -193,11 +220,11 @@ public class Controlador_InterfazDispositivos {
 				alert.setContentText("No tienes ningun dispositivo seleccionado");
 				alert.showAndWait();
 			}
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
 	}
-	
+
 }

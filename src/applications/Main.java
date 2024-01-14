@@ -21,8 +21,15 @@ public class Main extends Application {
 	@Override
 	public void start(Stage stage) {
 		try {
-			Parent root = FXMLLoader.load(getClass().getResource("../vista/Pantalla_Inicio_Login.fxml"));
+			
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/Pantalla_Inicio_Login.fxml"));
 
+			Controlador_Inicio_Login control = new Controlador_Inicio_Login();
+
+			loader.setController(control);
+
+
+			Parent root = loader.load();
 			Scene scene = new Scene(root);
 			stage.initStyle(StageStyle.UNDECORATED);
 			stage.setScene(scene);
