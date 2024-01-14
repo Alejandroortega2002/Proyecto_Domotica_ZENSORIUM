@@ -1,1 +1,569 @@
-{"cabeza":{"dato":{"dato_actual":0.0,"nombre":"Sensor de Temperatura","tipo":"Temperatura","id_sensor":1},"enlace":{"dato":{"dato_actual":0.0,"nombre":"Sensor de Movimiento","tipo":"Movimiento","id_sensor":2},"enlace":{"dato":{"dato_actual":0.0,"nombre":"Sensor de Luz","tipo":"Luz","id_sensor":3},"enlace":{"dato":{"dato_actual":0.0,"nombre":"Sensor de Posición","tipo":"Posición","id_sensor":4}}}}}}
+{
+	"cabeza": {
+		"dato": {
+			"id_sensor": 1,
+			"dato_actual": 0.0,
+			"nombre": "Sensor de Temperatura",
+			"tipo": "Temperatura",
+			"orden_registro": 1
+		},
+		"enlace": {
+			"dato": {
+				"id_sensor": 1,
+				"dato_actual": 22.573143,
+				"nombre": "Sensor de Temperatura",
+				"tipo": "Temperatura",
+				"orden_registro": 2
+			},
+			"enlace": {
+				"dato": {
+					"id_sensor": 1,
+					"dato_actual": 17.808372,
+					"nombre": "Sensor de Temperatura",
+					"tipo": "Temperatura",
+					"orden_registro": 3
+				},
+				"enlace": {
+					"dato": {
+						"id_sensor": 1,
+						"dato_actual": 16.099947,
+						"nombre": "Sensor de Temperatura",
+						"tipo": "Temperatura",
+						"orden_registro": 4
+					},
+					"enlace": {
+						"dato": {
+							"id_sensor": 1,
+							"dato_actual": 14.239598,
+							"nombre": "Sensor de Temperatura",
+							"tipo": "Temperatura",
+							"orden_registro": 5
+						},
+						"enlace": {
+							"dato": {
+								"id_sensor": 1,
+								"dato_actual": 15.18941,
+								"nombre": "Sensor de Temperatura",
+								"tipo": "Temperatura",
+								"orden_registro": 6
+							},
+							"enlace": {
+								"dato": {
+									"id_sensor": 1,
+									"dato_actual": 14.560566,
+									"nombre": "Sensor de Temperatura",
+									"tipo": "Temperatura",
+									"orden_registro": 7
+								},
+								"enlace": {
+									"dato": {
+										"id_sensor": 1,
+										"dato_actual": 27.205107,
+										"nombre": "Sensor de Temperatura",
+										"tipo": "Temperatura",
+										"orden_registro": 8
+									},
+									"enlace": {
+										"dato": {
+											"id_sensor": 1,
+											"dato_actual": 15.671702,
+											"nombre": "Sensor de Temperatura",
+											"tipo": "Temperatura",
+											"orden_registro": 9
+										},
+										"enlace": {
+											"dato": {
+												"id_sensor": 1,
+												"dato_actual": 26.671103,
+												"nombre": "Sensor de Temperatura",
+												"tipo": "Temperatura",
+												"orden_registro": 10
+											},
+											"enlace": {
+												"dato": {
+													"id_sensor": 1,
+													"dato_actual": 15.039621,
+													"nombre": "Sensor de Temperatura",
+													"tipo": "Temperatura",
+													"orden_registro": 11
+												},
+												"enlace": {
+													"dato": {
+														"id_sensor": 1,
+														"dato_actual": 24.227182,
+														"nombre": "Sensor de Temperatura",
+														"tipo": "Temperatura",
+														"orden_registro": 12
+													},
+													"enlace": {
+														"dato": {
+															"id_sensor": 1,
+															"dato_actual": 18.486177,
+															"nombre": "Sensor de Temperatura",
+															"tipo": "Temperatura",
+															"orden_registro": 13
+														},
+														"enlace": {
+															"dato": {
+																"id_sensor": 1,
+																"dato_actual": 26.479752,
+																"nombre": "Sensor de Temperatura",
+																"tipo": "Temperatura",
+																"orden_registro": 14
+															},
+															"enlace": {
+																"dato": {
+																	"id_sensor": 1,
+																	"dato_actual": 15.553806,
+																	"nombre": "Sensor de Temperatura",
+																	"tipo": "Temperatura",
+																	"orden_registro": 15
+																},
+																"enlace": {
+																	"dato": {
+																		"id_sensor": 1,
+																		"dato_actual": 18.243998,
+																		"nombre": "Sensor de Temperatura",
+																		"tipo": "Temperatura",
+																		"orden_registro": 16
+																	},
+																	"enlace": {
+																		"dato": {
+																			"id_sensor": 1,
+																			"dato_actual": 21.412956,
+																			"nombre": "Sensor de Temperatura",
+																			"tipo": "Temperatura",
+																			"orden_registro": 17
+																		},
+																		"enlace": {
+																			"dato": {
+																				"id_sensor": 1,
+																				"dato_actual": 21.578526,
+																				"nombre": "Sensor de Temperatura",
+																				"tipo": "Temperatura",
+																				"orden_registro": 18
+																			},
+																			"enlace": {
+																				"dato": {
+																					"id_sensor": 1,
+																					"dato_actual": 24.456589,
+																					"nombre": "Sensor de Temperatura",
+																					"tipo": "Temperatura",
+																					"orden_registro": 19
+																				},
+																				"enlace": {
+																					"dato": {
+																						"id_sensor": 1,
+																						"dato_actual": 31.408972,
+																						"nombre": "Sensor de Temperatura",
+																						"tipo": "Temperatura",
+																						"orden_registro": 20
+																					},
+																					"enlace": {
+																						"dato": {
+																							"id_sensor": 1,
+																							"dato_actual": 20.540699,
+																							"nombre": "Sensor de Temperatura",
+																							"tipo": "Temperatura",
+																							"orden_registro": 21
+																						},
+																						"enlace": {
+																							"dato": {
+																								"id_sensor": 2,
+																								"dato_actual": 0.0,
+																								"nombre": "Sensor de Movimiento",
+																								"tipo": "Movimiento",
+																								"orden_registro": 1
+																							},
+																							"enlace": {
+																								"dato": {
+																									"id_sensor": 2,
+																									"dato_actual": 4.7302823,
+																									"nombre": "Sensor de Movimiento",
+																									"tipo": "Movimiento",
+																									"orden_registro": 2
+																								},
+																								"enlace": {
+																									"dato": {
+																										"id_sensor": 2,
+																										"dato_actual": 4.83954,
+																										"nombre": "Sensor de Movimiento",
+																										"tipo": "Movimiento",
+																										"orden_registro": 3
+																									},
+																									"enlace": {
+																										"dato": {
+																											"id_sensor": 2,
+																											"dato_actual": 3.0207562,
+																											"nombre": "Sensor de Movimiento",
+																											"tipo": "Movimiento",
+																											"orden_registro": 4
+																										},
+																										"enlace": {
+																											"dato": {
+																												"id_sensor": 2,
+																												"dato_actual": 6.5383863,
+																												"nombre": "Sensor de Movimiento",
+																												"tipo": "Movimiento",
+																												"orden_registro": 5
+																											},
+																											"enlace": {
+																												"dato": {
+																													"id_sensor": 2,
+																													"dato_actual": 2.747395,
+																													"nombre": "Sensor de Movimiento",
+																													"tipo": "Movimiento",
+																													"orden_registro": 6
+																												},
+																												"enlace": {
+																													"dato": {
+																														"id_sensor": 2,
+																														"dato_actual": 0.61864793,
+																														"nombre": "Sensor de Movimiento",
+																														"tipo": "Movimiento",
+																														"orden_registro": 7
+																													},
+																													"enlace": {
+																														"dato": {
+																															"id_sensor": 2,
+																															"dato_actual": 3.130817,
+																															"nombre": "Sensor de Movimiento",
+																															"tipo": "Movimiento",
+																															"orden_registro": 8
+																														},
+																														"enlace": {
+																															"dato": {
+																																"id_sensor": 2,
+																																"dato_actual": 6.7516904,
+																																"nombre": "Sensor de Movimiento",
+																																"tipo": "Movimiento",
+																																"orden_registro": 9
+																															},
+																															"enlace": {
+																																"dato": {
+																																	"id_sensor": 2,
+																																	"dato_actual": 6.4183445,
+																																	"nombre": "Sensor de Movimiento",
+																																	"tipo": "Movimiento",
+																																	"orden_registro": 10
+																																},
+																																"enlace": {
+																																	"dato": {
+																																		"id_sensor": 2,
+																																		"dato_actual": 0.47078192,
+																																		"nombre": "Sensor de Movimiento",
+																																		"tipo": "Movimiento",
+																																		"orden_registro": 11
+																																	},
+																																	"enlace": {
+																																		"dato": {
+																																			"id_sensor": 2,
+																																			"dato_actual": 5.7675743,
+																																			"nombre": "Sensor de Movimiento",
+																																			"tipo": "Movimiento",
+																																			"orden_registro": 12
+																																		},
+																																		"enlace": {
+																																			"dato": {
+																																				"id_sensor": 2,
+																																				"dato_actual": 2.0257294,
+																																				"nombre": "Sensor de Movimiento",
+																																				"tipo": "Movimiento",
+																																				"orden_registro": 13
+																																			},
+																																			"enlace": {
+																																				"dato": {
+																																					"id_sensor": 2,
+																																					"dato_actual": 9.88206,
+																																					"nombre": "Sensor de Movimiento",
+																																					"tipo": "Movimiento",
+																																					"orden_registro": 14
+																																				},
+																																				"enlace": {
+																																					"dato": {
+																																						"id_sensor": 2,
+																																						"dato_actual": 8.578271,
+																																						"nombre": "Sensor de Movimiento",
+																																						"tipo": "Movimiento",
+																																						"orden_registro": 15
+																																					},
+																																					"enlace": {
+																																						"dato": {
+																																							"id_sensor": 2,
+																																							"dato_actual": 1.3224822,
+																																							"nombre": "Sensor de Movimiento",
+																																							"tipo": "Movimiento",
+																																							"orden_registro": 16
+																																						},
+																																						"enlace": {
+																																							"dato": {
+																																								"id_sensor": 2,
+																																								"dato_actual": 2.6908188,
+																																								"nombre": "Sensor de Movimiento",
+																																								"tipo": "Movimiento",
+																																								"orden_registro": 17
+																																							},
+																																							"enlace": {
+																																								"dato": {
+																																									"id_sensor": 2,
+																																									"dato_actual": 1.0860789,
+																																									"nombre": "Sensor de Movimiento",
+																																									"tipo": "Movimiento",
+																																									"orden_registro": 18
+																																								},
+																																								"enlace": {
+																																									"dato": {
+																																										"id_sensor": 2,
+																																										"dato_actual": 5.917824,
+																																										"nombre": "Sensor de Movimiento",
+																																										"tipo": "Movimiento",
+																																										"orden_registro": 19
+																																									},
+																																									"enlace": {
+																																										"dato": {
+																																											"id_sensor": 2,
+																																											"dato_actual": 1.9950551,
+																																											"nombre": "Sensor de Movimiento",
+																																											"tipo": "Movimiento",
+																																											"orden_registro": 20
+																																										},
+																																										"enlace": {
+																																											"dato": {
+																																												"id_sensor": 2,
+																																												"dato_actual": 6.5053844,
+																																												"nombre": "Sensor de Movimiento",
+																																												"tipo": "Movimiento",
+																																												"orden_registro": 21
+																																											},
+																																											"enlace": {
+																																												"dato": {
+																																													"id_sensor": 3,
+																																													"dato_actual": 0.0,
+																																													"nombre": "Sensor de Luz",
+																																													"tipo": "Luz",
+																																													"orden_registro": 1
+																																												},
+																																												"enlace": {
+																																													"dato": {
+																																														"id_sensor": 3,
+																																														"dato_actual": 21.044004,
+																																														"nombre": "Sensor de Luz",
+																																														"tipo": "Luz",
+																																														"orden_registro": 2
+																																													},
+																																													"enlace": {
+																																														"dato": {
+																																															"id_sensor": 3,
+																																															"dato_actual": 85.60418,
+																																															"nombre": "Sensor de Luz",
+																																															"tipo": "Luz",
+																																															"orden_registro": 3
+																																														},
+																																														"enlace": {
+																																															"dato": {
+																																																"id_sensor": 3,
+																																																"dato_actual": 85.72248,
+																																																"nombre": "Sensor de Luz",
+																																																"tipo": "Luz",
+																																																"orden_registro": 4
+																																															},
+																																															"enlace": {
+																																																"dato": {
+																																																	"id_sensor": 3,
+																																																	"dato_actual": 49.630035,
+																																																	"nombre": "Sensor de Luz",
+																																																	"tipo": "Luz",
+																																																	"orden_registro": 5
+																																																},
+																																																"enlace": {
+																																																	"dato": {
+																																																		"id_sensor": 3,
+																																																		"dato_actual": 19.832771,
+																																																		"nombre": "Sensor de Luz",
+																																																		"tipo": "Luz",
+																																																		"orden_registro": 6
+																																																	},
+																																																	"enlace": {
+																																																		"dato": {
+																																																			"id_sensor": 3,
+																																																			"dato_actual": 13.920021,
+																																																			"nombre": "Sensor de Luz",
+																																																			"tipo": "Luz",
+																																																			"orden_registro": 7
+																																																		},
+																																																		"enlace": {
+																																																			"dato": {
+																																																				"id_sensor": 3,
+																																																				"dato_actual": 69.818344,
+																																																				"nombre": "Sensor de Luz",
+																																																				"tipo": "Luz",
+																																																				"orden_registro": 8
+																																																			},
+																																																			"enlace": {
+																																																				"dato": {
+																																																					"id_sensor": 3,
+																																																					"dato_actual": 32.98965,
+																																																					"nombre": "Sensor de Luz",
+																																																					"tipo": "Luz",
+																																																					"orden_registro": 9
+																																																				},
+																																																				"enlace": {
+																																																					"dato": {
+																																																						"id_sensor": 3,
+																																																						"dato_actual": 52.996872,
+																																																						"nombre": "Sensor de Luz",
+																																																						"tipo": "Luz",
+																																																						"orden_registro": 10
+																																																					},
+																																																					"enlace": {
+																																																						"dato": {
+																																																							"id_sensor": 3,
+																																																							"dato_actual": 89.95755,
+																																																							"nombre": "Sensor de Luz",
+																																																							"tipo": "Luz",
+																																																							"orden_registro": 11
+																																																						},
+																																																						"enlace": {
+																																																							"dato": {
+																																																								"id_sensor": 3,
+																																																								"dato_actual": 28.233242,
+																																																								"nombre": "Sensor de Luz",
+																																																								"tipo": "Luz",
+																																																								"orden_registro": 12
+																																																							},
+																																																							"enlace": {
+																																																								"dato": {
+																																																									"id_sensor": 3,
+																																																									"dato_actual": 38.366447,
+																																																									"nombre": "Sensor de Luz",
+																																																									"tipo": "Luz",
+																																																									"orden_registro": 13
+																																																								},
+																																																								"enlace": {
+																																																									"dato": {
+																																																										"id_sensor": 3,
+																																																										"dato_actual": 57.084114,
+																																																										"nombre": "Sensor de Luz",
+																																																										"tipo": "Luz",
+																																																										"orden_registro": 14
+																																																									},
+																																																									"enlace": {
+																																																										"dato": {
+																																																											"id_sensor": 3,
+																																																											"dato_actual": 30.69514,
+																																																											"nombre": "Sensor de Luz",
+																																																											"tipo": "Luz",
+																																																											"orden_registro": 15
+																																																										},
+																																																										"enlace": {
+																																																											"dato": {
+																																																												"id_sensor": 3,
+																																																												"dato_actual": 53.3247,
+																																																												"nombre": "Sensor de Luz",
+																																																												"tipo": "Luz",
+																																																												"orden_registro": 16
+																																																											},
+																																																											"enlace": {
+																																																												"dato": {
+																																																													"id_sensor": 3,
+																																																													"dato_actual": 18.255026,
+																																																													"nombre": "Sensor de Luz",
+																																																													"tipo": "Luz",
+																																																													"orden_registro": 17
+																																																												},
+																																																												"enlace": {
+																																																													"dato": {
+																																																														"id_sensor": 3,
+																																																														"dato_actual": 33.820545,
+																																																														"nombre": "Sensor de Luz",
+																																																														"tipo": "Luz",
+																																																														"orden_registro": 18
+																																																													},
+																																																													"enlace": {
+																																																														"dato": {
+																																																															"id_sensor": 3,
+																																																															"dato_actual": 44.330032,
+																																																															"nombre": "Sensor de Luz",
+																																																															"tipo": "Luz",
+																																																															"orden_registro": 19
+																																																														},
+																																																														"enlace": {
+																																																															"dato": {
+																																																																"id_sensor": 3,
+																																																																"dato_actual": 6.625408,
+																																																																"nombre": "Sensor de Luz",
+																																																																"tipo": "Luz",
+																																																																"orden_registro": 20
+																																																															},
+																																																															"enlace": {
+																																																																"dato": {
+																																																																	"id_sensor": 3,
+																																																																	"dato_actual": 20.018345,
+																																																																	"nombre": "Sensor de Luz",
+																																																																	"tipo": "Luz",
+																																																																	"orden_registro": 21
+																																																																}
+																																																															}
+																																																														}
+																																																													}
+																																																												}
+																																																											}
+																																																										}
+																																																									}
+																																																								}
+																																																							}
+																																																						}
+																																																					}
+																																																				}
+																																																			}
+																																																		}
+																																																	}
+																																																}
+																																															}
+																																														}
+																																													}
+																																												}
+																																											}
+																																										}
+																																									}
+																																								}
+																																							}
+																																						}
+																																					}
+																																				}
+																																			}
+																																		}
+																																	}
+																																}
+																															}
+																														}
+																													}
+																												}
+																											}
+																										}
+																									}
+																								}
+																							}
+																						}
+																					}
+																				}
+																			}
+																		}
+																	}
+																}
+															}
+														}
+													}
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}

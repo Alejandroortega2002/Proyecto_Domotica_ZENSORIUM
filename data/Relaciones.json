@@ -16,6 +16,13 @@
 					"tu_id": 0,
 					"id_user_relacion": 0,
 					"tipo_relacion": "AF"
+				},
+				"enlace": {
+					"dato": {
+						"tu_id": 0,
+						"id_user_relacion": 5,
+						"tipo_relacion": "FB"
+					}
 				}
 			}
 		}

@@ -1,6 +1,8 @@
 package controlador;
 
 import java.io.IOException;
+import java.util.Iterator;
+import java.util.Random;
 
 import applications.Main;
 import entidades.Dispositivos;
@@ -86,23 +88,22 @@ public class Controlador_Interfaz_Administrar_Dispositivos {
 	}
 
 	private void cargarDispositivos() {
-	    System.out.println("holi");
-	    ListaEnlazada<Dispositivos> todosLosDispos = DispositivosManager.cargarDispos();
-	    ObservableList<Dispositivos> dispos = FXCollections.observableArrayList();
+		System.out.println("holi");
+		ListaEnlazada<Dispositivos> todosLosDispos = DispositivosManager.cargarDispos();
+		ObservableList<Dispositivos> dispos = FXCollections.observableArrayList();
 
-	    // Comprobar si la lista de dispositivos está vacía
-	    if (todosLosDispos != null && todosLosDispos.getCabeza() != null) {
-	        Nodo<Dispositivos> nodoActual = todosLosDispos.getCabeza();
-	        while (nodoActual != null) {
-	            Dispositivos dispo = nodoActual.getDato();
-	            dispos.add(dispo);
-	            nodoActual = nodoActual.getEnlace();
-	        }
-	    }
+		// Comprobar si la lista de dispositivos está vacía
+		if (todosLosDispos != null && todosLosDispos.getCabeza() != null) {
+			Nodo<Dispositivos> nodoActual = todosLosDispos.getCabeza();
+			while (nodoActual != null) {
+				Dispositivos dispo = nodoActual.getDato();
+				dispos.add(dispo);
+				nodoActual = nodoActual.getEnlace();
+			}
+		}
 
-	    tableAdministrarDispos.setItems(dispos);
+		tableAdministrarDispos.setItems(dispos);
 	}
-
 
 	@FXML // hay que actualizar este metodo
 	private void anadirDsipositivo() throws IOException {
@@ -110,8 +111,7 @@ public class Controlador_Interfaz_Administrar_Dispositivos {
 		String Tipo = tipoDispositivo.getValue();
 		String Nombre = txtNombreDispo.getText();
 		long id_dispo = DispositivosManager.obtenerNuevoId();
-		long id_sensor = anadirSensorDispo(Tipo);
-		;// hacer con ortega
+		long id_sensor = anadirSensorDispo(Tipo);// hacer con ortega
 		long id_usu_relacionado = usuarioActual.getId_user();
 
 		if (Tipo != null && !Nombre.isEmpty() && !Tipo.isEmpty()) {
@@ -133,30 +133,50 @@ public class Controlador_Interfaz_Administrar_Dispositivos {
 	}
 
 	private long anadirSensorDispo(String tipo) {
-
 		String tipoSensor;
 		long id_sensor = 0;
+		Random random = new Random();
 
 		switch (tipo) {
 		case "Aire":
 			tipoSensor = "Temperatura";
 			id_sensor = DispositivosManager.creaNuevoSensor(0, "Sensor de Temperatura", tipoSensor);
+			for (int i = 0; i < 20; i++) {
+				float datoTemperatura = 12.0f + random.nextFloat() * 20.0f;
+				DispositivosManager.crearSensorConId(id_sensor, datoTemperatura, "Sensor de Temperatura", tipoSensor);
+			}
 			break;
 		case "Puerta":
 			tipoSensor = "Movimiento";
 			id_sensor = DispositivosManager.creaNuevoSensor(0, "Sensor de Movimiento", tipoSensor);
+			for (int i = 0; i < 20; i++) {
+				// Suponiendo que el valor del sensor de movimiento varía entre 0 y 10
+				float datoMovimiento = random.nextFloat() * 10.0f;
+				DispositivosManager.crearSensorConId(id_sensor, datoMovimiento, "Sensor de Movimiento", tipoSensor);
+			}
 			break;
 		case "Luz":
 			tipoSensor = "Luz";
 			id_sensor = DispositivosManager.creaNuevoSensor(0, "Sensor de Luz", tipoSensor);
+			for (int i = 0; i < 20; i++) {
+				// Suponiendo que el valor del sensor de luz varía entre 0 y 100
+				float datoLuz = random.nextFloat() * 100.0f;
+				DispositivosManager.crearSensorConId(id_sensor, datoLuz, "Sensor de Luz", tipoSensor);
+			}
 			break;
 		case "Persiana":
 			tipoSensor = "Posición";
 			id_sensor = DispositivosManager.creaNuevoSensor(0, "Sensor de Posición", tipoSensor);
+			for (int i = 0; i < 20; i++) {
+				// Suponiendo que el valor del sensor de posición varía entre 0 y 180 (grados)
+				float datoPosicion = random.nextFloat() * 180.0f;
+				DispositivosManager.crearSensorConId(id_sensor, datoPosicion, "Sensor de Posición", tipoSensor);
+			}
 			break;
 		default:
 			tipoSensor = "Tipo de Sensor Desconocido";
 			break;
+
 		}
 		return id_sensor;
 	}

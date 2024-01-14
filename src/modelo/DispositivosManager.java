@@ -167,29 +167,94 @@ public class DispositivosManager {
 		}
 	}
 
+//	public static long creaNuevoSensor(float dato_actual, String nombre, String tipo) {
+//		ListaEnlazada<Sensores> sensores = cargarSensores();
+//
+//		if (sensores == null) {
+//			sensores = new ListaEnlazada<>();
+//		}
+//
+//		long idMasAlto = 0;
+//		for (Nodo<Sensores> nodoActual = sensores.getCabeza(); nodoActual != null; nodoActual = nodoActual
+//				.getEnlace()) {
+//			long idActual = nodoActual.getDato().getId_sensor();
+//			if (idActual > idMasAlto) {
+//				idMasAlto = idActual;
+//			}
+//		}
+//
+//		long nuevoId = idMasAlto + 1;
+//		Sensores nuevoSensor = new Sensores(nuevoId, dato_actual, nombre, tipo, 1);
+//
+//		// Añade el nuevo sensor y guarda la lista
+//		sensores.insertarAlFinal(new Nodo<>(nuevoSensor));
+//		guardarSensores(sensores);
+//		return nuevoId;
+//	}
+
 	public static long creaNuevoSensor(float dato_actual, String nombre, String tipo) {
-		ListaEnlazada<Sensores> sensores = cargarSensores();
+	    ListaEnlazada<Sensores> sensores = cargarSensores();
 
-		if (sensores == null) {
-			sensores = new ListaEnlazada<>();
-		}
+	    if (sensores == null) {
+	        sensores = new ListaEnlazada<>();
+	    }
 
-		long idMasAlto = 0;
-		for (Nodo<Sensores> nodoActual = sensores.getCabeza(); nodoActual != null; nodoActual = nodoActual
-				.getEnlace()) {
-			long idActual = nodoActual.getDato().getId_sensor();
-			if (idActual > idMasAlto) {
-				idMasAlto = idActual;
-			}
-		}
+	    long idMasAlto = 0;
+	    for (Nodo<Sensores> nodoActual = sensores.getCabeza(); nodoActual != null; nodoActual = nodoActual.getEnlace()) {
+	        long idActual = nodoActual.getDato().getId_sensor();
+	        if (idActual > idMasAlto) {
+	            idMasAlto = idActual;
+	        }
+	    }
 
-		long nuevoId = idMasAlto + 1;
-		Sensores nuevoSensor = new Sensores(nuevoId, dato_actual, nombre, tipo);
+	    long nuevoId = idMasAlto + 1;
+	    long ordenRegistroMasAlto = 0;
 
-		// Añade el nuevo sensor y guarda la lista
-		sensores.insertarAlFinal(new Nodo<>(nuevoSensor));
-		guardarSensores(sensores);
-		return nuevoId;
+	    // Busca el mayor orden_registro para el nuevo ID
+	    for (Nodo<Sensores> nodoActual = sensores.getCabeza(); nodoActual != null; nodoActual = nodoActual.getEnlace()) {
+	        Sensores sensorActual = nodoActual.getDato();
+	        if (sensorActual.getId_sensor() == nuevoId) {
+	            long ordenActual = sensorActual.getOrden_registro();
+	            if (ordenActual > ordenRegistroMasAlto) {
+	                ordenRegistroMasAlto = ordenActual;
+	            }
+	        }
+	    }
+
+	    long nuevoOrdenRegistro = ordenRegistroMasAlto + 1;
+	    Sensores nuevoSensor = new Sensores(nuevoId, dato_actual, nombre, tipo, nuevoOrdenRegistro);
+
+	    // Añade el nuevo sensor y guarda la lista
+	    sensores.insertarAlFinal(new Nodo<>(nuevoSensor));
+	    guardarSensores(sensores);
+	    return nuevoId;
+	}
+	
+	public static void crearSensorConId(long id_sensor, float dato_actual, String nombre, String tipo) {
+	    ListaEnlazada<Sensores> sensores = cargarSensores();
+
+	    if (sensores == null) {
+	        sensores = new ListaEnlazada<>();
+	    }
+
+	    long ordenRegistroMasAlto = 0;
+	    // Busca el mayor orden_registro para el ID dado
+	    for (Nodo<Sensores> nodoActual = sensores.getCabeza(); nodoActual != null; nodoActual = nodoActual.getEnlace()) {
+	        Sensores sensorActual = nodoActual.getDato();
+	        if (sensorActual.getId_sensor() == id_sensor) {
+	            long ordenActual = sensorActual.getOrden_registro();
+	            if (ordenActual > ordenRegistroMasAlto) {
+	                ordenRegistroMasAlto = ordenActual;
+	            }
+	        }
+	    }
+
+	    long nuevoOrdenRegistro = ordenRegistroMasAlto + 1;
+	    Sensores nuevoSensor = new Sensores(id_sensor, dato_actual, nombre, tipo, nuevoOrdenRegistro);
+
+	    // Añade el nuevo sensor y guarda la lista
+	    sensores.insertarAlFinal(new Nodo<>(nuevoSensor));
+	    guardarSensores(sensores);
 	}
 
 }

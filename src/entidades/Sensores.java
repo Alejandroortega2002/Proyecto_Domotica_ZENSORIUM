@@ -2,17 +2,20 @@ package entidades;
 
 public class Sensores {
 
+	private long id_sensor;
 	private float dato_actual;
 	private String nombre;
 	private String tipo;
-	private long id_sensor;
+	private long orden_registro;
 
-	public Sensores(long id_user_relacionado, float dato_actual, String nombre, String tipo) {
+
+	public Sensores(long id_sensor, float dato_actual, String nombre, String tipo, long orden_registro) {
 		super();
-		this.id_sensor = id_user_relacionado;
+		this.id_sensor = id_sensor;
 		this.dato_actual = dato_actual;
 		this.nombre = nombre;
 		this.tipo = tipo;
+		this.orden_registro = orden_registro;
 	}
 
 	public float getDato_actual() {
@@ -46,5 +49,15 @@ public class Sensores {
 	public void setId_sensor(long id_sensor) {
 		this.id_sensor = id_sensor;
 	}
+
+	public long getOrden_registro() {
+		return orden_registro;
+	}
+
+	public void setOrden_registro(long orden_registro) {
+		this.orden_registro = orden_registro;
+	}
+	
+	
 
 }

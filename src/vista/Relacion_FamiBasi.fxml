@@ -11,46 +11,67 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPaneRelaciones" prefHeight="600.0" prefWidth="800.0" styleClass="AnchorPaneRelaciones" stylesheets="@../applications/application.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane id="AnchorPaneRelaciones" prefHeight="600.0"
+	prefWidth="800.0" styleClass="AnchorPaneRelaciones"
+	stylesheets="@../applications/application.css"
+	xmlns="http://javafx.com/javafx/8.0.171"
+	xmlns:fx="http://javafx.com/fxml/1">
 	<children>
-      <Label layoutX="473.0" layoutY="39.0" text="Usuarios Básico">
-         <font>
-            <Font name="System Bold" size="20.0" />
-         </font>
-      </Label>
-		<Button fx:id="btnConectar" layoutX="39.0" layoutY="353.0" mnemonicParsing="false" onAction="#conectarUsuarios" text="CONECTAR" />
-      <Label layoutX="42.0" layoutY="123.0" text="Mi Username: " />
-		<Label fx:id="lblNombreUsuario" layoutX="42.0" layoutY="151.0" text="Nombre Usuario">
-         <font>
-            <Font name="System Bold" size="15.0" />
-         </font></Label>
-		<TextField fx:id="txtNombreUsuarioBasico" layoutX="39.0" layoutY="270.0" />
-		<TableView fx:id="tblUsuariosBasicos" layoutX="321.0" layoutY="86.0" onMouseClicked="#seleccionarUsuarioBasico">
+		<Label layoutX="473.0" layoutY="39.0" text="Usuarios Básico">
+			<font>
+				<Font name="System Bold" size="20.0" />
+			</font>
+		</Label>
+		<Button fx:id="btnConectar" layoutX="39.0" layoutY="353.0"
+			mnemonicParsing="false" onAction="#conectarUsuarios" text="CONECTAR" />
+		<Label layoutX="42.0" layoutY="123.0" text="Mi Username: " />
+		<Label fx:id="lblNombreUsuario" layoutX="42.0" layoutY="151.0"
+			text="Nombre Usuario">
+			<font>
+				<Font name="System Bold" size="15.0" />
+			</font>
+		</Label>
+		<TextField fx:id="txtNombreUsuarioBasico" layoutX="39.0"
+			layoutY="270.0" />
+		<TableView fx:id="tblUsuariosBasicos" layoutX="321.0"
+			layoutY="86.0" onMouseClicked="#seleccionarUsuarioBasico">
 			<columns>
-				<TableColumn fx:id="colNombre" prefWidth="225.0" text="Nombre" />
-				<TableColumn fx:id="colCorreo" prefWidth="224.0" text="Correo" />
+				<TableColumn fx:id="colNombre" prefWidth="225.0"
+					text="Nombre" />
+				<TableColumn fx:id="colCorreo" prefWidth="224.0"
+					text="Correo" />
 			</columns>
 		</TableView>
-      <HBox alignment="CENTER" layoutY="550.0" prefHeight="60.0" prefWidth="800.0" style="-fx-background-color: #74BBBD;" stylesheets="@../applications/application.css">
-         <children>
-            <Button fx:id="btn_Inicio_Menu" mnemonicParsing="false" onMouseClicked="#irInicio" prefHeight="27.0" prefWidth="32.0" styleClass="btn_Inicio_Menu" stylesheets="@../Documents/GitHub/pii23-jositosclub/bin/applications/application.css" textAlignment="JUSTIFY">
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-               <HBox.margin>
-                  <Insets right="125.0" />
-               </HBox.margin>
-            </Button>
-            <Button fx:id="btn_Perfil_Menu" contentDisplay="CENTER" mnemonicParsing="false" onMouseClicked="#irMenuPerfil" prefHeight="30.0" prefWidth="27.0" styleClass="btn_Perfil_Menu" stylesheets="@../Documents/GitHub/pii23-jositosclub/bin/applications/application.css" textFill="TRANSPARENT">
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-               <HBox.margin>
-                  <Insets left="125.0" />
-               </HBox.margin>
-            </Button>
-         </children>
-      </HBox>
-      <Label layoutX="39.0" layoutY="241.0" text="Username Básico: " />
+		<HBox alignment="CENTER" layoutY="550.0" prefHeight="60.0"
+			prefWidth="800.0" style="-fx-background-color: #74BBBD;"
+			stylesheets="@../applications/application.css">
+			<children>
+				<Button fx:id="btn_Inicio_Menu" mnemonicParsing="false"
+					onMouseClicked="#irInicio" prefHeight="27.0" prefWidth="32.0"
+					styleClass="btn_Inicio_Menu"
+					stylesheets="@../Documents/GitHub/pii23-jositosclub/bin/applications/application.css"
+					textAlignment="JUSTIFY">
+					<cursor>
+						<Cursor fx:constant="HAND" />
+					</cursor>
+					<HBox.margin>
+						<Insets right="125.0" />
+					</HBox.margin>
+				</Button>
+				<Button fx:id="btn_Perfil_Menu" contentDisplay="CENTER"
+					mnemonicParsing="false" onMouseClicked="#irMenuPerfil"
+					prefHeight="30.0" prefWidth="27.0" styleClass="btn_Perfil_Menu"
+					stylesheets="@../Documents/GitHub/pii23-jositosclub/bin/applications/application.css"
+					textFill="TRANSPARENT">
+					<cursor>
+						<Cursor fx:constant="HAND" />
+					</cursor>
+					<HBox.margin>
+						<Insets left="125.0" />
+					</HBox.margin>
+				</Button>
+			</children>
+		</HBox>
+		<Label layoutX="39.0" layoutY="241.0" text="Username Básico: " />
 	</children>
 </AnchorPane>
