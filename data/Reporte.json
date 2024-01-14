@@ -1,1 +1,22 @@
-{"cabeza":{"dato":{"id_user_emisor":0,"id_user_receptor":0,"titulo":"asdasd","queja":"asdasdasd","fecha":"Jan 14, 2024 8:04:26 PM","id_reporte":1}}}
+{
+	"cabeza": {
+		"dato": {
+			"id_user_emisor": 0,
+			"id_user_receptor": 0,
+			"titulo": "EVWQE",
+			"queja": "EWvewVDCEWV",
+			"fecha": "Jan 14, 2024 10:58:03 PM",
+			"id_reporte": 1
+		},
+		"enlace": {
+			"dato": {
+				"id_user_emisor": 0,
+				"id_user_receptor": 0,
+				"titulo": "vqrdvqwer",
+				"queja": "rv qwrdsdvqwe",
+				"fecha": "Jan 14, 2024 11:07:41 PM",
+				"id_reporte": 2
+			}
+		}
+	}
+}

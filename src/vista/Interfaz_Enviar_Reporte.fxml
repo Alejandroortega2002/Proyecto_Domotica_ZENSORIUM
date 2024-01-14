@@ -34,11 +34,14 @@
             </Button>
          </children>
       </HBox>
-      <Text layoutX="333.0" layoutY="72.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ENVIAR REPORTES" />
-      <Label layoutX="180.0" layoutY="184.0" text="TITULO DEL REPORTE" />
-      <TextField fx:id="lblTituloReporte" layoutX="180.0" layoutY="217.0" prefHeight="31.0" prefWidth="440.0" />
-      <Label layoutX="180.0" layoutY="258.0" text="DESCRIPCION DEL REPORTE" />
-      <TextArea fx:id="txtAreaDescripcionReporte" layoutX="180.0" layoutY="291.0" prefHeight="190.0" prefWidth="440.0" />
+      <Text layoutX="312.0" layoutY="74.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ENVIAR REPORTES">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font></Text>
+      <Label layoutX="180.0" layoutY="122.0" text="TITULO DEL REPORTE" />
+      <TextField fx:id="lblTituloReporte" layoutX="180.0" layoutY="155.0" prefHeight="31.0" prefWidth="440.0" />
+      <Label layoutX="180.0" layoutY="196.0" text="DESCRIPCION DEL REPORTE" />
+      <TextArea fx:id="txtAreaDescripcionReporte" layoutX="180.0" layoutY="229.0" prefHeight="190.0" prefWidth="440.0" />
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1f93ff00" height="67.0" layoutX="10.0" layoutY="10.0" stroke="WHITE" strokeType="INSIDE" width="249.0" />
       <Label layoutX="25.0" layoutY="45.0" text="Tipo de cuenta:" />
       <Label id="lblNombreUsu" fx:id="lblNombreUsu" layoutX="95.0" layoutY="18.0" text="Nombre Usuario">
@@ -52,8 +55,6 @@
          </font>
       </Label>
       <Label layoutX="25.0" layoutY="18.0" text="Nombre:" />
-      <Label layoutX="180.0" layoutY="114.0" text="NOMBRE DEL DESTINATARIO" />
-      <TextField fx:id="lblNombreDesti" layoutX="180.0" layoutY="147.0" prefHeight="31.0" prefWidth="440.0" />
-      <Button fx:id="btnEnviarReporte" layoutX="180.0" layoutY="497.0" mnemonicParsing="false" onMouseClicked="#btnEnviarReporte" prefHeight="31.0" prefWidth="440.0" text="ENVIAR" />
+      <Button fx:id="btnEnviarReporte" layoutX="180.0" layoutY="435.0" mnemonicParsing="false" onMouseClicked="#btnEnviarReporte" prefHeight="31.0" prefWidth="440.0" text="ENVIAR" />
    </children>
 </AnchorPane>

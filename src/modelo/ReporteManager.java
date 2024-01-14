@@ -14,7 +14,7 @@ public class ReporteManager {
 	private static final String FILE_PATH_Reporte = "data/Reporte.json";
 
 	
-	public static ListaEnlazada<Reporte> cargarDispos() {
+	public static ListaEnlazada<Reporte> cargarReportes() {
 		try (Reader reader = new FileReader(FILE_PATH_Reporte)) {
 			Type listType = new TypeToken<ListaEnlazada<Reporte>>() {
 			}.getType();
@@ -44,20 +44,10 @@ public class ReporteManager {
 
 	public static boolean crearReporte(Reporte nuevoReporte) {
 
-		ListaEnlazada<Reporte> reportes = cargarDispos();
+		ListaEnlazada<Reporte> reportes = cargarReportes();
 
 		if (reportes == null) {
 			reportes = new ListaEnlazada<>();
-		}
-
-		Nodo<Reporte> nodoActual = reportes.getCabeza();
-		while (nodoActual != null) {
-			Reporte reportess = nodoActual.getDato();
-			if (reportess.getTitulo().equals(reportess.getTitulo())) {
-
-				return false;
-			}
-			nodoActual = nodoActual.getEnlace();
 		}
 
 		reportes.insertarAlFinal(new Nodo<>(nuevoReporte));
@@ -66,7 +56,7 @@ public class ReporteManager {
 	}
 
 	public static boolean eliminarReporte(String nombreReporte) {
-		ListaEnlazada<Reporte> Reporte = cargarDispos();
+		ListaEnlazada<Reporte> Reporte = cargarReportes();
 
 		if (Reporte == null) {
 			return false; // No hay Reporte para eliminar
@@ -101,7 +91,7 @@ public class ReporteManager {
 	}
 
 	public static long obtenerNuevoId() {
-		ListaEnlazada<Reporte> dispos = cargarDispos();
+		ListaEnlazada<Reporte> dispos = cargarReportes();
 
 		if (dispos.getCabeza() == null) {
 			return 1; // Si la lista está vacía, empezamos desde 1

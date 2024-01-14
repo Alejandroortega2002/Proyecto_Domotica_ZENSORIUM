@@ -1,6 +1,5 @@
 package controlador;
 
-
 import java.io.IOException;
 import java.util.Calendar;
 import java.util.Date;
@@ -8,6 +7,7 @@ import java.util.Date;
 import applications.Main;
 import entidades.Dispositivos;
 import entidades.Nodo;
+import entidades.Relaciones;
 import entidades.Reporte;
 import entidades.Usuario;
 import javafx.collections.FXCollections;
@@ -45,13 +45,10 @@ public class Controlador_Interfaz_Enviar_Reporte {
 	private Button btnEnviarReporte;
 
 	@FXML
-	private TextField lblNombreDesti; // Para ingresar el nombre del usuario familiar
-	@FXML
 	private TextField lblTituloReporte; // Para ingresar el nombre del usuario familiar
 
 	@FXML
 	private TextArea txtAreaDescripcionReporte; // Para ingresar el nombre del usuario familiar
-
 
 	@FXML
 	public void initialize() {
@@ -64,7 +61,6 @@ public class Controlador_Interfaz_Enviar_Reporte {
 			lblTipoCuenta.setText(tipoDeCuenta);
 		}
 
-		
 	}
 
 //	this.id_user_emisor = id_user_emisor;
@@ -77,11 +73,54 @@ public class Controlador_Interfaz_Enviar_Reporte {
 	@FXML
 	private void btnEnviarReporte(MouseEvent event) throws IOException {
 		Usuario usuarioActual = Sesion.getInstancia().getUsuarioActual();
-		Calendar calendario = Calendar.getInstance();
-        Date fechaActualConCalendar = calendario.getTime();
-		Reporte nuevoReporte = new Reporte(usuarioActual.getId_user(),0,lblTituloReporte.getText(),txtAreaDescripcionReporte.getText(),fechaActualConCalendar,ReporteManager.obtenerNuevoId());
-		ReporteManager.crearReporte(nuevoReporte);
+		long idUsuarioLogueado = usuarioActual.getId_user();
 
+		ListaEnlazada<Relaciones> relaciones = RegistroManager.cargarRelaciones();
+		long idDestinatario = buscarIdDestinatario(relaciones, idUsuarioLogueado);
+
+		if (idDestinatario == -1) {
+			Alert alerta = new Alert(Alert.AlertType.WARNING);
+			alerta.setTitle("Relación no encontrada");
+			alerta.setHeaderText(null);
+			alerta.setContentText("No estás relacionado con ningún otro usuario.");
+			alerta.showAndWait();
+			return; // Sale del método si no hay relación
+		}
+
+		Calendar calendario = Calendar.getInstance();
+		Date fechaActualConCalendar = calendario.getTime();
+		Reporte nuevoReporte = new Reporte(usuarioActual.getId_user(), idDestinatario, lblTituloReporte.getText(),
+				txtAreaDescripcionReporte.getText(), fechaActualConCalendar, ReporteManager.obtenerNuevoId());
+		boolean reporteCreado = ReporteManager.crearReporte(nuevoReporte);
+
+		if (reporteCreado) {
+			
+			
+			Alert alerta = new Alert(Alert.AlertType.INFORMATION);
+			alerta.setTitle("Reporte creado");
+			alerta.setHeaderText(null);
+			alerta.setContentText("Se ha creado correctamente el reporte.");
+			alerta.showAndWait();
+		} else {
+			Alert alerta = new Alert(Alert.AlertType.WARNING);
+			alerta.setTitle("Relación no encontrada");
+			alerta.setHeaderText(null);
+			alerta.setContentText("No estás relacionado con ningún otro usuario.");
+			alerta.showAndWait();
+		}
+	}
+
+	private long buscarIdDestinatario(ListaEnlazada<Relaciones> relaciones, long idUsuarioLogueado) {
+		Nodo<Relaciones> nodoActual = relaciones.getCabeza();
+		while (nodoActual != null) {
+			Relaciones relacion = nodoActual.getDato();
+			if (relacion.getId_user_relacion() == idUsuarioLogueado) {
+				return relacion.getTu_id();
+			}
+			nodoActual = nodoActual.getEnlace();
+		}
+		return -1; // Retorna -1 o algún otro valor que indique que no se encontró una relación
+					// válida
 	}
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 
