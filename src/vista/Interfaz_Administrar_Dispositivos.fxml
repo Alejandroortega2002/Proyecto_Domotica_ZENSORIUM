@@ -17,13 +17,13 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPaneRelaciones" prefHeight="600.0" prefWidth="800.0" styleClass="AnchorPaneRelaciones" stylesheets="@../applications/application.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane id="AnchorPaneRelaciones" prefHeight="600.0" prefWidth="800.0" styleClass="AnchorPaneRelaciones" stylesheets="@../Documents/GitHub/pii23-jositosclub/bin/applications/application.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
 	<children>
       <BorderPane prefHeight="600.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <bottom>
-            <HBox alignment="CENTER" prefHeight="47.0" prefWidth="800.0" style="-fx-background-color: #74BBBD;" stylesheets="@../Documents/GitHub/pii23-jositosclub/bin/applications/application.css" BorderPane.alignment="CENTER">
+            <HBox alignment="CENTER" prefHeight="47.0" prefWidth="800.0" style="-fx-background-color: #74BBBD;" stylesheets="@../Documents/GitHub/pii23-jositosclub/bin/Documents/GitHub/pii23-jositosclub/bin/applications/application.css" BorderPane.alignment="CENTER">
                <children>
-                  <Button fx:id="btn_Inicio_Menu" mnemonicParsing="false" onMouseClicked="#irInicio" prefHeight="27.0" prefWidth="32.0" styleClass="btn_Inicio_Menu" stylesheets="@../Documents/GitHub/pii23-jositosclub/bin/Documents/GitHub/pii23-jositosclub/bin/applications/application.css" textAlignment="JUSTIFY">
+                  <Button fx:id="btn_Inicio_Menu" mnemonicParsing="false" onMouseClicked="#irInicio" prefHeight="27.0" prefWidth="32.0" styleClass="btn_Inicio_Menu" stylesheets="@../Documents/GitHub/pii23-jositosclub/bin/Documents/GitHub/pii23-jositosclub/bin/Documents/GitHub/pii23-jositosclub/bin/applications/application.css" textAlignment="JUSTIFY">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
@@ -31,7 +31,7 @@
                         <Insets right="125.0" />
                      </HBox.margin>
                   </Button>
-                  <Button fx:id="btn_Perfil_Menu" contentDisplay="CENTER" mnemonicParsing="false" onMouseClicked="#irMenuPerfil" prefHeight="30.0" prefWidth="27.0" styleClass="btn_Perfil_Menu" stylesheets="@../Documents/GitHub/pii23-jositosclub/bin/Documents/GitHub/pii23-jositosclub/bin/applications/application.css" textFill="TRANSPARENT">
+                  <Button fx:id="btn_Perfil_Menu" contentDisplay="CENTER" mnemonicParsing="false" onMouseClicked="#irMenuPerfil" prefHeight="30.0" prefWidth="27.0" styleClass="btn_Perfil_Menu" stylesheets="@../Documents/GitHub/pii23-jositosclub/bin/Documents/GitHub/pii23-jositosclub/bin/Documents/GitHub/pii23-jositosclub/bin/applications/application.css" textFill="TRANSPARENT">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
@@ -99,7 +99,7 @@
                   <Font name="System Bold" size="15.0" />
                </font>
                <GridPane.margin>
-                  <Insets left="85.0" top="20.0" />
+                  <Insets left="110.0" top="20.0" />
                </GridPane.margin>
             </Label>
             <Label id="lblTipoCuenta" fx:id="lblTipoCuenta" text="Tipo de cuenta">
@@ -107,7 +107,7 @@
                   <Font name="System Bold" size="15.0" />
                </font>
                <GridPane.margin>
-                  <Insets left="120.0" top="-30.0" />
+                  <Insets left="140.0" top="-30.0" />
                </GridPane.margin>
             </Label>
             <TextField fx:id="lblNombreDispoSelec" maxHeight="31.0" maxWidth="250.0" prefHeight="31.0" prefWidth="248.0" GridPane.rowIndex="1">
@@ -161,7 +161,10 @@
                   <Insets left="72.0" top="-398.0" />
                </GridPane.margin>
             </Label>
-            <Label fx:id="Error_Label_Registro" prefHeight="31.0" prefWidth="213.0" text="AVISO ERROR AÑADIR" textFill="RED" visible="false" GridPane.rowIndex="2" />
+            <Label fx:id="Error_Label_Registro" prefHeight="31.0" prefWidth="266.0" text="AVISO ERROR AÑADIR" textFill="RED" visible="false" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+               <GridPane.margin>
+                  <Insets top="20.0" />
+               </GridPane.margin></Label>
             <Label text="Modificar dispositivo" GridPane.rowIndex="1">
                <font>
                   <Font name="System Bold" size="20.0" />
