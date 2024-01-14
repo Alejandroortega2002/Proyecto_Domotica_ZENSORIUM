@@ -7,11 +7,16 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" styleClass="Fondo_Pantalla_Perfil" stylesheets="@../applications/application.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <children>
+<<<<<<< Updated upstream
       <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="339.0" layoutY="46.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../img/logo_app.png" />
@@ -28,29 +33,112 @@
       <Button fx:id="btnCerrarSseion" layoutX="354.0" layoutY="450.0" mnemonicParsing="false" onMouseClicked="#cerrarSesion" text="Cerrar Sesion" />
       <Label alignment="CENTER" contentDisplay="CENTER" layoutX="246.0" layoutY="246.0" prefHeight="38.0" prefWidth="216.0" text="Tipo de Cuenta: " />
       <HBox alignment="CENTER" layoutY="540.0" prefHeight="60.0" prefWidth="800.0" style="-fx-background-color: #74BBBD;">
+=======
+      <BorderPane prefHeight="600.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <bottom>
+            <HBox alignment="CENTER" prefHeight="60.0" prefWidth="800.0" style="-fx-background-color: #74BBBD;" BorderPane.alignment="CENTER">
+               <children>
+                  <Button fx:id="btn_Inicio_Menu" mnemonicParsing="false" onMouseClicked="#irInicio" prefHeight="27.0" prefWidth="32.0" styleClass="btn_Inicio_Menu" stylesheets="@../Documents/GitHub/pii23-jositosclub/bin/Documents/GitHub/pii23-jositosclub/bin/applications/application.css" textAlignment="JUSTIFY">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                     <HBox.margin>
+                        <Insets right="125.0" />
+                     </HBox.margin>
+                  </Button>
+                  <Button fx:id="btn_Perfil_Menu" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="30.0" prefWidth="27.0" styleClass="btn_Perfil_Menu" stylesheets="@../Documents/GitHub/pii23-jositosclub/bin/Documents/GitHub/pii23-jositosclub/bin/applications/application.css" textFill="TRANSPARENT">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                     <HBox.margin>
+                        <Insets left="125.0" />
+                     </HBox.margin>
+                  </Button>
+               </children>
+            </HBox>
+         </bottom>
+      </BorderPane>
+      <GridPane alignment="CENTER" prefHeight="541.0" prefWidth="800.0" AnchorPane.bottomAnchor="59.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <columnConstraints>
+          <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+>>>>>>> Stashed changes
          <children>
-            <Button fx:id="btn_Inicio_Menu" mnemonicParsing="false" onMouseClicked="#irInicio" prefHeight="27.0" prefWidth="32.0" styleClass="btn_Inicio_Menu" stylesheets="@../Documents/GitHub/pii23-jositosclub/bin/applications/application.css" textAlignment="JUSTIFY">
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-               <HBox.margin>
-                  <Insets right="125.0" />
-               </HBox.margin>
+            <Label text="Usuarios Asociados:" GridPane.rowIndex="1">
+               <GridPane.margin>
+                  <Insets left="-110.0" top="80.0" />
+               </GridPane.margin>
+            </Label>
+            <Button maxHeight="31.0" maxWidth="170.0" mnemonicParsing="false" text="Enviar Reporte" GridPane.rowIndex="2">
+               <GridPane.margin>
+                  <Insets left="-180.0" top="-20.0" />
+               </GridPane.margin>
             </Button>
-            <Button fx:id="btn_Perfil_Menu" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="30.0" prefWidth="27.0" styleClass="btn_Perfil_Menu" stylesheets="@../Documents/GitHub/pii23-jositosclub/bin/applications/application.css" textFill="TRANSPARENT">
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-               <HBox.margin>
-                  <Insets left="125.0" />
-               </HBox.margin>
+            <Button maxHeight="31.0" maxWidth="170.0" mnemonicParsing="false" text="Ver Reportes" GridPane.rowIndex="2">
+               <GridPane.margin>
+                  <Insets left="180.0" top="-20.0" />
+               </GridPane.margin>
+            </Button>
+            <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER">
+               <image>
+                  <Image url="@../img/logo_app.png" />
+               </image>
+            </ImageView>
+            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="38.0" prefWidth="110.0" text="Nombre de Usuario: " GridPane.rowIndex="1">
+               <GridPane.margin>
+                  <Insets left="-100.0" top="-80.0" />
+               </GridPane.margin>
+            </Label>
+            <Label fx:id="LblUsername1" contentDisplay="CENTER" prefHeight="38.0" prefWidth="265.0" text="u_asociados" GridPane.rowIndex="1">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+               <GridPane.margin>
+                  <Insets left="300.0" top="80.0" />
+               </GridPane.margin>
+            </Label>
+            <Label fx:id="LblUsername" contentDisplay="CENTER" prefHeight="38.0" prefWidth="265.0" text="nombre" GridPane.rowIndex="1">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+               <GridPane.margin>
+                  <Insets left="310.0" top="-80.0" />
+               </GridPane.margin>
+            </Label>
+            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="38.0" prefWidth="91.0" text="Tipo de Cuenta: " GridPane.rowIndex="1">
+               <GridPane.margin>
+                  <Insets left="-125.0" />
+               </GridPane.margin>
+            </Label>
+            <Label fx:id="LblTipoCuenta" contentDisplay="CENTER" prefHeight="38.0" prefWidth="185.0" text="cuenta" GridPane.rowIndex="1">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+               <GridPane.margin>
+                  <Insets left="180.0" />
+               </GridPane.margin>
+            </Label>
+            <Button fx:id="btnRelaciones" maxHeight="31.0" maxWidth="170.0" mnemonicParsing="false" onMouseClicked="#irRelaciones" text="Relación Usuarios" GridPane.rowIndex="2">
+               <GridPane.margin>
+                  <Insets left="180.0" top="-110.0" />
+               </GridPane.margin>
+            </Button>
+            <Button maxHeight="31.0" maxWidth="170.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="156.0" text="Editar Perfil" GridPane.rowIndex="2">
+               <GridPane.margin>
+                  <Insets left="-180.0" top="-110.0" />
+               </GridPane.margin>
+            </Button>
+            <Button maxHeight="31.0" maxWidth="350.0" mnemonicParsing="false" text="Cerrar Sesion" GridPane.rowIndex="2">
+               <GridPane.margin>
+                  <Insets top="65.0" />
+               </GridPane.margin>
             </Button>
          </children>
-      </HBox>
-      <Label fx:id="LblTipoCuenta" alignment="CENTER" contentDisplay="CENTER" layoutX="397.0" layoutY="246.0" prefHeight="38.0" prefWidth="185.0" text="cuenta">
-         <font>
-            <Font name="System Bold" size="15.0" />
-         </font>
-      </Label>
+      </GridPane>
    </children>
 </AnchorPane>
