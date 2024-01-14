@@ -12,6 +12,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
@@ -34,6 +36,9 @@ public class Controlador_InterfazDispositivos {
 	private Label lblTipoCuenta;
 
 	@FXML
+	private Button btnVerDatos;
+	
+	@FXML
 	private TextField txtFieldNombreDispo; // Para ingresar el nombre del usuario familiar
 	@FXML
 	private TextField txtFieldNombreSensorRelacionado; // Para ingresar el nombre del usuario familiar
@@ -46,6 +51,7 @@ public class Controlador_InterfazDispositivos {
 	private TableColumn<Dispositivos, String> columnaEstado;
 	@FXML
 	private TableColumn<Dispositivos, String> columnaIdSensor;
+	
 
 	@FXML
 	public void initialize() {
@@ -71,6 +77,7 @@ public class Controlador_InterfazDispositivos {
 		if (dispoSeleccionado != null) {
 			txtFieldNombreDispo.setText(dispoSeleccionado.getNombre());
 			txtFieldNombreSensorRelacionado.setText(String.valueOf(dispoSeleccionado.getId_sensor()));
+			DispositivosManager.setDispositivoSeleccionado(dispoSeleccionado);
 
 		}
 	}
@@ -113,8 +120,6 @@ public class Controlador_InterfazDispositivos {
 		}
 
 	}
-
-
 
 	@FXML
 	private void irInicio(MouseEvent event) throws IOException {
@@ -161,4 +166,38 @@ public class Controlador_InterfazDispositivos {
 		}
 
 	}
+	
+	@FXML
+	private void IrVerDato(MouseEvent event) throws IOException {
+		try {
+			if(DispositivosManager.getDispositivoSeleccionado() != null) {
+				FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/Interfaz_Visualizacion_Datos.fxml"));
+
+				Controlador_Ver_Datos control = new Controlador_Ver_Datos();
+
+				loader.setController(control);
+
+				Parent root = loader.load();
+				Stage primaryStage = new Stage();
+				primaryStage.setScene(new Scene(root));
+				primaryStage.show();
+
+				Stage ventatnaActual = (Stage) lblNombreUsu.getScene().getWindow();
+				ventatnaActual.hide();
+
+			}else {
+				// Mostrar mensaje de error o no hacer nada
+				Alert alert = new Alert(Alert.AlertType.ERROR);
+				alert.setTitle("Acceso Restringido");
+				alert.setHeaderText(null);
+				alert.setContentText("No tienes ningun dispositivo seleccionado");
+				alert.showAndWait();
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+	}
+	
 }

@@ -17,23 +17,26 @@ public class DispositivosManager {
 	private static final String FILE_PATH_DISPOSITIVOS = "data/Dispositivos.json";
 	private static final String FILE_PATH_SENSORES = "data/Sensores.json";
 
+	private static Dispositivos dispositivoSeleccionado;
+
 	public static ListaEnlazada<Dispositivos> cargarDispos() {
-	    try (Reader reader = new FileReader(FILE_PATH_DISPOSITIVOS)) {
-	        Type listType = new TypeToken<ListaEnlazada<Dispositivos>>() {}.getType();
-	        ListaEnlazada<Dispositivos> dispositivosCargados = new Gson().fromJson(reader, listType);
+		try (Reader reader = new FileReader(FILE_PATH_DISPOSITIVOS)) {
+			Type listType = new TypeToken<ListaEnlazada<Dispositivos>>() {
+			}.getType();
+			ListaEnlazada<Dispositivos> dispositivosCargados = new Gson().fromJson(reader, listType);
 
-	        // Verificar si la deserialización retornó null y, de ser así, retornar una lista vacía
-	        if (dispositivosCargados == null) {
-	            return new ListaEnlazada<>();
-	        }
+			// Verificar si la deserialización retornó null y, de ser así, retornar una
+			// lista vacía
+			if (dispositivosCargados == null) {
+				return new ListaEnlazada<>();
+			}
 
-	        return dispositivosCargados;
-	    } catch (IOException e) {
-	        // En caso de una IOException, también retornar una lista vacía
-	        return new ListaEnlazada<>();
-	    }
+			return dispositivosCargados;
+		} catch (IOException e) {
+			// En caso de una IOException, también retornar una lista vacía
+			return new ListaEnlazada<>();
+		}
 	}
-
 
 	public static void guardarDispositivos(ListaEnlazada<Dispositivos> dispos) {
 		try (Writer writer = new FileWriter(FILE_PATH_DISPOSITIVOS)) {
@@ -149,6 +152,14 @@ public class DispositivosManager {
 		return false; // No se encontró el dispositivo con el nombre especificado
 	}
 
+	public static Dispositivos getDispositivoSeleccionado() {
+		return dispositivoSeleccionado;
+	}
+
+	public static void setDispositivoSeleccionado(Dispositivos dispositivo) {
+		dispositivoSeleccionado = dispositivo;
+	}
+
 	public static ListaEnlazada<Sensores> cargarSensores() {
 		try (Reader reader = new FileReader(FILE_PATH_SENSORES)) {
 			Type listType = new TypeToken<ListaEnlazada<Sensores>>() {
@@ -193,68 +204,71 @@ public class DispositivosManager {
 //	}
 
 	public static long creaNuevoSensor(float dato_actual, String nombre, String tipo) {
-	    ListaEnlazada<Sensores> sensores = cargarSensores();
+		ListaEnlazada<Sensores> sensores = cargarSensores();
 
-	    if (sensores == null) {
-	        sensores = new ListaEnlazada<>();
-	    }
+		if (sensores == null) {
+			sensores = new ListaEnlazada<>();
+		}
 
-	    long idMasAlto = 0;
-	    for (Nodo<Sensores> nodoActual = sensores.getCabeza(); nodoActual != null; nodoActual = nodoActual.getEnlace()) {
-	        long idActual = nodoActual.getDato().getId_sensor();
-	        if (idActual > idMasAlto) {
-	            idMasAlto = idActual;
-	        }
-	    }
+		long idMasAlto = 0;
+		for (Nodo<Sensores> nodoActual = sensores.getCabeza(); nodoActual != null; nodoActual = nodoActual
+				.getEnlace()) {
+			long idActual = nodoActual.getDato().getId_sensor();
+			if (idActual > idMasAlto) {
+				idMasAlto = idActual;
+			}
+		}
 
-	    long nuevoId = idMasAlto + 1;
-	    long ordenRegistroMasAlto = 0;
+		long nuevoId = idMasAlto + 1;
+		long ordenRegistroMasAlto = 0;
 
-	    // Busca el mayor orden_registro para el nuevo ID
-	    for (Nodo<Sensores> nodoActual = sensores.getCabeza(); nodoActual != null; nodoActual = nodoActual.getEnlace()) {
-	        Sensores sensorActual = nodoActual.getDato();
-	        if (sensorActual.getId_sensor() == nuevoId) {
-	            long ordenActual = sensorActual.getOrden_registro();
-	            if (ordenActual > ordenRegistroMasAlto) {
-	                ordenRegistroMasAlto = ordenActual;
-	            }
-	        }
-	    }
+		// Busca el mayor orden_registro para el nuevo ID
+		for (Nodo<Sensores> nodoActual = sensores.getCabeza(); nodoActual != null; nodoActual = nodoActual
+				.getEnlace()) {
+			Sensores sensorActual = nodoActual.getDato();
+			if (sensorActual.getId_sensor() == nuevoId) {
+				long ordenActual = sensorActual.getOrden_registro();
+				if (ordenActual > ordenRegistroMasAlto) {
+					ordenRegistroMasAlto = ordenActual;
+				}
+			}
+		}
 
-	    long nuevoOrdenRegistro = ordenRegistroMasAlto + 1;
-	    Sensores nuevoSensor = new Sensores(nuevoId, dato_actual, nombre, tipo, nuevoOrdenRegistro);
+		long nuevoOrdenRegistro = ordenRegistroMasAlto + 1;
+		Sensores nuevoSensor = new Sensores(nuevoId, dato_actual, nombre, tipo, nuevoOrdenRegistro);
 
-	    // Añade el nuevo sensor y guarda la lista
-	    sensores.insertarAlFinal(new Nodo<>(nuevoSensor));
-	    guardarSensores(sensores);
-	    return nuevoId;
+		// Añade el nuevo sensor y guarda la lista
+		sensores.insertarAlFinal(new Nodo<>(nuevoSensor));
+		guardarSensores(sensores);
+		return nuevoId;
 	}
-	
+
 	public static void crearSensorConId(long id_sensor, float dato_actual, String nombre, String tipo) {
-	    ListaEnlazada<Sensores> sensores = cargarSensores();
+		ListaEnlazada<Sensores> sensores = cargarSensores();
 
-	    if (sensores == null) {
-	        sensores = new ListaEnlazada<>();
-	    }
+		if (sensores == null) {
+			sensores = new ListaEnlazada<>();
+		}
 
-	    long ordenRegistroMasAlto = 0;
-	    // Busca el mayor orden_registro para el ID dado
-	    for (Nodo<Sensores> nodoActual = sensores.getCabeza(); nodoActual != null; nodoActual = nodoActual.getEnlace()) {
-	        Sensores sensorActual = nodoActual.getDato();
-	        if (sensorActual.getId_sensor() == id_sensor) {
-	            long ordenActual = sensorActual.getOrden_registro();
-	            if (ordenActual > ordenRegistroMasAlto) {
-	                ordenRegistroMasAlto = ordenActual;
-	            }
-	        }
-	    }
+		long ordenRegistroMasAlto = 0;
+		// Busca el mayor orden_registro para el ID dado
+		for (Nodo<Sensores> nodoActual = sensores.getCabeza(); nodoActual != null; nodoActual = nodoActual
+				.getEnlace()) {
+			Sensores sensorActual = nodoActual.getDato();
+			if (sensorActual.getId_sensor() == id_sensor) {
+				long ordenActual = sensorActual.getOrden_registro();
+				if (ordenActual > ordenRegistroMasAlto) {
+					ordenRegistroMasAlto = ordenActual;
+				}
+			}
+		}
 
-	    long nuevoOrdenRegistro = ordenRegistroMasAlto + 1;
-	    Sensores nuevoSensor = new Sensores(id_sensor, dato_actual, nombre, tipo, nuevoOrdenRegistro);
+		long nuevoOrdenRegistro = ordenRegistroMasAlto + 1;
+		Sensores nuevoSensor = new Sensores(id_sensor, dato_actual, nombre, tipo, nuevoOrdenRegistro);
 
-	    // Añade el nuevo sensor y guarda la lista
-	    sensores.insertarAlFinal(new Nodo<>(nuevoSensor));
-	    guardarSensores(sensores);
+		// Añade el nuevo sensor y guarda la lista
+		sensores.insertarAlFinal(new Nodo<>(nuevoSensor));
+		guardarSensores(sensores);
 	}
 
 }

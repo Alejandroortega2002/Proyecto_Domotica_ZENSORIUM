@@ -75,7 +75,7 @@
                   <Insets left="30.0" top="-240.0" />
                </GridPane.margin>
             </Button>
-            <Button id="btnVerDatos" fx:id="btnVerDatos" mnemonicParsing="false" prefHeight="31.0" prefWidth="250.0" text="VER DATOS" GridPane.rowIndex="1">
+            <Button id="btnVerDatos" fx:id="btnVerDatos" mnemonicParsing="false" onMouseClicked="#IrVerDato" prefHeight="31.0" prefWidth="250.0" text="VER DATOS" GridPane.rowIndex="1">
                <GridPane.margin>
                   <Insets left="30.0" top="60.0" />
                </GridPane.margin>

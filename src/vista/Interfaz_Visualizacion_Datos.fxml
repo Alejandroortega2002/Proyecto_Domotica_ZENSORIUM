@@ -15,25 +15,25 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" styleClass="AnchorPaneRelaciones" stylesheets="@../applications/application.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <BarChart layoutX="386.0" layoutY="141.0" prefHeight="335.0" prefWidth="400.0">
+      <BarChart fx:id="barChart" layoutX="315.0" layoutY="85.0" prefHeight="434.0" prefWidth="471.0">
         <xAxis>
-          <CategoryAxis side="BOTTOM" />
+          <CategoryAxis side="BOTTOM" fx:id="xAxis" label="Datos Del Sensor" />
         </xAxis>
         <yAxis>
-          <NumberAxis side="LEFT" />
+          <NumberAxis fx:id="yAxis" side="LEFT" label="Temperature" lowerBound="0" upperBound="100" />
         </yAxis>
       </BarChart>
-      <TableView fx:id="tblDatosSensores" layoutX="14.0" layoutY="150.0" onMouseClicked="#seleccionarUsuarioFamiliar" prefHeight="300.0" prefWidth="350.0">
+      <TableView fx:id="tblDatosSensores" layoutX="14.0" layoutY="96.0" prefHeight="288.0" prefWidth="282.0">
          <columns>
-            <TableColumn fx:id="colNRegistro" prefWidth="92.0" text="Nº Registro" />
-            <TableColumn fx:id="colDato" prefWidth="130.0" text="Dato Obtenido" />
-            <TableColumn fx:id="colTipo" minWidth="0.0" prefWidth="126.0" text="Tipo" />
+            <TableColumn fx:id="colNRegistro" prefWidth="106.0" text="Nº Registro" />
+            <TableColumn fx:id="colDato" prefWidth="175.0" text="Dato Obtenido" />
+            <TableColumn fx:id="colTipo" minWidth="0.0" prefWidth="67.0" text="Tipo" />
             <TableColumn fx:id="colId" prefWidth="126.0" text="Id Sensor" />
          </columns>
       </TableView>
       <HBox alignment="CENTER" layoutY="540.0" prefHeight="60.0" prefWidth="800.0" style="-fx-background-color: #74BBBD;" stylesheets="@../applications/application.css">
          <children>
-            <Button fx:id="btn_Inicio_Menu" mnemonicParsing="false" onMouseClicked="#irInicio" prefHeight="27.0" prefWidth="32.0" styleClass="btn_Inicio_Menu" stylesheets="@../Documents/GitHub/pii23-jositosclub/bin/applications/application.css" textAlignment="JUSTIFY">
+            <Button fx:id="btn_Inicio_Menu" mnemonicParsing="false" prefHeight="27.0" prefWidth="32.0" styleClass="btn_Inicio_Menu" stylesheets="@../Documents/GitHub/pii23-jositosclub/bin/applications/application.css" textAlignment="JUSTIFY">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
@@ -41,7 +41,7 @@
                   <Insets right="125.0" />
                </HBox.margin>
             </Button>
-            <Button fx:id="btn_Perfil_Menu" contentDisplay="CENTER" mnemonicParsing="false" onMouseClicked="#irMenuPerfil" prefHeight="30.0" prefWidth="27.0" styleClass="btn_Perfil_Menu" stylesheets="@../Documents/GitHub/pii23-jositosclub/bin/applications/application.css" textFill="TRANSPARENT">
+            <Button fx:id="btn_Perfil_Menu" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="30.0" prefWidth="27.0" styleClass="btn_Perfil_Menu" stylesheets="@../Documents/GitHub/pii23-jositosclub/bin/applications/application.css" textFill="TRANSPARENT">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
@@ -51,7 +51,7 @@
             </Button>
          </children>
       </HBox>
-      <Label layoutX="283.0" layoutY="69.0" text="Representación de Datos">
+      <Label layoutX="283.0" layoutY="31.0" text="Representación de Datos">
          <font>
             <Font name="System Bold" size="20.0" />
          </font>
