@@ -184,4 +184,25 @@ public class Controlador_Pantalla_Perfil {
 			e.printStackTrace();
 		}
 	}
+	@FXML
+	private void irEditarPerfil(MouseEvent event) throws IOException {
+		try {
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/Interfaz_Editar_Perfil.fxml"));
+
+			Controlador_Interfaz_Editar_Perfil control = new Controlador_Interfaz_Editar_Perfil();
+
+			loader.setController(control);
+
+			Parent root = loader.load();
+			Stage primaryStage = new Stage();
+			primaryStage.setScene(new Scene(root));
+			primaryStage.show();
+
+			Stage ventatnaActual = (Stage) btnRelaciones.getScene().getWindow();
+			ventatnaActual.hide();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 }

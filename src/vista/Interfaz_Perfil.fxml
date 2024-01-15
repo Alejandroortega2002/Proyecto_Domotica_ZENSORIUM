@@ -109,7 +109,7 @@
                   <Insets left="180.0" top="-110.0" />
                </GridPane.margin>
             </Button>
-            <Button maxHeight="31.0" maxWidth="170.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="156.0" text="Editar Perfil" GridPane.rowIndex="2">
+            <Button maxHeight="31.0" maxWidth="170.0" mnemonicParsing="false" onMouseClicked="#irEditarPerfil" prefHeight="31.0" prefWidth="156.0" text="Editar Perfil" GridPane.rowIndex="2">
                <GridPane.margin>
                   <Insets left="-180.0" top="-110.0" />
                </GridPane.margin>

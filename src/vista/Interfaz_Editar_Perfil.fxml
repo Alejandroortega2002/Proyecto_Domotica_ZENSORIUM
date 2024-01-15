@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXPasswordField?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
@@ -8,104 +9,60 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" styleClass="AnchorPaneRelaciones" stylesheets="@../applications/application.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <BorderPane prefHeight="600.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <bottom>
-            <HBox alignment="CENTER" prefHeight="47.0" prefWidth="800.0" style="-fx-background-color: #74BBBD;" stylesheets="@../applications/application.css" BorderPane.alignment="CENTER">
-               <children>
-                  <Button fx:id="btn_Inicio_Menu" mnemonicParsing="false" onMouseClicked="#irInicio" prefHeight="27.0" prefWidth="32.0" styleClass="btn_Inicio_Menu" stylesheets="@../Documents/GitHub/pii23-jositosclub/bin/Documents/GitHub/pii23-jositosclub/bin/Documents/GitHub/pii23-jositosclub/bin/applications/application.css" textAlignment="JUSTIFY">
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
-                     <HBox.margin>
-                        <Insets right="125.0" />
-                     </HBox.margin>
-                  </Button>
-                  <Button fx:id="btn_Perfil_Menu" contentDisplay="CENTER" mnemonicParsing="false" onMouseClicked="#irMenuPerfil" prefHeight="30.0" prefWidth="27.0" styleClass="btn_Perfil_Menu" stylesheets="@../Documents/GitHub/pii23-jositosclub/bin/Documents/GitHub/pii23-jositosclub/bin/Documents/GitHub/pii23-jositosclub/bin/applications/application.css" textFill="TRANSPARENT">
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
-                     <HBox.margin>
-                        <Insets left="125.0" />
-                     </HBox.margin>
-                  </Button>
-               </children>
-            </HBox>
-         </bottom>
-      </BorderPane>
-      <GridPane alignment="CENTER" prefHeight="553.0" prefWidth="800.0" AnchorPane.bottomAnchor="47.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-        <columnConstraints>
-          <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-        </columnConstraints>
-        <rowConstraints>
-          <RowConstraints maxHeight="207.0" minHeight="10.0" prefHeight="206.0" vgrow="SOMETIMES" />
-          <RowConstraints maxHeight="368.0" minHeight="7.0" prefHeight="78.0" vgrow="SOMETIMES" />
-          <RowConstraints maxHeight="361.0" minHeight="0.0" prefHeight="268.0" vgrow="SOMETIMES" />
-        </rowConstraints>
+      <HBox alignment="CENTER" layoutY="553.0" prefHeight="47.0" prefWidth="800.0" style="-fx-background-color: #74BBBD;" stylesheets="@../applications/application.css">
          <children>
-            <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER">
-               <image>
-                  <Image url="@../img/logo_app.png" />
-               </image>
-               <GridPane.margin>
-                  <Insets top="40.0" />
-               </GridPane.margin>
-            </ImageView>
-            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="38.0" prefWidth="216.0" text="Tipo de Cuenta: " GridPane.rowIndex="1">
-               <GridPane.margin>
-                  <Insets left="-110.0" top="-40.0" />
-               </GridPane.margin>
-            </Label>
-            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="38.0" prefWidth="216.0" text="Usuarios Asociados: " GridPane.rowIndex="1">
-               <GridPane.margin>
-                  <Insets left="-90.0" top="50.0" />
-               </GridPane.margin>
-            </Label>
-            <Label fx:id="LblTipoCuenta" alignment="CENTER" contentDisplay="CENTER" prefHeight="38.0" prefWidth="185.0" text="cuenta" GridPane.rowIndex="1">
-               <font>
-                  <Font name="System Bold" size="15.0" />
-               </font>
-               <GridPane.margin>
-                  <Insets left="80.0" top="-40.0" />
-               </GridPane.margin>
-            </Label>
-            <Label fx:id="LblTipoCuenta1" alignment="CENTER" contentDisplay="CENTER" prefHeight="38.0" prefWidth="185.0" text="cuenta" GridPane.rowIndex="1">
-               <font>
-                  <Font name="System Bold" size="15.0" />
-               </font>
-               <GridPane.margin>
-                  <Insets left="120.0" top="50.0" />
-               </GridPane.margin>
-            </Label>
-            <TextField fx:id="lblNombreDispoSelec" maxHeight="31.0" maxWidth="250.0" prefHeight="31.0" prefWidth="248.0" GridPane.rowIndex="2">
-               <GridPane.margin>
-                  <Insets top="-190.0" />
-               </GridPane.margin>
-            </TextField>
-            <TextField fx:id="lblNombreDispoSelec1" maxHeight="31.0" maxWidth="250.0" prefHeight="31.0" prefWidth="248.0" GridPane.rowIndex="2">
-               <GridPane.margin>
-                  <Insets top="-100.0" />
-               </GridPane.margin>
-            </TextField>
-            <TextField fx:id="lblNombreDispoSelec2" maxHeight="31.0" maxWidth="250.0" prefHeight="31.0" prefWidth="248.0" GridPane.rowIndex="2">
-               <GridPane.margin>
-                  <Insets top="-10.0" />
-               </GridPane.margin>
-            </TextField>
-            <TextField fx:id="lblNombreDispoSelec3" maxHeight="31.0" maxWidth="250.0" prefHeight="31.0" prefWidth="248.0" GridPane.rowIndex="2">
-               <GridPane.margin>
-                  <Insets top="80.0" />
-               </GridPane.margin>
-            </TextField>
+            <Button fx:id="btn_Inicio_Menu" mnemonicParsing="false" onMouseClicked="#irInicio" prefHeight="27.0" prefWidth="32.0" styleClass="btn_Inicio_Menu" stylesheets="@../Documents/GitHub/pii23-jositosclub/bin/Documents/GitHub/pii23-jositosclub/bin/Documents/GitHub/pii23-jositosclub/bin/applications/application.css" textAlignment="JUSTIFY">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+               <HBox.margin>
+                  <Insets right="125.0" />
+               </HBox.margin>
+            </Button>
+            <Button fx:id="btn_Perfil_Menu" contentDisplay="CENTER" mnemonicParsing="false" onMouseClicked="#irMenuPerfil" prefHeight="30.0" prefWidth="27.0" styleClass="btn_Perfil_Menu" stylesheets="@../Documents/GitHub/pii23-jositosclub/bin/Documents/GitHub/pii23-jositosclub/bin/Documents/GitHub/pii23-jositosclub/bin/applications/application.css" textFill="TRANSPARENT">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+               <HBox.margin>
+                  <Insets left="125.0" />
+               </HBox.margin>
+            </Button>
          </children>
-      </GridPane>
+      </HBox>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#00000028" height="199.0" layoutX="48.0" layoutY="292.0" stroke="WHITE" strokeType="INSIDE" width="321.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#00000028" height="199.0" layoutX="423.0" layoutY="292.0" stroke="WHITE" strokeType="INSIDE" width="321.0" />
+      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="301.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../img/logo_app.png" />
+         </image>
+      </ImageView>
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="193.0" layoutY="187.0" prefHeight="38.0" prefWidth="216.0" text="Tipo de Cuenta: " />
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="208.0" layoutY="225.0" prefHeight="38.0" prefWidth="216.0" text="Usuarios Asociados: " />
+      <Label fx:id="lblTipoCuenta" alignment="CENTER" contentDisplay="CENTER" layoutX="345.0" layoutY="187.0" prefHeight="38.0" prefWidth="185.0" text="cuenta">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </Label>
+      <Label fx:id="lblUsuAsoci" alignment="CENTER" contentDisplay="CENTER" layoutX="377.0" layoutY="225.0" prefHeight="38.0" prefWidth="185.0" text="cuenta">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </Label>
+      <TextField fx:id="lblCorreoUsu" layoutX="82.0" layoutY="428.0" maxHeight="31.0" maxWidth="250.0" prefHeight="31.0" prefWidth="248.0" />
+      <TextField fx:id="lblNombreUsu" layoutX="82.0" layoutY="344.0" maxHeight="31.0" maxWidth="250.0" prefHeight="31.0" prefWidth="248.0" />
+      <Button fx:id="btnGuardarCambios" layoutX="81.0" layoutY="505.0" mnemonicParsing="false" onMouseClicked="#btnAplicarCambios" prefHeight="31.0" prefWidth="248.0" text="GUARDAR CAMBIOS" />
+      <Label layoutX="82.0" layoutY="310.0" text="Nombre de usuario" />
+      <Label layoutX="82.0" layoutY="399.0" text="Correo electronico" />
+      <Label layoutX="459.0" layoutY="310.0" text="Nueva Contraseña" />
+      <Label layoutX="459.0" layoutY="399.0" text="Repetir Nueva Contraseña" />
+      <JFXPasswordField fx:id="passNueva" layoutX="459.0" layoutY="344.0" prefHeight="31.0" prefWidth="248.0" />
+      <JFXPasswordField fx:id="passRepetirNuevaPass" layoutX="459.0" layoutY="428.0" prefHeight="31.0" prefWidth="248.0" />
+      <Button fx:id="btnNuevaPass" layoutX="462.0" layoutY="505.0" mnemonicParsing="false" onMouseClicked="#btnAplicarCambios" prefHeight="31.0" prefWidth="248.0" text="CAMBIAR CONTRASEÑA" />
    </children>
 </AnchorPane>
