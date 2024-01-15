@@ -162,7 +162,7 @@ public class Controlador_Interfaz_Enviar_Reporte {
 		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/Interfaz_Dispositivos.fxml"));
 
-			Controlador_Interfaz_Enviar_Reporte control = new Controlador_Interfaz_Enviar_Reporte();
+			Controlador_InterfazDispositivos control = new Controlador_InterfazDispositivos();
 
 			loader.setController(control);
 
@@ -179,61 +179,4 @@ public class Controlador_Interfaz_Enviar_Reporte {
 		}
 
 	}
-
-	@FXML
-	private void irAdministrar(MouseEvent event) throws IOException {
-		try {
-			FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/Interfaz_Administrar_Dispositivos.fxml"));
-
-			Controlador_Interfaz_Administrar_Dispositivos control = new Controlador_Interfaz_Administrar_Dispositivos();
-
-			loader.setController(control);
-
-			Parent root = loader.load();
-			Stage primaryStage = new Stage();
-			primaryStage.setScene(new Scene(root));
-			primaryStage.show();
-
-			Stage ventatnaActual = (Stage) lblNombreUsu.getScene().getWindow();
-			ventatnaActual.hide();
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-	}
-
-	@FXML
-	private void IrVerDato(MouseEvent event) throws IOException {
-		try {
-			if (DispositivosManager.getDispositivoSeleccionado() != null) {
-				FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/Interfaz_Visualizacion_Datos.fxml"));
-
-				Controlador_Ver_Datos control = new Controlador_Ver_Datos();
-
-				loader.setController(control);
-
-				Parent root = loader.load();
-				Stage primaryStage = new Stage();
-				primaryStage.setScene(new Scene(root));
-				primaryStage.show();
-
-				Stage ventatnaActual = (Stage) lblNombreUsu.getScene().getWindow();
-				ventatnaActual.hide();
-
-			} else {
-				// Mostrar mensaje de error o no hacer nada
-				Alert alert = new Alert(Alert.AlertType.ERROR);
-				alert.setTitle("Acceso Restringido");
-				alert.setHeaderText(null);
-				alert.setContentText("No tienes ningun dispositivo seleccionado");
-				alert.showAndWait();
-			}
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-	}
-
 }

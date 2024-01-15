@@ -70,7 +70,7 @@ public class Controlador_InterfazDispositivos {
 	}
 
 	@FXML
-	private void seleccionarDispositivo() {
+	private void seleccionarDispositivo(MouseEvent event) {
 		// Obtén el dispo seleccionado y actualiza el txtnombredispo
 		Dispositivos dispoSeleccionado = tablaDsipositivos.getSelectionModel().getSelectedItem();
 		if (dispoSeleccionado != null) {

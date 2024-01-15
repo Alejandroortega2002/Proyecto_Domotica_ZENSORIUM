@@ -30,7 +30,7 @@
                         <Insets right="125.0" />
                      </HBox.margin>
                   </Button>
-                  <Button fx:id="btn_Perfil_Menu" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="30.0" prefWidth="27.0" styleClass="btn_Perfil_Menu" stylesheets="@../applications/application.css" textFill="TRANSPARENT">
+                  <Button fx:id="btn_Perfil_Menu" contentDisplay="CENTER" mnemonicParsing="false" onMouseClicked="#irMenuPerfil" prefHeight="30.0" prefWidth="27.0" styleClass="btn_Perfil_Menu" stylesheets="@../applications/application.css" textFill="TRANSPARENT">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>

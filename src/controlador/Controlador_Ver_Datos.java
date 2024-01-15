@@ -1,5 +1,7 @@
 package controlador;
 
+import java.io.IOException;
+
 import entidades.Dispositivos;
 import entidades.Nodo;
 import entidades.Sensores;
@@ -7,6 +9,9 @@ import entidades.Usuario;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
@@ -14,6 +19,8 @@ import javafx.scene.chart.XYChart;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
 import modelo.DispositivosManager;
 import modelo.ListaEnlazada;
 
@@ -102,4 +109,49 @@ public class Controlador_Ver_Datos {
 //
 //	    // Otras personalizaciones...
 //	}
+	
+	@FXML
+	private void irMenuPerfil(MouseEvent event) throws IOException {
+		try {
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/Interfaz_Perfil.fxml"));
+
+			Controlador_Pantalla_Perfil control = new Controlador_Pantalla_Perfil();
+
+			loader.setController(control);
+
+			Parent root = loader.load();
+			Stage primaryStage = new Stage();
+			primaryStage.setScene(new Scene(root));
+			primaryStage.show();
+
+			Stage ventanaActual = (Stage) tblDatosSensores.getScene().getWindow();
+			ventanaActual.hide();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+	}
+
+	@FXML
+	private void irInicio(MouseEvent event) throws IOException {
+		try {
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/Interfaz_Dispositivos.fxml"));
+
+			Controlador_InterfazDispositivos control = new Controlador_InterfazDispositivos();
+
+			loader.setController(control);
+
+			Parent root = loader.load();
+			Stage primaryStage = new Stage();
+			primaryStage.setScene(new Scene(root));
+			primaryStage.show();
+
+			Stage ventatnaActual = (Stage) tblDatosSensores.getScene().getWindow();
+			ventatnaActual.hide();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+	}
 }

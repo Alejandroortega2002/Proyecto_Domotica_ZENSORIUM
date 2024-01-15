@@ -166,7 +166,7 @@ public class Controlador_Interfaz_Leer_Peticion {
 		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/Interfaz_Dispositivos.fxml"));
 
-			Controlador_Interfaz_Enviar_Reporte control = new Controlador_Interfaz_Enviar_Reporte();
+			Controlador_InterfazDispositivos control = new Controlador_InterfazDispositivos();
 
 			loader.setController(control);
 

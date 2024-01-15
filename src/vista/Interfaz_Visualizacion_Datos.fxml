@@ -23,7 +23,7 @@
          <bottom>
             <HBox alignment="CENTER" prefHeight="60.0" prefWidth="800.0" style="-fx-background-color: #74BBBD;" stylesheets="@../applications/application.css" BorderPane.alignment="CENTER">
                <children>
-                  <Button fx:id="btn_Inicio_Menu" mnemonicParsing="false" prefHeight="27.0" prefWidth="32.0" styleClass="btn_Inicio_Menu" stylesheets="@../applications/application.css" textAlignment="JUSTIFY">
+                  <Button fx:id="btn_Inicio_Menu" mnemonicParsing="false" prefHeight="27.0" prefWidth="32.0" styleClass="btn_Inicio_Menu" onMouseClicked="#irInicio" stylesheets="@../applications/application.css" textAlignment="JUSTIFY">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
@@ -31,7 +31,7 @@
                         <Insets right="125.0" />
                      </HBox.margin>
                   </Button>
-                  <Button fx:id="btn_Perfil_Menu" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="30.0" prefWidth="27.0" styleClass="btn_Perfil_Menu" stylesheets="@../Documents/GitHub/pii23-jositosclub/bin/Documents/GitHub/pii23-jositosclub/bin/applications/application.css" textFill="TRANSPARENT">
+                  <Button fx:id="btn_Perfil_Menu" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="30.0" prefWidth="27.0" onMouseClicked="#irMenuPerfil" styleClass="btn_Perfil_Menu" stylesheets="@../Documents/GitHub/pii23-jositosclub/bin/Documents/GitHub/pii23-jositosclub/bin/applications/application.css" textFill="TRANSPARENT">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
