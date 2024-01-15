@@ -1,10 +1,13 @@
 package controlador;
 
 import java.io.IOException;
+import java.util.HashSet;
+import java.util.Set;
 
 import applications.Main;
 import entidades.Dispositivos;
 import entidades.Nodo;
+import entidades.Relaciones;
 import entidades.Usuario;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -66,7 +69,7 @@ public class Controlador_InterfazDispositivos {
 		this.columnaNombre.setCellValueFactory(new PropertyValueFactory<>("Nombre"));
 		this.columnaEstado.setCellValueFactory(new PropertyValueFactory<>("estado"));
 		this.columnaIdSensor.setCellValueFactory(new PropertyValueFactory<>("id_sensor"));
-		cargarDispositivos();
+		cargarDispositivos(usuarioActual.getId_user());
 	}
 
 	@FXML
@@ -81,45 +84,83 @@ public class Controlador_InterfazDispositivos {
 		}
 	}
 
-	private void cargarDispositivos() {
-		System.out.println("holi");
-		ListaEnlazada<Dispositivos> todosLosDispos = DispositivosManager.cargarDispos();
+	private void cargarDispositivos(long idUsuarioLogueado) {
 		ObservableList<Dispositivos> dispos = FXCollections.observableArrayList();
+		ListaEnlazada<Long> usuariosProcesados = new ListaEnlazada<>();
+		cargarDispositivosDeUsuarioYRelacionados(idUsuarioLogueado, dispos, usuariosProcesados);
+		tablaDsipositivos.setItems(dispos);
+	}
 
-		Nodo<Dispositivos> nodoActual = todosLosDispos.getCabeza();
-		while (nodoActual != null) {
-			Dispositivos dispo = nodoActual.getDato();
+	private void cargarDispositivosDeUsuarioYRelacionados(long idUsuario, ObservableList<Dispositivos> dispos,
+			ListaEnlazada<Long> usuariosProcesados) {
+		if (contieneUsuario(usuariosProcesados, idUsuario)) {
+			return; // Evitar procesar el mismo usuario más de una vez
+		}
+		usuariosProcesados.insertarAlFinal(new Nodo<>(idUsuario));
 
-			dispos.add(dispo);
-
-			nodoActual = nodoActual.getEnlace();
+		ListaEnlazada<Dispositivos> dispositivosUsuario = DispositivosManager.cargarDispos();
+		for (Nodo<Dispositivos> nodo = dispositivosUsuario.getCabeza(); nodo != null; nodo = nodo.getEnlace()) {
+			Dispositivos dispositivo = nodo.getDato();
+			if (dispositivo.getId_usu_relacionado() == idUsuario) {
+				agregarSiNoEstaDuplicado(dispos, dispositivo);
+			}
 		}
 
-		tablaDsipositivos.setItems(dispos);
+		ListaEnlazada<Relaciones> relaciones = RegistroManager.cargarRelaciones();
+		for (Nodo<Relaciones> nodoRel = relaciones.getCabeza(); nodoRel != null; nodoRel = nodoRel.getEnlace()) {
+			Relaciones relacion = nodoRel.getDato();
+			long idRelacionado = (relacion.getTu_id() == idUsuario) ? relacion.getId_user_relacion()
+					: relacion.getTu_id();
+			cargarDispositivosDeUsuarioYRelacionados(idRelacionado, dispos, usuariosProcesados);
+		}
+	}
+
+	private boolean contieneUsuario(ListaEnlazada<Long> lista, Long idUsuario) {
+		for (Nodo<Long> nodo = lista.getCabeza(); nodo != null; nodo = nodo.getEnlace()) {
+			if (nodo.getDato().equals(idUsuario)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	private void agregarSiNoEstaDuplicado(ObservableList<Dispositivos> lista, Dispositivos dispositivo) {
+		boolean estaDuplicado = false;
+		for (Dispositivos d : lista) {
+			if (d.getId_dispo() == dispositivo.getId_dispo()) {
+				estaDuplicado = true;
+				break;
+			}
+		}
+		if (!estaDuplicado) {
+			lista.add(dispositivo);
+		}
 	}
 
 	@FXML
 	private void btnEncender(MouseEvent event) throws IOException {
+		Usuario usuarioActual = Sesion.getInstancia().getUsuarioActual();
 		// Obtén el dispo seleccionado y actualiza el estado del dispo
 		Dispositivos dispoSeleccionado = tablaDsipositivos.getSelectionModel().getSelectedItem();
 		String nombre = dispoSeleccionado.getNombre();
 		if (dispoSeleccionado != null) {
 
 			DispositivosManager.modificarEstadoDispositivo(nombre, true);
-			cargarDispositivos();
+			cargarDispositivos(usuarioActual.getId_user());
 		}
 
 	}
 
 	@FXML
 	private void btnApagar(MouseEvent event) throws IOException {
+		Usuario usuarioActual = Sesion.getInstancia().getUsuarioActual();
 		// Obtén el dispo seleccionado y actualiza el estado del dispo
 		Dispositivos dispoSeleccionado = tablaDsipositivos.getSelectionModel().getSelectedItem();
 		String nombre = dispoSeleccionado.getNombre();
 		if (dispoSeleccionado != null) {
 
 			DispositivosManager.modificarEstadoDispositivo(nombre, false);
-			cargarDispositivos();
+			cargarDispositivos(usuarioActual.getId_user());
 
 		}
 
