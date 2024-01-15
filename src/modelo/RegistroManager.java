@@ -154,4 +154,34 @@ public class RegistroManager {
 
 		return false; // No se encontró el dispositivo con el nombre especificado
 	}
+
+	public static boolean actualizaPass(Long idUsuario,String nuevaPass) {
+		ListaEnlazada<Usuario> usuarios = cargarUsuarios();
+
+		if (usuarios == null) {
+			return false; // No hay dispositivos para modificar
+		}
+
+		Nodo<Usuario> nodoActual = usuarios.getCabeza();
+
+		while (nodoActual != null) {
+			Usuario usuarioActual = nodoActual.getDato();
+
+			if (usuarioActual.getId_user() == idUsuario) {
+				// Se ha encontrado el dispositivo a modificar
+
+				usuarioActual.setPassword(nuevaPass);
+				usuarioActual.setRepetirPass(nuevaPass);
+
+
+				guardarUsuarios(usuarios);
+				return true; // Dispositivo modificado exitosamente
+			}
+
+			nodoActual = nodoActual.getEnlace();
+		}
+
+		return false; // No se encontró el dispositivo con el nombre especificado
+	
+	}
 }
