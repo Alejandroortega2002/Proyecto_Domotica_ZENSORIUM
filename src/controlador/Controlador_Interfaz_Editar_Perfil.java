@@ -1,6 +1,5 @@
 package controlador;
 
-
 import java.io.IOException;
 import java.util.Set;
 
@@ -30,7 +29,7 @@ public class Controlador_Interfaz_Editar_Perfil {
 	private Button btnGuardarCambios;
 	@FXML
 	private Button btnNuevaPass;
-	
+
 	@FXML
 	private TextField lblNombreUsu;
 	@FXML
@@ -50,12 +49,11 @@ public class Controlador_Interfaz_Editar_Perfil {
 			lblNombreUsu.setText(username);
 			lblTipoCuenta.setText(usuarioActual.getTipodecuenta());
 			lblCorreoUsu.setText(usuarioActual.getEmail());
-			
-			
-			
+
 		}
-		
+
 	}
+
 	@FXML
 	private void btnAplicarCambios() throws IOException {
 
@@ -63,13 +61,14 @@ public class Controlador_Interfaz_Editar_Perfil {
 		String nuevoCorreo = lblCorreoUsu.getText();
 		Usuario usuarioActual = Sesion.getInstancia().getUsuarioActual();
 
-		if (!nuevoNombre.isEmpty()|| !nuevoCorreo.isEmpty() ) {
+		if (!nuevoNombre.isEmpty() || !nuevoCorreo.isEmpty()) {
 
-			if (RegistroManager.modificarUsuario(usuarioActual.getId_user(), nuevoNombre,nuevoCorreo)) {
+			if (RegistroManager.modificarUsuario(usuarioActual.getId_user(), nuevoNombre, nuevoCorreo)) {
 				Alert alerta = new Alert(Alert.AlertType.WARNING);
 				alerta.setTitle("Modificacion Exitosa");
 				alerta.setHeaderText(null);
-				alerta.setContentText("Nuevo nombre de usuario:"+nuevoNombre+"                             Nuevo correo de usuario:" + nuevoCorreo);
+				alerta.setContentText("Nuevo nombre de usuario:" + nuevoNombre
+						+ "                             Nuevo correo de usuario:" + nuevoCorreo);
 				alerta.showAndWait();
 				usuarioActual.setUsername(nuevoNombre);
 				lblNombreUsu.setText("");

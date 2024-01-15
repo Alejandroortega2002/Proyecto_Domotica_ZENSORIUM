@@ -108,5 +108,18 @@
             </Button>
          </children>
       </GridPane>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1f93ff00" height="67.0" layoutX="20.0" layoutY="20.0" stroke="WHITE" strokeType="INSIDE" width="272.0" />
+      <Label layoutX="29.0" layoutY="29.0" text="Nombre:" />
+      <Label id="lblNombreUsu" fx:id="lblNombreUsu" layoutX="97.0" layoutY="29.0" text="Nombre Usuario">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </Label>
+      <Label id="lblTipoCuenta" fx:id="lblTipoCuenta" layoutX="137.0" layoutY="61.0" prefHeight="0.0" prefWidth="117.0" text="Tipo de cuenta">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </Label>
+      <Label layoutX="28.0" layoutY="59.0" text="Tipo de cuenta:" />
 	</children>
 </AnchorPane>

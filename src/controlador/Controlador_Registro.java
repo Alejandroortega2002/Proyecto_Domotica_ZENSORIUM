@@ -16,11 +16,13 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
 import modelo.RegistroManager;
 
 public class Controlador_Registro {
@@ -82,8 +84,24 @@ public class Controlador_Registro {
 						Usuario nuevoUsuario = new Usuario(nuevoId, username, email, password, repetirPass,
 								tipoDecuenta);
 						if (RegistroManager.registrarUsuario(nuevoUsuario)) {
-							Parent fxml = FXMLLoader.load(getClass().getResource("/vista/Pantalla_Inicio_Login.fxml"));
-							Main.stage.getScene().setRoot(fxml);
+							try {
+								FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/Pantalla_Inicio_Login.fxml"));
+
+								Controlador_Inicio_Login control = new Controlador_Inicio_Login();
+
+								loader.setController(control);
+
+								Parent root = loader.load();
+								Stage primaryStage = new Stage();
+								primaryStage.setScene(new Scene(root));
+								primaryStage.show();
+
+								Stage ventatnaActual = (Stage) nombreUsuarioRegistro.getScene().getWindow();
+								ventatnaActual.hide();
+
+							} catch (Exception e) {
+								e.printStackTrace();
+							}
 
 						} else {
 							// Mostrar mensaje de error si el usuario ya existe.

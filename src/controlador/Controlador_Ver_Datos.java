@@ -55,7 +55,7 @@ public class Controlador_Ver_Datos {
 		this.colId.setCellValueFactory(new PropertyValueFactory<>("id_sensor"));
 		cargarSensoresDelDispositivo(dispositivo);
 		cargarDatosEnGrafico();
-		// estilizarGrafico();
+		estilizarGrafico(dispositivo);
 	}
 
 	private void cargarSensoresDelDispositivo(Dispositivos dispositivoSeleccionado) {
@@ -83,7 +83,8 @@ public class Controlador_Ver_Datos {
 
 			for (Sensores sensor : tblDatosSensores.getItems()) {
 				XYChart.Series<String, Number> series = new XYChart.Series<>();
-				series.setName("Dato " + sensor.getOrden_registro()); // Nombre de la serie como el ID del sensor
+				series.setName("Recopilación " + sensor.getOrden_registro()); // Nombre de la serie como el ID del
+																				// sensor
 
 				// Crear un punto de datos con el orden_registro como etiqueta y dato_actual
 				// como valor
@@ -99,17 +100,30 @@ public class Controlador_Ver_Datos {
 		}
 	}
 
-//	private void estilizarGrafico() {
-//	    // Establecer colores o estilos específicos
-//	    barChart.setStyle("-fx-bar-fill: blue;");
-//
-//	    // Configuraciones adicionales si es necesario
-//	    yAxis.setLabel("Temperatura (°C)");
-//	    xAxis.setLabel("Datos de Sensores");
-//
-//	    // Otras personalizaciones...
-//	}
-	
+	private void estilizarGrafico(Dispositivos dispositivo) {
+
+		switch (dispositivo.getTipo()) {
+		case "Aire":
+			yAxis.setLabel("Temperatura (°C)");
+			break;
+		case "Puerta":
+			yAxis.setLabel("Movimiento");
+			break;
+		case "Luz":
+			yAxis.setLabel("Luminosidad (%)");
+			break;
+		case "Persiana":
+			yAxis.setLabel("Posicionamiento");
+			break;
+		default:
+			yAxis.setLabel("Valor");
+			break;
+		}
+		xAxis.setLabel("Datos de Sensores");
+
+		// Otras personalizaciones...
+	}
+
 	@FXML
 	private void irMenuPerfil(MouseEvent event) throws IOException {
 		try {
