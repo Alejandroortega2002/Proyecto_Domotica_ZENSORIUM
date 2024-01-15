@@ -5,6 +5,8 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import entidades.Reporte;
+import entidades.Usuario;
+import entidades.Dispositivos;
 import entidades.Nodo;
 
 import java.io.*;
@@ -12,8 +14,8 @@ import java.lang.reflect.Type;
 
 public class ReporteManager {
 	private static final String FILE_PATH_Reporte = "data/Reporte.json";
+	private static Reporte reporteSeleccionado;
 
-	
 	public static ListaEnlazada<Reporte> cargarReportes() {
 		try (Reader reader = new FileReader(FILE_PATH_Reporte)) {
 			Type listType = new TypeToken<ListaEnlazada<Reporte>>() {
@@ -55,40 +57,6 @@ public class ReporteManager {
 		return true;
 	}
 
-	public static boolean eliminarReporte(String nombreReporte) {
-		ListaEnlazada<Reporte> Reporte = cargarReportes();
-
-		if (Reporte == null) {
-			return false; // No hay Reporte para eliminar
-		}
-
-		Nodo<Reporte> nodoActual = Reporte.getCabeza();
-		Nodo<Reporte> nodoAnterior = null;
-
-		while (nodoActual != null) {
-			Reporte dispositivoActual = nodoActual.getDato();
-
-			if (dispositivoActual.getTitulo().equals(nombreReporte)) {
-				// Se ha encontrado el dispositivo a eliminar
-
-				if (nodoAnterior == null) {
-					// El dispositivo a eliminar es el primer elemento de la lista
-					Reporte.setCabeza(nodoActual.getEnlace());
-				} else {
-					// El dispositivo a eliminar está en medio o al final de la lista
-					nodoAnterior.setEnlace(nodoActual.getEnlace());
-				}
-
-				guardarReporte(Reporte);
-				return true; // Dispositivo eliminado exitosamente
-			}
-
-			nodoAnterior = nodoActual;
-			nodoActual = nodoActual.getEnlace();
-		}
-
-		return false; // No se encontró el dispositivo con el nombre especificado
-	}
 
 	public static long obtenerNuevoId() {
 		ListaEnlazada<Reporte> dispos = cargarReportes();
@@ -108,6 +76,74 @@ public class ReporteManager {
 		}
 
 		return idMasAlto + 1; // Incrementa el ID más alto en 1
+	}
+
+	public static Reporte getReporteSeleccionado() {
+		return reporteSeleccionado;
+	}
+
+	public static void setReporteSeleccionado(Reporte reporte) {
+		reporteSeleccionado = reporte;
+	}
+
+	public static String sacarNombreDeId(Long idUsuario) {
+		ListaEnlazada<Usuario> usuarios = RegistroManager.cargarUsuarios();
+
+		if (usuarios == null) {
+			return ""; // No hay dispositivos para modificar
+		}
+
+		Nodo<Usuario> nodoActual = usuarios.getCabeza();
+
+		while (nodoActual != null) {
+			Usuario usuActual = nodoActual.getDato();
+
+			if (usuActual.getId_user() == idUsuario) {
+				// Se ha encontrado el dispositivo a modificar
+
+				return usuActual.getUsername(); // Dispositivo modificado exitosamente
+			}
+
+			nodoActual = nodoActual.getEnlace();
+		}
+
+		return ""; // No se encontró el dispositivo con el nombre especificado
+	}
+
+	//////////////////////////////////////////////
+	public static boolean eliminarReporte(String tituloReporte) {
+		ListaEnlazada<Reporte> reportes = cargarReportes();
+
+		if (reportes == null) {
+			return false; // No hay dispositivos para eliminar
+		}
+
+		Nodo<Reporte> nodoActual = reportes.getCabeza();
+		Nodo<Reporte> nodoAnterior = null;
+
+		while (nodoActual != null) {
+			Reporte reporteActual = nodoActual.getDato();
+
+			if (reporteActual.getTitulo().equals(tituloReporte)) {
+				// Se ha encontrado el dispositivo a eliminar
+
+				if (nodoAnterior == null) {
+					// El dispositivo a eliminar es el primer elemento de la lista
+					reportes.setCabeza(nodoActual.getEnlace());
+				} else {
+					// El dispositivo a eliminar está en medio o al final de la lista
+					nodoAnterior.setEnlace(nodoActual.getEnlace());
+				}
+
+				guardarReporte(reportes);
+				return true; // Dispositivo eliminado exitosamente
+			}
+
+			nodoAnterior = nodoActual;
+			nodoActual = nodoActual.getEnlace();
+		}
+
+		return false; // No se encontró el dispositivo con el nombre especificado
 	}
 
 }

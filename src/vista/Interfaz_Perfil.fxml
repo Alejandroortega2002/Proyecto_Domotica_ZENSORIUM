@@ -60,7 +60,7 @@
                   <Insets left="-180.0" top="-20.0" />
                </GridPane.margin>
             </Button>
-            <Button maxHeight="31.0" maxWidth="170.0" mnemonicParsing="false" text="Ver Reportes" GridPane.rowIndex="2">
+            <Button maxHeight="31.0" maxWidth="170.0" mnemonicParsing="false" onMouseClicked="#irLeerReporte" text="Ver Reportes" GridPane.rowIndex="2">
                <GridPane.margin>
                   <Insets left="180.0" top="-20.0" />
                </GridPane.margin>

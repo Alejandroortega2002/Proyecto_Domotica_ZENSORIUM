@@ -3,6 +3,7 @@ package controlador;
 import java.io.IOException;
 
 import applications.Main;
+import entidades.Reporte;
 import entidades.Dispositivos;
 import entidades.Nodo;
 import entidades.Usuario;
@@ -18,10 +19,12 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import modelo.ReporteManager;
 import modelo.DispositivosManager;
 import modelo.ListaEnlazada;
 import modelo.RegistroManager;
@@ -34,23 +37,28 @@ public class Controlador_Interfaz_Leer_Peticion {
 
 	@FXML
 	private Label lblTipoCuenta;
-
+	@FXML
+	private Label lblFecha;
+	
 	@FXML
 	private Button btnVerDatos;
 
 	@FXML
-	private TextField txtFieldNombreDispo; // Para ingresar el nombre del usuario familiar
+	private TextField lblTitulo; // Para ingresar el nombre del usuario familiar
 	@FXML
-	private TextField txtFieldNombreSensorRelacionado; // Para ingresar el nombre del usuario familiar
+	private TextArea txtAreaDescripcion; // Para ingresar el nombre del usuario familiar
+	@FXML
+	private TextField lblEmisor; // Para ingresar el nombre del usuario familiar
 
+	
 	@FXML
-	private TableView<Dispositivos> tablaDsipositivos;
+	private TableView<Reporte> tableReportes;
 	@FXML
-	private TableColumn<Dispositivos, String> columnaNombre;
+	private TableColumn<Reporte, String> columnDescripcion;
 	@FXML
-	private TableColumn<Dispositivos, String> columnaEstado;
+	private TableColumn<Reporte, String> columTituloReporte;
 	@FXML
-	private TableColumn<Dispositivos, String> columnaIdSensor;
+	private TableColumn<Reporte, String> columnEmisor;
 
 	@FXML
 	public void initialize() {
@@ -63,67 +71,72 @@ public class Controlador_Interfaz_Leer_Peticion {
 			lblTipoCuenta.setText(tipoDeCuenta);
 		}
 
-		this.columnaNombre.setCellValueFactory(new PropertyValueFactory<>("Nombre"));
-		this.columnaEstado.setCellValueFactory(new PropertyValueFactory<>("estado"));
-		this.columnaIdSensor.setCellValueFactory(new PropertyValueFactory<>("id_sensor"));
-		cargarDispositivos();
+		this.columnDescripcion.setCellValueFactory(new PropertyValueFactory<>("queja"));
+		this.columTituloReporte.setCellValueFactory(new PropertyValueFactory<>("titulo"));
+		this.columnEmisor.setCellValueFactory(new PropertyValueFactory<>("id_user_emisor"));
+		cargarReporte();
 	}
 
 	@FXML
 	private void seleccionarDispositivo() {
 		// Obtén el dispo seleccionado y actualiza el txtnombredispo
-		Dispositivos dispoSeleccionado = tablaDsipositivos.getSelectionModel().getSelectedItem();
-		if (dispoSeleccionado != null) {
-			txtFieldNombreDispo.setText(dispoSeleccionado.getNombre());
-			txtFieldNombreSensorRelacionado.setText(String.valueOf(dispoSeleccionado.getId_sensor()));
-			DispositivosManager.setDispositivoSeleccionado(dispoSeleccionado);
+		Reporte repoSeleccionado = tableReportes.getSelectionModel().getSelectedItem();
+		if (repoSeleccionado != null) {
+			lblTitulo.setText(repoSeleccionado.getTitulo());
+			txtAreaDescripcion.setText(repoSeleccionado.getQueja());
+			lblEmisor.setText(String.valueOf(ReporteManager.sacarNombreDeId(repoSeleccionado.getId_user_emisor())));
+			lblFecha.setText(String.valueOf(repoSeleccionado.getFecha()));
+
+			ReporteManager.setReporteSeleccionado(repoSeleccionado);
 
 		}
 	}
+	@FXML
+	public void btnEliminarReporte(MouseEvent event) throws IOException {
+		Reporte dispoSeleccionado = tableReportes.getSelectionModel().getSelectedItem();
+		if (dispoSeleccionado != null) {
 
-	private void cargarDispositivos() {
-		System.out.println("holi");
-		ListaEnlazada<Dispositivos> todosLosDispos = DispositivosManager.cargarDispos();
-		ObservableList<Dispositivos> dispos = FXCollections.observableArrayList();
+			if (ReporteManager.eliminarReporte(dispoSeleccionado.getTitulo())) {
+				
+				Alert alerta = new Alert(Alert.AlertType.INFORMATION);
+				alerta.setTitle("Reporte");
+				alerta.setHeaderText(null);
+				alerta.setContentText("Se ha eliminado correctamente el reporte.");
+				alerta.showAndWait();
+				txtAreaDescripcion.setText("");
+				lblEmisor.setText("");
+				lblFecha.setText("");
+				cargarReporte();
+			}
+			
+		} else {
+			
+			Alert alerta = new Alert(Alert.AlertType.INFORMATION);
+			alerta.setTitle("Reporte creado");
+			alerta.setHeaderText(null);
+			alerta.setContentText("No se ha poido eliminar el reporte.");
+			alerta.showAndWait();
+		}
+	}
 
-		Nodo<Dispositivos> nodoActual = todosLosDispos.getCabeza();
+	private void cargarReporte() {
+		ListaEnlazada<Reporte> todosLosRepos = ReporteManager.cargarReportes();
+		ObservableList<Reporte> repos = FXCollections.observableArrayList();
+
+		Nodo<Reporte> nodoActual = todosLosRepos.getCabeza();
 		while (nodoActual != null) {
-			Dispositivos dispo = nodoActual.getDato();
+			Reporte dispo = nodoActual.getDato();
 
-			dispos.add(dispo);
+			repos.add(dispo);
 
 			nodoActual = nodoActual.getEnlace();
 		}
 
-		tablaDsipositivos.setItems(dispos);
+		tableReportes.setItems(repos);
 	}
 
-	@FXML
-	private void btnEncender(MouseEvent event) throws IOException {
-		// Obtén el dispo seleccionado y actualiza el estado del dispo
-		Dispositivos dispoSeleccionado = tablaDsipositivos.getSelectionModel().getSelectedItem();
-		String nombre = dispoSeleccionado.getNombre();
-		if (dispoSeleccionado != null) {
 
-			DispositivosManager.modificarEstadoDispositivo(nombre, true);
-			cargarDispositivos();
-		}
-
-	}
-
-	@FXML
-	private void btnApagar(MouseEvent event) throws IOException {
-		// Obtén el dispo seleccionado y actualiza el estado del dispo
-		Dispositivos dispoSeleccionado = tablaDsipositivos.getSelectionModel().getSelectedItem();
-		String nombre = dispoSeleccionado.getNombre();
-		if (dispoSeleccionado != null) {
-
-			DispositivosManager.modificarEstadoDispositivo(nombre, false);
-			cargarDispositivos();
-
-		}
-
-	}
+	
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	@FXML
@@ -153,7 +166,7 @@ public class Controlador_Interfaz_Leer_Peticion {
 		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/Interfaz_Dispositivos.fxml"));
 
-			Controlador_Interfaz_Leer_Peticion control = new Controlador_Interfaz_Leer_Peticion();
+			Controlador_Interfaz_Enviar_Reporte control = new Controlador_Interfaz_Enviar_Reporte();
 
 			loader.setController(control);
 
@@ -171,60 +184,6 @@ public class Controlador_Interfaz_Leer_Peticion {
 
 	}
 
-	@FXML
-	private void irAdministrar(MouseEvent event) throws IOException {
-		try {
-			FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/Interfaz_Administrar_Dispositivos.fxml"));
 
-			Controlador_Interfaz_Administrar_Dispositivos control = new Controlador_Interfaz_Administrar_Dispositivos();
-
-			loader.setController(control);
-
-			Parent root = loader.load();
-			Stage primaryStage = new Stage();
-			primaryStage.setScene(new Scene(root));
-			primaryStage.show();
-
-			Stage ventatnaActual = (Stage) lblNombreUsu.getScene().getWindow();
-			ventatnaActual.hide();
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-	}
-
-	@FXML
-	private void IrVerDato(MouseEvent event) throws IOException {
-		try {
-			if (DispositivosManager.getDispositivoSeleccionado() != null) {
-				FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/Interfaz_Visualizacion_Datos.fxml"));
-
-				Controlador_Ver_Datos control = new Controlador_Ver_Datos();
-
-				loader.setController(control);
-
-				Parent root = loader.load();
-				Stage primaryStage = new Stage();
-				primaryStage.setScene(new Scene(root));
-				primaryStage.show();
-
-				Stage ventatnaActual = (Stage) lblNombreUsu.getScene().getWindow();
-				ventatnaActual.hide();
-
-			} else {
-				// Mostrar mensaje de error o no hacer nada
-				Alert alert = new Alert(Alert.AlertType.ERROR);
-				alert.setTitle("Acceso Restringido");
-				alert.setHeaderText(null);
-				alert.setContentText("No tienes ningun dispositivo seleccionado");
-				alert.showAndWait();
-			}
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-	}
 
 }
