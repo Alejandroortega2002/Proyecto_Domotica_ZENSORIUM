@@ -7,54 +7,116 @@
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" styleClass="Fondo_Pantalla_Perfil" stylesheets="@../applications/application.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <HBox alignment="CENTER" layoutY="540.0" prefHeight="60.0" prefWidth="800.0" style="-fx-background-color: #74BBBD;">
+      <BorderPane prefHeight="600.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <bottom>
+            <HBox alignment="CENTER" prefHeight="60.0" prefWidth="800.0" style="-fx-background-color: #74BBBD;" BorderPane.alignment="CENTER">
+               <children>
+                  <Button fx:id="btn_Inicio_Menu" mnemonicParsing="false" onMouseClicked="#irInicio" prefHeight="27.0" prefWidth="32.0" styleClass="btn_Inicio_Menu" stylesheets="@../applications/application.css" textAlignment="JUSTIFY">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                     <HBox.margin>
+                        <Insets right="125.0" />
+                     </HBox.margin>
+                  </Button>
+                  <Button fx:id="btn_Perfil_Menu" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="30.0" prefWidth="27.0" styleClass="btn_Perfil_Menu" stylesheets="@../applications/application.css" textFill="TRANSPARENT">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                     <HBox.margin>
+                        <Insets left="125.0" />
+                     </HBox.margin>
+                  </Button>
+               </children>
+            </HBox>
+         </bottom>
+      </BorderPane>
+      <GridPane prefHeight="540.0" prefWidth="800.0" AnchorPane.bottomAnchor="60.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <columnConstraints>
+          <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints maxHeight="163.0" minHeight="10.0" prefHeight="161.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="285.0" minHeight="10.0" prefHeight="263.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="174.0" minHeight="10.0" prefHeight="113.0" vgrow="SOMETIMES" />
+        </rowConstraints>
          <children>
-            <Button fx:id="btn_Inicio_Menu" mnemonicParsing="false" onMouseClicked="#irInicio" prefHeight="27.0" prefWidth="32.0" styleClass="btn_Inicio_Menu" stylesheets="@../Documents/GitHub/pii23-jositosclub/bin/Documents/GitHub/pii23-jositosclub/bin/applications/application.css" textAlignment="JUSTIFY">
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-               <HBox.margin>
-                  <Insets right="125.0" />
-               </HBox.margin>
+            <Button fx:id="btnEnviarReporte" mnemonicParsing="false" onMouseClicked="#btnEnviarReporte" prefHeight="31.0" prefWidth="440.0" text="ENVIAR" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+               <GridPane.margin>
+                  <Insets top="-70.0" />
+               </GridPane.margin>
             </Button>
-            <Button fx:id="btn_Perfil_Menu" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="30.0" prefWidth="27.0" styleClass="btn_Perfil_Menu" stylesheets="@../Documents/GitHub/pii23-jositosclub/bin/Documents/GitHub/pii23-jositosclub/bin/applications/application.css" textFill="TRANSPARENT">
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-               <HBox.margin>
-                  <Insets left="125.0" />
-               </HBox.margin>
-            </Button>
+            <TextArea fx:id="txtAreaDescripcionReporte" maxHeight="220.0" maxWidth="440.0" prefHeight="190.0" prefWidth="300.0" GridPane.rowIndex="1">
+               <GridPane.margin>
+                  <Insets top="45.0" />
+               </GridPane.margin>
+            </TextArea>
+            <Label text="DESCRIPCION DEL REPORTE" GridPane.rowIndex="1">
+               <GridPane.margin>
+                  <Insets left="-288.0" top="-200.0" />
+               </GridPane.margin>
+            </Label>
+            <TextField fx:id="lblTituloReporte" maxWidth="440.0" prefHeight="31.0" prefWidth="440.0">
+               <GridPane.margin>
+                  <Insets top="120.0" />
+               </GridPane.margin>
+            </TextField>
+            <Label text="TITULO DEL REPORTE">
+               <GridPane.margin>
+                  <Insets left="-323.0" top="60.0" />
+               </GridPane.margin>
+            </Label>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="ENVIAR REPORTES">
+               <font>
+                  <Font name="System Bold" size="20.0" />
+               </font>
+               <GridPane.margin>
+                  <Insets top="-50.0" />
+               </GridPane.margin>
+            </Text>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1f93ff00" height="67.0" stroke="WHITE" strokeType="INSIDE" width="249.0">
+               <GridPane.margin>
+                  <Insets left="-540.0" top="-80.0" />
+               </GridPane.margin>
+            </Rectangle>
+            <Label text="Nombre:">
+               <GridPane.margin>
+                  <Insets left="-700.0" top="-110.0" />
+               </GridPane.margin>
+            </Label>
+            <Label id="lblNombreUsu" fx:id="lblNombreUsu" text="Nombre Usuario">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+               <GridPane.margin>
+                  <Insets left="-480.0" top="-110.0" />
+               </GridPane.margin>
+            </Label>
+            <Label id="lblTipoCuenta" fx:id="lblTipoCuenta" prefHeight="0.0" prefWidth="117.0" text="Tipo de cuenta">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+               <GridPane.margin>
+                  <Insets left="-415.0" top="-50.0" />
+               </GridPane.margin>
+            </Label>
+            <Label text="Tipo de cuenta:">
+               <GridPane.margin>
+                  <Insets left="-660.0" top="-50.0" />
+               </GridPane.margin>
+            </Label>
          </children>
-      </HBox>
-      <Text layoutX="312.0" layoutY="74.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ENVIAR REPORTES">
-         <font>
-            <Font name="System Bold" size="20.0" />
-         </font></Text>
-      <Label layoutX="180.0" layoutY="122.0" text="TITULO DEL REPORTE" />
-      <TextField fx:id="lblTituloReporte" layoutX="180.0" layoutY="155.0" prefHeight="31.0" prefWidth="440.0" />
-      <Label layoutX="180.0" layoutY="196.0" text="DESCRIPCION DEL REPORTE" />
-      <TextArea fx:id="txtAreaDescripcionReporte" layoutX="180.0" layoutY="229.0" prefHeight="190.0" prefWidth="440.0" />
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1f93ff00" height="67.0" layoutX="10.0" layoutY="10.0" stroke="WHITE" strokeType="INSIDE" width="249.0" />
-      <Label layoutX="25.0" layoutY="45.0" text="Tipo de cuenta:" />
-      <Label id="lblNombreUsu" fx:id="lblNombreUsu" layoutX="95.0" layoutY="18.0" text="Nombre Usuario">
-         <font>
-            <Font name="System Bold" size="15.0" />
-         </font>
-      </Label>
-      <Label id="lblTipoCuenta" fx:id="lblTipoCuenta" layoutX="127.0" layoutY="46.0" prefHeight="0.0" prefWidth="117.0" text="Tipo de cuenta">
-         <font>
-            <Font name="System Bold" size="15.0" />
-         </font>
-      </Label>
-      <Label layoutX="25.0" layoutY="18.0" text="Nombre:" />
-      <Button fx:id="btnEnviarReporte" layoutX="180.0" layoutY="435.0" mnemonicParsing="false" onMouseClicked="#btnEnviarReporte" prefHeight="31.0" prefWidth="440.0" text="ENVIAR" />
+      </GridPane>
    </children>
 </AnchorPane>
