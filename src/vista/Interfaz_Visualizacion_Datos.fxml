@@ -32,7 +32,7 @@
                         <Insets right="125.0" />
                      </HBox.margin>
                   </Button>
-                  <Button fx:id="btn_Perfil_Menu" contentDisplay="CENTER" mnemonicParsing="false" onMouseClicked="#irMenuPerfil" prefHeight="30.0" prefWidth="27.0" styleClass="btn_Perfil_Menu" stylesheets="@../Documents/GitHub/pii23-jositosclub/bin/Documents/GitHub/pii23-jositosclub/bin/applications/application.css" textFill="TRANSPARENT">
+                  <Button fx:id="btn_Perfil_Menu" contentDisplay="CENTER" mnemonicParsing="false" onMouseClicked="#irMenuPerfil" prefHeight="30.0" prefWidth="27.0" styleClass="btn_Perfil_Menu" stylesheets="@../Documents/GitHub/pii23-jositosclub/bin/Documents/GitHub/pii23-jositosclub/bin/Documents/GitHub/pii23-jositosclub/bin/applications/application.css" textFill="TRANSPARENT">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
@@ -83,20 +83,38 @@
                   <Insets left="50.0" top="-390.0" />
                </GridPane.margin>
             </Label>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1f93ff00" height="67.0" stroke="WHITE" strokeType="INSIDE" width="257.0">
+               <GridPane.margin>
+                  <Insets left="50.0" top="-450.0" />
+               </GridPane.margin>
+            </Rectangle>
+            <Label text="Nombre:">
+               <GridPane.margin>
+                  <Insets left="-100.0" top="-480.0" />
+               </GridPane.margin>
+            </Label>
+            <Label id="lblNombreUsu" fx:id="lblNombreUsu" text="Nombre Usuario">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+               <GridPane.margin>
+                  <Insets left="125.0" top="-480.0" />
+               </GridPane.margin>
+            </Label>
+            <Label id="lblTipoCuenta" fx:id="lblTipoCuenta" prefHeight="0.0" prefWidth="117.0" text="Tipo de cuenta">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+               <GridPane.margin>
+                  <Insets left="190.0" top="-425.0" />
+               </GridPane.margin>
+            </Label>
+            <Label text="Tipo de cuenta:">
+               <GridPane.margin>
+                  <Insets left="-65.0" top="-425.0" />
+               </GridPane.margin>
+            </Label>
          </children>
       </GridPane>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1f93ff00" height="67.0" layoutX="10.0" layoutY="10.0" stroke="WHITE" strokeType="INSIDE" width="249.0" />
-      <Label layoutX="19.0" layoutY="19.0" text="Nombre:" />
-      <Label id="lblNombreUsu" fx:id="lblNombreUsu" layoutX="87.0" layoutY="19.0" text="Nombre Usuario">
-         <font>
-            <Font name="System Bold" size="15.0" />
-         </font>
-      </Label>
-      <Label id="lblTipoCuenta" fx:id="lblTipoCuenta" layoutX="127.0" layoutY="51.0" prefHeight="0.0" prefWidth="117.0" text="Tipo de cuenta">
-         <font>
-            <Font name="System Bold" size="15.0" />
-         </font>
-      </Label>
-      <Label layoutX="18.0" layoutY="49.0" text="Tipo de cuenta:" />
    </children>
 </AnchorPane>
