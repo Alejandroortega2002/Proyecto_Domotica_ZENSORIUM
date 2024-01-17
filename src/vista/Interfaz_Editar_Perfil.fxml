@@ -63,25 +63,12 @@
                   <Insets left="-120.0" top="-30.0" />
                </GridPane.margin>
             </Label>
-            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="21.0" prefWidth="138.0" text="Usuarios Asociados: " GridPane.halignment="CENTER" GridPane.rowIndex="1">
-               <GridPane.margin>
-                  <Insets left="-150.0" top="30.0" />
-               </GridPane.margin>
-            </Label>
             <Label fx:id="lblTipoCuenta" alignment="CENTER" contentDisplay="CENTER" prefHeight="28.0" prefWidth="141.0" text="cuenta" GridPane.halignment="CENTER" GridPane.rowIndex="1">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
                <GridPane.margin>
                   <Insets left="100.0" top="-30.0" />
-               </GridPane.margin>
-            </Label>
-            <Label fx:id="lblUsuAsoci" alignment="CENTER" contentDisplay="CENTER" prefHeight="24.0" prefWidth="152.0" text="cuenta" GridPane.halignment="CENTER" GridPane.rowIndex="1">
-               <font>
-                  <Font name="System Bold" size="15.0" />
-               </font>
-               <GridPane.margin>
-                  <Insets left="100.0" top="30.0" />
                </GridPane.margin>
             </Label>
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#00000028" height="199.0" stroke="WHITE" strokeType="INSIDE" width="321.0" GridPane.halignment="CENTER" GridPane.rowIndex="2">

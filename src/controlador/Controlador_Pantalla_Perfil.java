@@ -2,6 +2,8 @@ package controlador;
 
 import java.io.IOException;
 
+import entidades.Nodo;
+import entidades.Relaciones;
 import entidades.Usuario;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -12,16 +14,18 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import modelo.ListaEnlazada;
+import modelo.RegistroManager;
 import modelo.Sesion;
 
 public class Controlador_Pantalla_Perfil {
 
 	@FXML
 	private Button btnRelaciones;
-	
+
 	@FXML
 	private Button btnEnviarReporte;
-	
+
 	@FXML
 	private Button btnVerReporte;
 
@@ -29,6 +33,8 @@ public class Controlador_Pantalla_Perfil {
 	private Label LblUsername;
 	@FXML
 	private Label LblTipoCuenta;
+	@FXML
+	private Label LblUsuariosAsociados;
 
 	@FXML
 	private void initialize() {
@@ -40,6 +46,8 @@ public class Controlador_Pantalla_Perfil {
 			LblUsername.setText(username);
 			LblTipoCuenta.setText(tipoDeCuenta);
 			deshabilitarBtns(tipoDeCuenta);
+			cargarYMostrarUsuariosAsociados(usuarioActual);
+
 		}
 	}
 
@@ -142,6 +150,42 @@ public class Controlador_Pantalla_Perfil {
 			default:
 				// Manejar cualquier otro caso
 				return;
+			}
+		}
+	}
+
+	private void cargarYMostrarUsuariosAsociados(Usuario usuarioActual) {
+		ListaEnlazada<Relaciones> relacionesDelUsuario = RegistroManager
+				.cargarRelacionesPorUsuario(usuarioActual.getId_user());
+		ListaEnlazada<Usuario> todosLosUsuarios = RegistroManager.cargarUsuarios();
+
+		StringBuilder nombresAsociados = new StringBuilder();
+		for (Nodo<Relaciones> nodoRelacion = relacionesDelUsuario
+				.getCabeza(); nodoRelacion != null; nodoRelacion = nodoRelacion.getEnlace()) {
+			Relaciones relacion = nodoRelacion.getDato();
+			long idUsuarioRelacionado = (relacion.getTu_id() == usuarioActual.getId_user())
+					? relacion.getId_user_relacion()
+					: relacion.getTu_id();
+
+			for (Nodo<Usuario> nodoUsuario = todosLosUsuarios
+					.getCabeza(); nodoUsuario != null; nodoUsuario = nodoUsuario.getEnlace()) {
+				Usuario usuario = nodoUsuario.getDato();
+				if (usuario.getId_user() == idUsuarioRelacionado) {
+					if (nombresAsociados.length() > 0) {
+						nombresAsociados.append(", ");
+					}
+					nombresAsociados.append(usuario.getUsername());
+					break;
+				}
+			}
+
+			// Solo se establece el texto si hay nombres asociados, de lo contrario, se deja
+			// en blanco
+			if (nombresAsociados.length() > 0) {
+				LblUsuariosAsociados.setText(nombresAsociados.toString());
+			} else {
+				LblUsuariosAsociados.setText(""); // O puedes omitir esta línea si el texto ya está en blanco por
+													// defecto
 			}
 		}
 	}

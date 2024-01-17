@@ -16,6 +16,7 @@ import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -23,6 +24,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import modelo.DispositivosManager;
 import modelo.ListaEnlazada;
+import modelo.Sesion;
 
 public class Controlador_Ver_Datos {
 
@@ -38,7 +40,10 @@ public class Controlador_Ver_Datos {
 	private TableColumn<Sensores, Long> colId;
 	@FXML
 	private BarChart<String, Number> barChart;
-
+	@FXML
+	private Label lblNombreUsu;
+	@FXML
+	private Label lblTipoCuenta;
 	@FXML
 	private CategoryAxis xAxis;
 
@@ -48,6 +53,14 @@ public class Controlador_Ver_Datos {
 	@FXML
 	void initialize() {
 		// Initialize the controller
+		Usuario usuarioActual = Sesion.getInstancia().getUsuarioActual();
+		if (usuarioActual != null) {
+			String username = usuarioActual.getUsername();
+			String tipoDeCuenta = usuarioActual.getTipodecuenta();
+			lblNombreUsu.setText(username);
+			lblTipoCuenta.setText(tipoDeCuenta);
+		}
+		
 		Dispositivos dispositivo = DispositivosManager.getDispositivoSeleccionado();
 		this.colNRegistro.setCellValueFactory(new PropertyValueFactory<>("orden_registro"));
 		this.colDato.setCellValueFactory(new PropertyValueFactory<>("dato_actual"));
@@ -80,11 +93,11 @@ public class Controlador_Ver_Datos {
 	private void cargarDatosEnGrafico() {
 		try {
 			barChart.getData().clear(); // Limpia los datos antiguos del gráfico
-
+			XYChart.Series<String, Number> series = new XYChart.Series<>();
+			series.setName("Misdatos"); // Nombre de la serie como el ID del
+																			// sensor
 			for (Sensores sensor : tblDatosSensores.getItems()) {
-				XYChart.Series<String, Number> series = new XYChart.Series<>();
-				series.setName("Recopilación " + sensor.getOrden_registro()); // Nombre de la serie como el ID del
-																				// sensor
+	
 
 				// Crear un punto de datos con el orden_registro como etiqueta y dato_actual
 				// como valor
@@ -92,8 +105,9 @@ public class Controlador_Ver_Datos {
 						sensor.getDato_actual());
 				series.getData().add(data);
 
-				barChart.getData().add(series); // Añade la serie al gráfico
 			}
+			barChart.getData().add(series); // Añade la serie al gráfico
+
 		} catch (NullPointerException e) {
 			e.printStackTrace();
 			// Manejo adicional del error o log

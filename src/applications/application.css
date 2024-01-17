@@ -1,4 +1,18 @@
 /* JavaFX CSS - Leave this comment until you have at least created one rule which uses -fx-Property */
+/*Generico */
+
+.button {
+    -fx-background-radius: 5;
+    -fx-padding: 5 15;
+    -fx-background-color: #39ace7;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-border-radius: 5;
+}
+
+.button:hover {
+    -fx-background-color: #2e8bce;
+}
 
 /* Ventana INICIO */
 .pagina_inicio {
