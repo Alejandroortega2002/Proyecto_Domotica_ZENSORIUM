@@ -1,1 +1,42 @@
-{"cabeza":{"dato":{"id_user":1,"username":"juan","email":"juan@gmail.com","password":"Juan@2002","repetirPass":"Juan@2002","tipodecuenta":"Usuario"},"enlace":{"dato":{"id_user":2,"username":"pedro","email":"pedro@gmail.com","password":"Pedro@2002","repetirPass":"Pedro@2002","tipodecuenta":"Familiar"},"enlace":{"dato":{"id_user":3,"username":"Samu","email":"samu@gmail.com","password":"Samu@2002","repetirPass":"Samu@2002","tipodecuenta":"Administrador"}}}}}
+{
+	"cabeza": {
+		"dato": {
+			"id_user": 1,
+			"username": "juan",
+			"email": "juan@gmail.com",
+			"password": "Juan@2002",
+			"repetirPass": "Juan@2002",
+			"tipodecuenta": "Usuario"
+		},
+		"enlace": {
+			"dato": {
+				"id_user": 2,
+				"username": "pedro",
+				"email": "pedro@gmail.com",
+				"password": "Pedro@2002",
+				"repetirPass": "Pedro@2002",
+				"tipodecuenta": "Familiar"
+			},
+			"enlace": {
+				"dato": {
+					"id_user": 3,
+					"username": "Samu",
+					"email": "samu@gmail.com",
+					"password": "Samu@2002",
+					"repetirPass": "Samu@2002",
+					"tipodecuenta": "Administrador"
+				},
+				"enlace": {
+					"dato": {
+						"id_user": 4,
+						"username": "jorge",
+						"email": "jorge@gmail.com",
+						"password": "Jorge@2002",
+						"repetirPass": "Jorge@2002",
+						"tipodecuenta": "Usuario"
+					}
+				}
+			}
+		}
+	}
+}

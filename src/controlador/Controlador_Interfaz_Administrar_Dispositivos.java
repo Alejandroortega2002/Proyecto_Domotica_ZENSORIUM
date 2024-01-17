@@ -7,6 +7,7 @@ import java.util.Random;
 import applications.Main;
 import entidades.Dispositivos;
 import entidades.Nodo;
+import entidades.Relaciones;
 import entidades.Usuario;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -72,7 +73,7 @@ public class Controlador_Interfaz_Administrar_Dispositivos {
 		this.columnaNombreDispo.setCellValueFactory(new PropertyValueFactory<>("Nombre"));
 		this.columnaTipoDispo.setCellValueFactory(new PropertyValueFactory<>("Tipo"));
 		this.columnaIdSensor.setCellValueFactory(new PropertyValueFactory<>("id_sensor"));
-		cargarDispositivos();
+		cargarDispositivos(usuarioActual.getId_user());
 		tipoDispositivo.setItems(listaTipoDeDispo);
 
 	}
@@ -87,23 +88,52 @@ public class Controlador_Interfaz_Administrar_Dispositivos {
 		}
 	}
 
-	private void cargarDispositivos() {
-		System.out.println("holi");
-		ListaEnlazada<Dispositivos> todosLosDispos = DispositivosManager.cargarDispos();
+	private void cargarDispositivos(long idUsuarioLogueado) {
 		ObservableList<Dispositivos> dispos = FXCollections.observableArrayList();
-
-		// Comprobar si la lista de dispositivos está vacía
-		if (todosLosDispos != null && todosLosDispos.getCabeza() != null) {
-			Nodo<Dispositivos> nodoActual = todosLosDispos.getCabeza();
-			while (nodoActual != null) {
-				Dispositivos dispo = nodoActual.getDato();
-				dispos.add(dispo);
-				nodoActual = nodoActual.getEnlace();
-			}
-		}
-
+		ListaEnlazada<Long> usuariosProcesados = new ListaEnlazada<>();
+		cargarDispositivosDeUsuarioYRelacionados(idUsuarioLogueado, dispos, usuariosProcesados);
 		tableAdministrarDispos.setItems(dispos);
 	}
+
+	private void cargarDispositivosDeUsuarioYRelacionados(long idUsuario, ObservableList<Dispositivos> dispos,
+			ListaEnlazada<Long> usuariosProcesados) {
+		if (contieneUsuario(usuariosProcesados, idUsuario)) {
+			return; // Evitar procesar el mismo usuario más de una vez
+		}
+		usuariosProcesados.insertarAlFinal(new Nodo<>(idUsuario));
+
+		// Cargar dispositivos del usuario actual
+		ListaEnlazada<Dispositivos> dispositivosUsuario = DispositivosManager.cargarDispositivosPorUsuario(idUsuario);
+		for (Nodo<Dispositivos> nodo = dispositivosUsuario.getCabeza(); nodo != null; nodo = nodo.getEnlace()) {
+			Dispositivos dispositivo = nodo.getDato();
+			agregarSiNoEstaDuplicado(dispos, dispositivo);
+		}
+
+		// Cargar dispositivos de usuarios relacionados
+		ListaEnlazada<Relaciones> relaciones = RegistroManager.cargarRelacionesPorUsuario(idUsuario);
+		for (Nodo<Relaciones> nodoRel = relaciones.getCabeza(); nodoRel != null; nodoRel = nodoRel.getEnlace()) {
+			Relaciones relacion = nodoRel.getDato();
+			long idRelacionado = (relacion.getTu_id() == idUsuario) ? relacion.getId_user_relacion()
+					: relacion.getTu_id();
+			cargarDispositivosDeUsuarioYRelacionados(idRelacionado, dispos, usuariosProcesados);
+		}
+	}
+
+	private boolean contieneUsuario(ListaEnlazada<Long> lista, Long idUsuario) {
+		for (Nodo<Long> nodo = lista.getCabeza(); nodo != null; nodo = nodo.getEnlace()) {
+			if (nodo.getDato().equals(idUsuario)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	private void agregarSiNoEstaDuplicado(ObservableList<Dispositivos> lista, Dispositivos dispositivo) {
+		if (!lista.stream().anyMatch(d -> d.getId_dispo() == dispositivo.getId_dispo())) {
+			lista.add(dispositivo);
+		}
+	}
+
 
 	@FXML // hay que actualizar este metodo
 	private void anadirDsipositivo() throws IOException {
@@ -121,7 +151,7 @@ public class Controlador_Interfaz_Administrar_Dispositivos {
 				// hacer alerta de dispo añadido
 				System.out.println(nuevoUsuario.toString());
 				Error_Label_Registro.setVisible(false);
-				cargarDispositivos();
+				cargarDispositivos(usuarioActual.getId_user());
 			} else {
 				Error_Label_Registro.setVisible(true);
 				Error_Label_Registro.setText("Ya hay un dispositivo con ese nombre");
@@ -193,7 +223,8 @@ public class Controlador_Interfaz_Administrar_Dispositivos {
 
 			if (DispositivosManager.eliminarDispositivo(dispoSeleccionado.getNombre())) {
 				Error_Label_Registro.setVisible(false);
-				cargarDispositivos();
+				Usuario usuarioActual = Sesion.getInstancia().getUsuarioActual();
+				cargarDispositivos(usuarioActual.getId_user());
 			}
 		} else {
 			Error_Label_Registro.setVisible(true);
@@ -209,9 +240,9 @@ public class Controlador_Interfaz_Administrar_Dispositivos {
 
 			if (DispositivosManager.modificarDispositivo(aux, nombre)) {
 				// Hacer alerta de dispositivo modificado
-
+				Usuario usuarioActual = Sesion.getInstancia().getUsuarioActual();
 				Error_Label_Registro.setVisible(false);
-				cargarDispositivos();
+				cargarDispositivos(usuarioActual.getId_user());
 			} else {
 				Error_Label_Registro.setVisible(true);
 				Error_Label_Registro.setText("No se encontró el dispositivo con ese nombre");

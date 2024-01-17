@@ -1,1 +1,16 @@
-{"cabeza":{"dato":{"tu_id":3,"id_user_relacion":2,"tipo_relacion":"AF"},"enlace":{"dato":{"tu_id":2,"id_user_relacion":1,"tipo_relacion":"FB"}}}}
+{
+	"cabeza": {
+		"dato": {
+			"tu_id": 3,
+			"id_user_relacion": 2,
+			"tipo_relacion": "AF"
+		},
+		"enlace": {
+			"dato": {
+				"tu_id": 2,
+				"id_user_relacion": 1,
+				"tipo_relacion": "FB"
+			}
+		}
+	}
+}

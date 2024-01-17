@@ -98,15 +98,15 @@ public class Controlador_InterfazDispositivos {
 		}
 		usuariosProcesados.insertarAlFinal(new Nodo<>(idUsuario));
 
-		ListaEnlazada<Dispositivos> dispositivosUsuario = DispositivosManager.cargarDispos();
+		// Cargar dispositivos del usuario actual
+		ListaEnlazada<Dispositivos> dispositivosUsuario = DispositivosManager.cargarDispositivosPorUsuario(idUsuario);
 		for (Nodo<Dispositivos> nodo = dispositivosUsuario.getCabeza(); nodo != null; nodo = nodo.getEnlace()) {
 			Dispositivos dispositivo = nodo.getDato();
-			if (dispositivo.getId_usu_relacionado() == idUsuario) {
-				agregarSiNoEstaDuplicado(dispos, dispositivo);
-			}
+			agregarSiNoEstaDuplicado(dispos, dispositivo);
 		}
 
-		ListaEnlazada<Relaciones> relaciones = RegistroManager.cargarRelaciones();
+		// Cargar dispositivos de usuarios relacionados
+		ListaEnlazada<Relaciones> relaciones = RegistroManager.cargarRelacionesPorUsuario(idUsuario);
 		for (Nodo<Relaciones> nodoRel = relaciones.getCabeza(); nodoRel != null; nodoRel = nodoRel.getEnlace()) {
 			Relaciones relacion = nodoRel.getDato();
 			long idRelacionado = (relacion.getTu_id() == idUsuario) ? relacion.getId_user_relacion()
@@ -125,14 +125,7 @@ public class Controlador_InterfazDispositivos {
 	}
 
 	private void agregarSiNoEstaDuplicado(ObservableList<Dispositivos> lista, Dispositivos dispositivo) {
-		boolean estaDuplicado = false;
-		for (Dispositivos d : lista) {
-			if (d.getId_dispo() == dispositivo.getId_dispo()) {
-				estaDuplicado = true;
-				break;
-			}
-		}
-		if (!estaDuplicado) {
+		if (!lista.stream().anyMatch(d -> d.getId_dispo() == dispositivo.getId_dispo())) {
 			lista.add(dispositivo);
 		}
 	}

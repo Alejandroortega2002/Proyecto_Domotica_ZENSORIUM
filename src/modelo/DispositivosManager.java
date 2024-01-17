@@ -299,4 +299,41 @@ public class DispositivosManager {
 		guardarSensores(sensores);
 	}
 
+	public static ListaEnlazada<Dispositivos> cargarDispositivosPorUsuario(long idUsuario) {
+		ListaEnlazada<Dispositivos> todosLosDispositivos = cargarDispos();
+		ListaEnlazada<Dispositivos> dispositivosDelUsuario = new ListaEnlazada<>();
+
+		for (Nodo<Dispositivos> nodoActual = todosLosDispositivos
+				.getCabeza(); nodoActual != null; nodoActual = nodoActual.getEnlace()) {
+			Dispositivos dispositivo = nodoActual.getDato();
+			if (dispositivo.getId_usu_relacionado() == idUsuario) {
+				dispositivosDelUsuario.insertarAlFinal(new Nodo<>(dispositivo));
+			}
+		}
+
+		return dispositivosDelUsuario;
+	}
+
+	public static ListaEnlazada<Dispositivos> cargarDispositivosRelacionados(long idUsuario) {
+		ListaEnlazada<Dispositivos> todosLosDispositivos = cargarDispos();
+		ListaEnlazada<Dispositivos> dispositivosRelacionados = new ListaEnlazada<>();
+		ListaEnlazada<Relaciones> relacionesDelUsuario = RegistroManager.cargarRelacionesPorUsuario(idUsuario);
+		for (Nodo<Relaciones> nodoRel = relacionesDelUsuario.getCabeza(); nodoRel != null; nodoRel = nodoRel
+				.getEnlace()) {
+			Relaciones relacion = nodoRel.getDato();
+			long idRelacionado = (relacion.getTu_id() == idUsuario) ? relacion.getId_user_relacion()
+					: relacion.getTu_id();
+
+			for (Nodo<Dispositivos> nodoDispo = todosLosDispositivos
+					.getCabeza(); nodoDispo != null; nodoDispo = nodoDispo.getEnlace()) {
+				Dispositivos dispositivo = nodoDispo.getDato();
+				if (dispositivo.getId_usu_relacionado() == idRelacionado) {
+					dispositivosRelacionados.insertarAlFinal(new Nodo<>(dispositivo));
+				}
+			}
+		}
+
+		return dispositivosRelacionados;
+	}
+
 }

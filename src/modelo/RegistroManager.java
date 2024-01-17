@@ -90,6 +90,21 @@ public class RegistroManager {
 		return false;
 	}
 
+	public static ListaEnlazada<Relaciones> cargarRelacionesPorUsuario(long idUsuario) {
+		ListaEnlazada<Relaciones> todasLasRelaciones = cargarRelaciones();
+		ListaEnlazada<Relaciones> relacionesDelUsuario = new ListaEnlazada<>();
+
+		for (Nodo<Relaciones> nodoActual = todasLasRelaciones.getCabeza(); nodoActual != null; nodoActual = nodoActual
+				.getEnlace()) {
+			Relaciones relacion = nodoActual.getDato();
+			if (relacion.getTu_id() == idUsuario || relacion.getId_user_relacion() == idUsuario) {
+				relacionesDelUsuario.insertarAlFinal(new Nodo<>(relacion));
+			}
+		}
+
+		return relacionesDelUsuario;
+	}
+
 	public static boolean guardarRelacion(Relaciones nuevaRelacion) {
 		if (!verificarRelacionExistente(nuevaRelacion.getTu_id(), nuevaRelacion.getId_user_relacion())) {
 			ListaEnlazada<Relaciones> relacionesExistentes = cargarRelaciones();
@@ -134,7 +149,7 @@ public class RegistroManager {
 		return false; // No se encontró el dispositivo con el nombre especificado
 	}
 
-	public static boolean actualizaPass(Long idUsuario,String nuevaPass) {
+	public static boolean actualizaPass(Long idUsuario, String nuevaPass) {
 		ListaEnlazada<Usuario> usuarios = cargarUsuarios();
 
 		if (usuarios == null) {
@@ -152,7 +167,6 @@ public class RegistroManager {
 				usuarioActual.setPassword(nuevaPass);
 				usuarioActual.setRepetirPass(nuevaPass);
 
-
 				guardarUsuarios(usuarios);
 				return true; // Dispositivo modificado exitosamente
 			}
@@ -161,6 +175,6 @@ public class RegistroManager {
 		}
 
 		return false; // No se encontró el dispositivo con el nombre especificado
-	
+
 	}
 }
