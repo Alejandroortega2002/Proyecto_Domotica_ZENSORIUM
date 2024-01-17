@@ -18,36 +18,24 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity"
-	minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0"
-	prefWidth="800.0" styleClass="fondo_login"
-	stylesheets="@../applications/application.css"
-	xmlns="http://javafx.com/javafx/8.0.171"
-	xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" styleClass="fondo_login" stylesheets="@../applications/application.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
 	<children>
-		<GridPane AnchorPane.bottomAnchor="0.0"
-			AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
-			AnchorPane.topAnchor="0.0">
+		<GridPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
 			<columnConstraints>
-				<ColumnConstraints hgrow="SOMETIMES"
-					minWidth="10.0" />
-				<ColumnConstraints hgrow="SOMETIMES"
-					minWidth="10.0" />
+				<ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+				<ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
 			</columnConstraints>
 			<rowConstraints>
 				<RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
 			</rowConstraints>
 			<children>
-				<VBox alignment="CENTER" maxHeight="-Infinity"
-					maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
-					prefHeight="600.0" prefWidth="400.0" styleClass="parent">
+				<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="400.0" styleClass="parent">
 					<stylesheets>
 						<URL value="@application.css" />
 						<URL value="@/applications/application.css" />
 					</stylesheets>
 					<children>
-						<ImageView fitHeight="100.0" fitWidth="100.0"
-							pickOnBounds="true" preserveRatio="true">
+						<ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
 							<image>
 								<Image url="@../img/logo_app.png" />
 							</image>
@@ -60,15 +48,12 @@
 								<Font name="Impact" size="21.0" />
 							</font>
 						</Label>
-						<Label layoutX="197.0" layoutY="407.0" text="ZENSORIUM"
-							textFill="#11729d">
+						<Label layoutX="197.0" layoutY="407.0" text="ZENSORIUM" textFill="#11729d">
 							<font>
 								<Font name="Book Antiqua" size="30.0" />
 							</font>
 						</Label>
-						<Label layoutX="168.0" layoutY="414.0"
-							text="Tu hogar inteligente, tu vida simplificada."
-							textFill="#11729d">
+						<Label layoutX="168.0" layoutY="414.0" text="Tu hogar inteligente, tu vida simplificada." textFill="#11729d">
 							<font>
 								<Font name="Book Antiqua" size="20.0" />
 							</font>
@@ -80,88 +65,54 @@
 				</VBox>
 				<VBox alignment="CENTER" GridPane.columnIndex="1">
 					<children>
-						<Pane fx:id="contenidoArea" maxHeight="-Infinity"
-							maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
-							prefHeight="600.0" prefWidth="400.0" VBox.vgrow="ALWAYS">
+						<Pane fx:id="contenidoArea" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="400.0" VBox.vgrow="ALWAYS">
 							<children>
-								<ImageView fitHeight="60.0" fitWidth="60.0"
-									layoutX="36.0" layoutY="37.0" pickOnBounds="true"
-									preserveRatio="true">
+								<ImageView fitHeight="60.0" fitWidth="60.0" layoutX="36.0" layoutY="37.0" pickOnBounds="true" preserveRatio="true">
 									<image>
 										<Image url="@../img/logo_app.png" />
 									</image>
 								</ImageView>
-								<Label layoutX="42.0" layoutY="112.0"
-									text="Bienvenido de Nuevo" textFill="WHITE">
+								<Label layoutX="42.0" layoutY="112.0" text="Bienvenido de Nuvo" textFill="WHITE">
 									<font>
 										<Font name="Impact" size="24.0" />
 									</font>
 								</Label>
-								<Label layoutX="42.0" layoutY="148.0"
-									text="Logeate para continuar" textFill="#ffffffb9">
+								<Label layoutX="42.0" layoutY="148.0" text="Logeate para continuar" textFill="#ffffffb9">
 									<font>
 										<Font name="Book Antiqua" size="16.0" />
 									</font>
 								</Label>
-								<JFXTextField fx:id="email_login"
-									focusColor="WHITE" labelFloat="true" layoutX="55.0"
-									layoutY="195.0" maxHeight="-Infinity" maxWidth="-Infinity"
-									minHeight="-Infinity" minWidth="-Infinity" prefHeight="45.0"
-									prefWidth="300.0" promptText="Email"
-									style="-fx-prompt-text-fill: white; -fx-text-fill: white;"
-									unFocusColor="WHITE">
+								<JFXTextField fx:id="email_login" focusColor="WHITE" labelFloat="true" layoutX="55.0" layoutY="195.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="45.0" prefWidth="300.0" promptText="Email" style="-fx-prompt-text-fill: white; -fx-text-fill: white;" unFocusColor="WHITE">
 									<font>
 										<Font name="Book Antiqua" size="15.0" />
 									</font>
 								</JFXTextField>
-								<JFXPasswordField fx:id="password_login"
-									focusColor="WHITE" labelFloat="true" layoutX="56.0"
-									layoutY="265.0" maxHeight="-Infinity" maxWidth="-Infinity"
-									minHeight="-Infinity" minWidth="-Infinity" prefHeight="45.0"
-									prefWidth="300.0" promptText="Contraseña"
-									style="-fx-prompt-text-fill: white; -fx-text-fill: white;"
-									unFocusColor="WHITE">
+								<JFXPasswordField fx:id="password_login" focusColor="WHITE" labelFloat="true" layoutX="56.0" layoutY="265.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="45.0" prefWidth="300.0" promptText="Contraseña" style="-fx-prompt-text-fill: white; -fx-text-fill: white;" unFocusColor="WHITE">
 									<font>
 										<Font name="Book Antiqua" size="15.0" />
 									</font>
 								</JFXPasswordField>
-								<Label layoutX="194.0" layoutY="324.0"
-									styleClass="recordad_cotrasena_login"
-									stylesheets="@../applications/application.css"
-									text="Recordar Contraseña ?" textFill="#ffffffb9">
+								<Label layoutX="194.0" layoutY="324.0" styleClass="recordad_cotrasena_login" stylesheets="@../applications/application.css" text="Recordar Contraseña ?" textFill="#ffffffb9">
 									<font>
 										<Font name="Book Antiqua" size="16.0" />
 									</font>
 								</Label>
-								<JFXButton buttonType="RAISED" layoutX="31.0"
-									layoutY="448.0" maxHeight="-Infinity" maxWidth="-Infinity"
-									minHeight="-Infinity" minWidth="-Infinity"
-									onMouseClicked="#iniciarSesion" prefHeight="45.0"
-									prefWidth="350.0" ripplerFill="#c2c3c6" styleClass="btn_login"
-									stylesheets="@../applications/application.css" text="Entra">
+								<JFXButton buttonType="RAISED" layoutX="31.0" layoutY="448.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#iniciarSesion" prefHeight="45.0" prefWidth="350.0" ripplerFill="#c2c3c6" styleClass="btn_login" stylesheets="@../applications/application.css" text="Entra">
 									<font>
 										<Font name="Book Antiqua" size="17.0" />
 									</font>
 								</JFXButton>
-								<Label layoutX="70.0" layoutY="517.0"
-									stylesheets="@../applications/application.css"
-									text="Todavia no tienes cuenta?" textFill="#ffffffb9">
+								<Label layoutX="70.0" layoutY="517.0" stylesheets="@../applications/application.css" text="Todavia no tienes cuenta?" textFill="#ffffffb9">
 									<font>
 										<Font name="Book Antiqua" size="16.0" />
 									</font>
 								</Label>
-								<Label layoutX="262.0" layoutY="517.0"
-									onMouseClicked="#IrRegistrate"
-									styleClass="recordad_cotrasena_login"
-									stylesheets="@../applications/application.css"
-									text="Registrate" textFill="WHITE">
+								<Label layoutX="262.0" layoutY="517.0" onMouseClicked="#IrRegistrate" styleClass="recordad_cotrasena_login" stylesheets="@../applications/application.css" text="Registrate" textFill="WHITE">
 									<font>
 										<Font name="Impact" size="16.0" />
 									</font>
 								</Label>
-								<FontAwesomeIcon fill="WHITE" glyphName="CLOSE"
-									layoutX="356.0" layoutY="40.0" onMouseClicked="#cerrarApp"
-									size="2em" stroke="#faf7f700" styleClass="btn_cerrar_login">
+								<FontAwesomeIcon fill="WHITE" glyphName="CLOSE" layoutX="356.0" layoutY="40.0" onMouseClicked="#cerrarApp" size="2em" stroke="#faf7f700" styleClass="btn_cerrar_login">
 									<cursor>
 										<Cursor fx:constant="HAND" />
 									</cursor>

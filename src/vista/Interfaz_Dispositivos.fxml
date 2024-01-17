@@ -21,7 +21,7 @@
 	<children>
       <BorderPane prefHeight="600.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <bottom>
-            <HBox alignment="CENTER" prefHeight="60.0" prefWidth="800.0" style="-fx-background-color: #74BBBD;" stylesheets="@../Documents/GitHub/pii23-jositosclub/bin/Documents/GitHub/pii23-jositosclub/bin/applications/application.css" BorderPane.alignment="CENTER">
+            <HBox alignment="CENTER" prefHeight="60.0" prefWidth="800.0" style="-fx-background-color: #74BBBD;" stylesheets="@../applications/application.css" BorderPane.alignment="CENTER">
                <children>
                   <Button fx:id="btn_Inicio_Menu" mnemonicParsing="false" onMouseClicked="#irInicio" prefHeight="27.0" prefWidth="32.0" styleClass="btn_Inicio_Menu" textAlignment="JUSTIFY">
                      <cursor>
@@ -29,11 +29,7 @@
                      </cursor>
                      <HBox.margin>
                         <Insets right="125.0" />
-                     </HBox.margin>
-                     <stylesheets>
-                        <URL value="@../Documents/GitHub/pii23-jositosclub/bin/Documents/GitHub/pii23-jositosclub/bin/Documents/GitHub/pii23-jositosclub/bin/applications/application.css" />
-                        <URL value="@../Documents/GitHub/pii23-jositosclub/bin/applications/application.css" />
-                     </stylesheets>
+                     </HBox.margin>           
                   </Button>
                   <Button fx:id="btn_Perfil_Menu" contentDisplay="CENTER" mnemonicParsing="false" onMouseClicked="#irMenuPerfil" prefHeight="30.0" prefWidth="27.0" styleClass="btn_Perfil_Menu" textFill="TRANSPARENT">
                      <cursor>
@@ -42,10 +38,6 @@
                      <HBox.margin>
                         <Insets left="125.0" />
                      </HBox.margin>
-                     <stylesheets>
-                        <URL value="@../Documents/GitHub/pii23-jositosclub/bin/Documents/GitHub/pii23-jositosclub/bin/Documents/GitHub/pii23-jositosclub/bin/applications/application.css" />
-                        <URL value="@../Documents/GitHub/pii23-jositosclub/bin/applications/application.css" />
-                     </stylesheets>
                   </Button>
                </children>
             </HBox>

@@ -29,11 +29,7 @@
                      </cursor>
                      <HBox.margin>
                         <Insets right="125.0" />
-                     </HBox.margin>
-                     <stylesheets>
-                        <URL value="@../Documents/GitHub/pii23-jositosclub/bin/Documents/GitHub/pii23-jositosclub/bin/Documents/GitHub/pii23-jositosclub/bin/Documents/GitHub/pii23-jositosclub/bin/applications/application.css" />
-                        <URL value="@../Documents/GitHub/pii23-jositosclub/bin/Documents/GitHub/pii23-jositosclub/bin/applications/application.css" />
-                     </stylesheets>
+                     </HBox.margin>         
                   </Button>
                   <Button fx:id="btn_Perfil_Menu" contentDisplay="CENTER" mnemonicParsing="false" onMouseClicked="#irMenuPerfil" prefHeight="30.0" prefWidth="27.0" styleClass="btn_Perfil_Menu" textFill="TRANSPARENT">
                      <cursor>
@@ -41,11 +37,7 @@
                      </cursor>
                      <HBox.margin>
                         <Insets left="125.0" />
-                     </HBox.margin>
-                     <stylesheets>
-                        <URL value="@../Documents/GitHub/pii23-jositosclub/bin/Documents/GitHub/pii23-jositosclub/bin/Documents/GitHub/pii23-jositosclub/bin/Documents/GitHub/pii23-jositosclub/bin/applications/application.css" />
-                        <URL value="@../Documents/GitHub/pii23-jositosclub/bin/Documents/GitHub/pii23-jositosclub/bin/applications/application.css" />
-                     </stylesheets>
+                     </HBox.margin>               
                   </Button>
                </children>
             </HBox>
