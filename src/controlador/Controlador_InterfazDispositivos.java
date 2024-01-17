@@ -40,6 +40,8 @@ public class Controlador_InterfazDispositivos {
 
 	@FXML
 	private Button btnVerDatos;
+	@FXML
+	private Button btnAdministarDsipo;
 
 	@FXML
 	private TextField txtFieldNombreDispo; // Para ingresar el nombre del usuario familiar
@@ -64,12 +66,25 @@ public class Controlador_InterfazDispositivos {
 			String tipoDeCuenta = usuarioActual.getTipodecuenta();
 			lblNombreUsu.setText(username);
 			lblTipoCuenta.setText(tipoDeCuenta);
+			deshabilitarBtns(tipoDeCuenta);
 		}
 
 		this.columnaNombre.setCellValueFactory(new PropertyValueFactory<>("Nombre"));
 		this.columnaEstado.setCellValueFactory(new PropertyValueFactory<>("estado"));
 		this.columnaIdSensor.setCellValueFactory(new PropertyValueFactory<>("id_sensor"));
 		cargarDispositivos(usuarioActual.getId_user());
+	}
+
+	private void deshabilitarBtns(String tipoUsu) {
+		Usuario usuarioActual = Sesion.getInstancia().getUsuarioActual();
+
+		if (usuarioActual != null) {
+			if (usuarioActual.getTipodecuenta().equals("Usuario")) {
+				btnAdministarDsipo.setDisable(true);
+
+			}
+
+		}
 	}
 
 	@FXML
@@ -133,28 +148,45 @@ public class Controlador_InterfazDispositivos {
 	@FXML
 	private void btnEncender(MouseEvent event) throws IOException {
 		Usuario usuarioActual = Sesion.getInstancia().getUsuarioActual();
-		// Obtén el dispo seleccionado y actualiza el estado del dispo
-		Dispositivos dispoSeleccionado = tablaDsipositivos.getSelectionModel().getSelectedItem();
-		String nombre = dispoSeleccionado.getNombre();
-		if (dispoSeleccionado != null) {
-
-			DispositivosManager.modificarEstadoDispositivo(nombre, true);
-			cargarDispositivos(usuarioActual.getId_user());
+		if (usuarioActual == null) {
+			// Manejar el caso en que usuarioActual es null
+			return;
 		}
 
+		Dispositivos dispoSeleccionado = tablaDsipositivos.getSelectionModel().getSelectedItem();
+		if (dispoSeleccionado != null) {
+			String nombre = dispoSeleccionado.getNombre();
+			DispositivosManager.modificarEstadoDispositivo(nombre, true);
+			cargarDispositivos(usuarioActual.getId_user());
+		} else {
+			Alert alert = new Alert(Alert.AlertType.ERROR);
+			alert.setTitle("Acceso Restringido");
+			alert.setHeaderText(null);
+			alert.setContentText("No tienes ningun dispositivo seleccionado");
+			alert.showAndWait();
+		}
 	}
 
 	@FXML
 	private void btnApagar(MouseEvent event) throws IOException {
-		Usuario usuarioActual = Sesion.getInstancia().getUsuarioActual();
-		// Obtén el dispo seleccionado y actualiza el estado del dispo
-		Dispositivos dispoSeleccionado = tablaDsipositivos.getSelectionModel().getSelectedItem();
-		String nombre = dispoSeleccionado.getNombre();
-		if (dispoSeleccionado != null) {
 
+		Usuario usuarioActual = Sesion.getInstancia().getUsuarioActual();
+		if (usuarioActual == null) {
+			// Manejar el caso en que usuarioActual es null
+			return;
+		}
+
+		Dispositivos dispoSeleccionado = tablaDsipositivos.getSelectionModel().getSelectedItem();
+		if (dispoSeleccionado != null) {
+			String nombre = dispoSeleccionado.getNombre();
 			DispositivosManager.modificarEstadoDispositivo(nombre, false);
 			cargarDispositivos(usuarioActual.getId_user());
-
+		} else {
+			Alert alert = new Alert(Alert.AlertType.ERROR);
+			alert.setTitle("Acceso Restringido");
+			alert.setHeaderText(null);
+			alert.setContentText("No tienes ningun dispositivo seleccionado");
+			alert.showAndWait();
 		}
 
 	}

@@ -18,6 +18,12 @@ public class Controlador_Pantalla_Perfil {
 
 	@FXML
 	private Button btnRelaciones;
+	
+	@FXML
+	private Button btnEnviarReporte;
+	
+	@FXML
+	private Button btnVerReporte;
 
 	@FXML
 	private Label LblUsername;
@@ -33,9 +39,10 @@ public class Controlador_Pantalla_Perfil {
 			String tipoDeCuenta = usuarioActual.getTipodecuenta();
 			LblUsername.setText(username);
 			LblTipoCuenta.setText(tipoDeCuenta);
+			deshabilitarBtns(tipoDeCuenta);
 		}
 	}
-	
+
 	@FXML
 	private void cerrarSesion(MouseEvent event) {
 		try {
@@ -51,9 +58,27 @@ public class Controlador_Pantalla_Perfil {
 			primaryStage.show();
 			Stage ventanaActual = (Stage) LblUsername.getScene().getWindow();
 			ventanaActual.hide();
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
+		}
+	}
+
+	private void deshabilitarBtns(String tipoUsu) {
+		Usuario usuarioActual = Sesion.getInstancia().getUsuarioActual();
+
+		if (usuarioActual != null) {
+			String tipoDeCuenta = usuarioActual.getTipodecuenta();
+
+			switch (tipoDeCuenta) {
+			case "Usuario":
+				btnVerReporte.setDisable(true);
+				break;
+
+			case "Administrador":
+				btnEnviarReporte.setDisable(true);
+				break;
+			}
 		}
 	}
 
@@ -142,6 +167,7 @@ public class Controlador_Pantalla_Perfil {
 			e.printStackTrace();
 		}
 	}
+
 	@FXML
 	private void irEnviarReporte(MouseEvent event) throws IOException {
 		try {
@@ -163,6 +189,7 @@ public class Controlador_Pantalla_Perfil {
 			e.printStackTrace();
 		}
 	}
+
 	@FXML
 	private void irLeerReporte(MouseEvent event) throws IOException {
 		try {
@@ -184,6 +211,7 @@ public class Controlador_Pantalla_Perfil {
 			e.printStackTrace();
 		}
 	}
+
 	@FXML
 	private void irEditarPerfil(MouseEvent event) throws IOException {
 		try {
