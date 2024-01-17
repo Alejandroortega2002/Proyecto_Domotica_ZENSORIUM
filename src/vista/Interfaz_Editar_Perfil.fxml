@@ -58,14 +58,14 @@
                   <Image url="@../img/logo_app.png" />
                </image>
             </ImageView>
-            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="21.0" prefWidth="92.0" text="Tipo de Cuenta: " GridPane.halignment="CENTER" GridPane.rowIndex="1">
+            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="21.0" prefWidth="114.0" text="Tipo de Cuenta: " GridPane.halignment="CENTER" GridPane.rowIndex="1">
                <GridPane.margin>
                   <Insets left="-120.0" top="-30.0" />
                </GridPane.margin>
             </Label>
-            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="18.0" prefWidth="114.0" text="Usuarios Asociados: " GridPane.halignment="CENTER" GridPane.rowIndex="1">
+            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="21.0" prefWidth="138.0" text="Usuarios Asociados: " GridPane.halignment="CENTER" GridPane.rowIndex="1">
                <GridPane.margin>
-                  <Insets left="-100.0" top="30.0" />
+                  <Insets left="-150.0" top="30.0" />
                </GridPane.margin>
             </Label>
             <Label fx:id="lblTipoCuenta" alignment="CENTER" contentDisplay="CENTER" prefHeight="28.0" prefWidth="141.0" text="cuenta" GridPane.halignment="CENTER" GridPane.rowIndex="1">
@@ -81,7 +81,7 @@
                   <Font name="System Bold" size="15.0" />
                </font>
                <GridPane.margin>
-                  <Insets left="154.0" top="30.0" />
+                  <Insets left="100.0" top="30.0" />
                </GridPane.margin>
             </Label>
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#00000028" height="199.0" stroke="WHITE" strokeType="INSIDE" width="321.0" GridPane.halignment="CENTER" GridPane.rowIndex="2">
