@@ -75,7 +75,7 @@
                   <Insets left="-150.0" top="-80.0" />
                </GridPane.margin>
             </Label>
-            <Label fx:id="LblUsuariosAsociados" contentDisplay="CENTER" prefHeight="38.0" prefWidth="265.0" text="u_asociados" GridPane.rowIndex="1">
+            <Label fx:id="LblUsuariosAsociados" contentDisplay="CENTER" prefHeight="38.0" prefWidth="265.0" GridPane.rowIndex="1">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>

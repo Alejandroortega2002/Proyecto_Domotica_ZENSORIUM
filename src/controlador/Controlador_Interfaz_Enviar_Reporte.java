@@ -4,30 +4,22 @@ import java.io.IOException;
 import java.util.Calendar;
 import java.util.Date;
 
-import applications.Main;
-import entidades.Dispositivos;
 import entidades.Nodo;
 import entidades.Relaciones;
 import entidades.Reporte;
 import entidades.Usuario;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
+
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
-import modelo.DispositivosManager;
 import modelo.ListaEnlazada;
 import modelo.RegistroManager;
 import modelo.ReporteManager;
@@ -40,6 +32,9 @@ public class Controlador_Interfaz_Enviar_Reporte {
 
 	@FXML
 	private Label lblTipoCuenta;
+
+	@FXML
+	private Label lblDestinatario;
 
 	@FXML
 	private Button btnEnviarReporte;
@@ -59,16 +54,29 @@ public class Controlador_Interfaz_Enviar_Reporte {
 			String tipoDeCuenta = usuarioActual.getTipodecuenta();
 			lblNombreUsu.setText(username);
 			lblTipoCuenta.setText(tipoDeCuenta);
+			indicarDestinatario();
 		}
 
 	}
 
-//	this.id_user_emisor = id_user_emisor;
-//	this.id_user_receptor = id_user_receptor;
-//	this.titulo = titulo;
-//	this.queja = queja;
-//	this.fecha = fecha;
-//	this.id_reporte = id_reporte;
+	private void indicarDestinatario() {
+		Usuario usuarioActual = Sesion.getInstancia().getUsuarioActual();
+		long idUsuarioLogueado = usuarioActual.getId_user();
+
+		ListaEnlazada<Relaciones> relaciones = RegistroManager.cargarRelaciones();
+		long idDestinatario = buscarIdDestinatario(relaciones, idUsuarioLogueado);
+
+		if (idDestinatario == -1) {
+			lblDestinatario.setText("TITULO DEL REPORTE, DESTINATARIO: ");
+
+		} else {
+			Usuario usuarioDestinatario = RegistroManager.buscarUsuarioPorId(idDestinatario);
+			lblDestinatario.setText("TITULO DEL REPORTE, DESTINATARIO: " + usuarioDestinatario.getUsername() + " ("
+					+ usuarioDestinatario.getTipodecuenta() + ")");
+
+		}
+
+	}
 
 	@FXML
 	private void btnEnviarReporte(MouseEvent event) throws IOException {
@@ -95,8 +103,7 @@ public class Controlador_Interfaz_Enviar_Reporte {
 			boolean reporteCreado = ReporteManager.crearReporte(nuevoReporte);
 
 			if (reporteCreado) {
-				
-				
+
 				Alert alerta = new Alert(Alert.AlertType.INFORMATION);
 				alerta.setTitle("Reporte creado");
 				alerta.setHeaderText(null);
@@ -111,14 +118,14 @@ public class Controlador_Interfaz_Enviar_Reporte {
 			}
 			lblTituloReporte.setText("");
 			txtAreaDescripcionReporte.setText("");
-		}else {
+		} else {
 			Alert alerta = new Alert(Alert.AlertType.INFORMATION);
 			alerta.setTitle("Reporte creado");
 			alerta.setHeaderText(null);
 			alerta.setContentText("Rellene todos los campos");
 			alerta.showAndWait();
 		}
-		
+
 	}
 
 	private long buscarIdDestinatario(ListaEnlazada<Relaciones> relaciones, long idUsuarioLogueado) {

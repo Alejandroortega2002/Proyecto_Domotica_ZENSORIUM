@@ -29,7 +29,7 @@
 				<RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
 			</rowConstraints>
 			<children>
-				<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="400.0" styleClass="parent">
+				<VBox alignment="CENTER" styleClass="parent">
 					<stylesheets>
 						<URL value="@application.css" />
 						<URL value="@/applications/application.css" />
@@ -92,11 +92,6 @@
 										<Font name="Book Antiqua" size="15.0" />
 									</font>
 								</JFXPasswordField>
-								<Label layoutX="194.0" layoutY="324.0" styleClass="recordad_cotrasena_login" stylesheets="@../applications/application.css" text="Recordar Contraseña ?" textFill="#ffffffb9">
-									<font>
-										<Font name="Book Antiqua" size="16.0" />
-									</font>
-								</Label>
 								<JFXButton buttonType="RAISED" layoutX="31.0" layoutY="448.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#iniciarSesion" prefHeight="45.0" prefWidth="350.0" ripplerFill="#c2c3c6" styleClass="btn_login" stylesheets="@../applications/application.css" text="Entra">
 									<font>
 										<Font name="Book Antiqua" size="17.0" />

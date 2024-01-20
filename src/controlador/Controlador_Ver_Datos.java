@@ -60,7 +60,7 @@ public class Controlador_Ver_Datos {
 			lblNombreUsu.setText(username);
 			lblTipoCuenta.setText(tipoDeCuenta);
 		}
-		
+
 		Dispositivos dispositivo = DispositivosManager.getDispositivoSeleccionado();
 		this.colNRegistro.setCellValueFactory(new PropertyValueFactory<>("orden_registro"));
 		this.colDato.setCellValueFactory(new PropertyValueFactory<>("dato_actual"));
@@ -94,19 +94,25 @@ public class Controlador_Ver_Datos {
 		try {
 			barChart.getData().clear(); // Limpia los datos antiguos del gráfico
 			XYChart.Series<String, Number> series = new XYChart.Series<>();
-			series.setName("Misdatos"); // Nombre de la serie como el ID del
-																			// sensor
-			for (Sensores sensor : tblDatosSensores.getItems()) {
-	
+			series.setName("Recopilación"); // Nombre de la serie
 
-				// Crear un punto de datos con el orden_registro como etiqueta y dato_actual
-				// como valor
+			// Crear un punto de datos para cada sensor y añadirlo a la serie
+			for (Sensores sensor : tblDatosSensores.getItems()) {
 				XYChart.Data<String, Number> data = new XYChart.Data<>(String.valueOf(sensor.getOrden_registro()),
 						sensor.getDato_actual());
 				series.getData().add(data);
-
 			}
-			barChart.getData().add(series); // Añade la serie al gráfico
+
+			// Añade la serie al gráfico después de haber agregado todos los datos
+			barChart.getData().add(series);
+
+			// Estilizar las barras después de que se han añadido al gráfico
+			barChart.lookupAll(".data0").forEach(bar -> bar.setStyle("-fx-bar-fill: navy;")); // Ajusta el color como
+																								// desees
+
+			// Ajustar el ancho de las barras
+			barChart.setCategoryGap(10);
+			barChart.setBarGap(3);
 
 		} catch (NullPointerException e) {
 			e.printStackTrace();

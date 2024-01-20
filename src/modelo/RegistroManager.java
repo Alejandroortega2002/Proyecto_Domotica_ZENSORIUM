@@ -177,4 +177,22 @@ public class RegistroManager {
 		return false; // No se encontró el dispositivo con el nombre especificado
 
 	}
+
+	public static Usuario buscarUsuarioPorId(long idUsuario) {
+		ListaEnlazada<Usuario> usuarios = cargarUsuarios();
+		if (usuarios == null || usuarios.esVacia()) {
+			return null; // O podrías lanzar una excepción si prefieres
+		}
+
+		Nodo<Usuario> nodoActual = usuarios.getCabeza();
+		while (nodoActual != null) {
+			Usuario usuario = nodoActual.getDato();
+			if (usuario.getId_user() == idUsuario) {
+				return usuario; // Usuario encontrado
+			}
+			nodoActual = nodoActual.getEnlace();
+		}
+
+		return null; // Usuario no encontrado
+	}
 }

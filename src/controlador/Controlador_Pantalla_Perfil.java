@@ -81,10 +81,13 @@ public class Controlador_Pantalla_Perfil {
 			switch (tipoDeCuenta) {
 			case "Usuario":
 				btnVerReporte.setDisable(true);
+				btnVerReporte.setManaged(false);
+				btnRelaciones.setManaged(false);
 				break;
 
 			case "Administrador":
 				btnEnviarReporte.setDisable(true);
+				btnEnviarReporte.setManaged(false);
 				break;
 			}
 		}

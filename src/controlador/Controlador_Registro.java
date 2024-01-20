@@ -146,8 +146,24 @@ public class Controlador_Registro {
 
 	@FXML
 	public void volverALogin(MouseEvent event) throws IOException {
-		Parent fxml = FXMLLoader.load(getClass().getResource("/vista/Pantalla_Inicio_Login.fxml"));
-		Main.stage.getScene().setRoot(fxml);
+		try {
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/Pantalla_Inicio_Login.fxml"));
+
+			Controlador_Inicio_Login control = new Controlador_Inicio_Login();
+
+			loader.setController(control);
+
+			Parent root = loader.load();
+			Stage primaryStage = new Stage();
+			primaryStage.setScene(new Scene(root));
+			primaryStage.show();
+
+			Stage ventatnaActual = (Stage) nombreUsuarioRegistro.getScene().getWindow();
+			ventatnaActual.hide();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	public boolean validarEmail(String email) {

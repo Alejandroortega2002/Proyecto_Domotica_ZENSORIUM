@@ -34,6 +34,16 @@
 						"password": "Jorge@2002",
 						"repetirPass": "Jorge@2002",
 						"tipodecuenta": "Usuario"
+					},
+					"enlace": {
+						"dato": {
+							"id_user": 5,
+							"username": "Oscar",
+							"email": "oscar@gmail.com",
+							"password": "Oscar@2002",
+							"repetirPass": "Oscar@2002",
+							"tipodecuenta": "Familiar"
+						}
 					}
 				}
 			}
