@@ -34,12 +34,12 @@ public class Controlador_Inicio_Login {
 
 	@FXML
 	private void initialize() {
-		// Puedes realizar inicializaciones aquí si es necesario
+		// Puedes realizar inicializaciones aqui si es necesario
 	}
 
 	@FXML
 	private void cerrarApp(MouseEvent event) {
-		// Cerrar la aplicación correctamente utilizando un Stage
+		// Cerrar la aplicaciï¿½n correctamente utilizando un Stage
 		Stage stage = (Stage) contenidoArea.getScene().getWindow();
 		stage.close();
 	}
@@ -55,13 +55,13 @@ public class Controlador_Inicio_Login {
 		// Cargar la lista de usuarios desde el archivo JSON
 		ListaEnlazada<Usuario> usuarios = RegistroManager.cargarUsuarios();
 
-		// Verificar si las credenciales coinciden con algún usuario registrado
+		// Verificar si las credenciales coinciden con algun usuario registrado
 		Nodo<Usuario> nodoActual = usuarios.getCabeza();
 		while (nodoActual != null) {
 			Usuario usuario = nodoActual.getDato();
 			if (usuario.getEmail().equals(email) && usuario.getPassword().equals(password)) {
 				Sesion.getInstancia().setUsuarioActual(usuario);
-				return true; // Credenciales válidas
+				return true; // Credenciales validas
 			}
 			nodoActual = nodoActual.getEnlace();
 		}
@@ -78,7 +78,7 @@ public class Controlador_Inicio_Login {
 			boolean autenticado = autenticarUsuario(email, password);
 
 			if (autenticado) {
-				mostrarMensaje("Inicio de sesión exitoso", "¡Bienvenido, " + email + "!");
+				mostrarMensaje("Inicio de sesiÃ³n exitoso", "Â¡Bienvenido, " + email + "!");
 
 				try {
 					FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/Interfaz_Dispositivos.fxml"));
@@ -100,8 +100,8 @@ public class Controlador_Inicio_Login {
 				}
 
 			} else {
-				// Si la autenticación falla, muestra un mensaje de error
-				mostrarMensaje("Error de inicio de sesión", "Credenciales incorrectas. Por favor, inténtalo de nuevo.",
+				// Si la autenticacion falla, muestra un mensaje de error
+				mostrarMensaje("Error de inicio de sesiÃ³n", "Credenciales incorrectas. Por favor, intÃ©ntalo de nuevo.",
 						Alert.AlertType.ERROR);
 			}
 		} else {

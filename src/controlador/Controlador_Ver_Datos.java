@@ -92,21 +92,21 @@ public class Controlador_Ver_Datos {
 
 	private void cargarDatosEnGrafico() {
 		try {
-			barChart.getData().clear(); // Limpia los datos antiguos del gráfico
+			barChart.getData().clear(); // Limpia los datos antiguos del grï¿½fico
 			XYChart.Series<String, Number> series = new XYChart.Series<>();
-			series.setName("Recopilación"); // Nombre de la serie
+			series.setName("RecopilaciÃ³n"); // Nombre de la serie
 
-			// Crear un punto de datos para cada sensor y añadirlo a la serie
+			// Crear un punto de datos para cada sensor y aï¿½adirlo a la serie
 			for (Sensores sensor : tblDatosSensores.getItems()) {
 				XYChart.Data<String, Number> data = new XYChart.Data<>(String.valueOf(sensor.getOrden_registro()),
 						sensor.getDato_actual());
 				series.getData().add(data);
 			}
 
-			// Añade la serie al gráfico después de haber agregado todos los datos
+			// Aï¿½ade la serie al grï¿½fico despuï¿½s de haber agregado todos los datos
 			barChart.getData().add(series);
 
-			// Estilizar las barras después de que se han añadido al gráfico
+			// Estilizar las barras despuï¿½s de que se han aï¿½adido al grï¿½fico
 			barChart.lookupAll(".data0").forEach(bar -> bar.setStyle("-fx-bar-fill: navy;")); // Ajusta el color como
 																								// desees
 
@@ -124,7 +124,7 @@ public class Controlador_Ver_Datos {
 
 		switch (dispositivo.getTipo()) {
 		case "Aire":
-			yAxis.setLabel("Temperatura (°C)");
+			yAxis.setLabel("Temperatura (ÂºC)");
 			break;
 		case "Puerta":
 			yAxis.setLabel("Movimiento");
