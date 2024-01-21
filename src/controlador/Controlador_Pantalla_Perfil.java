@@ -20,25 +20,27 @@ import modelo.Sesion;
 
 public class Controlador_Pantalla_Perfil {
 
-	@FXML
-	private Button btnRelaciones;
+    // Componentes de la interfaz de usuario definidos con la anotación @FXML
+    @FXML
+    private Button btnRelaciones;
+    @FXML
+    private Button btnEnviarReporte;
+    @FXML
+    private Button btnVerReporte;
+    @FXML
+    private Label LblUsername;
+    @FXML
+    private Label LblTipoCuenta;
+    @FXML
+    private Label LblUsuariosAsociados;
 
-	@FXML
-	private Button btnEnviarReporte;
-
-	@FXML
-	private Button btnVerReporte;
-
-	@FXML
-	private Label LblUsername;
-	@FXML
-	private Label LblTipoCuenta;
-	@FXML
-	private Label LblUsuariosAsociados;
-
-	@FXML
-	private void initialize() {
-		// Puedes realizar inicializaciones aquí si es necesario
+    /**
+     * Método de inicialización de JavaFX.
+     * Configura la interfaz de usuario con los datos del usuario actual y carga los usuarios asociados.
+     */
+    @FXML
+    private void initialize() {
+        // Puedes realizar inicializaciones aquí si es necesario
 		Usuario usuarioActual = Sesion.getInstancia().getUsuarioActual();
 		if (usuarioActual != null) {
 			String username = usuarioActual.getUsername();
@@ -49,11 +51,15 @@ public class Controlador_Pantalla_Perfil {
 			cargarYMostrarUsuariosAsociados(usuarioActual);
 
 		}
-	}
+    }
 
-	@FXML
-	private void cerrarSesion(MouseEvent event) {
-		try {
+    /**
+     * Maneja el evento para cerrar sesión y volver a la pantalla de inicio de sesión.
+     * @param event Información del evento de clic del mouse.
+     */
+    @FXML
+    private void cerrarSesion(MouseEvent event) {
+        try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/Pantalla_Inicio_Login.fxml"));
 
 			Controlador_Inicio_Login control = new Controlador_Inicio_Login();
@@ -70,10 +76,14 @@ public class Controlador_Pantalla_Perfil {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-	}
+    }
 
-	private void deshabilitarBtns(String tipoUsu) {
-		Usuario usuarioActual = Sesion.getInstancia().getUsuarioActual();
+    /**
+     * Deshabilita botones en función del tipo de cuenta del usuario.
+     * @param tipoUsu El tipo de cuenta del usuario actual.
+     */
+    private void deshabilitarBtns(String tipoUsu) {
+       Usuario usuarioActual = Sesion.getInstancia().getUsuarioActual();
 
 		if (usuarioActual != null) {
 			String tipoDeCuenta = usuarioActual.getTipodecuenta();
@@ -91,11 +101,15 @@ public class Controlador_Pantalla_Perfil {
 				break;
 			}
 		}
-	}
+    }
 
-	@FXML
-	private void irRelaciones(MouseEvent event) {
-
+    /**
+     * Maneja el evento para ir a la pantalla de relaciones del usuario.
+     * @param event Información del evento de clic del mouse.
+     */
+    @FXML
+    private void irRelaciones(MouseEvent event) {
+        
 		Usuario usuarioActual = Sesion.getInstancia().getUsuarioActual();
 		if (usuarioActual != null) {
 			String tipoDeCuenta = usuarioActual.getTipodecuenta();
@@ -155,10 +169,14 @@ public class Controlador_Pantalla_Perfil {
 				return;
 			}
 		}
-	}
+    }
 
-	private void cargarYMostrarUsuariosAsociados(Usuario usuarioActual) {
-		ListaEnlazada<Relaciones> relacionesDelUsuario = RegistroManager
+    /**
+     * Carga y muestra los usuarios asociados al usuario actual.
+     * @param usuarioActual El usuario actual cuyas relaciones se van a cargar.
+     */
+    private void cargarYMostrarUsuariosAsociados(Usuario usuarioActual) {
+       ListaEnlazada<Relaciones> relacionesDelUsuario = RegistroManager
 				.cargarRelacionesPorUsuario(usuarioActual.getId_user());
 		ListaEnlazada<Usuario> todosLosUsuarios = RegistroManager.cargarUsuarios();
 
@@ -191,11 +209,16 @@ public class Controlador_Pantalla_Perfil {
 													// defecto
 			}
 		}
-	}
+    }
 
-	@FXML
-	private void irInicio(MouseEvent event) throws IOException {
-		try {
+    /**
+     * Maneja el evento para ir a la interfaz principal de dispositivos.
+     * @param event Información del evento de clic del mouse.
+     * @throws IOException Si ocurre un error al cargar el recurso FXML.
+     */
+    @FXML
+    private void irInicio(MouseEvent event) throws IOException {
+       try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/Interfaz_Dispositivos.fxml"));
 
 			Controlador_InterfazDispositivos control = new Controlador_InterfazDispositivos();
@@ -213,11 +236,16 @@ public class Controlador_Pantalla_Perfil {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-	}
+    }
 
-	@FXML
-	private void irEnviarReporte(MouseEvent event) throws IOException {
-		try {
+    /**
+     * Maneja el evento para ir a la interfaz de enviar reporte.
+     * @param event Información del evento de clic del mouse.
+     * @throws IOException Si ocurre un error al cargar el recurso FXML.
+     */
+    @FXML
+    private void irEnviarReporte(MouseEvent event) throws IOException {
+        try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/Interfaz_Enviar_Reporte.fxml"));
 
 			Controlador_Interfaz_Enviar_Reporte control = new Controlador_Interfaz_Enviar_Reporte();
@@ -235,11 +263,16 @@ public class Controlador_Pantalla_Perfil {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-	}
+    }
 
-	@FXML
-	private void irLeerReporte(MouseEvent event) throws IOException {
-		try {
+    /**
+     * Maneja el evento para ir a la interfaz de leer reporte.
+     * @param event Información del evento de clic del mouse.
+     * @throws IOException Si ocurre un error al cargar el recurso FXML.
+     */
+    @FXML
+    private void irLeerReporte(MouseEvent event) throws IOException {
+        try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/Interfaz_Leer_Reporte.fxml"));
 
 			Controlador_Interfaz_Leer_Peticion control = new Controlador_Interfaz_Leer_Peticion();
@@ -257,11 +290,16 @@ public class Controlador_Pantalla_Perfil {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-	}
+    }
 
-	@FXML
-	private void irEditarPerfil(MouseEvent event) throws IOException {
-		try {
+    /**
+     * Maneja el evento para ir a la interfaz de editar perfil.
+     * @param event Información del evento de clic del mouse.
+     * @throws IOException Si ocurre un error al cargar el recurso FXML.
+     */
+    @FXML
+    private void irEditarPerfil(MouseEvent event) throws IOException {
+        try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/Interfaz_Editar_Perfil.fxml"));
 
 			Controlador_Interfaz_Editar_Perfil control = new Controlador_Interfaz_Editar_Perfil();
@@ -279,5 +317,6 @@ public class Controlador_Pantalla_Perfil {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-	}
+    }
 }
+

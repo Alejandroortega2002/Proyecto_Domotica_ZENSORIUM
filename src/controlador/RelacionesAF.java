@@ -27,46 +27,51 @@ import modelo.Sesion;
 
 public class RelacionesAF {
 
-	@FXML
-	private Button btnConectar;
-	@FXML
-	private Label lblNombreUsuario; // Debería mostrar el nombre del usuario registrado
-	@FXML
-	private TextField txtNombreUsuarioFamiliar; // Para ingresar el nombre del usuario familiar
-	@FXML
-	private TableView<Usuario> tblUsuariosFamiliares; // La tabla de usuarios familiares
-	@FXML
-	private TableColumn<Usuario, String> colNombre;
-	@FXML
-	private TableColumn<Usuario, String> colCorreo;
+    @FXML
+    private Button btnConectar;
+    @FXML
+    private Label lblNombreUsuario;
+    @FXML
+    private TextField txtNombreUsuarioFamiliar;
+    @FXML
+    private TableView<Usuario> tblUsuariosFamiliares;
+    @FXML
+    private TableColumn<Usuario, String> colNombre;
+    @FXML
+    private TableColumn<Usuario, String> colCorreo;
 
-	// Método que se ejecuta para inicializar la clase controladora
-	public void initialize() {
-
+    /**
+     * Método de inicialización del controlador.
+     */
+    public void initialize() {
+        
 		this.colNombre.setCellValueFactory(new PropertyValueFactory<>("username"));
 		this.colCorreo.setCellValueFactory(new PropertyValueFactory<>("email"));
 		// Aquí cargarías los usuarios familiares en la tabla y establecerías el nombre
 		// de usuario actual
 		cargarUsuariosFamiliares();
 		mostrarNombreUsuarioActual();
-	}
+    }
 
-	// Este método se invocará cuando el usuario haga clic en un usuario familiar en
-	// la tabla
-	@FXML
-	private void seleccionarUsuarioFamiliar() {
-		// Obtén el usuario seleccionado y actualiza el txtNombreUsuarioFamiliar
+    /**
+     * Selecciona un usuario familiar de la tabla y actualiza el campo de texto correspondiente.
+     */
+    @FXML
+    private void seleccionarUsuarioFamiliar() {
+       // Obtén el usuario seleccionado y actualiza el txtNombreUsuarioFamiliar
 		Usuario usuarioSeleccionado = tblUsuariosFamiliares.getSelectionModel().getSelectedItem();
 		if (usuarioSeleccionado != null) {
 			txtNombreUsuarioFamiliar.setText(usuarioSeleccionado.getUsername());
 		}
-	}
+    }
 
-	// Método para manejar la acción del botón CONECTAR
-//	
-	@FXML
-	private void conectarUsuarios() {
-		// Obtén los datos y crea una relación, luego guárdala en el JSON
+    /**
+     * Establece una conexión entre usuarios.
+     * Crea una relación entre el usuario actual y el usuario familiar seleccionado.
+     */
+    @FXML
+    private void conectarUsuarios() {
+        // Obtén los datos y crea una relación, luego guárdala en el JSON
 		String nombreUsuario = lblNombreUsuario.getText();
 		String nombreUsuarioFamiliar = txtNombreUsuarioFamiliar.getText();
 		// Suponiendo que tienes métodos para obtener los ID basados en los nombres de
@@ -90,10 +95,13 @@ public class RelacionesAF {
 			alert.setContentText("La relación ya existe.");
 			alert.showAndWait();
 		}
-	}
+    }
 
-	private void cargarUsuariosFamiliares() {
-		ListaEnlazada<Usuario> todosLosUsuarios = RegistroManager.cargarUsuarios();
+    /**
+     * Carga los usuarios con el tipo de cuenta 'Familiar' en la tabla.
+     */
+    private void cargarUsuariosFamiliares() {
+        ListaEnlazada<Usuario> todosLosUsuarios = RegistroManager.cargarUsuarios();
 		ObservableList<Usuario> usuariosFamiliares = FXCollections.observableArrayList();
 
 		Nodo<Usuario> nodoActual = todosLosUsuarios.getCabeza();
@@ -106,17 +114,25 @@ public class RelacionesAF {
 		}
 
 		tblUsuariosFamiliares.setItems(usuariosFamiliares);
-	}
+    }
 
-	public void mostrarNombreUsuarioActual() {
-		Usuario usuarioActual = Sesion.getInstancia().getUsuarioActual();
+    /**
+     * Muestra el nombre del usuario actual en la etiqueta correspondiente.
+     */
+    public void mostrarNombreUsuarioActual() {
+        Usuario usuarioActual = Sesion.getInstancia().getUsuarioActual();
 		if (usuarioActual != null) {
 			lblNombreUsuario.setText(usuarioActual.getUsername());
 		}
-	}
+    }
 
-	private long obtenerIdPorNombreUsuario(String nombreUsuario) {
-		ListaEnlazada<Usuario> usuarios = RegistroManager.cargarUsuarios();
+    /**
+     * Obtiene el ID de un usuario a partir de su nombre.
+     * @param nombreUsuario El nombre del usuario cuyo ID se desea obtener.
+     * @return El ID del usuario o -1 si no se encuentra.
+     */
+    private long obtenerIdPorNombreUsuario(String nombreUsuario) {
+        ListaEnlazada<Usuario> usuarios = RegistroManager.cargarUsuarios();
 
 		Nodo<Usuario> nodoActual = usuarios.getCabeza();
 		while (nodoActual != null) {
@@ -128,23 +144,39 @@ public class RelacionesAF {
 		}
 
 		return -1; // Retorna -1 si no se encuentra el usuario
-	}
+    }
 
-	private void mostrarMensaje(String titulo, String contenido) {
-		mostrarMensaje(titulo, contenido, Alert.AlertType.INFORMATION);
-	}
+    /**
+     * Muestra un mensaje con un título y contenido especificados.
+     * @param titulo El título del mensaje.
+     * @param contenido El contenido del mensaje.
+     */
+    private void mostrarMensaje(String titulo, String contenido) {
+        mostrarMensaje(titulo, contenido, Alert.AlertType.INFORMATION);
+    }
 
-	private void mostrarMensaje(String titulo, String contenido, Alert.AlertType tipo) {
-		Alert alert = new Alert(tipo);
+    /**
+     * Muestra un mensaje con un título, contenido y tipo especificados.
+     * @param titulo El título del mensaje.
+     * @param contenido El contenido del mensaje.
+     * @param tipo El tipo de alerta (por ejemplo, ERROR, INFORMACIÓN).
+     */
+    private void mostrarMensaje(String titulo, String contenido, Alert.AlertType tipo) {
+        Alert alert = new Alert(tipo);
 		alert.setTitle(titulo);
 		alert.setHeaderText(null);
 		alert.setContentText(contenido);
 		alert.showAndWait();
-	}
+    }
 
-	@FXML
-	private void irMenuPerfil(MouseEvent event) throws IOException {
-		try {
+    /**
+     * Navega al menú del perfil del usuario.
+     * @param event Información del evento de clic del mouse.
+     * @throws IOException Si ocurre un error al cargar el recurso FXML.
+     */
+    @FXML
+    private void irMenuPerfil(MouseEvent event) throws IOException {
+        try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/Interfaz_Perfil.fxml"));
 
 			Controlador_Pantalla_Perfil control = new Controlador_Pantalla_Perfil();
@@ -162,11 +194,16 @@ public class RelacionesAF {
 			e.printStackTrace();
 		}
 
-	}
+    }
 
-	@FXML
-	private void irInicio(MouseEvent event) throws IOException {
-		try {
+    /**
+     * Navega a la interfaz principal de dispositivos.
+     * @param event Información del evento de clic del mouse.
+     * @throws IOException Si ocurre un error al cargar el recurso FXML.
+     */
+    @FXML
+    private void irInicio(MouseEvent event) throws IOException {
+        try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/Interfaz_Dispositivos.fxml"));
 
 			Controlador_InterfazDispositivos control = new Controlador_InterfazDispositivos();
@@ -184,7 +221,5 @@ public class RelacionesAF {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
-	}
-
+    }
 }

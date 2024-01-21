@@ -12,12 +12,21 @@ import entidades.Nodo;
 import java.io.*;
 import java.lang.reflect.Type;
 
+/**
+ * Maneja las operaciones relacionadas con el manejo de reportes, incluyendo la carga, 
+ * guardado y creación de nuevos reportes.
+ */
 public class ReporteManager {
-	private static final String FILE_PATH_Reporte = "data/Reporte.json";
-	private static Reporte reporteSeleccionado;
+    private static final String FILE_PATH_Reporte = "data/Reporte.json";
+    private static Reporte reporteSeleccionado;
 
-	public static ListaEnlazada<Reporte> cargarReportes() {
-		try (Reader reader = new FileReader(FILE_PATH_Reporte)) {
+    /**
+     * Carga una lista de reportes desde un archivo JSON.
+     * 
+     * @return Lista enlazada de reportes.
+     */
+    public static ListaEnlazada<Reporte> cargarReportes() {
+        try (Reader reader = new FileReader(FILE_PATH_Reporte)) {
 			Type listType = new TypeToken<ListaEnlazada<Reporte>>() {
 			}.getType();
 			ListaEnlazada<Reporte> ReporteCargados = new Gson().fromJson(reader, listType);
@@ -33,9 +42,14 @@ public class ReporteManager {
 			// En caso de una IOException, también retornar una lista vacía
 			return new ListaEnlazada<>();
 		}
-	}
+    }
 
-	public static void guardarReporte(ListaEnlazada<Reporte> dispos) {
+    /**
+     * Guarda una lista de reportes en un archivo JSON.
+     * 
+     * @param reportes Lista enlazada de reportes a guardar.
+     */
+   public static void guardarReporte(ListaEnlazada<Reporte> dispos) {
 		try (Writer writer = new FileWriter(FILE_PATH_Reporte)) {
 			new Gson().toJson(dispos, writer);
 		} catch (IOException e) {
@@ -44,8 +58,14 @@ public class ReporteManager {
 		}
 	}
 
-	public static boolean crearReporte(Reporte nuevoReporte) {
-
+    /**
+     * Crea un nuevo reporte y lo añade a la lista de reportes.
+     * 
+     * @param nuevoReporte El reporte a crear.
+     * @return true si el reporte fue creado con éxito.
+     */
+    public static boolean crearReporte(Reporte nuevoReporte) {
+        
 		ListaEnlazada<Reporte> reportes = cargarReportes();
 
 		if (reportes == null) {
@@ -55,11 +75,15 @@ public class ReporteManager {
 		reportes.insertarAlFinal(new Nodo<>(nuevoReporte));
 		guardarReporte(reportes);
 		return true;
-	}
+    }
 
-
-	public static long obtenerNuevoId() {
-		ListaEnlazada<Reporte> dispos = cargarReportes();
+    /**
+     * Obtiene un nuevo ID único para un reporte.
+     * 
+     * @return El nuevo ID generado.
+     */
+    public static long obtenerNuevoId() {
+        ListaEnlazada<Reporte> dispos = cargarReportes();
 
 		if (dispos.getCabeza() == null) {
 			return 1; // Si la lista está vacía, empezamos desde 1
@@ -76,18 +100,34 @@ public class ReporteManager {
 		}
 
 		return idMasAlto + 1; // Incrementa el ID más alto en 1
-	}
+    }
 
-	public static Reporte getReporteSeleccionado() {
-		return reporteSeleccionado;
-	}
+    /**
+     * Obtiene el reporte actualmente seleccionado.
+     * 
+     * @return El reporte seleccionado.
+     */
+    public static Reporte getReporteSeleccionado() {
+        return reporteSeleccionado;
+    }
 
-	public static void setReporteSeleccionado(Reporte reporte) {
-		reporteSeleccionado = reporte;
-	}
+    /**
+     * Establece el reporte actualmente seleccionado.
+     * 
+     * @param reporte El reporte a seleccionar.
+     */
+    public static void setReporteSeleccionado(Reporte reporte) {
+        reporteSeleccionado = reporte;
+    }
 
-	public static String sacarNombreDeId(Long idUsuario) {
-		ListaEnlazada<Usuario> usuarios = RegistroManager.cargarUsuarios();
+    /**
+     * Obtiene el nombre de usuario correspondiente a un ID de usuario específico.
+     * 
+     * @param idUsuario ID del usuario cuyo nombre se desea obtener.
+     * @return El nombre del usuario, o cadena vacía si no se encuentra.
+     */
+    public static String sacarNombreDeId(Long idUsuario) {
+        ListaEnlazada<Usuario> usuarios = RegistroManager.cargarUsuarios();
 
 		if (usuarios == null) {
 			return ""; // No hay dispositivos para modificar
@@ -108,11 +148,16 @@ public class ReporteManager {
 		}
 
 		return ""; // No se encontró el dispositivo con el nombre especificado
-	}
+    }
 
-	//////////////////////////////////////////////
-	public static boolean eliminarReporte(String tituloReporte) {
-		ListaEnlazada<Reporte> reportes = cargarReportes();
+    /**
+     * Elimina un reporte específico de la lista de reportes.
+     * 
+     * @param tituloReporte El título del reporte a eliminar.
+     * @return true si el reporte fue eliminado con éxito, false en caso contrario.
+     */
+    public static boolean eliminarReporte(String tituloReporte) {
+        ListaEnlazada<Reporte> reportes = cargarReportes();
 
 		if (reportes == null) {
 			return false; // No hay dispositivos para eliminar
@@ -144,6 +189,5 @@ public class ReporteManager {
 		}
 
 		return false; // No se encontró el dispositivo con el nombre especificado
-	}
-
+    }
 }

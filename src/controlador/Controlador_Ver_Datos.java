@@ -28,31 +28,34 @@ import modelo.Sesion;
 
 public class Controlador_Ver_Datos {
 
-	@FXML
-	private TableView<Sensores> tblDatosSensores; // La tabla de usuarios familiares
-	@FXML
-	private TableColumn<Sensores, Long> colNRegistro;
-	@FXML
-	private TableColumn<Sensores, Float> colDato;
-	@FXML
-	private TableColumn<Sensores, String> colTipo;
-	@FXML
-	private TableColumn<Sensores, Long> colId;
-	@FXML
-	private BarChart<String, Number> barChart;
-	@FXML
-	private Label lblNombreUsu;
-	@FXML
-	private Label lblTipoCuenta;
-	@FXML
-	private CategoryAxis xAxis;
+    // Definición de los componentes de la interfaz de usuario
+    @FXML
+    private TableView<Sensores> tblDatosSensores;
+    @FXML
+    private TableColumn<Sensores, Long> colNRegistro;
+    @FXML
+    private TableColumn<Sensores, Float> colDato;
+    @FXML
+    private TableColumn<Sensores, String> colTipo;
+    @FXML
+    private TableColumn<Sensores, Long> colId;
+    @FXML
+    private BarChart<String, Number> barChart;
+    @FXML
+    private Label lblNombreUsu;
+    @FXML
+    private Label lblTipoCuenta;
+    @FXML
+    private CategoryAxis xAxis;
+    @FXML
+    private NumberAxis yAxis;
 
-	@FXML
-	private NumberAxis yAxis;
-
-	@FXML
-	void initialize() {
-		// Initialize the controller
+    /**
+     * Método de inicialización de JavaFX.
+     */
+    @FXML
+    void initialize() {
+        // Initialize the controller
 		Usuario usuarioActual = Sesion.getInstancia().getUsuarioActual();
 		if (usuarioActual != null) {
 			String username = usuarioActual.getUsername();
@@ -69,10 +72,14 @@ public class Controlador_Ver_Datos {
 		cargarSensoresDelDispositivo(dispositivo);
 		cargarDatosEnGrafico();
 		estilizarGrafico(dispositivo);
-	}
+    }
 
-	private void cargarSensoresDelDispositivo(Dispositivos dispositivoSeleccionado) {
-		if (dispositivoSeleccionado == null)
+    /**
+     * Carga los sensores asociados a un dispositivo seleccionado en la tabla.
+     * @param dispositivoSeleccionado El dispositivo del cual se cargarán los sensores.
+     */
+    private void cargarSensoresDelDispositivo(Dispositivos dispositivoSeleccionado) {
+        if (dispositivoSeleccionado == null)
 			return;
 
 		ListaEnlazada<Sensores> todosLosSensores = DispositivosManager.cargarSensores();
@@ -88,10 +95,13 @@ public class Controlador_Ver_Datos {
 		}
 
 		tblDatosSensores.setItems(sensoresRelacionados);
-	}
+    }
 
-	private void cargarDatosEnGrafico() {
-		try {
+    /**
+     * Carga y muestra los datos de los sensores en el gráfico de barras.
+     */
+    private void cargarDatosEnGrafico() {
+       try {
 			barChart.getData().clear(); // Limpia los datos antiguos del gráfico
 			XYChart.Series<String, Number> series = new XYChart.Series<>();
 			series.setName("Recopilación"); // Nombre de la serie
@@ -118,10 +128,14 @@ public class Controlador_Ver_Datos {
 			e.printStackTrace();
 			// Manejo adicional del error o log
 		}
-	}
+    }
 
-	private void estilizarGrafico(Dispositivos dispositivo) {
-
+    /**
+     * Personaliza el gráfico de barras basándose en el tipo de dispositivo.
+     * @param dispositivo El dispositivo para el cual se personalizará el gráfico.
+     */
+    private void estilizarGrafico(Dispositivos dispositivo) {
+        
 		switch (dispositivo.getTipo()) {
 		case "Aire":
 			yAxis.setLabel("Temperatura (°C)");
@@ -141,12 +155,16 @@ public class Controlador_Ver_Datos {
 		}
 		xAxis.setLabel("Datos de Sensores");
 
-		// Otras personalizaciones...
-	}
+    }
 
-	@FXML
-	private void irMenuPerfil(MouseEvent event) throws IOException {
-		try {
+    /**
+     * Maneja el evento para ir al menú del perfil del usuario.
+     * @param event Información del evento de clic del mouse.
+     * @throws IOException Si ocurre un error al cargar el recurso FXML.
+     */
+    @FXML
+    private void irMenuPerfil(MouseEvent event) throws IOException {
+        try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/Interfaz_Perfil.fxml"));
 
 			Controlador_Pantalla_Perfil control = new Controlador_Pantalla_Perfil();
@@ -163,12 +181,16 @@ public class Controlador_Ver_Datos {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+    }
 
-	}
-
-	@FXML
-	private void irInicio(MouseEvent event) throws IOException {
-		try {
+    /**
+     * Maneja el evento para ir a la interfaz principal de dispositivos.
+     * @param event Información del evento de clic del mouse.
+     * @throws IOException Si ocurre un error al cargar el recurso FXML.
+     */
+    @FXML
+    private void irInicio(MouseEvent event) throws IOException {
+        try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/Interfaz_Dispositivos.fxml"));
 
 			Controlador_InterfazDispositivos control = new Controlador_InterfazDispositivos();
@@ -186,6 +208,6 @@ public class Controlador_Ver_Datos {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
-	}
+    }
 }
+
