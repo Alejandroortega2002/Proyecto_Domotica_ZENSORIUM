@@ -137,7 +137,6 @@ public class Controlador_Registro {
      */
     @FXML
     public void btnRegistrarte(MouseEvent event) throws IOException {
-        // Implementa la lógica para cerrar la aplicación
 		registrarUsuario();
     }
 

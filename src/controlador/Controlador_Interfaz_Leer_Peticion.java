@@ -77,7 +77,7 @@ public class Controlador_Interfaz_Leer_Peticion {
 		this.columnDescripcion.setCellValueFactory(new PropertyValueFactory<>("queja"));
 		this.columTituloReporte.setCellValueFactory(new PropertyValueFactory<>("titulo"));
 		this.columnEmisor.setCellValueFactory(new PropertyValueFactory<>("id_user_emisor"));
-		cargarReporte();
+		cargarReporte(usuarioActual.getId_user());
 	}
 
 	/**
@@ -107,6 +107,8 @@ public class Controlador_Interfaz_Leer_Peticion {
 	@FXML
 	public void btnEliminarReporte(MouseEvent event) throws IOException {
 		Reporte dispoSeleccionado = tableReportes.getSelectionModel().getSelectedItem();
+		Usuario usuarioActual = Sesion.getInstancia().getUsuarioActual();
+
 		if (dispoSeleccionado != null) {
 
 			if (ReporteManager.eliminarReporte(dispoSeleccionado.getTitulo())) {
@@ -119,7 +121,7 @@ public class Controlador_Interfaz_Leer_Peticion {
 				txtAreaDescripcion.setText("");
 				lblEmisor.setText("");
 				lblFecha.setText("");
-				cargarReporte();
+				cargarReporte(usuarioActual.getId_user());
 			}
 
 		} else {
@@ -135,20 +137,23 @@ public class Controlador_Interfaz_Leer_Peticion {
 	/**
 	 * Carga y muestra todos los reportes en la tabla.
 	 */
-	private void cargarReporte() {
-		ListaEnlazada<Reporte> todosLosRepos = ReporteManager.cargarReportes();
-		ObservableList<Reporte> repos = FXCollections.observableArrayList();
+	private void cargarReporte(long idUsuarioLogueado) {
+	    ListaEnlazada<Reporte> todosLosReportes = ReporteManager.cargarReportes();
+	    ObservableList<Reporte> reportesFiltrados = FXCollections.observableArrayList();
 
-		Nodo<Reporte> nodoActual = todosLosRepos.getCabeza();
-		while (nodoActual != null) {
-			Reporte dispo = nodoActual.getDato();
+	    Nodo<Reporte> nodoActual = todosLosReportes.getCabeza();
+	    while (nodoActual != null) {
+	        Reporte reporteActual = nodoActual.getDato();
 
-			repos.add(dispo);
+	        // Aquí asumo que el Reporte tiene un método getIdReceptor() que devuelve el ID del usuario receptor
+	        if (reporteActual.getId_user_receptor() == idUsuarioLogueado) {
+	            reportesFiltrados.add(reporteActual);
+	        }
 
-			nodoActual = nodoActual.getEnlace();
-		}
+	        nodoActual = nodoActual.getEnlace();
+	    }
 
-		tableReportes.setItems(repos);
+	    tableReportes.setItems(reportesFiltrados);
 	}
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
