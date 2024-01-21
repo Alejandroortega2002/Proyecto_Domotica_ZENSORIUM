@@ -4,30 +4,22 @@ import java.io.IOException;
 import java.util.Calendar;
 import java.util.Date;
 
-import applications.Main;
-import entidades.Dispositivos;
 import entidades.Nodo;
 import entidades.Relaciones;
 import entidades.Reporte;
 import entidades.Usuario;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
+
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
-import modelo.DispositivosManager;
 import modelo.ListaEnlazada;
 import modelo.RegistroManager;
 import modelo.ReporteManager;
@@ -42,6 +34,9 @@ public class Controlador_Interfaz_Enviar_Reporte {
 	private Label lblTipoCuenta;
 
 	@FXML
+	private Label lblDestinatario;
+
+	@FXML
 	private Button btnEnviarReporte;
 
 	@FXML
@@ -50,13 +45,6 @@ public class Controlador_Interfaz_Enviar_Reporte {
 	@FXML
 	private TextArea txtAreaDescripcionReporte; // Para ingresar el nombre del usuario familiar
 
-	@FXML
-	private Label lblDestinatario;
-
-	/**
-	 * Método para inicializar componentes de la interfaz con información del
-	 * usuario actual.
-	 */
 	@FXML
 	public void initialize() {
 
@@ -90,13 +78,6 @@ public class Controlador_Interfaz_Enviar_Reporte {
 
 	}
 
-	/**
-	 * Envía un reporte, creando un nuevo objeto de reporte y gestionándolo a través
-	 * del ReporteManager.
-	 * 
-	 * @param event Evento del ratón que activa el método.
-	 * @throws IOException Si ocurre un error durante el proceso.
-	 */
 	@FXML
 	private void btnEnviarReporte(MouseEvent event) throws IOException {
 		Usuario usuarioActual = Sesion.getInstancia().getUsuarioActual();
@@ -108,11 +89,11 @@ public class Controlador_Interfaz_Enviar_Reporte {
 		if (!lblTituloReporte.getText().equals("") || !txtAreaDescripcionReporte.getText().equals("")) {
 			if (idDestinatario == -1) {
 				Alert alerta = new Alert(Alert.AlertType.WARNING);
-				alerta.setTitle("RelaciÃ³n no encontrada");
+				alerta.setTitle("Relación no encontrada");
 				alerta.setHeaderText(null);
-				alerta.setContentText("No estÃ¡s relacionado con ningÃºn otro usuario.");
+				alerta.setContentText("No estás relacionado con ningún otro usuario.");
 				alerta.showAndWait();
-				return; // Sale del mÃ©todo si no hay relaciÃ³n
+				return; // Sale del método si no hay relación
 			}
 
 			Calendar calendario = Calendar.getInstance();
@@ -130,9 +111,9 @@ public class Controlador_Interfaz_Enviar_Reporte {
 				alerta.showAndWait();
 			} else {
 				Alert alerta = new Alert(Alert.AlertType.WARNING);
-				alerta.setTitle("RelaciÃ³n no encontrada");
+				alerta.setTitle("Relación no encontrada");
 				alerta.setHeaderText(null);
-				alerta.setContentText("No estÃ¡s relacionado con ningÃºn otro usuario.");
+				alerta.setContentText("No estás relacionado con ningún otro usuario.");
 				alerta.showAndWait();
 			}
 			lblTituloReporte.setText("");
@@ -147,14 +128,6 @@ public class Controlador_Interfaz_Enviar_Reporte {
 
 	}
 
-	/**
-	 * Busca el ID del destinatario de un reporte en una lista de relaciones.
-	 * 
-	 * @param relaciones        Lista de relaciones de usuarios.
-	 * @param idUsuarioLogueado ID del usuario que está logueado y quiere enviar un
-	 *                          reporte.
-	 * @return El ID del destinatario del reporte.
-	 */
 	private long buscarIdDestinatario(ListaEnlazada<Relaciones> relaciones, long idUsuarioLogueado) {
 		Nodo<Relaciones> nodoActual = relaciones.getCabeza();
 		while (nodoActual != null) {
@@ -164,17 +137,10 @@ public class Controlador_Interfaz_Enviar_Reporte {
 			}
 			nodoActual = nodoActual.getEnlace();
 		}
-		return -1; // Retorna -1 o algÃºn otro valor que indique que no se encontrÃ³ una relaciÃ³n
-					// vÃ¡lida
+		return -1; // Retorna -1 o algún otro valor que indique que no se encontró una relación
+					// válida
 	}
-/////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-	/**
-	 * Navega al menú del perfil del usuario.
-	 * 
-	 * @param event Evento del ratón que activa el método.
-	 * @throws IOException Si ocurre un error al cargar la interfaz de perfil.
-	 */
 	@FXML
 	private void irMenuPerfil(MouseEvent event) throws IOException {
 		try {
@@ -197,12 +163,6 @@ public class Controlador_Interfaz_Enviar_Reporte {
 
 	}
 
-	/**
-	 * Regresa a la pantalla de inicio.
-	 * 
-	 * @param event Evento del ratón que activa el método.
-	 * @throws IOException Si ocurre un error al cargar la interfaz de inicio.
-	 */
 	@FXML
 	private void irInicio(MouseEvent event) throws IOException {
 		try {

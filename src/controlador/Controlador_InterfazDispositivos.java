@@ -1,10 +1,7 @@
 package controlador;
 
 import java.io.IOException;
-import java.util.HashSet;
-import java.util.Set;
 
-import applications.Main;
 import entidades.Dispositivos;
 import entidades.Nodo;
 import entidades.Relaciones;
@@ -17,7 +14,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
+
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -57,10 +54,6 @@ public class Controlador_InterfazDispositivos {
 	@FXML
 	private TableColumn<Dispositivos, String> columnaIdSensor;
 
-	/**
-	 * Método para inicializar componentes de la interfaz con información del
-	 * usuario actual.
-	 */
 	@FXML
 	public void initialize() {
 
@@ -79,11 +72,6 @@ public class Controlador_InterfazDispositivos {
 		cargarDispositivos(usuarioActual.getId_user());
 	}
 
-	/**
-	 * Deshabilita botones basado en el tipo de cuenta del usuario.
-	 * 
-	 * @param tipoUsu Tipo de cuenta del usuario.
-	 */
 	private void deshabilitarBtns(String tipoUsu) {
 		Usuario usuarioActual = Sesion.getInstancia().getUsuarioActual();
 
@@ -97,11 +85,6 @@ public class Controlador_InterfazDispositivos {
 		}
 	}
 
-	/**
-	 * Selecciona un dispositivo de la tabla y actualiza la interfaz.
-	 * 
-	 * @param event Evento del ratón que activa el método.
-	 */
 	@FXML
 	private void seleccionarDispositivo(MouseEvent event) {
 		// Obtén el dispo seleccionado y actualiza el txtnombredispo
@@ -114,12 +97,6 @@ public class Controlador_InterfazDispositivos {
 		}
 	}
 
-	/**
-	 * Carga y muestra todos los dispositivos en la tabla.
-	 * 
-	 * @param idUsuarioLogueado ID del usuario logueado para cargar sus
-	 *                          dispositivos.
-	 */
 	private void cargarDispositivos(long idUsuarioLogueado) {
 		ObservableList<Dispositivos> dispos = FXCollections.observableArrayList();
 		ListaEnlazada<Long> usuariosProcesados = new ListaEnlazada<>();
@@ -127,17 +104,6 @@ public class Controlador_InterfazDispositivos {
 		tablaDsipositivos.setItems(dispos);
 	}
 
-	/**
-	 * Carga los dispositivos asociados a un usuario y sus usuarios relacionados
-	 * recursivamente.
-	 *
-	 * @param idUsuario          El ID del usuario para el que se cargan los
-	 *                           dispositivos y relaciones.
-	 * @param dispos             La lista observable donde se agregarán los
-	 *                           dispositivos cargados.
-	 * @param usuariosProcesados Una lista enlazada que lleva un registro de los
-	 *                           usuarios ya procesados.
-	 */
 	private void cargarDispositivosDeUsuarioYRelacionados(long idUsuario, ObservableList<Dispositivos> dispos,
 			ListaEnlazada<Long> usuariosProcesados) {
 		if (contieneUsuario(usuariosProcesados, idUsuario)) {
@@ -162,13 +128,6 @@ public class Controlador_InterfazDispositivos {
 		}
 	}
 
-	/**
-	 * Verifica si un usuario está contenido en una lista enlazada.
-	 *
-	 * @param lista     La lista enlazada que se va a verificar.
-	 * @param idUsuario El ID del usuario que se busca en la lista.
-	 * @return true si el usuario está en la lista, false en caso contrario.
-	 */
 	private boolean contieneUsuario(ListaEnlazada<Long> lista, Long idUsuario) {
 		for (Nodo<Long> nodo = lista.getCabeza(); nodo != null; nodo = nodo.getEnlace()) {
 			if (nodo.getDato().equals(idUsuario)) {
@@ -178,25 +137,12 @@ public class Controlador_InterfazDispositivos {
 		return false;
 	}
 
-	/**
-	 * Agrega un dispositivo a una lista observable si no está duplicado en base a
-	 * su ID.
-	 *
-	 * @param lista       La lista observable donde se agregará el dispositivo.
-	 * @param dispositivo El dispositivo que se va a agregar.
-	 */
 	private void agregarSiNoEstaDuplicado(ObservableList<Dispositivos> lista, Dispositivos dispositivo) {
 		if (!lista.stream().anyMatch(d -> d.getId_dispo() == dispositivo.getId_dispo())) {
 			lista.add(dispositivo);
 		}
 	}
 
-	/**
-	 * Enciende un dispositivo seleccionado.
-	 * 
-	 * @param event Evento del ratón que activa el método.
-	 * @throws IOException Si ocurre un error durante el proceso.
-	 */
 	@FXML
 	private void btnEncender(MouseEvent event) throws IOException {
 		Usuario usuarioActual = Sesion.getInstancia().getUsuarioActual();
@@ -219,12 +165,6 @@ public class Controlador_InterfazDispositivos {
 		}
 	}
 
-	/**
-	 * Apaga un dispositivo seleccionado.
-	 * 
-	 * @param event Evento del ratón que activa el método.
-	 * @throws IOException Si ocurre un error durante el proceso.
-	 */
 	@FXML
 	private void btnApagar(MouseEvent event) throws IOException {
 
@@ -248,14 +188,7 @@ public class Controlador_InterfazDispositivos {
 		}
 
 	}
-/////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-	/**
-	 * Navega al menú del perfil del usuario.
-	 * 
-	 * @param event Evento del ratón que activa el método.
-	 * @throws IOException Si ocurre un error al cargar la interfaz de perfil.
-	 */
 	@FXML
 	private void irMenuPerfil(MouseEvent event) throws IOException {
 		try {
@@ -278,12 +211,6 @@ public class Controlador_InterfazDispositivos {
 
 	}
 
-	/**
-	 * Regresa a la pantalla de inicio.
-	 * 
-	 * @param event Evento del ratón que activa el método.
-	 * @throws IOException Si ocurre un error al cargar la interfaz de inicio.
-	 */
 	@FXML
 	private void irInicio(MouseEvent event) throws IOException {
 		try {
@@ -307,12 +234,6 @@ public class Controlador_InterfazDispositivos {
 
 	}
 
-	/**
-	 * Navega a la interfaz de administración de dispositivos.
-	 * 
-	 * @param event Evento del ratón que activa el método.
-	 * @throws IOException Si ocurre un error al cargar la interfaz.
-	 */
 	@FXML
 	private void irAdministrar(MouseEvent event) throws IOException {
 		try {
@@ -336,13 +257,6 @@ public class Controlador_InterfazDispositivos {
 
 	}
 
-	/**
-	 * Navega a la interfaz de visualización de datos del dispositivo seleccionado.
-	 * 
-	 * @param event Evento del ratón que activa el método.
-	 * @throws IOException Si ocurre un error al cargar la interfaz o si no hay un
-	 *                     dispositivo seleccionado.
-	 */
 	@FXML
 	private void IrVerDato(MouseEvent event) throws IOException {
 		try {

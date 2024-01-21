@@ -9,7 +9,6 @@ import java.util.regex.Pattern;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 
-import applications.Main;
 import entidades.Usuario;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -21,50 +20,52 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Pane;
+
 import javafx.stage.Stage;
 import modelo.RegistroManager;
 
 public class Controlador_Registro {
 
-    // DefiniciÃ³n de variables de la interfaz de usuario y controlador
-    ObservableList<String> listaTipoDeCuenta = FXCollections.observableArrayList("Usuario", "Familiar", "Administrador");
+	ObservableList<String> listaTipoDeCuenta = FXCollections.observableArrayList("Usuario", "Familiar",
+			"Administrador");
 
-    @FXML
-    private ResourceBundle resources;
-    @FXML
-    private URL location;
-    @FXML
-    private AnchorPane contenidoAreaRegistro;
-    @FXML
-    private JFXTextField nombreUsuarioRegistro;
-    @FXML
-    private JFXTextField emailUsuarioRegistro;
-    @FXML
-    private JFXPasswordField contrasenaUsuarioRegistro;
-    @FXML
-    private JFXPasswordField repetirContrasenaUsuarioRegistro;
-    @FXML
-    private ComboBox<String> tipoDeCuenta;
-    @FXML
-    private Label Error_Label_Registro;
+	@FXML // ResourceBundle that was given to the FXMLLoader
+	private ResourceBundle resources;
 
-    /**
-     * MÃ©todo de inicializaciÃ³n de JavaFX.
-     */
-    @FXML
-    void initialize() {
-        // Initialize the controller
+	@FXML // URL location of the FXML file that was given to the FXMLLoader
+	private URL location;
+
+	@FXML // URL location of the FXML file that was given to the FXMLLoader
+	private AnchorPane contenidoAreaRegistro;
+
+	@FXML
+	private JFXTextField nombreUsuarioRegistro;
+
+	@FXML
+	private JFXTextField emailUsuarioRegistro;
+
+	@FXML
+	private JFXPasswordField contrasenaUsuarioRegistro;
+
+	@FXML
+	private JFXPasswordField repetirContrasenaUsuarioRegistro;
+
+	@FXML
+	private ComboBox<String> tipoDeCuenta;
+
+	@FXML
+	private Label Error_Label_Registro;
+
+	@FXML
+	void initialize() {
+		// Initialize the controller
 		// You can add additional initialization logic here
 		tipoDeCuenta.setItems(listaTipoDeCuenta);
-    }
+	}
 
-    /**
-     * Registra un nuevo usuario en el sistema.
-     * @throws IOException Si ocurre un error al cargar el recurso FXML.
-     */
-    private void registrarUsuario() throws IOException {
-        String username = nombreUsuarioRegistro.getText();
+	@FXML
+	private void registrarUsuario() throws IOException {
+		String username = nombreUsuarioRegistro.getText();
 		String email = emailUsuarioRegistro.getText();
 		String password = contrasenaUsuarioRegistro.getText();
 		String repetirPass = repetirContrasenaUsuarioRegistro.getText();
@@ -83,7 +84,8 @@ public class Controlador_Registro {
 								tipoDecuenta);
 						if (RegistroManager.registrarUsuario(nuevoUsuario)) {
 							try {
-								FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/Pantalla_Inicio_Login.fxml"));
+								FXMLLoader loader = new FXMLLoader(
+										getClass().getResource("/vista/Pantalla_Inicio_Login.fxml"));
 
 								Controlador_Inicio_Login control = new Controlador_Inicio_Login();
 
@@ -110,12 +112,12 @@ public class Controlador_Registro {
 
 					} else {
 						Error_Label_Registro.setVisible(true);
-						Error_Label_Registro.setText("La contraseÃ±as no coinciden.");
+						Error_Label_Registro.setText("La contraseñas no coinciden.");
 					}
 
 				} else {
 					Error_Label_Registro.setVisible(true);
-					Error_Label_Registro.setText("La contraseÃ±a no es segura.");
+					Error_Label_Registro.setText("La contraseña no es segura.");
 				}
 
 			} else {
@@ -124,40 +126,27 @@ public class Controlador_Registro {
 			}
 
 		} else {
-			// Mostrar mensaje de error si los campos estÃ¡n vacÃ­os.
+			// Mostrar mensaje de error si los campos están vacíos.
 			Error_Label_Registro.setVisible(true);
-			Error_Label_Registro.setText("Hay campos vacÃ­os o no se seleccionÃ³ un tipo de cuenta.");
+			Error_Label_Registro.setText("Hay campos vacíos o no se seleccionó un tipo de cuenta.");
 		}
-    }
+	}
 
-    /**
-     * Maneja el evento de clic para registrar un nuevo usuario.
-     * @param event InformaciÃ³n del evento de clic del mouse.
-     * @throws IOException Si ocurre un error al procesar la acciÃ³n.
-     */
-    @FXML
-    public void btnRegistrarte(MouseEvent event) throws IOException {
+	@FXML
+	public void btnRegistrarte(MouseEvent event) throws IOException {
+		// Implementa la lógica para cerrar la aplicación
 		registrarUsuario();
-    }
+	}
 
-    /**
-     * Cierra la aplicaciÃ³n.
-     * @param event InformaciÃ³n del evento de clic del mouse.
-     */
-    @FXML
-    public void cerrarApp(MouseEvent event) {
-        // Implementa la lÃ³gica para cerrar la aplicaciÃ³n
+	@FXML
+	public void cerrarApp(MouseEvent event) {
+		// Implementa la lógica para cerrar la aplicación
 		System.exit(0);
-    }
+	}
 
-    /**
-     * Vuelve a la pantalla de inicio de sesiÃ³n.
-     * @param event InformaciÃ³n del evento de clic del mouse.
-     * @throws IOException Si ocurre un error al cargar el recurso FXML.
-     */
-    @FXML
-    public void volverALogin(MouseEvent event) throws IOException {
-        try {
+	@FXML
+	public void volverALogin(MouseEvent event) throws IOException {
+		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/Pantalla_Inicio_Login.fxml"));
 
 			Controlador_Inicio_Login control = new Controlador_Inicio_Login();
@@ -175,33 +164,23 @@ public class Controlador_Registro {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-    }
+	}
 
-    /**
-     * Valida si un email es vÃ¡lido segÃºn una expresiÃ³n regular.
-     * @param email El email a validar.
-     * @return true si el email es vÃ¡lido, false en caso contrario.
-     */
-    public boolean validarEmail(String email) {
-        String regex = "^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$";
+	public boolean validarEmail(String email) {
+		String regex = "^[\\w-\\.+]*[\\w-\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$";
 		return email.matches(regex);
-    }
+	}
 
-    /**
-     * Verifica si una contraseÃ±a cumple con los criterios de seguridad establecidos.
-     * @param contrasena La contraseÃ±a a verificar.
-     * @return true si la contraseÃ±a es segura, false en caso contrario.
-     */
-    public boolean contrasenaSegura(String contrasena) {
-        
-		if (contrasena.length() > 8) { // una contraseÃ±a tiene mÃ¡s de 12 caracteres.
+	public boolean contrasenaSegura(String contrasena) {
+
+		if (contrasena.length() > 8) { // una contraseña tiene más de 12 caracteres.
 			boolean mayuscula = false;
 			boolean numero = false;
 			boolean letraOsimbolo = false;
 			boolean especial = false;
 
 			// Define caracteres especiales
-			Pattern special = Pattern.compile("[?!Â¡@Â¿.,Â´)]");
+			Pattern special = Pattern.compile("[?!¡@¿.,´)]");
 			Matcher hasSpecial = special.matcher(contrasena);
 
 			int i;
@@ -210,13 +189,13 @@ public class Controlador_Registro {
 			for (i = 0; i < contrasena.length(); i++) {
 				l = contrasena.charAt(i);
 
-				if (Character.isDigit(l)) {// mÃ­nimo un nÃºmero.
+				if (Character.isDigit(l)) {// mínimo un número.
 					numero = true;
 				}
-				if (Character.isLetter(l)) {// contiene letras o sÃ­mbolos (?!Â¡@Â¿.,Â´)
+				if (Character.isLetter(l)) {// contiene letras o símbolos (?!¡@¿.,´)
 					letraOsimbolo = true;
 				}
-				if (Character.isUpperCase(l)) { // mÃ­nimo una letra mayÃºscula
+				if (Character.isUpperCase(l)) { // mínimo una letra mayúscula
 					mayuscula = true;
 				}
 				if (hasSpecial.find()) { // Valida "caracteres especiales".
@@ -232,5 +211,5 @@ public class Controlador_Registro {
 		} else {
 			return false;
 		}
-    }
+	}
 }

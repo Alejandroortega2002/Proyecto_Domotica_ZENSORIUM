@@ -2,9 +2,8 @@ package controlador;
 
 import java.io.IOException;
 
-import applications.Main;
 import entidades.Reporte;
-import entidades.Dispositivos;
+
 import entidades.Nodo;
 import entidades.Usuario;
 import javafx.collections.FXCollections;
@@ -15,7 +14,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
+
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -25,9 +24,9 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import modelo.ReporteManager;
-import modelo.DispositivosManager;
+
 import modelo.ListaEnlazada;
-import modelo.RegistroManager;
+
 import modelo.Sesion;
 
 public class Controlador_Interfaz_Leer_Peticion {
@@ -59,10 +58,6 @@ public class Controlador_Interfaz_Leer_Peticion {
 	@FXML
 	private TableColumn<Reporte, String> columnEmisor;
 
-	/**
-	 * Método para inicializar componentes de la interfaz con información del
-	 * usuario actual.
-	 */
 	@FXML
 	public void initialize() {
 
@@ -72,6 +67,7 @@ public class Controlador_Interfaz_Leer_Peticion {
 			String tipoDeCuenta = usuarioActual.getTipodecuenta();
 			lblNombreUsu.setText(username);
 			lblTipoCuenta.setText(tipoDeCuenta);
+
 		}
 
 		this.columnDescripcion.setCellValueFactory(new PropertyValueFactory<>("queja"));
@@ -80,12 +76,9 @@ public class Controlador_Interfaz_Leer_Peticion {
 		cargarReporte(usuarioActual.getId_user());
 	}
 
-	/**
-	 * Selecciona un reporte de la tabla y actualiza la interfaz.
-	 */
 	@FXML
 	private void seleccionarDispositivo() {
-		// ObtÃ©n el dispo seleccionado y actualiza el txtnombredispo
+		// Obtén el dispo seleccionado y actualiza el txtnombredispo
 		Reporte repoSeleccionado = tableReportes.getSelectionModel().getSelectedItem();
 		if (repoSeleccionado != null) {
 			lblTitulo.setText(repoSeleccionado.getTitulo());
@@ -98,17 +91,10 @@ public class Controlador_Interfaz_Leer_Peticion {
 		}
 	}
 
-	/**
-	 * Elimina un reporte seleccionado.
-	 * 
-	 * @param event Evento del ratón que activa el método.
-	 * @throws IOException Si ocurre un error durante el proceso.
-	 */
 	@FXML
 	public void btnEliminarReporte(MouseEvent event) throws IOException {
-		Reporte dispoSeleccionado = tableReportes.getSelectionModel().getSelectedItem();
 		Usuario usuarioActual = Sesion.getInstancia().getUsuarioActual();
-
+		Reporte dispoSeleccionado = tableReportes.getSelectionModel().getSelectedItem();
 		if (dispoSeleccionado != null) {
 
 			if (ReporteManager.eliminarReporte(dispoSeleccionado.getTitulo())) {
@@ -134,36 +120,26 @@ public class Controlador_Interfaz_Leer_Peticion {
 		}
 	}
 
-	/**
-	 * Carga y muestra todos los reportes en la tabla.
-	 */
 	private void cargarReporte(long idUsuarioLogueado) {
-	    ListaEnlazada<Reporte> todosLosReportes = ReporteManager.cargarReportes();
-	    ObservableList<Reporte> reportesFiltrados = FXCollections.observableArrayList();
+		ListaEnlazada<Reporte> todosLosReportes = ReporteManager.cargarReportes();
+		ObservableList<Reporte> reportesFiltrados = FXCollections.observableArrayList();
 
-	    Nodo<Reporte> nodoActual = todosLosReportes.getCabeza();
-	    while (nodoActual != null) {
-	        Reporte reporteActual = nodoActual.getDato();
+		Nodo<Reporte> nodoActual = todosLosReportes.getCabeza();
+		while (nodoActual != null) {
+			Reporte reporteActual = nodoActual.getDato();
 
-	        // Aquí asumo que el Reporte tiene un método getIdReceptor() que devuelve el ID del usuario receptor
-	        if (reporteActual.getId_user_receptor() == idUsuarioLogueado) {
-	            reportesFiltrados.add(reporteActual);
-	        }
+			// Aquí asumo que el Reporte tiene un método getIdReceptor() que devuelve el ID
+			// del usuario receptor
+			if (reporteActual.getId_user_receptor() == idUsuarioLogueado) {
+				reportesFiltrados.add(reporteActual);
+			}
 
-	        nodoActual = nodoActual.getEnlace();
-	    }
+			nodoActual = nodoActual.getEnlace();
+		}
 
-	    tableReportes.setItems(reportesFiltrados);
+		tableReportes.setItems(reportesFiltrados);
 	}
 
-/////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-	/**
-	 * Navega al menú del perfil del usuario.
-	 * 
-	 * @param event Evento del ratón que activa el método.
-	 * @throws IOException Si ocurre un error al cargar la interfaz de perfil.
-	 */
 	@FXML
 	private void irMenuPerfil(MouseEvent event) throws IOException {
 		try {
@@ -186,12 +162,6 @@ public class Controlador_Interfaz_Leer_Peticion {
 
 	}
 
-	/**
-	 * Regresa a la pantalla de inicio.
-	 * 
-	 * @param event Evento del ratón que activa el método.
-	 * @throws IOException Si ocurre un error al cargar la interfaz de inicio.
-	 */
 	@FXML
 	private void irInicio(MouseEvent event) throws IOException {
 		try {

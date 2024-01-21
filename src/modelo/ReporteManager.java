@@ -6,66 +6,45 @@ import com.google.gson.reflect.TypeToken;
 
 import entidades.Reporte;
 import entidades.Usuario;
-import entidades.Dispositivos;
 import entidades.Nodo;
 
 import java.io.*;
 import java.lang.reflect.Type;
 
-/**
- * Maneja las operaciones relacionadas con el manejo de reportes, incluyendo la carga, 
- * guardado y creaci√≥n de nuevos reportes.
- */
 public class ReporteManager {
-    private static final String FILE_PATH_Reporte = "data/Reporte.json";
-    private static Reporte reporteSeleccionado;
+	private static final String FILE_PATH_Reporte = "data/Reporte.json";
+	private static Reporte reporteSeleccionado;
 
-    /**
-     * Carga una lista de reportes desde un archivo JSON.
-     * 
-     * @return Lista enlazada de reportes.
-     */
-    public static ListaEnlazada<Reporte> cargarReportes() {
-        try (Reader reader = new FileReader(FILE_PATH_Reporte)) {
+	public static ListaEnlazada<Reporte> cargarReportes() {
+		try (Reader reader = new FileReader(FILE_PATH_Reporte)) {
 			Type listType = new TypeToken<ListaEnlazada<Reporte>>() {
 			}.getType();
 			ListaEnlazada<Reporte> ReporteCargados = new Gson().fromJson(reader, listType);
 
-			// Verificar si la deserializaci√≥n retorn√≥ null y, de ser as√≠, retornar una
-			// lista vac√≠a
+			// Verificar si la deserializaciÛn retornÛ null y, de ser asÌ, retornar una
+			// lista vacÌa
 			if (ReporteCargados == null) {
 				return new ListaEnlazada<>();
 			}
 
 			return ReporteCargados;
 		} catch (IOException e) {
-			// En caso de una IOException, tambi√©n retornar una lista vac√≠a
+			// En caso de una IOException, tambiÈn retornar una lista vacÌa
 			return new ListaEnlazada<>();
 		}
-    }
+	}
 
-    /**
-     * Guarda una lista de reportes en un archivo JSON.
-     * 
-     * @param reportes Lista enlazada de reportes a guardar.
-     */
-   public static void guardarReporte(ListaEnlazada<Reporte> dispos) {
+	public static void guardarReporte(ListaEnlazada<Reporte> dispos) {
 		try (Writer writer = new FileWriter(FILE_PATH_Reporte)) {
 			new Gson().toJson(dispos, writer);
 		} catch (IOException e) {
-			// Manejar la excepci√≥n
+			// Manejar la excepciÛn
 			e.printStackTrace();
 		}
 	}
 
-    /**
-     * Crea un nuevo reporte y lo a√±ade a la lista de reportes.
-     * 
-     * @param nuevoReporte El reporte a crear.
-     * @return true si el reporte fue creado con √©xito.
-     */
-    public static boolean crearReporte(Reporte nuevoReporte) {
-        
+	public static boolean crearReporte(Reporte nuevoReporte) {
+
 		ListaEnlazada<Reporte> reportes = cargarReportes();
 
 		if (reportes == null) {
@@ -75,18 +54,13 @@ public class ReporteManager {
 		reportes.insertarAlFinal(new Nodo<>(nuevoReporte));
 		guardarReporte(reportes);
 		return true;
-    }
+	}
 
-    /**
-     * Obtiene un nuevo ID √∫nico para un reporte.
-     * 
-     * @return El nuevo ID generado.
-     */
-    public static long obtenerNuevoId() {
-        ListaEnlazada<Reporte> dispos = cargarReportes();
+	public static long obtenerNuevoId() {
+		ListaEnlazada<Reporte> dispos = cargarReportes();
 
 		if (dispos.getCabeza() == null) {
-			return 1; // Si la lista est√° vac√≠a, empezamos desde 1
+			return 1; // Si la lista est· vacÌa, empezamos desde 1
 		}
 
 		long idMasAlto = 0;
@@ -99,35 +73,19 @@ public class ReporteManager {
 			nodoActual = nodoActual.getEnlace();
 		}
 
-		return idMasAlto + 1; // Incrementa el ID m√°s alto en 1
-    }
+		return idMasAlto + 1; // Incrementa el ID m·s alto en 1
+	}
 
-    /**
-     * Obtiene el reporte actualmente seleccionado.
-     * 
-     * @return El reporte seleccionado.
-     */
-    public static Reporte getReporteSeleccionado() {
-        return reporteSeleccionado;
-    }
+	public static Reporte getReporteSeleccionado() {
+		return reporteSeleccionado;
+	}
 
-    /**
-     * Establece el reporte actualmente seleccionado.
-     * 
-     * @param reporte El reporte a seleccionar.
-     */
-    public static void setReporteSeleccionado(Reporte reporte) {
-        reporteSeleccionado = reporte;
-    }
+	public static void setReporteSeleccionado(Reporte reporte) {
+		reporteSeleccionado = reporte;
+	}
 
-    /**
-     * Obtiene el nombre de usuario correspondiente a un ID de usuario espec√≠fico.
-     * 
-     * @param idUsuario ID del usuario cuyo nombre se desea obtener.
-     * @return El nombre del usuario, o cadena vac√≠a si no se encuentra.
-     */
-    public static String sacarNombreDeId(Long idUsuario) {
-        ListaEnlazada<Usuario> usuarios = RegistroManager.cargarUsuarios();
+	public static String sacarNombreDeId(Long idUsuario) {
+		ListaEnlazada<Usuario> usuarios = RegistroManager.cargarUsuarios();
 
 		if (usuarios == null) {
 			return ""; // No hay dispositivos para modificar
@@ -147,17 +105,12 @@ public class ReporteManager {
 			nodoActual = nodoActual.getEnlace();
 		}
 
-		return ""; // No se encontr√≥ el dispositivo con el nombre especificado
-    }
+		return ""; // No se encontrÛ el dispositivo con el nombre especificado
+	}
 
-    /**
-     * Elimina un reporte espec√≠fico de la lista de reportes.
-     * 
-     * @param tituloReporte El t√≠tulo del reporte a eliminar.
-     * @return true si el reporte fue eliminado con √©xito, false en caso contrario.
-     */
-    public static boolean eliminarReporte(String tituloReporte) {
-        ListaEnlazada<Reporte> reportes = cargarReportes();
+	//////////////////////////////////////////////
+	public static boolean eliminarReporte(String tituloReporte) {
+		ListaEnlazada<Reporte> reportes = cargarReportes();
 
 		if (reportes == null) {
 			return false; // No hay dispositivos para eliminar
@@ -176,7 +129,7 @@ public class ReporteManager {
 					// El dispositivo a eliminar es el primer elemento de la lista
 					reportes.setCabeza(nodoActual.getEnlace());
 				} else {
-					// El dispositivo a eliminar est√° en medio o al final de la lista
+					// El dispositivo a eliminar est· en medio o al final de la lista
 					nodoAnterior.setEnlace(nodoActual.getEnlace());
 				}
 
@@ -188,6 +141,7 @@ public class ReporteManager {
 			nodoActual = nodoActual.getEnlace();
 		}
 
-		return false; // No se encontr√≥ el dispositivo con el nombre especificado
-    }
+		return false; // No se encontrÛ el dispositivo con el nombre especificado
+	}
+
 }

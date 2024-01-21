@@ -1,73 +1,52 @@
 package modelo;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonIOException;
 import com.google.gson.reflect.TypeToken;
 
 import entidades.Dispositivos;
 import entidades.Nodo;
 import entidades.Relaciones;
 import entidades.Sensores;
-import entidades.Usuario;
 
 import java.io.*;
 import java.lang.reflect.Type;
-/**
- * Esta clase maneja las operaciones relacionadas con dispositivos, incluyendo cargar, guardar,
- * registrar, modificar y eliminar dispositivos, as√≠ como cargar y guardar sensores.
- */
+
 public class DispositivosManager {
-    private static final String FILE_PATH_DISPOSITIVOS = "data/Dispositivos.json";
-    private static final String FILE_PATH_SENSORES = "data/Sensores.json";
+	private static final String FILE_PATH_DISPOSITIVOS = "data/Dispositivos.json";
+	private static final String FILE_PATH_SENSORES = "data/Sensores.json";
 
-    private static Dispositivos dispositivoSeleccionado;
+	private static Dispositivos dispositivoSeleccionado;
 
-    /**
-     * Carga dispositivos desde un archivo JSON.
-     * 
-     * @return ListaEnlazada de dispositivos.
-     */
-    public static ListaEnlazada<Dispositivos> cargarDispos() {
-        try (Reader reader = new FileReader(FILE_PATH_DISPOSITIVOS)) {
+	public static ListaEnlazada<Dispositivos> cargarDispos() {
+		try (Reader reader = new FileReader(FILE_PATH_DISPOSITIVOS)) {
 			Type listType = new TypeToken<ListaEnlazada<Dispositivos>>() {
 			}.getType();
 			ListaEnlazada<Dispositivos> dispositivosCargados = new Gson().fromJson(reader, listType);
 
-			// Verificar si la deserializaci√≥n retorn√≥ null y, de ser as√≠, retornar una
-			// lista vac√≠a
+			// Verificar si la deserializaciÛn retornÛ null y, de ser asÌ, retornar una
+			// lista vacÌa
 			if (dispositivosCargados == null) {
 				return new ListaEnlazada<>();
 			}
 
 			return dispositivosCargados;
 		} catch (IOException e) {
-			// En caso de una IOException, tambi√©n retornar una lista vac√≠a
+			// En caso de una IOException, tambiÈn retornar una lista vacÌa
 			return new ListaEnlazada<>();
 		}
-    }
+	}
 
-    /**
-     * Guarda una lista de dispositivos en un archivo JSON.
-     * 
-     * @param dispos Lista de dispositivos a guardar.
-     */
-    public static void guardarDispositivos(ListaEnlazada<Dispositivos> dispos) {
-        try (Writer writer = new FileWriter(FILE_PATH_DISPOSITIVOS)) {
+	public static void guardarDispositivos(ListaEnlazada<Dispositivos> dispos) {
+		try (Writer writer = new FileWriter(FILE_PATH_DISPOSITIVOS)) {
 			new Gson().toJson(dispos, writer);
 		} catch (IOException e) {
-			// Manejar la excepci√≥n
+			// Manejar la excepciÛn
 			e.printStackTrace();
 		}
-    }
+	}
 
-    /**
-     * Registra un nuevo dispositivo.
-     * 
-     * @param nuevoDispo El dispositivo a registrar.
-     * @return true si el dispositivo fue registrado con √©xito, false en caso contrario.
-     */
-    public static boolean registrarDispos(Dispositivos nuevoDispo) {
-        
+	public static boolean registrarDispos(Dispositivos nuevoDispo) {
+
 		ListaEnlazada<Dispositivos> dispos = cargarDispos();
 
 		if (dispos == null) {
@@ -87,16 +66,10 @@ public class DispositivosManager {
 		dispos.insertarAlFinal(new Nodo<>(nuevoDispo));
 		guardarDispositivos(dispos);
 		return true;
-    }
+	}
 
-    /**
-     * Elimina un dispositivo espec√≠fico.
-     * 
-     * @param nombreDispositivo El nombre del dispositivo a eliminar.
-     * @return true si el dispositivo fue eliminado con √©xito, false en caso contrario.
-     */
-    public static boolean eliminarDispositivo(String nombreDispositivo) {
-        ListaEnlazada<Dispositivos> dispositivos = cargarDispos();
+	public static boolean eliminarDispositivo(String nombreDispositivo) {
+		ListaEnlazada<Dispositivos> dispositivos = cargarDispos();
 
 		if (dispositivos == null) {
 			return false; // No hay dispositivos para eliminar
@@ -115,7 +88,7 @@ public class DispositivosManager {
 					// El dispositivo a eliminar es el primer elemento de la lista
 					dispositivos.setCabeza(nodoActual.getEnlace());
 				} else {
-					// El dispositivo a eliminar est√° en medio o al final de la lista
+					// El dispositivo a eliminar est· en medio o al final de la lista
 					nodoAnterior.setEnlace(nodoActual.getEnlace());
 				}
 
@@ -127,19 +100,14 @@ public class DispositivosManager {
 			nodoActual = nodoActual.getEnlace();
 		}
 
-		return false; // No se encontr√≥ el dispositivo con el nombre especificado
-    }
+		return false; // No se encontrÛ el dispositivo con el nombre especificado
+	}
 
-    /**
-     * Obtiene un nuevo ID para un dispositivo.
-     * 
-     * @return El nuevo ID generado.
-     */
-    public static long obtenerNuevoId() {
-        ListaEnlazada<Dispositivos> dispos = cargarDispos();
+	public static long obtenerNuevoId() {
+		ListaEnlazada<Dispositivos> dispos = cargarDispos();
 
 		if (dispos.getCabeza() == null) {
-			return 1; // Si la lista est√° vac√≠a, empezamos desde 1
+			return 1; // Si la lista est· vacÌa, empezamos desde 1
 		}
 
 		long idMasAlto = 0;
@@ -152,18 +120,11 @@ public class DispositivosManager {
 			nodoActual = nodoActual.getEnlace();
 		}
 
-		return idMasAlto + 1; // Incrementa el ID m√°s alto en 1
-    }
+		return idMasAlto + 1; // Incrementa el ID m·s alto en 1
+	}
 
-    /**
-     * Modifica el nombre de un dispositivo existente.
-     * 
-     * @param nombreDispositivo El nombre actual del dispositivo.
-     * @param nombreNuevoDispositivo El nuevo nombre para el dispositivo.
-     * @return true si el dispositivo fue modificado con √©xito, false en caso contrario.
-     */
-    public static boolean modificarDispositivo(String nombreDispositivo, String nombreNuevoDispositivo) {
-        ListaEnlazada<Dispositivos> dispositivos = cargarDispos();
+	public static boolean modificarDispositivo(String nombreDispositivo, String nombreNuevoDispositivo) {
+		ListaEnlazada<Dispositivos> dispositivos = cargarDispos();
 
 		if (dispositivos == null) {
 			return false; // No hay dispositivos para modificar
@@ -186,18 +147,11 @@ public class DispositivosManager {
 			nodoActual = nodoActual.getEnlace();
 		}
 
-		return false; // No se encontr√≥ el dispositivo con el nombre especificado
-    }
+		return false; // No se encontrÛ el dispositivo con el nombre especificado
+	}
 
-    /**
-     * Modifica el estado de un dispositivo existente.
-     * 
-     * @param nombreDispositivo El nombre del dispositivo a modificar.
-     * @param estadoDispositivo El nuevo estado para el dispositivo.
-     * @return true si el dispositivo fue modificado con √©xito, false en caso contrario.
-     */
-    public static boolean modificarEstadoDispositivo(String nombreDispositivo, Boolean estadoDispositivo) {
-        ListaEnlazada<Dispositivos> dispositivos = cargarDispos();
+	public static boolean modificarEstadoDispositivo(String nombreDispositivo, Boolean estadoDispositivo) {
+		ListaEnlazada<Dispositivos> dispositivos = cargarDispos();
 
 		if (dispositivos == null) {
 			return false; // No hay dispositivos para modificar
@@ -221,65 +175,37 @@ public class DispositivosManager {
 			nodoActual = nodoActual.getEnlace();
 		}
 
-		return false; // No se encontr√≥ el dispositivo con el nombre especificado
-    }
+		return false; // No se encontrÛ el dispositivo con el nombre especificado
+	}
 
-    /**
-     * Obtiene el dispositivo actualmente seleccionado.
-     * 
-     * @return El dispositivo seleccionado.
-     */
-    public static Dispositivos getDispositivoSeleccionado() {
-        return dispositivoSeleccionado;
-    }
+	public static Dispositivos getDispositivoSeleccionado() {
+		return dispositivoSeleccionado;
+	}
 
-    /**
-     * Establece el dispositivo actualmente seleccionado.
-     * 
-     * @param dispositivo El dispositivo a seleccionar.
-     */
-    public static void setDispositivoSeleccionado(Dispositivos dispositivo) {
-        dispositivoSeleccionado = dispositivo;
-    }
+	public static void setDispositivoSeleccionado(Dispositivos dispositivo) {
+		dispositivoSeleccionado = dispositivo;
+	}
 
-    /**
-     * Carga sensores desde un archivo JSON.
-     * 
-     * @return ListaEnlazada de sensores.
-     */
-    public static ListaEnlazada<Sensores> cargarSensores() {
-        try (Reader reader = new FileReader(FILE_PATH_SENSORES)) {
+	public static ListaEnlazada<Sensores> cargarSensores() {
+		try (Reader reader = new FileReader(FILE_PATH_SENSORES)) {
 			Type listType = new TypeToken<ListaEnlazada<Sensores>>() {
 			}.getType();
 			return new Gson().fromJson(reader, listType);
 		} catch (IOException e) {
 			return new ListaEnlazada<>();
 		}
-    }
+	}
 
-    /**
-     * Guarda una lista de sensores en un archivo JSON.
-     * 
-     * @param sensores Lista de sensores a guardar.
-     */
-    public static void guardarSensores(ListaEnlazada<Sensores> sensores) {
-        try (Writer writer = new FileWriter(FILE_PATH_SENSORES)) {
+	public static void guardarSensores(ListaEnlazada<Sensores> sensores) {
+		try (Writer writer = new FileWriter(FILE_PATH_SENSORES)) {
 			new Gson().toJson(sensores, writer);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-    }
+	}
 
-    /**
-     * Crea un nuevo sensor y lo a√±ade a la lista.
-     * 
-     * @param dato_actual El dato actual del sensor.
-     * @param nombre El nombre del sensor.
-     * @param tipo El tipo de sensor.
-     * @return El ID del nuevo sensor.
-     */
-    public static long creaNuevoSensor(float dato_actual, String nombre, String tipo) {
-        ListaEnlazada<Sensores> sensores = cargarSensores();
+	public static long creaNuevoSensor(float dato_actual, String nombre, String tipo) {
+		ListaEnlazada<Sensores> sensores = cargarSensores();
 
 		if (sensores == null) {
 			sensores = new ListaEnlazada<>();
@@ -312,22 +238,14 @@ public class DispositivosManager {
 		long nuevoOrdenRegistro = ordenRegistroMasAlto + 1;
 		Sensores nuevoSensor = new Sensores(nuevoId, dato_actual, nombre, tipo, nuevoOrdenRegistro);
 
-		// A√±ade el nuevo sensor y guarda la lista
+		// AÒade el nuevo sensor y guarda la lista
 		sensores.insertarAlFinal(new Nodo<>(nuevoSensor));
 		guardarSensores(sensores);
 		return nuevoId;
-    }
+	}
 
-    /**
-     * Crea un sensor con un ID espec√≠fico.
-     * 
-     * @param id_sensor El ID del sensor.
-     * @param dato_actual El dato actual del sensor.
-     * @param nombre El nombre del sensor.
-     * @param tipo El tipo de sensor.
-     */
-    public static void crearSensorConId(long id_sensor, float dato_actual, String nombre, String tipo) {
-        ListaEnlazada<Sensores> sensores = cargarSensores();
+	public static void crearSensorConId(long id_sensor, float dato_actual, String nombre, String tipo) {
+		ListaEnlazada<Sensores> sensores = cargarSensores();
 
 		if (sensores == null) {
 			sensores = new ListaEnlazada<>();
@@ -349,19 +267,13 @@ public class DispositivosManager {
 		long nuevoOrdenRegistro = ordenRegistroMasAlto + 1;
 		Sensores nuevoSensor = new Sensores(id_sensor, dato_actual, nombre, tipo, nuevoOrdenRegistro);
 
-		// A√±ade el nuevo sensor y guarda la lista
+		// AÒade el nuevo sensor y guarda la lista
 		sensores.insertarAlFinal(new Nodo<>(nuevoSensor));
 		guardarSensores(sensores);
-    }
+	}
 
-    /**
-     * Carga los dispositivos asociados a un usuario espec√≠fico.
-     * 
-     * @param idUsuario El ID del usuario.
-     * @return Lista de dispositivos asociados al usuario.
-     */
-    public static ListaEnlazada<Dispositivos> cargarDispositivosPorUsuario(long idUsuario) {
-        ListaEnlazada<Dispositivos> todosLosDispositivos = cargarDispos();
+	public static ListaEnlazada<Dispositivos> cargarDispositivosPorUsuario(long idUsuario) {
+		ListaEnlazada<Dispositivos> todosLosDispositivos = cargarDispos();
 		ListaEnlazada<Dispositivos> dispositivosDelUsuario = new ListaEnlazada<>();
 
 		for (Nodo<Dispositivos> nodoActual = todosLosDispositivos
@@ -373,16 +285,10 @@ public class DispositivosManager {
 		}
 
 		return dispositivosDelUsuario;
-    }
+	}
 
-    /**
-     * Carga los dispositivos relacionados con un usuario espec√≠fico.
-     * 
-     * @param idUsuario El ID del usuario.
-     * @return Lista de dispositivos relacionados con el usuario.
-     */
-    public static ListaEnlazada<Dispositivos> cargarDispositivosRelacionados(long idUsuario) {
-        ListaEnlazada<Dispositivos> todosLosDispositivos = cargarDispos();
+	public static ListaEnlazada<Dispositivos> cargarDispositivosRelacionados(long idUsuario) {
+		ListaEnlazada<Dispositivos> todosLosDispositivos = cargarDispos();
 		ListaEnlazada<Dispositivos> dispositivosRelacionados = new ListaEnlazada<>();
 		ListaEnlazada<Relaciones> relacionesDelUsuario = RegistroManager.cargarRelacionesPorUsuario(idUsuario);
 		for (Nodo<Relaciones> nodoRel = relacionesDelUsuario.getCabeza(); nodoRel != null; nodoRel = nodoRel
@@ -401,5 +307,6 @@ public class DispositivosManager {
 		}
 
 		return dispositivosRelacionados;
-    }
+	}
+
 }

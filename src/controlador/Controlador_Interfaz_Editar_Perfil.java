@@ -1,7 +1,7 @@
 package controlador;
 
 import java.io.IOException;
-import java.util.Set;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -18,7 +18,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
-import modelo.DispositivosManager;
+
 import modelo.RegistroManager;
 import modelo.Sesion;
 
@@ -42,10 +42,6 @@ public class Controlador_Interfaz_Editar_Perfil {
 	@FXML
 	private JFXPasswordField passRepetirNuevaPass;
 
-	/**
-	 * Método para inicializar componentes de la interfaz con información del
-	 * usuario actual.
-	 */
 	@FXML
 	public void initialize() {
 
@@ -60,23 +56,11 @@ public class Controlador_Interfaz_Editar_Perfil {
 
 	}
 
-	/**
-	 * Valida si el correo electrónico proporcionado tiene un formato correcto.
-	 * 
-	 * @param email El correo electrónico a validar.
-	 * @return Verdadero si el correo es válido, falso de lo contrario.
-	 */
 	public boolean validarEmail(String email) {
-		String regex = "^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$";
+		String regex = "^[\\w-\\.+]*[\\w-\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$";
 		return email.matches(regex);
 	}
 
-	/**
-	 * Método para aplicar cambios en la información del usuario, como nombre y
-	 * correo electrónico.
-	 * 
-	 * @throws IOException Si ocurre un error de entrada/salida.
-	 */
 	@FXML
 	private void btnAplicarCambios() throws IOException {
 
@@ -127,11 +111,6 @@ public class Controlador_Interfaz_Editar_Perfil {
 
 	}
 
-	/**
-	 * Método para actualizar la contraseña del usuario.
-	 * 
-	 * @throws IOException Si ocurre un error de entrada/salida.
-	 */
 	@FXML
 	private void btnNuevaPass() throws IOException {
 
@@ -149,7 +128,7 @@ public class Controlador_Interfaz_Editar_Perfil {
 						Alert alerta = new Alert(Alert.AlertType.WARNING);
 						alerta.setTitle("Actualizacion Exitosa");
 						alerta.setHeaderText(null);
-						alerta.setContentText("ConntraseÃ±a actualizada");
+						alerta.setContentText("Conntraseña actualizada");
 						usuarioActual.setPassword(nuevaPass);
 						usuarioActual.setRepetirPass(nuevaPass);
 						passNueva.setText("");
@@ -161,7 +140,7 @@ public class Controlador_Interfaz_Editar_Perfil {
 					Alert alerta = new Alert(Alert.AlertType.WARNING);
 					alerta.setTitle("Actualizacion no exitosa");
 					alerta.setHeaderText(null);
-					alerta.setContentText("Las contraseÃ±as no coinciden");
+					alerta.setContentText("Las contraseñas no coinciden");
 					alerta.showAndWait();
 				}
 
@@ -169,7 +148,7 @@ public class Controlador_Interfaz_Editar_Perfil {
 				Alert alerta = new Alert(Alert.AlertType.WARNING);
 				alerta.setTitle("Actualizacion no exitosa");
 				alerta.setHeaderText(null);
-				alerta.setContentText("Las contraseÃ±a no tiene el formato correcto");
+				alerta.setContentText("Las contraseña no tiene el formato correcto");
 				alerta.showAndWait();
 			}
 
@@ -183,22 +162,16 @@ public class Controlador_Interfaz_Editar_Perfil {
 
 	}
 
-	/**
-	 * Verifica si una contraseña es segura basándose en criterios específicos.
-	 * 
-	 * @param contrasena La contraseña a verificar.
-	 * @return Verdadero si la contraseña es segura, falso de lo contrario.
-	 */
 	public boolean contrasenaSegura(String contrasena) {
 
-		if (contrasena.length() > 8) { // una contraseÃ±a tiene mÃ¡s de 12 caracteres.
+		if (contrasena.length() > 8) { // una contraseña tiene más de 12 caracteres.
 			boolean mayuscula = false;
 			boolean numero = false;
 			boolean letraOsimbolo = false;
 			boolean especial = false;
 
 			// Define caracteres especiales
-			Pattern special = Pattern.compile("[?!Â¡@Â¿.,Â´)]");
+			Pattern special = Pattern.compile("[?!¡@¿.,´)]");
 			Matcher hasSpecial = special.matcher(contrasena);
 
 			int i;
@@ -207,13 +180,13 @@ public class Controlador_Interfaz_Editar_Perfil {
 			for (i = 0; i < contrasena.length(); i++) {
 				l = contrasena.charAt(i);
 
-				if (Character.isDigit(l)) {// mÃ­nimo un nÃºmero.
+				if (Character.isDigit(l)) {// mínimo un número.
 					numero = true;
 				}
-				if (Character.isLetter(l)) {// contiene letras o sÃ­mbolos (?!Â¡@Â¿.,Â´)
+				if (Character.isLetter(l)) {// contiene letras o símbolos (?!¡@¿.,´)
 					letraOsimbolo = true;
 				}
-				if (Character.isUpperCase(l)) { // mÃ­nimo una letra mayÃºscula
+				if (Character.isUpperCase(l)) { // mínimo una letra mayúscula
 					mayuscula = true;
 				}
 				if (hasSpecial.find()) { // Valida "caracteres especiales".
@@ -230,14 +203,7 @@ public class Controlador_Interfaz_Editar_Perfil {
 			return false;
 		}
 	}
-/////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-	/**
-	 * Navega al menú del perfil del usuario.
-	 * 
-	 * @param event Evento del ratón que activa el método.
-	 * @throws IOException Si ocurre un error al cargar la interfaz de perfil.
-	 */
 	@FXML
 	private void irMenuPerfil(MouseEvent event) throws IOException {
 		try {
@@ -260,12 +226,6 @@ public class Controlador_Interfaz_Editar_Perfil {
 
 	}
 
-	/**
-	 * Regresa a la pantalla de inicio.
-	 * 
-	 * @param event Evento del ratón que activa el método.
-	 * @throws IOException Si ocurre un error al cargar la interfaz de inicio.
-	 */
 	@FXML
 	private void irInicio(MouseEvent event) throws IOException {
 		try {
