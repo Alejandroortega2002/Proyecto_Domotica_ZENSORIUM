@@ -59,6 +59,10 @@ public class Controlador_Interfaz_Administrar_Dispositivos {
 
 	private String aux;
 
+	/**
+	 * Método para inicializar componentes de la interfaz con información del
+	 * usuario actual y cargar dispositivos.
+	 */
 	@FXML
 	public void initialize() {
 
@@ -78,6 +82,9 @@ public class Controlador_Interfaz_Administrar_Dispositivos {
 
 	}
 
+	/**
+	 * Método para seleccionar un dispositivo de la tabla y actualizar la interfaz.
+	 */
 	@FXML
 	private void seleccionarDispositivo() {
 		// ObtÃ©n el dispo seleccionado y actualiza el txtnombredispo
@@ -88,6 +95,12 @@ public class Controlador_Interfaz_Administrar_Dispositivos {
 		}
 	}
 
+	/**
+	 * Carga los dispositivos asociados al usuario logueado y a sus relaciones.
+	 * 
+	 * @param idUsuarioLogueado ID del usuario logueado para cargar sus
+	 *                          dispositivos.
+	 */
 	private void cargarDispositivos(long idUsuarioLogueado) {
 		ObservableList<Dispositivos> dispos = FXCollections.observableArrayList();
 		ListaEnlazada<Long> usuariosProcesados = new ListaEnlazada<>();
@@ -95,6 +108,15 @@ public class Controlador_Interfaz_Administrar_Dispositivos {
 		tableAdministrarDispos.setItems(dispos);
 	}
 
+	/**
+	 * Método recursivo para cargar dispositivos del usuario y de usuarios
+	 * relacionados.
+	 * 
+	 * @param idUsuario          ID del usuario cuyos dispositivos se van a cargar.
+	 * @param dispos             Lista de dispositivos a llenar.
+	 * @param usuariosProcesados Lista de usuarios ya procesados para evitar
+	 *                           duplicados.
+	 */
 	private void cargarDispositivosDeUsuarioYRelacionados(long idUsuario, ObservableList<Dispositivos> dispos,
 			ListaEnlazada<Long> usuariosProcesados) {
 		if (contieneUsuario(usuariosProcesados, idUsuario)) {
@@ -119,6 +141,13 @@ public class Controlador_Interfaz_Administrar_Dispositivos {
 		}
 	}
 
+	/**
+	 * Comprueba si un usuario ya está en la lista para evitar procesarlo de nuevo.
+	 * 
+	 * @param lista     Lista de IDs de usuarios.
+	 * @param idUsuario ID del usuario a buscar.
+	 * @return Verdadero si el usuario ya está en la lista, de lo contrario falso.
+	 */
 	private boolean contieneUsuario(ListaEnlazada<Long> lista, Long idUsuario) {
 		for (Nodo<Long> nodo = lista.getCabeza(); nodo != null; nodo = nodo.getEnlace()) {
 			if (nodo.getDato().equals(idUsuario)) {
@@ -128,13 +157,23 @@ public class Controlador_Interfaz_Administrar_Dispositivos {
 		return false;
 	}
 
+	/**
+	 * Agrega un dispositivo a la lista si no está duplicado.
+	 * 
+	 * @param lista       Lista de dispositivos a la cual agregar.
+	 * @param dispositivo Dispositivo a agregar.
+	 */
 	private void agregarSiNoEstaDuplicado(ObservableList<Dispositivos> lista, Dispositivos dispositivo) {
 		if (!lista.stream().anyMatch(d -> d.getId_dispo() == dispositivo.getId_dispo())) {
 			lista.add(dispositivo);
 		}
 	}
 
-
+	/**
+	 * Añade un nuevo dispositivo, creando un nuevo sensor según su tipo.
+	 * 
+	 * @throws IOException Si ocurre un error de entrada/salida.
+	 */
 	@FXML // hay que actualizar este metodo
 	private void anadirDsipositivo() throws IOException {
 		Usuario usuarioActual = Sesion.getInstancia().getUsuarioActual();
@@ -162,6 +201,12 @@ public class Controlador_Interfaz_Administrar_Dispositivos {
 		}
 	}
 
+	/**
+	 * Genera y añade un nuevo sensor según el tipo de dispositivo.
+	 * 
+	 * @param tipo Tipo de dispositivo para el cual se añadirá el sensor.
+	 * @return ID del sensor generado.
+	 */
 	private long anadirSensorDispo(String tipo) {
 		String tipoSensor;
 		long id_sensor = 0;
@@ -211,11 +256,23 @@ public class Controlador_Interfaz_Administrar_Dispositivos {
 		return id_sensor;
 	}
 
+	/**
+	 * Manejador para el botón de añadir dispositivo.
+	 * 
+	 * @param event Evento del ratón.
+	 * @throws IOException Si hay un error al procesar la solicitud.
+	 */
 	@FXML
 	public void btnAnadirDispo(MouseEvent event) throws IOException {
 		anadirDsipositivo();
 	}
 
+	/**
+	 * Manejador para el botón de eliminar dispositivo.
+	 * 
+	 * @param event Evento del ratón.
+	 * @throws IOException Si hay un error al procesar la solicitud.
+	 */
 	@FXML
 	public void btnEliminar(MouseEvent event) throws IOException {
 		Dispositivos dispoSeleccionado = tableAdministrarDispos.getSelectionModel().getSelectedItem();
@@ -232,6 +289,11 @@ public class Controlador_Interfaz_Administrar_Dispositivos {
 		}
 	}
 
+	/**
+	 * Modifica un dispositivo existente.
+	 * 
+	 * @throws IOException Si hay un error al procesar la solicitud.
+	 */
 	private void modificarDispositivo() throws IOException {
 
 		String nombre = lblNombreDispoSelec.getText();
@@ -253,6 +315,12 @@ public class Controlador_Interfaz_Administrar_Dispositivos {
 		}
 	}
 
+	/**
+	 * Manejador para el botón de modificar dispositivo.
+	 * 
+	 * @param event Evento del ratón.
+	 * @throws IOException Si hay un error al procesar la solicitud.
+	 */
 	@FXML
 	public void btnIrModiDispo(MouseEvent event) throws IOException {
 		modificarDispositivo();
@@ -261,6 +329,12 @@ public class Controlador_Interfaz_Administrar_Dispositivos {
 	}
 
 //////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Navega al menú del perfil del usuario.
+	 * 
+	 * @param event Evento del ratón que activa el método.
+	 * @throws IOException Si ocurre un error al cargar la interfaz de perfil.
+	 */
 	@FXML
 	private void irMenuPerfil(MouseEvent event) throws IOException {
 		try {
@@ -283,6 +357,12 @@ public class Controlador_Interfaz_Administrar_Dispositivos {
 
 	}
 
+	/**
+	 * Regresa a la pantalla de inicio.
+	 * 
+	 * @param event Evento del ratón que activa el método.
+	 * @throws IOException Si ocurre un error al cargar la interfaz de inicio.
+	 */
 	@FXML
 	private void irInicio(MouseEvent event) throws IOException {
 		try {

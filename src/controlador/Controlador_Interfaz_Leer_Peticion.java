@@ -39,7 +39,7 @@ public class Controlador_Interfaz_Leer_Peticion {
 	private Label lblTipoCuenta;
 	@FXML
 	private Label lblFecha;
-	
+
 	@FXML
 	private Button btnVerDatos;
 
@@ -50,7 +50,6 @@ public class Controlador_Interfaz_Leer_Peticion {
 	@FXML
 	private TextField lblEmisor; // Para ingresar el nombre del usuario familiar
 
-	
 	@FXML
 	private TableView<Reporte> tableReportes;
 	@FXML
@@ -60,6 +59,10 @@ public class Controlador_Interfaz_Leer_Peticion {
 	@FXML
 	private TableColumn<Reporte, String> columnEmisor;
 
+	/**
+	 * Método para inicializar componentes de la interfaz con información del
+	 * usuario actual.
+	 */
 	@FXML
 	public void initialize() {
 
@@ -77,6 +80,9 @@ public class Controlador_Interfaz_Leer_Peticion {
 		cargarReporte();
 	}
 
+	/**
+	 * Selecciona un reporte de la tabla y actualiza la interfaz.
+	 */
 	@FXML
 	private void seleccionarDispositivo() {
 		// ObtÃ©n el dispo seleccionado y actualiza el txtnombredispo
@@ -91,13 +97,20 @@ public class Controlador_Interfaz_Leer_Peticion {
 
 		}
 	}
+
+	/**
+	 * Elimina un reporte seleccionado.
+	 * 
+	 * @param event Evento del ratón que activa el método.
+	 * @throws IOException Si ocurre un error durante el proceso.
+	 */
 	@FXML
 	public void btnEliminarReporte(MouseEvent event) throws IOException {
 		Reporte dispoSeleccionado = tableReportes.getSelectionModel().getSelectedItem();
 		if (dispoSeleccionado != null) {
 
 			if (ReporteManager.eliminarReporte(dispoSeleccionado.getTitulo())) {
-				
+
 				Alert alerta = new Alert(Alert.AlertType.INFORMATION);
 				alerta.setTitle("Reporte");
 				alerta.setHeaderText(null);
@@ -108,9 +121,9 @@ public class Controlador_Interfaz_Leer_Peticion {
 				lblFecha.setText("");
 				cargarReporte();
 			}
-			
+
 		} else {
-			
+
 			Alert alerta = new Alert(Alert.AlertType.INFORMATION);
 			alerta.setTitle("Reporte creado");
 			alerta.setHeaderText(null);
@@ -119,6 +132,9 @@ public class Controlador_Interfaz_Leer_Peticion {
 		}
 	}
 
+	/**
+	 * Carga y muestra todos los reportes en la tabla.
+	 */
 	private void cargarReporte() {
 		ListaEnlazada<Reporte> todosLosRepos = ReporteManager.cargarReportes();
 		ObservableList<Reporte> repos = FXCollections.observableArrayList();
@@ -135,10 +151,14 @@ public class Controlador_Interfaz_Leer_Peticion {
 		tableReportes.setItems(repos);
 	}
 
-
-	
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+	/**
+	 * Navega al menú del perfil del usuario.
+	 * 
+	 * @param event Evento del ratón que activa el método.
+	 * @throws IOException Si ocurre un error al cargar la interfaz de perfil.
+	 */
 	@FXML
 	private void irMenuPerfil(MouseEvent event) throws IOException {
 		try {
@@ -161,6 +181,12 @@ public class Controlador_Interfaz_Leer_Peticion {
 
 	}
 
+	/**
+	 * Regresa a la pantalla de inicio.
+	 * 
+	 * @param event Evento del ratón que activa el método.
+	 * @throws IOException Si ocurre un error al cargar la interfaz de inicio.
+	 */
 	@FXML
 	private void irInicio(MouseEvent event) throws IOException {
 		try {
@@ -183,7 +209,5 @@ public class Controlador_Interfaz_Leer_Peticion {
 		}
 
 	}
-
-
 
 }
