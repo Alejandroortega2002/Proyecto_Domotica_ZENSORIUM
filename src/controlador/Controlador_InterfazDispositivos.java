@@ -90,7 +90,6 @@ public class Controlador_InterfazDispositivos {
 		if (usuarioActual != null) {
 			if (usuarioActual.getTipodecuenta().equals("Usuario")) {
 				btnAdministarDsipo.setDisable(true);
-				btnAdministarDsipo.setManaged(false);
 
 			}
 

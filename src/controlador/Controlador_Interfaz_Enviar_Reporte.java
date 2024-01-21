@@ -66,29 +66,16 @@ public class Controlador_Interfaz_Enviar_Reporte {
 			String tipoDeCuenta = usuarioActual.getTipodecuenta();
 			lblNombreUsu.setText(username);
 			lblTipoCuenta.setText(tipoDeCuenta);
-			indicarDestinatario();
 		}
 
 	}
 
-	private void indicarDestinatario() {
-		Usuario usuarioActual = Sesion.getInstancia().getUsuarioActual();
-		long idUsuarioLogueado = usuarioActual.getId_user();
-
-		ListaEnlazada<Relaciones> relaciones = RegistroManager.cargarRelaciones();
-		long idDestinatario = buscarIdDestinatario(relaciones, idUsuarioLogueado);
-
-		if (idDestinatario == -1) {
-			lblDestinatario.setText("TITULO DEL REPORTE, DESTINATARIO: ");
-
-		} else {
-			Usuario usuarioDestinatario = RegistroManager.buscarUsuarioPorId(idDestinatario);
-			lblDestinatario.setText("TITULO DEL REPORTE, DESTINATARIO: " + usuarioDestinatario.getUsername() + " ("
-					+ usuarioDestinatario.getTipodecuenta() + ")");
-
-		}
-
-	}
+//	this.id_user_emisor = id_user_emisor;
+//	this.id_user_receptor = id_user_receptor;
+//	this.titulo = titulo;
+//	this.queja = queja;
+//	this.fecha = fecha;
+//	this.id_reporte = id_reporte;
 
 	/**
 	 * Envía un reporte, creando un nuevo objeto de reporte y gestionándolo a través
@@ -122,7 +109,8 @@ public class Controlador_Interfaz_Enviar_Reporte {
 			boolean reporteCreado = ReporteManager.crearReporte(nuevoReporte);
 
 			if (reporteCreado) {
-
+				
+				
 				Alert alerta = new Alert(Alert.AlertType.INFORMATION);
 				alerta.setTitle("Reporte creado");
 				alerta.setHeaderText(null);
@@ -137,14 +125,14 @@ public class Controlador_Interfaz_Enviar_Reporte {
 			}
 			lblTituloReporte.setText("");
 			txtAreaDescripcionReporte.setText("");
-		} else {
+		}else {
 			Alert alerta = new Alert(Alert.AlertType.INFORMATION);
 			alerta.setTitle("Reporte creado");
 			alerta.setHeaderText(null);
 			alerta.setContentText("Rellene todos los campos");
 			alerta.showAndWait();
 		}
-
+		
 	}
 
 	/**

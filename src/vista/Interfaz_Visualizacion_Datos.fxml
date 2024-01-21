@@ -18,143 +18,103 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity"
-	minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0"
-	prefWidth="800.0" styleClass="AnchorPaneRelaciones"
-	stylesheets="@../applications/application.css"
-	xmlns="http://javafx.com/javafx/8.0.171"
-	xmlns:fx="http://javafx.com/fxml/1">
-	<children>
-		<BorderPane prefHeight="600.0" prefWidth="800.0"
-			AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
-			AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-			<bottom>
-				<HBox alignment="CENTER" prefHeight="60.0" prefWidth="800.0"
-					style="-fx-background-color: #74BBBD;"
-					stylesheets="@../applications/application.css"
-					BorderPane.alignment="CENTER">
-					<children>
-						<Button fx:id="btn_Inicio_Menu" mnemonicParsing="false"
-							onMouseClicked="#irInicio" prefHeight="27.0" prefWidth="32.0"
-							styleClass="btn_Inicio_Menu"
-							stylesheets="@../applications/application.css"
-							textAlignment="JUSTIFY">
-							<cursor>
-								<Cursor fx:constant="HAND" />
-							</cursor>
-							<HBox.margin>
-								<Insets right="125.0" />
-							</HBox.margin>
-						</Button>
-						<Button fx:id="btn_Perfil_Menu" contentDisplay="CENTER"
-							mnemonicParsing="false" onMouseClicked="#irMenuPerfil"
-							prefHeight="30.0" prefWidth="27.0" styleClass="btn_Perfil_Menu"
-							stylesheets="@../Documents/GitHub/pii23-jositosclub/bin/Documents/GitHub/pii23-jositosclub/bin/Documents/GitHub/pii23-jositosclub/bin/applications/application.css"
-							textFill="TRANSPARENT">
-							<cursor>
-								<Cursor fx:constant="HAND" />
-							</cursor>
-							<HBox.margin>
-								<Insets left="125.0" />
-							</HBox.margin>
-						</Button>
-					</children>
-				</HBox>
-			</bottom>
-		</BorderPane>
-		<GridPane alignment="CENTER" prefHeight="540.0"
-			prefWidth="800.0" AnchorPane.bottomAnchor="60.0"
-			AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
-			AnchorPane.topAnchor="0.0">
-			<columnConstraints>
-				<ColumnConstraints halignment="CENTER"
-					hgrow="SOMETIMES" maxWidth="422.0" minWidth="10.0"
-					prefWidth="305.0" />
-				<ColumnConstraints halignment="CENTER"
-					hgrow="SOMETIMES" maxWidth="539.0" minWidth="10.0"
-					prefWidth="495.0" />
-			</columnConstraints>
-			<rowConstraints>
-				<RowConstraints minHeight="10.0" prefHeight="30.0"
-					vgrow="SOMETIMES" />
-			</rowConstraints>
-			<children>
-				<BarChart fx:id="barChart" maxHeight="400.0"
-					maxWidth="469.0" prefHeight="250.0" prefWidth="469.0"
-					GridPane.columnIndex="1">
-					<xAxis>
-						<CategoryAxis fx:id="xAxis" label="Datos Del Sensor"
-							side="BOTTOM" />
-					</xAxis>
-					<yAxis>
-						<NumberAxis fx:id="yAxis" label="Temperature"
-							lowerBound="0" side="LEFT" upperBound="100" />
-					</yAxis>
-					<GridPane.margin>
-						<Insets top="90.0" />
-					</GridPane.margin>
-				</BarChart>
-				<TableView fx:id="tblDatosSensores" maxHeight="350.0"
-					maxWidth="300.0" prefHeight="350.0" prefWidth="295.0">
-					<columns>
-						<TableColumn fx:id="colNRegistro" prefWidth="106.0"
-							text="Nº Registro" />
-						<TableColumn fx:id="colDato" prefWidth="175.0"
-							text="Dato Obtenido" />
-						<TableColumn fx:id="colTipo" minWidth="0.0"
-							prefWidth="67.0" text="Tipo" />
-						<TableColumn fx:id="colId" prefWidth="126.0"
-							text="Id Sensor" />
-					</columns>
-					<GridPane.margin>
-						<Insets left="50.0" top="60.0" />
-					</GridPane.margin>
-				</TableView>
-				<Label prefHeight="30.0" prefWidth="279.0"
-					text="REPRESENTACIÓN DE DATOS" GridPane.columnIndex="1"
-					GridPane.halignment="CENTER" GridPane.valignment="CENTER">
-					<font>
-						<Font name="System Bold" size="20.0" />
-					</font>
-					<GridPane.margin>
-						<Insets left="50.0" top="-390.0" />
-					</GridPane.margin>
-				</Label>
-				<Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1f93ff00"
-					height="67.0" stroke="WHITE" strokeType="INSIDE" width="257.0">
-					<GridPane.margin>
-						<Insets left="50.0" top="-450.0" />
-					</GridPane.margin>
-				</Rectangle>
-				<Label text="Nombre:">
-					<GridPane.margin>
-						<Insets left="-100.0" top="-480.0" />
-					</GridPane.margin>
-				</Label>
-				<Label id="lblNombreUsu" fx:id="lblNombreUsu"
-					text="Nombre Usuario">
-					<font>
-						<Font name="System Bold" size="15.0" />
-					</font>
-					<GridPane.margin>
-						<Insets left="125.0" top="-480.0" />
-					</GridPane.margin>
-				</Label>
-				<Label id="lblTipoCuenta" fx:id="lblTipoCuenta"
-					prefHeight="0.0" prefWidth="117.0" text="Tipo de cuenta">
-					<font>
-						<Font name="System Bold" size="15.0" />
-					</font>
-					<GridPane.margin>
-						<Insets left="190.0" top="-425.0" />
-					</GridPane.margin>
-				</Label>
-				<Label text="Tipo de cuenta:">
-					<GridPane.margin>
-						<Insets left="-65.0" top="-425.0" />
-					</GridPane.margin>
-				</Label>
-			</children>
-		</GridPane>
-	</children>
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" styleClass="AnchorPaneRelaciones" stylesheets="@../applications/application.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <BorderPane prefHeight="600.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <bottom>
+            <HBox alignment="CENTER" prefHeight="60.0" prefWidth="800.0" style="-fx-background-color: #74BBBD;" stylesheets="@../applications/application.css" BorderPane.alignment="CENTER">
+               <children>
+                  <Button fx:id="btn_Inicio_Menu" mnemonicParsing="false" onMouseClicked="#irInicio" prefHeight="27.0" prefWidth="32.0" styleClass="btn_Inicio_Menu" stylesheets="@../applications/application.css" textAlignment="JUSTIFY">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                     <HBox.margin>
+                        <Insets right="125.0" />
+                     </HBox.margin>
+                  </Button>
+                  <Button fx:id="btn_Perfil_Menu" contentDisplay="CENTER" mnemonicParsing="false" onMouseClicked="#irMenuPerfil" prefHeight="30.0" prefWidth="27.0" styleClass="btn_Perfil_Menu" stylesheets="@../Documents/GitHub/pii23-jositosclub/bin/Documents/GitHub/pii23-jositosclub/bin/Documents/GitHub/pii23-jositosclub/bin/applications/application.css" textFill="TRANSPARENT">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                     <HBox.margin>
+                        <Insets left="125.0" />
+                     </HBox.margin>
+                  </Button>
+               </children>
+            </HBox>
+         </bottom>
+      </BorderPane>
+      <GridPane alignment="CENTER" prefHeight="540.0" prefWidth="800.0" AnchorPane.bottomAnchor="60.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <columnConstraints>
+          <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="422.0" minWidth="10.0" prefWidth="305.0" />
+          <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="539.0" minWidth="10.0" prefWidth="495.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <BarChart fx:id="barChart" maxHeight="400.0" maxWidth="469.0" prefHeight="250.0" prefWidth="469.0" GridPane.columnIndex="1">
+              <xAxis>
+                <CategoryAxis label="Datos Del Sensor" side="BOTTOM" fx:id="xAxis" />
+              </xAxis>
+              <yAxis>
+                <NumberAxis fx:id="yAxis" label="Temperature" lowerBound="0" side="LEFT" upperBound="100" />
+              </yAxis>
+               <GridPane.margin>
+                  <Insets top="90.0" />
+               </GridPane.margin>
+            </BarChart>
+            <TableView fx:id="tblDatosSensores" maxHeight="350.0" maxWidth="300.0" prefHeight="350.0" prefWidth="295.0">
+               <columns>
+                  <TableColumn fx:id="colNRegistro" prefWidth="106.0" text="Nº Registro" />
+                  <TableColumn fx:id="colDato" prefWidth="175.0" text="Dato Obtenido" />
+                  <TableColumn fx:id="colTipo" minWidth="0.0" prefWidth="67.0" text="Tipo" />
+                  <TableColumn fx:id="colId" prefWidth="126.0" text="Id Sensor" />
+               </columns>
+               <GridPane.margin>
+                  <Insets left="50.0" top="60.0" />
+               </GridPane.margin>
+            </TableView>
+            <Label prefHeight="30.0" prefWidth="279.0" text="REPRESENTACIÓN DE DATOS" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+               <font>
+                  <Font name="System Bold" size="20.0" />
+               </font>
+               <GridPane.margin>
+                  <Insets left="50.0" top="-390.0" />
+               </GridPane.margin>
+            </Label>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1f93ff00" height="67.0" stroke="WHITE" strokeType="INSIDE" width="257.0">
+               <GridPane.margin>
+                  <Insets left="50.0" top="-450.0" />
+               </GridPane.margin>
+            </Rectangle>
+            <Label text="Nombre:">
+               <GridPane.margin>
+                  <Insets left="-100.0" top="-480.0" />
+               </GridPane.margin>
+            </Label>
+            <Label id="lblNombreUsu" fx:id="lblNombreUsu" text="Nombre Usuario">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+               <GridPane.margin>
+                  <Insets left="125.0" top="-480.0" />
+               </GridPane.margin>
+            </Label>
+            <Label id="lblTipoCuenta" fx:id="lblTipoCuenta" prefHeight="0.0" prefWidth="117.0" text="Tipo de cuenta">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+               <GridPane.margin>
+                  <Insets left="190.0" top="-425.0" />
+               </GridPane.margin>
+            </Label>
+            <Label text="Tipo de cuenta:">
+               <GridPane.margin>
+                  <Insets left="-65.0" top="-425.0" />
+               </GridPane.margin>
+            </Label>
+         </children>
+      </GridPane>
+   </children>
 </AnchorPane>

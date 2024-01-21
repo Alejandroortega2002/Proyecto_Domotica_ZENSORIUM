@@ -240,6 +240,7 @@ public class RegistroManager {
 		return false; // No se encontró el dispositivo con el nombre especificado
     }
 
+<<<<<<< HEAD
     /**
      * Busca un usuario por su ID.
      * 
@@ -263,6 +264,9 @@ public class RegistroManager {
 
 		return null; // Usuario no encontrado
     }
+=======
+	}
+>>>>>>> parent of ac0d6a4 (Ultimos retoques antes de comentar)
 }
 
 

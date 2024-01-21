@@ -29,6 +29,7 @@
 				"enlace": {
 					"dato": {
 						"id_user": 4,
+<<<<<<< HEAD
 						"username": "luisfernandez97",
 						"email": "luisfernandez97@gmail.com",
 						"password": "Luis@2013",
@@ -184,6 +185,13 @@
 								}
 							}
 						}
+=======
+						"username": "jorge",
+						"email": "jorge@gmail.com",
+						"password": "Jorge@2002",
+						"repetirPass": "Jorge@2002",
+						"tipodecuenta": "Usuario"
+>>>>>>> parent of ac0d6a4 (Ultimos retoques antes de comentar)
 					}
 				}
 			}

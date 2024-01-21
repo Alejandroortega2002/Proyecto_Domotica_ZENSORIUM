@@ -18,13 +18,26 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" styleClass="Fondo_Pantalla_Perfil" stylesheets="@../applications/application.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity"
+	minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0"
+	prefWidth="800.0" styleClass="Fondo_Pantalla_Perfil"
+	stylesheets="@../applications/application.css"
+	xmlns="http://javafx.com/javafx/8.0.171"
+	xmlns:fx="http://javafx.com/fxml/1">
 	<children>
-		<BorderPane prefHeight="600.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+		<BorderPane prefHeight="600.0" prefWidth="800.0"
+			AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+			AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
 			<bottom>
-				<HBox alignment="CENTER" prefHeight="60.0" prefWidth="800.0" style="-fx-background-color: #74BBBD;" BorderPane.alignment="CENTER">
+				<HBox alignment="CENTER" prefHeight="60.0" prefWidth="800.0"
+					style="-fx-background-color: #74BBBD;"
+					BorderPane.alignment="CENTER">
 					<children>
-						<Button fx:id="btn_Inicio_Menu" mnemonicParsing="false" onMouseClicked="#irInicio" prefHeight="27.0" prefWidth="32.0" styleClass="btn_Inicio_Menu" stylesheets="@../applications/application.css" textAlignment="JUSTIFY">
+						<Button fx:id="btn_Inicio_Menu" mnemonicParsing="false"
+							onMouseClicked="#irInicio" prefHeight="27.0" prefWidth="32.0"
+							styleClass="btn_Inicio_Menu"
+							stylesheets="@../applications/application.css"
+							textAlignment="JUSTIFY">
 							<cursor>
 								<Cursor fx:constant="HAND" />
 							</cursor>
@@ -32,7 +45,11 @@
 								<Insets right="125.0" />
 							</HBox.margin>
 						</Button>
-						<Button fx:id="btn_Perfil_Menu" contentDisplay="CENTER" mnemonicParsing="false" onMouseClicked="#irMenuPerfil" prefHeight="30.0" prefWidth="27.0" styleClass="btn_Perfil_Menu" stylesheets="@../applications/application.css" textFill="TRANSPARENT">
+						<Button fx:id="btn_Perfil_Menu" contentDisplay="CENTER"
+							mnemonicParsing="false" onMouseClicked="#irMenuPerfil"
+							prefHeight="30.0" prefWidth="27.0" styleClass="btn_Perfil_Menu"
+							stylesheets="@../applications/application.css"
+							textFill="TRANSPARENT">
 							<cursor>
 								<Cursor fx:constant="HAND" />
 							</cursor>
@@ -44,30 +61,47 @@
 				</HBox>
 			</bottom>
 		</BorderPane>
-		<GridPane alignment="CENTER" prefHeight="539.0" prefWidth="800.0" AnchorPane.bottomAnchor="60.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+		<GridPane alignment="CENTER" prefHeight="539.0"
+			prefWidth="800.0" AnchorPane.bottomAnchor="60.0"
+			AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+			AnchorPane.topAnchor="0.0">
 			<columnConstraints>
-				<ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="395.0" minWidth="10.0" prefWidth="314.0" />
-				<ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="486.0" minWidth="10.0" prefWidth="486.0" />
+				<ColumnConstraints halignment="CENTER"
+					hgrow="SOMETIMES" maxWidth="395.0" minWidth="10.0"
+					prefWidth="314.0" />
+				<ColumnConstraints halignment="CENTER"
+					hgrow="SOMETIMES" maxWidth="486.0" minWidth="10.0"
+					prefWidth="486.0" />
 			</columnConstraints>
 			<rowConstraints>
-				<RowConstraints maxHeight="126.0" minHeight="10.0" prefHeight="126.0" vgrow="SOMETIMES" />
-				<RowConstraints maxHeight="357.0" minHeight="10.0" prefHeight="336.0" vgrow="SOMETIMES" />
-				<RowConstraints maxHeight="173.0" minHeight="2.0" prefHeight="2.0" vgrow="SOMETIMES" />
+				<RowConstraints maxHeight="126.0" minHeight="10.0"
+					prefHeight="126.0" vgrow="SOMETIMES" />
+				<RowConstraints maxHeight="357.0" minHeight="10.0"
+					prefHeight="336.0" vgrow="SOMETIMES" />
+				<RowConstraints maxHeight="173.0" minHeight="2.0"
+					prefHeight="2.0" vgrow="SOMETIMES" />
 			</rowConstraints>
 			<children>
-				<TableView fx:id="tableReportes" maxWidth="266.0" onMouseClicked="#seleccionarDispositivo" prefHeight="357.0" prefWidth="266.0" GridPane.rowIndex="1">
+				<TableView fx:id="tableReportes" maxWidth="266.0"
+					onMouseClicked="#seleccionarDispositivo" prefHeight="357.0"
+					prefWidth="266.0" GridPane.rowIndex="1">
 					<columns>
-						<TableColumn fx:id="columTituloReporte" prefWidth="266.0" text="TITULO DEL REPORTE" />
-						<TableColumn fx:id="columnEmisor" prefWidth="140.0" text="NOMBRE EMISOR" />
-						<TableColumn fx:id="columnDescripcion" prefWidth="140.0" text="Descripcion" />
+						<TableColumn fx:id="columTituloReporte"
+							prefWidth="266.0" text="TITULO DEL REPORTE" />
+						<TableColumn fx:id="columnEmisor" prefWidth="140.0"
+							text="NOMBRE EMISOR" />
+						<TableColumn fx:id="columnDescripcion"
+							prefWidth="140.0" text="Descripcion" />
 					</columns>
 				</TableView>
-				<Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1f93ff00" height="67.0" stroke="WHITE" strokeType="INSIDE" width="264.0">
+				<Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1f93ff00"
+					height="67.0" stroke="WHITE" strokeType="INSIDE" width="264.0">
 					<GridPane.margin>
 						<Insets />
 					</GridPane.margin>
 				</Rectangle>
-				<Label id="lblTipoCuenta" fx:id="lblTipoCuenta" prefHeight="0.0" prefWidth="117.0" text="Tipo de cuenta">
+				<Label id="lblTipoCuenta" fx:id="lblTipoCuenta"
+					prefHeight="0.0" prefWidth="117.0" text="Tipo de cuenta">
 					<font>
 						<Font name="System Bold" size="15.0" />
 					</font>
@@ -75,7 +109,8 @@
 						<Insets left="135.0" top="30.0" />
 					</GridPane.margin>
 				</Label>
-				<Label id="lblNombreUsu" fx:id="lblNombreUsu" text="Nombre Usuario">
+				<Label id="lblNombreUsu" fx:id="lblNombreUsu"
+					text="Nombre Usuario">
 					<font>
 						<Font name="System Bold" size="15.0" />
 					</font>
@@ -93,20 +128,23 @@
 						<Insets left="-170.0" top="-30.0" />
 					</GridPane.margin>
 				</Label>
-				<Text strokeType="OUTSIDE" strokeWidth="0.0" text="ENVIAR REPORTES" GridPane.columnIndex="1">
+				<Text strokeType="OUTSIDE" strokeWidth="0.0"
+					text="ENVIAR REPORTES" GridPane.columnIndex="1">
 					<GridPane.margin>
 						<Insets left="-240.0" top="-60.0" />
 					</GridPane.margin>
 					<font>
-						<Font name="System Bold" size="18.0" />
+						<Font size="18.0" />
 					</font>
 				</Text>
 				<Label text="NOMBRE DEL EMISOR" GridPane.columnIndex="1">
 					<GridPane.margin>
-						<Insets left="-240.0" top="35.0" />
+						<Insets left="-270.0" top="35.0" />
 					</GridPane.margin>
 				</Label>
-				<TextField fx:id="lblEmisor" editable="false" maxWidth="390.0" prefHeight="31.0" prefWidth="440.0" GridPane.columnIndex="1">
+				<TextField fx:id="lblEmisor" editable="false"
+					maxWidth="390.0" prefHeight="31.0" prefWidth="440.0"
+					GridPane.columnIndex="1">
 					<GridPane.margin>
 						<Insets top="90.0" />
 					</GridPane.margin>
@@ -116,7 +154,8 @@
 						<Insets left="60.0" top="35.0" />
 					</GridPane.margin>
 				</Label>
-				<Label id="lblTipoCuenta" fx:id="lblFecha" prefHeight="0.0" prefWidth="117.0" GridPane.columnIndex="1">
+				<Label id="lblTipoCuenta" fx:id="lblFecha" prefHeight="0.0"
+					prefWidth="117.0" text="fecha reporte" GridPane.columnIndex="1">
 					<font>
 						<Font name="System Bold" size="15.0" />
 					</font>
@@ -124,7 +163,9 @@
 						<Insets left="270.0" top="35.0" />
 					</GridPane.margin>
 				</Label>
-				<Label prefHeight="17.0" prefWidth="0.0" text="TITULO DEL REPORTE" GridPane.columnIndex="1" GridPane.rowIndex="1">
+				<Label prefHeight="17.0" prefWidth="0.0"
+					text="TITULO DEL REPORTE" GridPane.columnIndex="1"
+					GridPane.rowIndex="1">
 					<padding>
 						<Insets left="-238.0" />
 					</padding>
@@ -132,22 +173,30 @@
 						<Insets left="90.0" top="-285.0" />
 					</GridPane.margin>
 				</Label>
-				<TextField fx:id="lblTitulo" editable="false" maxWidth="390.0" prefHeight="31.0" prefWidth="440.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+				<TextField fx:id="lblTitulo" editable="false"
+					maxWidth="390.0" prefHeight="31.0" prefWidth="440.0"
+					GridPane.columnIndex="1" GridPane.rowIndex="1">
 					<GridPane.margin>
 						<Insets top="-230.0" />
 					</GridPane.margin>
 				</TextField>
-				<Label text="DESCRIPCION DEL REPORTE" GridPane.columnIndex="1" GridPane.rowIndex="1">
+				<Label text="DESCRIPCION DEL REPORTE" GridPane.columnIndex="1"
+					GridPane.rowIndex="1">
 					<GridPane.margin>
-						<Insets left="-200.0" top="-135.0" />
+						<Insets left="-238.0" top="-135.0" />
 					</GridPane.margin>
 				</Label>
-				<TextArea fx:id="txtAreaDescripcion" editable="false" maxHeight="236.0" maxWidth="390.0" prefHeight="236.0" prefWidth="390.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+				<TextArea fx:id="txtAreaDescripcion" editable="false"
+					maxHeight="236.0" maxWidth="390.0" prefHeight="236.0"
+					prefWidth="390.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
 					<GridPane.margin>
 						<Insets top="120.0" />
 					</GridPane.margin>
 				</TextArea>
-				<Button maxWidth="390.0" mnemonicParsing="false" onMouseClicked="#btnEliminarReporte" prefHeight="31.0" prefWidth="440.0" text="ELIMINAR" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+				<Button maxWidth="390.0" mnemonicParsing="false"
+					onMouseClicked="#btnEliminarReporte" prefHeight="31.0"
+					prefWidth="440.0" text="ELIMINAR" GridPane.columnIndex="1"
+					GridPane.rowIndex="2" />
 			</children>
 		</GridPane>
 	</children>

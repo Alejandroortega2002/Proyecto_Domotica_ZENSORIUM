@@ -150,6 +150,7 @@ public class Controlador_Registro {
 		System.exit(0);
     }
 
+<<<<<<< HEAD
     /**
      * Vuelve a la pantalla de inicio de sesión.
      * @param event Información del evento de clic del mouse.
@@ -176,6 +177,13 @@ public class Controlador_Registro {
 			e.printStackTrace();
 		}
     }
+=======
+	@FXML
+	public void volverALogin(MouseEvent event) throws IOException {
+		Parent fxml = FXMLLoader.load(getClass().getResource("/vista/Pantalla_Inicio_Login.fxml"));
+		Main.stage.getScene().setRoot(fxml);
+	}
+>>>>>>> parent of ac0d6a4 (Ultimos retoques antes de comentar)
 
     /**
      * Valida si un email es válido según una expresión regular.
