@@ -2,47 +2,187 @@
 	"cabeza": {
 		"dato": {
 			"id_user": 1,
-			"username": "juan",
-			"email": "juan@gmail.com",
-			"password": "Juan@2002",
-			"repetirPass": "Juan@2002",
-			"tipodecuenta": "Usuario"
+			"username": "anatorres55",
+			"email": "anatorres55@gmail.com",
+			"password": "Ana@2006",
+			"repetirPass": "Ana@2006",
+			"tipodecuenta": "Familiar"
 		},
 		"enlace": {
 			"dato": {
 				"id_user": 2,
-				"username": "pedro",
-				"email": "pedro@gmail.com",
-				"password": "Pedro@2002",
-				"repetirPass": "Pedro@2002",
+				"username": "carlosruiz45",
+				"email": "carlosruiz45@gmail.com",
+				"password": "Carlos@2016",
+				"repetirPass": "Carlos@2016",
 				"tipodecuenta": "Familiar"
 			},
 			"enlace": {
 				"dato": {
 					"id_user": 3,
-					"username": "Samu",
-					"email": "samu@gmail.com",
-					"password": "Samu@2002",
-					"repetirPass": "Samu@2002",
-					"tipodecuenta": "Administrador"
+					"username": "martagomez16",
+					"email": "martagomez16@gmail.com",
+					"password": "Marta@2014",
+					"repetirPass": "Marta@2014",
+					"tipodecuenta": "Familiar"
 				},
 				"enlace": {
 					"dato": {
 						"id_user": 4,
-						"username": "jorge",
-						"email": "jorge@gmail.com",
-						"password": "Jorge@2002",
-						"repetirPass": "Jorge@2002",
-						"tipodecuenta": "Usuario"
+						"username": "luisfernandez97",
+						"email": "luisfernandez97@gmail.com",
+						"password": "Luis@2013",
+						"repetirPass": "Luis@2013",
+						"tipodecuenta": "Familiar"
 					},
 					"enlace": {
 						"dato": {
 							"id_user": 5,
-							"username": "Oscar",
-							"email": "oscar@gmail.com",
-							"password": "Oscar@2002",
-							"repetirPass": "Oscar@2002",
+							"username": "sofiarodriguez38",
+							"email": "sofiarodriguez38@gmail.com",
+							"password": "Sofia@2004",
+							"repetirPass": "Sofia@2004",
 							"tipodecuenta": "Familiar"
+						},
+						"enlace": {
+							"dato": {
+								"id_user": 6,
+								"username": "javierlopez28",
+								"email": "javierlopez28@gmail.com",
+								"password": "Javier@2002",
+								"repetirPass": "Javier@2002",
+								"tipodecuenta": "Familiar"
+							},
+							"enlace": {
+								"dato": {
+									"id_user": 7,
+									"username": "patriciamartinez62",
+									"email": "patriciamartinez62@gmail.com",
+									"password": "Patricia@2017",
+									"repetirPass": "Patricia@2017",
+									"tipodecuenta": "Familiar"
+								},
+								"enlace": {
+									"dato": {
+										"id_user": 8,
+										"username": "manuelsanchez73",
+										"email": "manuelsanchez73@gmail.com",
+										"password": "Manuel@2011",
+										"repetirPass": "Manuel@2011",
+										"tipodecuenta": "Familiar"
+									},
+									"enlace": {
+										"dato": {
+											"id_user": 9,
+											"username": "lauragarcia59",
+											"email": "lauragarcia59@gmail.com",
+											"password": "Laura@2010",
+											"repetirPass": "Laura@2010",
+											"tipodecuenta": "Familiar"
+										},
+										"enlace": {
+											"dato": {
+												"id_user": 10,
+												"username": "elenajimenez40",
+												"email": "elenajimenez40@gmail.com",
+												"password": "Elena@2009",
+												"repetirPass": "Elena@2009",
+												"tipodecuenta": "Administrador"
+											},
+											"enlace": {
+												"dato": {
+													"id_user": 11,
+													"username": "ricardoperez54",
+													"email": "ricardoperez54@gmail.com",
+													"password": "Ricardo@2008",
+													"repetirPass": "Ricardo@2008",
+													"tipodecuenta": "Administrador"
+												},
+												"enlace": {
+													"dato": {
+														"id_user": 12,
+														"username": "sandragonzalez25",
+														"email": "sandragonzalez25@gmail.com",
+														"password": "Sandra@2007",
+														"repetirPass": "Sandra@2007",
+														"tipodecuenta": "Administrador"
+													},
+													"enlace": {
+														"dato": {
+															"id_user": 13,
+															"username": "oscordiaz71",
+															"email": "oscordiaz71@gmail.com",
+															"password": "Oscar@2005",
+															"repetirPass": "Oscar@2005",
+															"tipodecuenta": "Administrador"
+														},
+														"enlace": {
+															"dato": {
+																"id_user": 14,
+																"username": "irenealvarez93",
+																"email": "irenealvarez93@gmail.com",
+																"password": "Irene@2003",
+																"repetirPass": "Irene@2003",
+																"tipodecuenta": "Administrador"
+															},
+															"enlace": {
+																"dato": {
+																	"id_user": 15,
+																	"username": "mariovidal77",
+																	"email": "mariovidal77@gmail.com",
+																	"password": "Mario@2001",
+																	"repetirPass": "Mario@2001",
+																	"tipodecuenta": "Usuario"
+																},
+																"enlace": {
+																	"dato": {
+																		"id_user": 16,
+																		"username": "luciamolina88",
+																		"email": "luciamolina88@gmail.com",
+																		"password": "Lucia@1999",
+																		"repetirPass": "Lucia@1999",
+																		"tipodecuenta": "Usuario"
+																	},
+																	"enlace": {
+																		"dato": {
+																			"id_user": 17,
+																			"username": "raulortiz66",
+																			"email": "raulortiz66@gmail.com",
+																			"password": "Raul@1998",
+																			"repetirPass": "Raul@1998",
+																			"tipodecuenta": "Usuario"
+																		},
+																		"enlace": {
+																			"dato": {
+																				"id_user": 18,
+																				"username": "beatrizmoreno50",
+																				"email": "beatrizmoreno50@gmail.com",
+																				"password": "Beatriz@1997",
+																				"repetirPass": "Beatriz@1997",
+																				"tipodecuenta": "Usuario"
+																			},
+																			"enlace": {
+																				"dato": {
+																					"id_user": 19,
+																					"username": "victorramos91",
+																					"email": "victorramos91@gmail.com",
+																					"password": "Victor@1996",
+																					"repetirPass": "Victor@1996",
+																					"tipodecuenta": "Usuario"
+																				}
+																			}
+																		}
+																	}
+																}
+															}
+														}
+													}
+												}
+											}
+										}
+									}
+								}
+							}
 						}
 					}
 				}

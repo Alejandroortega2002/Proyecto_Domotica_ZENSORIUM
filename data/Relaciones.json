@@ -1,15 +1,71 @@
 {
 	"cabeza": {
 		"dato": {
-			"tu_id": 3,
-			"id_user_relacion": 2,
+			"tu_id": 10,
+			"id_user_relacion": 7,
 			"tipo_relacion": "AF"
 		},
 		"enlace": {
 			"dato": {
-				"tu_id": 2,
-				"id_user_relacion": 1,
+				"tu_id": 7,
+				"id_user_relacion": 19,
 				"tipo_relacion": "FB"
+			},
+			"enlace": {
+				"dato": {
+					"tu_id": 11,
+					"id_user_relacion": 6,
+					"tipo_relacion": "AF"
+				},
+				"enlace": {
+					"dato": {
+						"tu_id": 6,
+						"id_user_relacion": 18,
+						"tipo_relacion": "FB"
+					},
+					"enlace": {
+						"dato": {
+							"tu_id": 12,
+							"id_user_relacion": 5,
+							"tipo_relacion": "AF"
+						},
+						"enlace": {
+							"dato": {
+								"tu_id": 5,
+								"id_user_relacion": 15,
+								"tipo_relacion": "FB"
+							},
+							"enlace": {
+								"dato": {
+									"tu_id": 13,
+									"id_user_relacion": 4,
+									"tipo_relacion": "AF"
+								},
+								"enlace": {
+									"dato": {
+										"tu_id": 4,
+										"id_user_relacion": 15,
+										"tipo_relacion": "FB"
+									},
+									"enlace": {
+										"dato": {
+											"tu_id": 14,
+											"id_user_relacion": 3,
+											"tipo_relacion": "AF"
+										},
+										"enlace": {
+											"dato": {
+												"tu_id": 3,
+												"id_user_relacion": 17,
+												"tipo_relacion": "FB"
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
 			}
 		}
 	}
