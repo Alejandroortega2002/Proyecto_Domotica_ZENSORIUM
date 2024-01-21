@@ -50,6 +50,9 @@ public class Controlador_Interfaz_Enviar_Reporte {
 	@FXML
 	private TextArea txtAreaDescripcionReporte; // Para ingresar el nombre del usuario familiar
 
+	@FXML
+	private Label lblDestinatario;
+
 	/**
 	 * Método para inicializar componentes de la interfaz con información del
 	 * usuario actual.
@@ -63,16 +66,29 @@ public class Controlador_Interfaz_Enviar_Reporte {
 			String tipoDeCuenta = usuarioActual.getTipodecuenta();
 			lblNombreUsu.setText(username);
 			lblTipoCuenta.setText(tipoDeCuenta);
+			indicarDestinatario();
 		}
 
 	}
 
-//	this.id_user_emisor = id_user_emisor;
-//	this.id_user_receptor = id_user_receptor;
-//	this.titulo = titulo;
-//	this.queja = queja;
-//	this.fecha = fecha;
-//	this.id_reporte = id_reporte;
+	private void indicarDestinatario() {
+		Usuario usuarioActual = Sesion.getInstancia().getUsuarioActual();
+		long idUsuarioLogueado = usuarioActual.getId_user();
+
+		ListaEnlazada<Relaciones> relaciones = RegistroManager.cargarRelaciones();
+		long idDestinatario = buscarIdDestinatario(relaciones, idUsuarioLogueado);
+
+		if (idDestinatario == -1) {
+			lblDestinatario.setText("TITULO DEL REPORTE, DESTINATARIO: ");
+
+		} else {
+			Usuario usuarioDestinatario = RegistroManager.buscarUsuarioPorId(idDestinatario);
+			lblDestinatario.setText("TITULO DEL REPORTE, DESTINATARIO: " + usuarioDestinatario.getUsername() + " ("
+					+ usuarioDestinatario.getTipodecuenta() + ")");
+
+		}
+
+	}
 
 	/**
 	 * Envía un reporte, creando un nuevo objeto de reporte y gestionándolo a través
