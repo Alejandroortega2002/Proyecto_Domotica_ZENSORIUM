@@ -4,22 +4,30 @@ import java.io.IOException;
 import java.util.Calendar;
 import java.util.Date;
 
+import applications.Main;
+import entidades.Dispositivos;
 import entidades.Nodo;
 import entidades.Relaciones;
 import entidades.Reporte;
 import entidades.Usuario;
-
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import modelo.DispositivosManager;
 import modelo.ListaEnlazada;
 import modelo.RegistroManager;
 import modelo.ReporteManager;
@@ -34,9 +42,6 @@ public class Controlador_Interfaz_Enviar_Reporte {
 	private Label lblTipoCuenta;
 
 	@FXML
-	private Label lblDestinatario;
-
-	@FXML
 	private Button btnEnviarReporte;
 
 	@FXML
@@ -45,6 +50,10 @@ public class Controlador_Interfaz_Enviar_Reporte {
 	@FXML
 	private TextArea txtAreaDescripcionReporte; // Para ingresar el nombre del usuario familiar
 
+	/**
+	 * Método para inicializar componentes de la interfaz con información del
+	 * usuario actual.
+	 */
 	@FXML
 	public void initialize() {
 
@@ -54,30 +63,24 @@ public class Controlador_Interfaz_Enviar_Reporte {
 			String tipoDeCuenta = usuarioActual.getTipodecuenta();
 			lblNombreUsu.setText(username);
 			lblTipoCuenta.setText(tipoDeCuenta);
-			indicarDestinatario();
 		}
 
 	}
 
-	private void indicarDestinatario() {
-		Usuario usuarioActual = Sesion.getInstancia().getUsuarioActual();
-		long idUsuarioLogueado = usuarioActual.getId_user();
+//	this.id_user_emisor = id_user_emisor;
+//	this.id_user_receptor = id_user_receptor;
+//	this.titulo = titulo;
+//	this.queja = queja;
+//	this.fecha = fecha;
+//	this.id_reporte = id_reporte;
 
-		ListaEnlazada<Relaciones> relaciones = RegistroManager.cargarRelaciones();
-		long idDestinatario = buscarIdDestinatario(relaciones, idUsuarioLogueado);
-
-		if (idDestinatario == -1) {
-			lblDestinatario.setText("TITULO DEL REPORTE, DESTINATARIO: ");
-
-		} else {
-			Usuario usuarioDestinatario = RegistroManager.buscarUsuarioPorId(idDestinatario);
-			lblDestinatario.setText("TITULO DEL REPORTE, DESTINATARIO: " + usuarioDestinatario.getUsername() + " ("
-					+ usuarioDestinatario.getTipodecuenta() + ")");
-
-		}
-
-	}
-
+	/**
+	 * Envía un reporte, creando un nuevo objeto de reporte y gestionándolo a través
+	 * del ReporteManager.
+	 * 
+	 * @param event Evento del ratón que activa el método.
+	 * @throws IOException Si ocurre un error durante el proceso.
+	 */
 	@FXML
 	private void btnEnviarReporte(MouseEvent event) throws IOException {
 		Usuario usuarioActual = Sesion.getInstancia().getUsuarioActual();
@@ -128,6 +131,14 @@ public class Controlador_Interfaz_Enviar_Reporte {
 
 	}
 
+	/**
+	 * Busca el ID del destinatario de un reporte en una lista de relaciones.
+	 * 
+	 * @param relaciones        Lista de relaciones de usuarios.
+	 * @param idUsuarioLogueado ID del usuario que está logueado y quiere enviar un
+	 *                          reporte.
+	 * @return El ID del destinatario del reporte.
+	 */
 	private long buscarIdDestinatario(ListaEnlazada<Relaciones> relaciones, long idUsuarioLogueado) {
 		Nodo<Relaciones> nodoActual = relaciones.getCabeza();
 		while (nodoActual != null) {
@@ -142,6 +153,12 @@ public class Controlador_Interfaz_Enviar_Reporte {
 	}
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+	/**
+	 * Navega al menú del perfil del usuario.
+	 * 
+	 * @param event Evento del ratón que activa el método.
+	 * @throws IOException Si ocurre un error al cargar la interfaz de perfil.
+	 */
 	@FXML
 	private void irMenuPerfil(MouseEvent event) throws IOException {
 		try {
@@ -164,6 +181,12 @@ public class Controlador_Interfaz_Enviar_Reporte {
 
 	}
 
+	/**
+	 * Regresa a la pantalla de inicio.
+	 * 
+	 * @param event Evento del ratón que activa el método.
+	 * @throws IOException Si ocurre un error al cargar la interfaz de inicio.
+	 */
 	@FXML
 	private void irInicio(MouseEvent event) throws IOException {
 		try {
