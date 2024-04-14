@@ -7,62 +7,58 @@ import entidades.Dispositivos;
 import entidades.Nodo;
 import entidades.Relaciones;
 import entidades.Sensores;
+import applications.ConexionDB;
+import java.sql.*;
+
+import javax.swing.JOptionPane;
 
 import java.io.*;
 import java.lang.reflect.Type;
 
 public class DispositivosManager {
-	private static final String FILE_PATH_DISPOSITIVOS = "data/Dispositivos.json";
-	private static final String FILE_PATH_SENSORES = "data/Sensores.json";
-
 	private static Dispositivos dispositivoSeleccionado;
 
 	public static ListaEnlazada<Dispositivos> cargarDispos() {
-		try (Reader reader = new FileReader(FILE_PATH_DISPOSITIVOS)) {
-			Type listType = new TypeToken<ListaEnlazada<Dispositivos>>() {
-			}.getType();
-			ListaEnlazada<Dispositivos> dispositivosCargados = new Gson().fromJson(reader, listType);
-
-			// Verificar si la deserialización retornó null y, de ser así, retornar una
-			// lista vacía
-			if (dispositivosCargados == null) {
-				return new ListaEnlazada<>();
+		ListaEnlazada<Dispositivos> dispositivos = new ListaEnlazada<>();
+		String query = "SELECT * FROM dispositivos";
+		try (Connection conexion = ConexionDB.obtenerConexion();
+				PreparedStatement stmt = conexion.prepareStatement(query);
+				ResultSet rs = stmt.executeQuery()) {
+			while (rs.next()) {
+				Dispositivos dispo = new Dispositivos(rs.getLong("id_dispo"), rs.getLong("id_sensor"),
+						rs.getLong("id_usu_relacionado"), rs.getBoolean("estado"), rs.getString("Tipo"),
+						rs.getString("Nombre"));
+				dispositivos.insertarAlFinal(new Nodo<>(dispo));
 			}
-
-			return dispositivosCargados;
-		} catch (IOException e) {
-			// En caso de una IOException, también retornar una lista vacía
-			return new ListaEnlazada<>();
+		} catch (SQLException ex) {
+			JOptionPane.showMessageDialog(null, "Error al cargar dispositivos: " + ex.getMessage());
 		}
+		return dispositivos;
 	}
 
 	public static void guardarDispositivos(ListaEnlazada<Dispositivos> dispos) {
-		try (Writer writer = new FileWriter(FILE_PATH_DISPOSITIVOS)) {
-			new Gson().toJson(dispos, writer);
-		} catch (IOException e) {
-			// Manejar la excepción
-			e.printStackTrace();
+		String query = "REPLACE INTO dispositivos (id_dispo, estado, Nombre) VALUES (?, ?, ?)";
+		try (Connection conexion = ConexionDB.obtenerConexion();
+				PreparedStatement stmt = conexion.prepareStatement(query)) {
+			for (Nodo<Dispositivos> nodo = dispos.getCabeza(); nodo != null; nodo = nodo.getEnlace()) {
+				Dispositivos dispo = nodo.getDato();
+				stmt.setLong(1, dispo.getId_dispo());
+				stmt.setString(2, dispo.getNombre());
+				stmt.setBoolean(3, dispo.isEstado());
+				stmt.executeUpdate();
+			}
+		} catch (SQLException ex) {
+			JOptionPane.showMessageDialog(null, "Error al guardar dispositivos: " + ex.getMessage());
 		}
 	}
 
 	public static boolean registrarDispos(Dispositivos nuevoDispo) {
-
 		ListaEnlazada<Dispositivos> dispos = cargarDispos();
-
-		if (dispos == null) {
-			dispos = new ListaEnlazada<>();
-		}
-
-		Nodo<Dispositivos> nodoActual = dispos.getCabeza();
-		while (nodoActual != null) {
-			Dispositivos disposs = nodoActual.getDato();
-			if (disposs.getNombre().equals(nuevoDispo.getNombre())) {
-
-				return false;
+		for (Nodo<Dispositivos> nodo = dispos.getCabeza(); nodo != null; nodo = nodo.getEnlace()) {
+			if (nodo.getDato().getNombre().equals(nuevoDispo.getNombre())) {
+				return false; // Dispositivo ya existe
 			}
-			nodoActual = nodoActual.getEnlace();
 		}
-
 		dispos.insertarAlFinal(new Nodo<>(nuevoDispo));
 		guardarDispositivos(dispos);
 		return true;
@@ -70,112 +66,60 @@ public class DispositivosManager {
 
 	public static boolean eliminarDispositivo(String nombreDispositivo) {
 		ListaEnlazada<Dispositivos> dispositivos = cargarDispos();
-
-		if (dispositivos == null) {
-			return false; // No hay dispositivos para eliminar
-		}
-
-		Nodo<Dispositivos> nodoActual = dispositivos.getCabeza();
-		Nodo<Dispositivos> nodoAnterior = null;
-
-		while (nodoActual != null) {
-			Dispositivos dispositivoActual = nodoActual.getDato();
-
-			if (dispositivoActual.getNombre().equals(nombreDispositivo)) {
-				// Se ha encontrado el dispositivo a eliminar
-
-				if (nodoAnterior == null) {
-					// El dispositivo a eliminar es el primer elemento de la lista
-					dispositivos.setCabeza(nodoActual.getEnlace());
+		Nodo<Dispositivos> actual = dispositivos.getCabeza();
+		Nodo<Dispositivos> previo = null;
+		while (actual != null) {
+			if (actual.getDato().getNombre().equals(nombreDispositivo)) {
+				if (previo == null) {
+					dispositivos.setCabeza(actual.getEnlace());
 				} else {
-					// El dispositivo a eliminar está en medio o al final de la lista
-					nodoAnterior.setEnlace(nodoActual.getEnlace());
+					previo.setEnlace(actual.getEnlace());
 				}
-
 				guardarDispositivos(dispositivos);
-				return true; // Dispositivo eliminado exitosamente
+				return true;
 			}
-
-			nodoAnterior = nodoActual;
-			nodoActual = nodoActual.getEnlace();
+			previo = actual;
+			actual = actual.getEnlace();
 		}
-
-		return false; // No se encontró el dispositivo con el nombre especificado
+		return false;
 	}
 
 	public static long obtenerNuevoId() {
 		ListaEnlazada<Dispositivos> dispos = cargarDispos();
-
-		if (dispos.getCabeza() == null) {
-			return 1; // Si la lista está vacía, empezamos desde 1
-		}
-
 		long idMasAlto = 0;
-		Nodo<Dispositivos> nodoActual = dispos.getCabeza();
-		while (nodoActual != null) {
-			Dispositivos dispo = nodoActual.getDato();
-			if (dispo.getId_dispo() > idMasAlto) {
-				idMasAlto = dispo.getId_dispo();
+		for (Nodo<Dispositivos> nodo = dispos.getCabeza(); nodo != null; nodo = nodo.getEnlace()) {
+			long id = nodo.getDato().getId_dispo();
+			if (id > idMasAlto) {
+				idMasAlto = id;
 			}
-			nodoActual = nodoActual.getEnlace();
 		}
-
-		return idMasAlto + 1; // Incrementa el ID más alto en 1
+		return idMasAlto + 1;
 	}
 
 	public static boolean modificarDispositivo(String nombreDispositivo, String nombreNuevoDispositivo) {
 		ListaEnlazada<Dispositivos> dispositivos = cargarDispos();
-
-		if (dispositivos == null) {
-			return false; // No hay dispositivos para modificar
-		}
-
-		Nodo<Dispositivos> nodoActual = dispositivos.getCabeza();
-
-		while (nodoActual != null) {
-			Dispositivos dispositivoActual = nodoActual.getDato();
-
-			if (dispositivoActual.getNombre().equals(nombreDispositivo)) {
-				// Se ha encontrado el dispositivo a modificar
-
-				dispositivoActual.setNombre(nombreNuevoDispositivo);
-
+		for (Nodo<Dispositivos> nodo = dispositivos.getCabeza(); nodo != null; nodo = nodo.getEnlace()) {
+			Dispositivos dispo = nodo.getDato();
+			if (dispo.getNombre().equals(nombreDispositivo)) {
+				dispo.setNombre(nombreNuevoDispositivo);
 				guardarDispositivos(dispositivos);
-				return true; // Dispositivo modificado exitosamente
+				return true;
 			}
-
-			nodoActual = nodoActual.getEnlace();
 		}
-
-		return false; // No se encontró el dispositivo con el nombre especificado
+		return false;
 	}
 
 	public static boolean modificarEstadoDispositivo(String nombreDispositivo, Boolean estadoDispositivo) {
 		ListaEnlazada<Dispositivos> dispositivos = cargarDispos();
-
-		if (dispositivos == null) {
-			return false; // No hay dispositivos para modificar
-		}
-
-		Nodo<Dispositivos> nodoActual = dispositivos.getCabeza();
-
-		while (nodoActual != null) {
-			Dispositivos dispositivoActual = nodoActual.getDato();
-
-			if (dispositivoActual.getNombre().equals(nombreDispositivo)) {
-				// Se ha encontrado el dispositivo a modificar
-
-				dispositivoActual.setEstado(estadoDispositivo);
-				System.out.println(dispositivoActual.isEstado());
-
+		for (Nodo<Dispositivos> nodo = dispositivos.getCabeza(); nodo != null; nodo = nodo.getEnlace()) {
+			Dispositivos dispo = nodo.getDato();
+			if (dispo.getNombre().equals(nombreDispositivo)) {
+				dispo.setEstado(estadoDispositivo);
 				guardarDispositivos(dispositivos);
-				return true; // Dispositivo modificado exitosamente
+				return true;
 			}
-
-			nodoActual = nodoActual.getEnlace();
 		}
-
-		return false; // No se encontró el dispositivo con el nombre especificado
+		return false;
 	}
 
 	public static Dispositivos getDispositivoSeleccionado() {
@@ -187,108 +131,116 @@ public class DispositivosManager {
 	}
 
 	public static ListaEnlazada<Sensores> cargarSensores() {
-		try (Reader reader = new FileReader(FILE_PATH_SENSORES)) {
-			Type listType = new TypeToken<ListaEnlazada<Sensores>>() {
-			}.getType();
-			return new Gson().fromJson(reader, listType);
-		} catch (IOException e) {
-			return new ListaEnlazada<>();
+		ListaEnlazada<Sensores> sensores = new ListaEnlazada<>();
+		String query = "SELECT * FROM sensores";
+		try (Connection conexion = ConexionDB.obtenerConexion();
+				PreparedStatement stmt = conexion.prepareStatement(query);
+				ResultSet rs = stmt.executeQuery()) {
+			while (rs.next()) {
+				Sensores sensor = new Sensores(rs.getLong("id_sensor"), rs.getFloat("dato_actual"),
+						rs.getString("nombre"), rs.getString("tipo"), rs.getLong("orden_registro"));
+				sensores.insertarAlFinal(new Nodo<>(sensor));
+			}
+		} catch (SQLException ex) {
+			JOptionPane.showMessageDialog(null, "Error al cargar sensores: " + ex.getMessage());
 		}
+		return sensores;
 	}
 
 	public static void guardarSensores(ListaEnlazada<Sensores> sensores) {
-		try (Writer writer = new FileWriter(FILE_PATH_SENSORES)) {
-			new Gson().toJson(sensores, writer);
-		} catch (IOException e) {
-			e.printStackTrace();
+		String query = "REPLACE INTO sensores (id_sensor, dato_actual, nombre, tipo, orden_registro) VALUES (?, ?, ?, ?, ?)";
+		try (Connection conexion = ConexionDB.obtenerConexion();
+				PreparedStatement stmt = conexion.prepareStatement(query)) {
+			for (Nodo<Sensores> nodo = sensores.getCabeza(); nodo != null; nodo = nodo.getEnlace()) {
+				Sensores sensor = nodo.getDato();
+				stmt.setLong(1, sensor.getId_sensor());
+				stmt.setFloat(2, sensor.getDato_actual());
+				stmt.setString(3, sensor.getNombre());
+				stmt.setString(4, sensor.getTipo());
+				stmt.setLong(5, sensor.getOrden_registro());
+				stmt.executeUpdate();
+			}
+		} catch (SQLException ex) {
+			JOptionPane.showMessageDialog(null, "Error al guardar sensores: " + ex.getMessage());
 		}
 	}
 
-	public static long creaNuevoSensor(float dato_actual, String nombre, String tipo) {
-		ListaEnlazada<Sensores> sensores = cargarSensores();
-
-		if (sensores == null) {
-			sensores = new ListaEnlazada<>();
-		}
-
-		long idMasAlto = 0;
-		for (Nodo<Sensores> nodoActual = sensores.getCabeza(); nodoActual != null; nodoActual = nodoActual
-				.getEnlace()) {
-			long idActual = nodoActual.getDato().getId_sensor();
-			if (idActual > idMasAlto) {
-				idMasAlto = idActual;
+	public static long crearSensor(float dato_actual, String nombre, String tipo) {
+		// Asumiendo que cada nuevo sensor empieza con un orden_registro de 1
+		String query = "INSERT INTO sensores (dato_actual, nombre, tipo, orden_registro) VALUES (?, ?, ?, 1)";
+		long idGenerado = 0;
+		try (Connection conexion = ConexionDB.obtenerConexion();
+				PreparedStatement stmt = conexion.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
+			stmt.setFloat(1, dato_actual);
+			stmt.setString(2, nombre);
+			stmt.setString(3, tipo);
+			int affectedRows = stmt.executeUpdate();
+			if (affectedRows == 0) {
+				throw new SQLException("CreaciÃ³n del sensor fallÃ³, no se afectaron filas.");
 			}
-		}
-
-		long nuevoId = idMasAlto + 1;
-		long ordenRegistroMasAlto = 0;
-
-		// Busca el mayor orden_registro para el nuevo ID
-		for (Nodo<Sensores> nodoActual = sensores.getCabeza(); nodoActual != null; nodoActual = nodoActual
-				.getEnlace()) {
-			Sensores sensorActual = nodoActual.getDato();
-			if (sensorActual.getId_sensor() == nuevoId) {
-				long ordenActual = sensorActual.getOrden_registro();
-				if (ordenActual > ordenRegistroMasAlto) {
-					ordenRegistroMasAlto = ordenActual;
+			try (ResultSet generatedKeys = stmt.getGeneratedKeys()) {
+				if (generatedKeys.next()) {
+					idGenerado = generatedKeys.getLong(1);
 				}
 			}
+		} catch (SQLException ex) {
+			System.err.println("Error al crear sensor: " + ex.getMessage());
 		}
-
-		long nuevoOrdenRegistro = ordenRegistroMasAlto + 1;
-		Sensores nuevoSensor = new Sensores(nuevoId, dato_actual, nombre, tipo, nuevoOrdenRegistro);
-
-		// Añade el nuevo sensor y guarda la lista
-		sensores.insertarAlFinal(new Nodo<>(nuevoSensor));
-		guardarSensores(sensores);
-		return nuevoId;
+		return idGenerado;
 	}
 
 	public static void crearSensorConId(long id_sensor, float dato_actual, String nombre, String tipo) {
-		ListaEnlazada<Sensores> sensores = cargarSensores();
+		// Consultar primero el mÃ¡ximo orden_registro para el id_sensor dado
+		String getMaxOrden = "SELECT COALESCE(MAX(orden_registro), 0) + 1 AS next_orden FROM sensores WHERE id_sensor = ?";
+		String insertQuery = "INSERT INTO sensores (id_sensor, dato_actual, nombre, tipo, orden_registro) VALUES (?, ?, ?, ?, ?)";
 
-		if (sensores == null) {
-			sensores = new ListaEnlazada<>();
-		}
+		try (Connection conexion = ConexionDB.obtenerConexion();
+				PreparedStatement getMaxStmt = conexion.prepareStatement(getMaxOrden);
+				PreparedStatement insertStmt = conexion.prepareStatement(insertQuery)) {
 
-		long ordenRegistroMasAlto = 0;
-		// Busca el mayor orden_registro para el ID dado
-		for (Nodo<Sensores> nodoActual = sensores.getCabeza(); nodoActual != null; nodoActual = nodoActual
-				.getEnlace()) {
-			Sensores sensorActual = nodoActual.getDato();
-			if (sensorActual.getId_sensor() == id_sensor) {
-				long ordenActual = sensorActual.getOrden_registro();
-				if (ordenActual > ordenRegistroMasAlto) {
-					ordenRegistroMasAlto = ordenActual;
-				}
+			// Obtener el prÃ³ximo orden_registro
+			getMaxStmt.setLong(1, id_sensor);
+			ResultSet rs = getMaxStmt.executeQuery();
+			int nextOrden = 0;
+			if (rs.next()) {
+				nextOrden = rs.getInt("next_orden");
 			}
+
+			// Insertar el nuevo registro con el orden_registro incrementado
+			insertStmt.setLong(1, id_sensor);
+			insertStmt.setFloat(2, dato_actual);
+			insertStmt.setString(3, nombre);
+			insertStmt.setString(4, tipo);
+			insertStmt.setInt(5, nextOrden);
+			int affectedRows = insertStmt.executeUpdate();
+			if (affectedRows == 0) {
+				throw new SQLException("InserciÃ³n de datos del sensor fallÃ³, no se afectaron filas.");
+			}
+		} catch (SQLException ex) {
+			System.err.println("Error al insertar datos para el sensor con ID: " + id_sensor + " - " + ex.getMessage());
 		}
-
-		long nuevoOrdenRegistro = ordenRegistroMasAlto + 1;
-		Sensores nuevoSensor = new Sensores(id_sensor, dato_actual, nombre, tipo, nuevoOrdenRegistro);
-
-		// Añade el nuevo sensor y guarda la lista
-		sensores.insertarAlFinal(new Nodo<>(nuevoSensor));
-		guardarSensores(sensores);
 	}
 
 	public static ListaEnlazada<Dispositivos> cargarDispositivosPorUsuario(long idUsuario) {
-		ListaEnlazada<Dispositivos> todosLosDispositivos = cargarDispos();
 		ListaEnlazada<Dispositivos> dispositivosDelUsuario = new ListaEnlazada<>();
-
-		for (Nodo<Dispositivos> nodoActual = todosLosDispositivos
-				.getCabeza(); nodoActual != null; nodoActual = nodoActual.getEnlace()) {
-			Dispositivos dispositivo = nodoActual.getDato();
-			if (dispositivo.getId_usu_relacionado() == idUsuario) {
+		String query = "SELECT * FROM dispositivos WHERE id_usu_relacionado = ?";
+		try (Connection conexion = ConexionDB.obtenerConexion();
+				PreparedStatement stmt = conexion.prepareStatement(query)) {
+			stmt.setLong(1, idUsuario);
+			ResultSet rs = stmt.executeQuery();
+			while (rs.next()) {
+				Dispositivos dispositivo = new Dispositivos(rs.getLong("id_dispo"), rs.getLong("id_sensor"),
+						rs.getLong("id_usu_relacionado"), rs.getBoolean("estado"), rs.getString("Tipo"),
+						rs.getString("Nombre"));
 				dispositivosDelUsuario.insertarAlFinal(new Nodo<>(dispositivo));
 			}
+		} catch (SQLException ex) {
+			System.err.println("Error al cargar dispositivos por usuario: " + ex.getMessage());
 		}
-
 		return dispositivosDelUsuario;
 	}
 
 	public static ListaEnlazada<Dispositivos> cargarDispositivosRelacionados(long idUsuario) {
-		ListaEnlazada<Dispositivos> todosLosDispositivos = cargarDispos();
 		ListaEnlazada<Dispositivos> dispositivosRelacionados = new ListaEnlazada<>();
 		ListaEnlazada<Relaciones> relacionesDelUsuario = RegistroManager.cargarRelacionesPorUsuario(idUsuario);
 		for (Nodo<Relaciones> nodoRel = relacionesDelUsuario.getCabeza(); nodoRel != null; nodoRel = nodoRel
@@ -296,16 +248,21 @@ public class DispositivosManager {
 			Relaciones relacion = nodoRel.getDato();
 			long idRelacionado = (relacion.getTu_id() == idUsuario) ? relacion.getId_user_relacion()
 					: relacion.getTu_id();
-
-			for (Nodo<Dispositivos> nodoDispo = todosLosDispositivos
-					.getCabeza(); nodoDispo != null; nodoDispo = nodoDispo.getEnlace()) {
-				Dispositivos dispositivo = nodoDispo.getDato();
-				if (dispositivo.getId_usu_relacionado() == idRelacionado) {
+			String query = "SELECT * FROM dispositivos WHERE id_usuario = ?";
+			try (Connection conexion = ConexionDB.obtenerConexion();
+					PreparedStatement stmt = conexion.prepareStatement(query)) {
+				stmt.setLong(1, idRelacionado);
+				ResultSet rs = stmt.executeQuery();
+				while (rs.next()) {
+					Dispositivos dispositivo = new Dispositivos(rs.getLong("id_dispo"), rs.getLong("id_sensor"),
+							rs.getLong("id_usu_relacionado"), rs.getBoolean("estado"), rs.getString("Tipo"),
+							rs.getString("Nombre"));
 					dispositivosRelacionados.insertarAlFinal(new Nodo<>(dispositivo));
 				}
+			} catch (SQLException ex) {
+				System.err.println("Error al cargar dispositivos relacionados: " + ex.getMessage());
 			}
 		}
-
 		return dispositivosRelacionados;
 	}
 

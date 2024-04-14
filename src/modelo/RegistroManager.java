@@ -1,36 +1,48 @@
 package modelo;
 
-import com.google.gson.Gson;
-
-import com.google.gson.reflect.TypeToken;
-
 import entidades.Nodo;
 import entidades.Relaciones;
 import entidades.Usuario;
+import java.sql.*;
+import javax.swing.JOptionPane;
 
-import java.io.*;
-import java.lang.reflect.Type;
+import applications.ConexionDB;
 
 public class RegistroManager {
-	private static final String FILE_PATH = "data/usuarios.json";
-	private static final String FILE_PATH_RELACIONES = "data/relaciones.json";
-
+	// Métodos para manejar usuarios
 	public static ListaEnlazada<Usuario> cargarUsuarios() {
-		try (Reader reader = new FileReader(FILE_PATH)) {
-			Type listType = new TypeToken<ListaEnlazada<Usuario>>() {
-			}.getType();
-			ListaEnlazada<Usuario> usuarios = new Gson().fromJson(reader, listType);
-			return usuarios != null ? usuarios : new ListaEnlazada<>();
-		} catch (IOException e) {
-			return new ListaEnlazada<>();
+		ListaEnlazada<Usuario> usuarios = new ListaEnlazada<>();
+		String query = "SELECT * FROM usuario";
+		try (Connection conexion = ConexionDB.obtenerConexion();
+				PreparedStatement stmt = conexion.prepareStatement(query)) {
+			ResultSet rs = stmt.executeQuery();
+			while (rs.next()) {
+				Usuario usuario = new Usuario(rs.getLong("id_user"), rs.getString("username"), rs.getString("email"),
+						rs.getString("password"), rs.getString("repetirPass"), rs.getString("tipodecuenta"));
+				usuarios.insertarAlFinal(new Nodo<>(usuario));
+			}
+		} catch (SQLException ex) {
+			JOptionPane.showMessageDialog(null, "Error al cargar usuarios: " + ex.getMessage());
 		}
+		return usuarios;
 	}
 
 	public static void guardarUsuarios(ListaEnlazada<Usuario> usuarios) {
-		try (Writer writer = new FileWriter(FILE_PATH)) {
-			new Gson().toJson(usuarios, writer);
-		} catch (IOException e) {
-			e.printStackTrace();
+		try (Connection conexion = ConexionDB.obtenerConexion()) {
+			String query = "REPLACE INTO usuario (id_user, username, email, password) VALUES (?, ?, ?, ?)";
+			PreparedStatement stmt = conexion.prepareStatement(query);
+			Nodo<Usuario> actual = usuarios.getCabeza();
+			while (actual != null) {
+				Usuario usuario = actual.getDato();
+				stmt.setLong(1, usuario.getId_user());
+				stmt.setString(2, usuario.getUsername());
+				stmt.setString(3, usuario.getEmail());
+				stmt.setString(4, usuario.getPassword());
+				stmt.executeUpdate();
+				actual = actual.getEnlace();
+			}
+		} catch (SQLException ex) {
+			JOptionPane.showMessageDialog(null, "Error al guardar usuarios: " + ex.getMessage());
 		}
 	}
 
@@ -40,10 +52,9 @@ public class RegistroManager {
 			Usuario usuario = nodoActual.getDato();
 			if (usuario.getUsername().equals(nuevoUsuario.getUsername())
 					|| usuario.getEmail().equals(nuevoUsuario.getEmail())) {
-				return false;
+				return false; // Usuario ya existe
 			}
 		}
-
 		usuarios.insertarAlFinal(new Nodo<>(nuevoUsuario));
 		guardarUsuarios(usuarios);
 		return true;
@@ -51,10 +62,6 @@ public class RegistroManager {
 
 	public static long obtenerNuevoId() {
 		ListaEnlazada<Usuario> usuarios = cargarUsuarios();
-		if (usuarios.getCabeza() == null) {
-			return 1;
-		}
-
 		long idMasAlto = 0;
 		for (Nodo<Usuario> nodoActual = usuarios.getCabeza(); nodoActual != null; nodoActual = nodoActual.getEnlace()) {
 			Usuario usuario = nodoActual.getDato();
@@ -65,16 +72,55 @@ public class RegistroManager {
 		return idMasAlto + 1;
 	}
 
+	// Método para cargar relaciones en una lista enlazada
 	public static ListaEnlazada<Relaciones> cargarRelaciones() {
-		try (Reader reader = new FileReader(FILE_PATH_RELACIONES)) {
-			Type listType = new TypeToken<ListaEnlazada<Relaciones>>() {
-			}.getType();
-			ListaEnlazada<Relaciones> relaciones = new Gson().fromJson(reader, listType);
-			return relaciones != null ? relaciones : new ListaEnlazada<>();
-		} catch (IOException e) {
-			e.printStackTrace();
-			return new ListaEnlazada<>();
+		ListaEnlazada<Relaciones> relaciones = new ListaEnlazada<>();
+		String query = "SELECT * FROM relaciones";
+		try (Connection conexion = ConexionDB.obtenerConexion();
+				PreparedStatement stmt = conexion.prepareStatement(query)) {
+			ResultSet rs = stmt.executeQuery();
+			while (rs.next()) {
+				Relaciones relacion = new Relaciones(rs.getLong("id_user_logeado"), rs.getLong("id_user_relacion"),
+						rs.getString("tipo_relacion"));
+				relaciones.insertarAlFinal(new Nodo<>(relacion));
+			}
+		} catch (SQLException ex) {
+			JOptionPane.showMessageDialog(null, "Error al cargar relaciones: " + ex.getMessage());
 		}
+		return relaciones;
+	}
+
+	// Método para verificar si una relación ya existe en la lista enlazada
+	private static boolean relacionExiste(ListaEnlazada<Relaciones> relaciones, Relaciones nuevaRelacion) {
+		for (Nodo<Relaciones> nodo = relaciones.getCabeza(); nodo != null; nodo = nodo.getEnlace()) {
+			Relaciones rel = nodo.getDato();
+			if ((rel.getTu_id() == nuevaRelacion.getTu_id()
+					&& rel.getId_user_relacion() == nuevaRelacion.getId_user_relacion())
+					|| (rel.getTu_id() == nuevaRelacion.getId_user_relacion()
+							&& rel.getId_user_relacion() == nuevaRelacion.getTu_id())) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	// Método para agregar una nueva relación entre usuarios
+	public static boolean guardarRelacion(Relaciones nuevaRelacion) {
+		ListaEnlazada<Relaciones> relaciones = cargarRelaciones();
+		if (!relacionExiste(relaciones, nuevaRelacion)) {
+			String query = "INSERT INTO relaciones (id_user_logeado, id_user_relacion) VALUES (?, ?)";
+			try (Connection conexion = ConexionDB.obtenerConexion();
+					PreparedStatement stmt = conexion.prepareStatement(query)) {
+
+				stmt.setLong(1, nuevaRelacion.getTu_id());
+				stmt.setLong(2, nuevaRelacion.getId_user_relacion());
+				int result = stmt.executeUpdate();
+				return result > 0;
+			} catch (SQLException ex) {
+				JOptionPane.showMessageDialog(null, "Error al guardar relación: " + ex.getMessage());
+			}
+		}
+		return false;
 	}
 
 	public static boolean verificarRelacionExistente(long idUsuario1, long idUsuario2) {
@@ -82,107 +128,61 @@ public class RegistroManager {
 		for (Nodo<Relaciones> nodoActual = relacionesExistentes.getCabeza(); nodoActual != null; nodoActual = nodoActual
 				.getEnlace()) {
 			Relaciones rel = nodoActual.getDato();
-			if (rel.getTu_id() == idUsuario1 && rel.getId_user_relacion() == idUsuario2) {
+			if ((rel.getTu_id() == idUsuario1 && rel.getId_user_relacion() == idUsuario2)
+					|| (rel.getTu_id() == idUsuario2 && rel.getId_user_relacion() == idUsuario1)) {
 				return true;
 			}
 		}
 		return false;
 	}
 
-	public static ListaEnlazada<Relaciones> cargarRelacionesPorUsuario(long idUsuario) {
-		ListaEnlazada<Relaciones> todasLasRelaciones = cargarRelaciones();
-		ListaEnlazada<Relaciones> relacionesDelUsuario = new ListaEnlazada<>();
-
-		for (Nodo<Relaciones> nodoActual = todasLasRelaciones.getCabeza(); nodoActual != null; nodoActual = nodoActual
-				.getEnlace()) {
-			Relaciones relacion = nodoActual.getDato();
-			if (relacion.getTu_id() == idUsuario || relacion.getId_user_relacion() == idUsuario) {
-				relacionesDelUsuario.insertarAlFinal(new Nodo<>(relacion));
-			}
-		}
-
-		return relacionesDelUsuario;
-	}
-
-	public static boolean guardarRelacion(Relaciones nuevaRelacion) {
-		if (!verificarRelacionExistente(nuevaRelacion.getTu_id(), nuevaRelacion.getId_user_relacion())) {
-			ListaEnlazada<Relaciones> relacionesExistentes = cargarRelaciones();
-			relacionesExistentes.insertarAlFinal(new Nodo<>(nuevaRelacion));
-			try (Writer writer = new FileWriter(FILE_PATH_RELACIONES)) {
-				new Gson().toJson(relacionesExistentes, writer);
-				return true;
-			} catch (IOException e) {
-				e.printStackTrace();
-				return false;
-			}
-		} else {
-			return false;
-		}
-	}
-
-	public static boolean modificarUsuario(Long idUsuario, String nombreNuevoUusario, String correoNuevoUusario) {
+	// Métodos adicionales para la gestión de usuarios y relaciones
+	public static boolean modificarUsuario(Long idUsuario, String nombreNuevoUsuario, String correoNuevoUsuario) {
 		ListaEnlazada<Usuario> usuarios = cargarUsuarios();
-
-		if (usuarios == null) {
-			return false; // No hay dispositivos para modificar
-		}
-
+		boolean usuarioModificado = false;
 		Nodo<Usuario> nodoActual = usuarios.getCabeza();
 
 		while (nodoActual != null) {
 			Usuario usuarioActual = nodoActual.getDato();
-
 			if (usuarioActual.getId_user() == idUsuario) {
-				// Se ha encontrado el dispositivo a modificar
-
-				usuarioActual.setUsername(nombreNuevoUusario);
-				usuarioActual.setEmail(correoNuevoUusario);
-
-				guardarUsuarios(usuarios);
-				return true; // Dispositivo modificado exitosamente
+				usuarioActual.setUsername(nombreNuevoUsuario);
+				usuarioActual.setEmail(correoNuevoUsuario);
+				usuarioModificado = true;
+				break;
 			}
-
 			nodoActual = nodoActual.getEnlace();
 		}
 
-		return false; // No se encontr� el dispositivo con el nombre especificado
+		if (usuarioModificado) {
+			guardarUsuarios(usuarios);
+		}
+		return usuarioModificado;
 	}
 
-	public static boolean actualizaPass(Long idUsuario, String nuevaPass) {
+	public static boolean actualizarPassword(Long idUsuario, String nuevaPass) {
 		ListaEnlazada<Usuario> usuarios = cargarUsuarios();
-
-		if (usuarios == null) {
-			return false; // No hay dispositivos para modificar
-		}
-
+		boolean passwordActualizado = false;
 		Nodo<Usuario> nodoActual = usuarios.getCabeza();
 
 		while (nodoActual != null) {
 			Usuario usuarioActual = nodoActual.getDato();
-
 			if (usuarioActual.getId_user() == idUsuario) {
-				// Se ha encontrado el dispositivo a modificar
-
 				usuarioActual.setPassword(nuevaPass);
 				usuarioActual.setRepetirPass(nuevaPass);
-
-				guardarUsuarios(usuarios);
-				return true; // Dispositivo modificado exitosamente
+				passwordActualizado = true;
+				break;
 			}
-
 			nodoActual = nodoActual.getEnlace();
 		}
 
-		return false; // No se encontr� el dispositivo con el nombre especificado
-
+		if (passwordActualizado) {
+			guardarUsuarios(usuarios);
+		}
+		return passwordActualizado;
 	}
 
 	public static Usuario buscarUsuarioPorId(long idUsuario) {
 		ListaEnlazada<Usuario> usuarios = cargarUsuarios();
-		if (usuarios == null || usuarios.esVacia()) {
-			return null; // O podr�as lanzar una excepci�n si prefieres
-		}
-
 		Nodo<Usuario> nodoActual = usuarios.getCabeza();
 		while (nodoActual != null) {
 			Usuario usuario = nodoActual.getDato();
@@ -191,7 +191,25 @@ public class RegistroManager {
 			}
 			nodoActual = nodoActual.getEnlace();
 		}
-
 		return null; // Usuario no encontrado
+	}
+
+	public static ListaEnlazada<Relaciones> cargarRelacionesPorUsuario(long idUsuario) {
+		ListaEnlazada<Relaciones> relacionesDelUsuario = new ListaEnlazada<>();
+		String query = "SELECT * FROM relaciones WHERE id_user_logeado = ? OR id_user_relacion = ?";
+		try (Connection conexion = ConexionDB.obtenerConexion();
+				PreparedStatement stmt = conexion.prepareStatement(query)) {
+			stmt.setLong(1, idUsuario);
+			stmt.setLong(2, idUsuario);
+			ResultSet rs = stmt.executeQuery();
+			while (rs.next()) {
+				Relaciones relacion = new Relaciones(rs.getLong("id_user_logeado"), rs.getLong("id_user_relacion"),
+						rs.getString("tipo_relacion"));
+				relacionesDelUsuario.insertarAlFinal(new Nodo<>(relacion));
+			}
+		} catch (SQLException ex) {
+			JOptionPane.showMessageDialog(null, "Error al cargar relaciones para el usuario: " + ex.getMessage());
+		}
+		return relacionesDelUsuario;
 	}
 }

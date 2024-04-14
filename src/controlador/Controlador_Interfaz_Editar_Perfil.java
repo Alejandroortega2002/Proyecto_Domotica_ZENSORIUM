@@ -123,12 +123,12 @@ public class Controlador_Interfaz_Editar_Perfil {
 
 				if (repetirNuevaPass.equals(nuevaPass)) {
 
-					if (RegistroManager.actualizaPass(usuarioActual.getId_user(), nuevaPass)) {
+					if (RegistroManager.actualizarPassword(usuarioActual.getId_user(), nuevaPass)) {
 
 						Alert alerta = new Alert(Alert.AlertType.WARNING);
 						alerta.setTitle("Actualizacion Exitosa");
 						alerta.setHeaderText(null);
-						alerta.setContentText("Conntraseña actualizada");
+						alerta.setContentText("Conntraseï¿½a actualizada");
 						usuarioActual.setPassword(nuevaPass);
 						usuarioActual.setRepetirPass(nuevaPass);
 						passNueva.setText("");
@@ -140,7 +140,7 @@ public class Controlador_Interfaz_Editar_Perfil {
 					Alert alerta = new Alert(Alert.AlertType.WARNING);
 					alerta.setTitle("Actualizacion no exitosa");
 					alerta.setHeaderText(null);
-					alerta.setContentText("Las contraseñas no coinciden");
+					alerta.setContentText("Las contraseï¿½as no coinciden");
 					alerta.showAndWait();
 				}
 
@@ -148,7 +148,7 @@ public class Controlador_Interfaz_Editar_Perfil {
 				Alert alerta = new Alert(Alert.AlertType.WARNING);
 				alerta.setTitle("Actualizacion no exitosa");
 				alerta.setHeaderText(null);
-				alerta.setContentText("Las contraseña no tiene el formato correcto");
+				alerta.setContentText("Las contraseï¿½a no tiene el formato correcto");
 				alerta.showAndWait();
 			}
 
@@ -164,14 +164,14 @@ public class Controlador_Interfaz_Editar_Perfil {
 
 	public boolean contrasenaSegura(String contrasena) {
 
-		if (contrasena.length() > 8) { // una contraseña tiene más de 12 caracteres.
+		if (contrasena.length() > 8) { // una contraseï¿½a tiene mï¿½s de 12 caracteres.
 			boolean mayuscula = false;
 			boolean numero = false;
 			boolean letraOsimbolo = false;
 			boolean especial = false;
 
 			// Define caracteres especiales
-			Pattern special = Pattern.compile("[?!¡@¿.,´)]");
+			Pattern special = Pattern.compile("[?!ï¿½@ï¿½.,ï¿½)]");
 			Matcher hasSpecial = special.matcher(contrasena);
 
 			int i;
@@ -180,13 +180,13 @@ public class Controlador_Interfaz_Editar_Perfil {
 			for (i = 0; i < contrasena.length(); i++) {
 				l = contrasena.charAt(i);
 
-				if (Character.isDigit(l)) {// mínimo un número.
+				if (Character.isDigit(l)) {// mï¿½nimo un nï¿½mero.
 					numero = true;
 				}
-				if (Character.isLetter(l)) {// contiene letras o símbolos (?!¡@¿.,´)
+				if (Character.isLetter(l)) {// contiene letras o sï¿½mbolos (?!ï¿½@ï¿½.,ï¿½)
 					letraOsimbolo = true;
 				}
-				if (Character.isUpperCase(l)) { // mínimo una letra mayúscula
+				if (Character.isUpperCase(l)) { // mï¿½nimo una letra mayï¿½scula
 					mayuscula = true;
 				}
 				if (hasSpecial.find()) { // Valida "caracteres especiales".

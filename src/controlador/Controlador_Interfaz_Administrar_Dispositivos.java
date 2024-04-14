@@ -79,7 +79,7 @@ public class Controlador_Interfaz_Administrar_Dispositivos {
 
 	@FXML
 	private void seleccionarDispositivo() {
-		// Obtén el dispo seleccionado y actualiza el txtnombredispo
+		// Obtï¿½n el dispo seleccionado y actualiza el txtnombredispo
 		Dispositivos dispoSeleccionado = tableAdministrarDispos.getSelectionModel().getSelectedItem();
 		if (dispoSeleccionado != null) {
 			lblNombreDispoSelec.setText(dispoSeleccionado.getNombre());
@@ -97,7 +97,7 @@ public class Controlador_Interfaz_Administrar_Dispositivos {
 	private void cargarDispositivosDeUsuarioYRelacionados(long idUsuario, ObservableList<Dispositivos> dispos,
 			ListaEnlazada<Long> usuariosProcesados) {
 		if (contieneUsuario(usuariosProcesados, idUsuario)) {
-			return; // Evitar procesar el mismo usuario más de una vez
+			return; // Evitar procesar el mismo usuario mï¿½s de una vez
 		}
 		usuariosProcesados.insertarAlFinal(new Nodo<>(idUsuario));
 
@@ -146,7 +146,7 @@ public class Controlador_Interfaz_Administrar_Dispositivos {
 
 			Dispositivos nuevoUsuario = new Dispositivos(id_dispo, id_sensor, id_usu_relacionado, false, Tipo, Nombre);
 			if (DispositivosManager.registrarDispos(nuevoUsuario)) {
-				// hacer alerta de dispo añadido
+				// hacer alerta de dispo aï¿½adido
 				System.out.println(nuevoUsuario.toString());
 				Error_Label_Registro.setVisible(false);
 				cargarDispositivos(usuarioActual.getId_user());
@@ -168,7 +168,7 @@ public class Controlador_Interfaz_Administrar_Dispositivos {
 		switch (tipo) {
 		case "Aire":
 			tipoSensor = "Temperatura";
-			id_sensor = DispositivosManager.creaNuevoSensor(0, "Sensor de Temperatura", tipoSensor);
+			id_sensor = DispositivosManager.crearSensor(0, "Sensor de Temperatura", tipoSensor);
 			for (int i = 0; i < 20; i++) {
 				float datoTemperatura = 12.0f + random.nextFloat() * 20.0f;
 				DispositivosManager.crearSensorConId(id_sensor, datoTemperatura, "Sensor de Temperatura", tipoSensor);
@@ -176,35 +176,31 @@ public class Controlador_Interfaz_Administrar_Dispositivos {
 			break;
 		case "Puerta":
 			tipoSensor = "Movimiento";
-			id_sensor = DispositivosManager.creaNuevoSensor(0, "Sensor de Movimiento", tipoSensor);
+			id_sensor = DispositivosManager.crearSensor(0, "Sensor de Movimiento", tipoSensor);
 			for (int i = 0; i < 20; i++) {
-				// Suponiendo que el valor del sensor de movimiento varía entre 0 y 10
 				float datoMovimiento = random.nextFloat() * 10.0f;
 				DispositivosManager.crearSensorConId(id_sensor, datoMovimiento, "Sensor de Movimiento", tipoSensor);
 			}
 			break;
 		case "Luz":
 			tipoSensor = "Luz";
-			id_sensor = DispositivosManager.creaNuevoSensor(0, "Sensor de Luz", tipoSensor);
+			id_sensor = DispositivosManager.crearSensor(0, "Sensor de Luz", tipoSensor);
 			for (int i = 0; i < 20; i++) {
-				// Suponiendo que el valor del sensor de luz varía entre 0 y 100
 				float datoLuz = random.nextFloat() * 100.0f;
 				DispositivosManager.crearSensorConId(id_sensor, datoLuz, "Sensor de Luz", tipoSensor);
 			}
 			break;
 		case "Persiana":
-			tipoSensor = "Posición";
-			id_sensor = DispositivosManager.creaNuevoSensor(0, "Sensor de Posición", tipoSensor);
+			tipoSensor = "PosiciÃ³n";
+			id_sensor = DispositivosManager.crearSensor(0, "Sensor de PosiciÃ³n", tipoSensor);
 			for (int i = 0; i < 20; i++) {
-				// Suponiendo que el valor del sensor de posición varía entre 0 y 180 (grados)
 				float datoPosicion = random.nextFloat() * 180.0f;
-				DispositivosManager.crearSensorConId(id_sensor, datoPosicion, "Sensor de Posición", tipoSensor);
+				DispositivosManager.crearSensorConId(id_sensor, datoPosicion, "Sensor de PosiciÃ³n", tipoSensor);
 			}
 			break;
 		default:
 			tipoSensor = "Tipo de Sensor Desconocido";
 			break;
-
 		}
 		return id_sensor;
 	}
@@ -243,7 +239,7 @@ public class Controlador_Interfaz_Administrar_Dispositivos {
 				cargarDispositivos(usuarioActual.getId_user());
 			} else {
 				Error_Label_Registro.setVisible(true);
-				Error_Label_Registro.setText("No se encontró el dispositivo con ese nombre");
+				Error_Label_Registro.setText("No se encontrï¿½ el dispositivo con ese nombre");
 			}
 		} else {
 			Error_Label_Registro.setVisible(true);
