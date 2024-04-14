@@ -78,7 +78,7 @@ public class Controlador_Interfaz_Leer_Peticion {
 
 	@FXML
 	private void seleccionarDispositivo() {
-		// Obtén el dispo seleccionado y actualiza el txtnombredispo
+		// Obtï¿½n el dispo seleccionado y actualiza el txtnombredispo
 		Reporte repoSeleccionado = tableReportes.getSelectionModel().getSelectedItem();
 		if (repoSeleccionado != null) {
 			lblTitulo.setText(repoSeleccionado.getTitulo());
@@ -128,7 +128,7 @@ public class Controlador_Interfaz_Leer_Peticion {
 		while (nodoActual != null) {
 			Reporte reporteActual = nodoActual.getDato();
 
-			// Aquí asumo que el Reporte tiene un método getIdReceptor() que devuelve el ID
+			// Aquï¿½ asumo que el Reporte tiene un mï¿½todo getIdReceptor() que devuelve el ID
 			// del usuario receptor
 			if (reporteActual.getId_user_receptor() == idUsuarioLogueado) {
 				reportesFiltrados.add(reporteActual);

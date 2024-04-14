@@ -7,73 +7,71 @@ import com.google.gson.reflect.TypeToken;
 import entidades.Reporte;
 import entidades.Usuario;
 import entidades.Nodo;
+import applications.ConexionDB;
+import java.sql.*;
+import java.util.Date;
+
+import javax.swing.JOptionPane;
 
 import java.io.*;
 import java.lang.reflect.Type;
 
 public class ReporteManager {
-	private static final String FILE_PATH_Reporte = "data/Reporte.json";
 	private static Reporte reporteSeleccionado;
 
 	public static ListaEnlazada<Reporte> cargarReportes() {
-		try (Reader reader = new FileReader(FILE_PATH_Reporte)) {
-			Type listType = new TypeToken<ListaEnlazada<Reporte>>() {
-			}.getType();
-			ListaEnlazada<Reporte> ReporteCargados = new Gson().fromJson(reader, listType);
+		ListaEnlazada<Reporte> reportes = new ListaEnlazada<>();
+		String query = "SELECT * FROM reportes"; // Aseg√∫rate de que 'reportes' es el nombre correcto de tu tabla
+		try (Connection conexion = ConexionDB.obtenerConexion(); // Reemplaza 'ConexionDB.obtenerConexion()' con tu
+																	// m√©todo de conexi√≥n
+				Statement stmt = conexion.createStatement();
+				ResultSet rs = stmt.executeQuery(query)) {
+			while (rs.next()) {
+				long idReporte = rs.getLong("id_reporte");
+				long idUserEmisor = rs.getLong("id_user_emisor");
+				long idUserReceptor = rs.getLong("id_user_receptor");
+				String titulo = rs.getString("titulo");
+				String queja = rs.getString("queja");
+				Date fecha = new Date(rs.getTimestamp("fecha").getTime()); // Aseg√∫rate de convertir la fecha
+																			// correctamente
 
-			// Verificar si la deserializaciÛn retornÛ null y, de ser asÌ, retornar una
-			// lista vacÌa
-			if (ReporteCargados == null) {
-				return new ListaEnlazada<>();
+				Reporte reporte = new Reporte(idReporte, idUserEmisor, idUserReceptor, titulo, queja, fecha);
+				reportes.insertarAlFinal(new Nodo<>(reporte));
 			}
-
-			return ReporteCargados;
-		} catch (IOException e) {
-			// En caso de una IOException, tambiÈn retornar una lista vacÌa
-			return new ListaEnlazada<>();
+		} catch (SQLException e) {
+			e.printStackTrace(); // O maneja la excepci√≥n como prefieras
 		}
+		return reportes;
 	}
 
-	public static void guardarReporte(ListaEnlazada<Reporte> dispos) {
-		try (Writer writer = new FileWriter(FILE_PATH_Reporte)) {
-			new Gson().toJson(dispos, writer);
-		} catch (IOException e) {
-			// Manejar la excepciÛn
-			e.printStackTrace();
-		}
-	}
+	public static void guardarReporte(ListaEnlazada<Reporte> reportes) {
+		// Suponiendo que tienes un m√©todo est√°tico obtenerConexion() que te da una
+		// conexi√≥n a la base de datos.
+		String insertQuery = "INSERT INTO reportes (id_reporte, id_user_emisor, id_user_receptor, titulo, queja, fecha) VALUES (?, ?, ?, ?, ?, ?) ON DUPLICATE KEY UPDATE id_user_emisor=?, id_user_receptor=?, titulo=?, queja=?, fecha=?";
+		try (Connection conexion = ConexionDB.obtenerConexion();
+				PreparedStatement stmt = conexion.prepareStatement(insertQuery)) {
 
-	public static boolean crearReporte(Reporte nuevoReporte) {
+			for (Nodo<Reporte> nodo = reportes.getCabeza(); nodo != null; nodo = nodo.getEnlace()) {
+				Reporte reporte = nodo.getDato();
+				stmt.setLong(1, reporte.getId_reporte());
+				stmt.setLong(2, reporte.getId_user_emisor());
+				stmt.setLong(3, reporte.getId_user_receptor());
+				stmt.setString(4, reporte.getTitulo());
+				stmt.setString(5, reporte.getQueja());
+				stmt.setDate(6, new java.sql.Date(reporte.getFecha().getTime()));
 
-		ListaEnlazada<Reporte> reportes = cargarReportes();
+				// Establecer los valores para la cl√°usula UPDATE tambi√©n
+				stmt.setLong(7, reporte.getId_user_emisor());
+				stmt.setLong(8, reporte.getId_user_receptor());
+				stmt.setString(9, reporte.getTitulo());
+				stmt.setString(10, reporte.getQueja());
+				stmt.setDate(11, new java.sql.Date(reporte.getFecha().getTime()));
 
-		if (reportes == null) {
-			reportes = new ListaEnlazada<>();
-		}
-
-		reportes.insertarAlFinal(new Nodo<>(nuevoReporte));
-		guardarReporte(reportes);
-		return true;
-	}
-
-	public static long obtenerNuevoId() {
-		ListaEnlazada<Reporte> dispos = cargarReportes();
-
-		if (dispos.getCabeza() == null) {
-			return 1; // Si la lista est· vacÌa, empezamos desde 1
-		}
-
-		long idMasAlto = 0;
-		Nodo<Reporte> nodoActual = dispos.getCabeza();
-		while (nodoActual != null) {
-			Reporte dispo = nodoActual.getDato();
-			if (dispo.getId_reporte() > idMasAlto) {
-				idMasAlto = dispo.getId_reporte();
+				stmt.executeUpdate();
 			}
-			nodoActual = nodoActual.getEnlace();
+		} catch (SQLException ex) {
+			ex.printStackTrace(); // O maneja la excepci√≥n como prefieras
 		}
-
-		return idMasAlto + 1; // Incrementa el ID m·s alto en 1
 	}
 
 	public static Reporte getReporteSeleccionado() {
@@ -84,64 +82,58 @@ public class ReporteManager {
 		reporteSeleccionado = reporte;
 	}
 
-	public static String sacarNombreDeId(Long idUsuario) {
-		ListaEnlazada<Usuario> usuarios = RegistroManager.cargarUsuarios();
+	public static boolean crearReporte(Reporte nuevoReporte) {
+		String insertQuery = "INSERT INTO reportes (id_user_emisor, id_user_receptor, titulo, queja, fecha) VALUES (?, ?, ?, ?, ?)";
 
-		if (usuarios == null) {
-			return ""; // No hay dispositivos para modificar
-		}
+		try (Connection conexion = ConexionDB.obtenerConexion();
+				PreparedStatement stmt = conexion.prepareStatement(insertQuery)) {
+			stmt.setLong(1, nuevoReporte.getId_user_emisor());
+			stmt.setLong(2, nuevoReporte.getId_user_receptor());
+			stmt.setString(3, nuevoReporte.getTitulo());
+			stmt.setString(4, nuevoReporte.getQueja());
+			// La fecha se debe convertir de java.util.Date a java.sql.Date
+			stmt.setDate(5, new java.sql.Date(nuevoReporte.getFecha().getTime()));
 
-		Nodo<Usuario> nodoActual = usuarios.getCabeza();
-
-		while (nodoActual != null) {
-			Usuario usuActual = nodoActual.getDato();
-
-			if (usuActual.getId_user() == idUsuario) {
-				// Se ha encontrado el dispositivo a modificar
-
-				return usuActual.getUsername(); // Dispositivo modificado exitosamente
+			int affectedRows = stmt.executeUpdate();
+			if (affectedRows > 0) {
+				return true; // El reporte fue creado exitosamente
 			}
-
-			nodoActual = nodoActual.getEnlace();
+		} catch (SQLException ex) {
+			ex.printStackTrace(); // Maneja la excepci√≥n como prefieras
 		}
-
-		return ""; // No se encontrÛ el dispositivo con el nombre especificado
+		return false; // Retorna false si la creaci√≥n del reporte fall√≥
 	}
 
-	//////////////////////////////////////////////
-	public static boolean eliminarReporte(String tituloReporte) {
-		ListaEnlazada<Reporte> reportes = cargarReportes();
+	public static String sacarNombreDeId(Long idUsuario) {
+		String query = "SELECT username FROM usuarios WHERE id_user = ?";
+		try (Connection conexion = ConexionDB.obtenerConexion();
+				PreparedStatement stmt = conexion.prepareStatement(query)) {
 
-		if (reportes == null) {
-			return false; // No hay dispositivos para eliminar
-		}
+			stmt.setLong(1, idUsuario);
+			ResultSet rs = stmt.executeQuery();
 
-		Nodo<Reporte> nodoActual = reportes.getCabeza();
-		Nodo<Reporte> nodoAnterior = null;
-
-		while (nodoActual != null) {
-			Reporte reporteActual = nodoActual.getDato();
-
-			if (reporteActual.getTitulo().equals(tituloReporte)) {
-				// Se ha encontrado el dispositivo a eliminar
-
-				if (nodoAnterior == null) {
-					// El dispositivo a eliminar es el primer elemento de la lista
-					reportes.setCabeza(nodoActual.getEnlace());
-				} else {
-					// El dispositivo a eliminar est· en medio o al final de la lista
-					nodoAnterior.setEnlace(nodoActual.getEnlace());
-				}
-
-				guardarReporte(reportes);
-				return true; // Dispositivo eliminado exitosamente
+			if (rs.next()) {
+				return rs.getString("username");
 			}
-
-			nodoAnterior = nodoActual;
-			nodoActual = nodoActual.getEnlace();
+		} catch (SQLException ex) {
+			ex.printStackTrace(); // O maneja la excepci√≥n como prefieras
 		}
+		return ""; // Retorna un string vac√≠o si el usuario no se encuentra
+	}
 
-		return false; // No se encontrÛ el dispositivo con el nombre especificado
+	public static boolean eliminarReporte(String tituloReporte) {
+		String deleteQuery = "DELETE FROM reportes WHERE titulo = ?";
+		try (Connection conexion = ConexionDB.obtenerConexion();
+				PreparedStatement stmt = conexion.prepareStatement(deleteQuery)) {
+
+			stmt.setString(1, tituloReporte);
+			int affectedRows = stmt.executeUpdate();
+
+			return affectedRows > 0; // Retorna true si se elimin√≥ al menos un reporte
+		} catch (SQLException ex) {
+			ex.printStackTrace(); // Maneja la excepci√≥n como prefieras
+		}
+		return false; // Retorna false si no se pudo eliminar o si ocurri√≥ un error
 	}
 
 }

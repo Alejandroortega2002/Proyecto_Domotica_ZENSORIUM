@@ -4,21 +4,22 @@ import java.util.Date;
 
 public class Reporte {
 	
+	private long id_reporte;
 	private long id_user_emisor;
 	private long id_user_receptor;
 	private String titulo;
 	private String queja;
 	private Date fecha;
-	private long id_reporte;
 	
-	public Reporte(long id_user_emisor, long id_user_receptor, String titulo, String queja, Date fecha,long id_reporte) {
+	public Reporte(long id_reporte, long id_user_emisor, long id_user_receptor, String titulo, String queja, Date fecha) {
 		super();
+		this.id_reporte = id_reporte;
 		this.id_user_emisor = id_user_emisor;
 		this.id_user_receptor = id_user_receptor;
 		this.titulo = titulo;
 		this.queja = queja;
 		this.fecha = fecha;
-		this.id_reporte = id_reporte;
+		
 	}
 	
 	public long getId_reporte() {

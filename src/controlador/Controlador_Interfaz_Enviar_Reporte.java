@@ -86,46 +86,44 @@ public class Controlador_Interfaz_Enviar_Reporte {
 		ListaEnlazada<Relaciones> relaciones = RegistroManager.cargarRelaciones();
 		long idDestinatario = buscarIdDestinatario(relaciones, idUsuarioLogueado);
 
-		if (!lblTituloReporte.getText().equals("") || !txtAreaDescripcionReporte.getText().equals("")) {
+		if (!lblTituloReporte.getText().equals("") && !txtAreaDescripcionReporte.getText().equals("")) {
 			if (idDestinatario == -1) {
 				Alert alerta = new Alert(Alert.AlertType.WARNING);
-				alerta.setTitle("Relación no encontrada");
+				alerta.setTitle("RelaciÃ³n no encontrada");
 				alerta.setHeaderText(null);
-				alerta.setContentText("No estás relacionado con ningún otro usuario.");
+				alerta.setContentText("No estÃ¡s relacionado con ningÃºn otro usuario.");
 				alerta.showAndWait();
-				return; // Sale del método si no hay relación
+				return; // Sale del mÃ©todo si no hay relaciÃ³n
 			}
 
 			Calendar calendario = Calendar.getInstance();
 			Date fechaActualConCalendar = calendario.getTime();
-			Reporte nuevoReporte = new Reporte(usuarioActual.getId_user(), idDestinatario, lblTituloReporte.getText(),
-					txtAreaDescripcionReporte.getText(), fechaActualConCalendar, ReporteManager.obtenerNuevoId());
+			Reporte nuevoReporte = new Reporte(0, usuarioActual.getId_user(), idDestinatario,
+					lblTituloReporte.getText(), txtAreaDescripcionReporte.getText(), fechaActualConCalendar);
 			boolean reporteCreado = ReporteManager.crearReporte(nuevoReporte);
 
 			if (reporteCreado) {
-
 				Alert alerta = new Alert(Alert.AlertType.INFORMATION);
 				alerta.setTitle("Reporte creado");
 				alerta.setHeaderText(null);
 				alerta.setContentText("Se ha creado correctamente el reporte.");
 				alerta.showAndWait();
 			} else {
-				Alert alerta = new Alert(Alert.AlertType.WARNING);
-				alerta.setTitle("Relación no encontrada");
+				Alert alerta = new Alert(Alert.AlertType.ERROR);
+				alerta.setTitle("Error al crear reporte");
 				alerta.setHeaderText(null);
-				alerta.setContentText("No estás relacionado con ningún otro usuario.");
+				alerta.setContentText("No se pudo crear el reporte.");
 				alerta.showAndWait();
 			}
 			lblTituloReporte.setText("");
 			txtAreaDescripcionReporte.setText("");
 		} else {
 			Alert alerta = new Alert(Alert.AlertType.INFORMATION);
-			alerta.setTitle("Reporte creado");
+			alerta.setTitle("InformaciÃ³n incompleta");
 			alerta.setHeaderText(null);
-			alerta.setContentText("Rellene todos los campos");
+			alerta.setContentText("Rellene todos los campos.");
 			alerta.showAndWait();
 		}
-
 	}
 
 	private long buscarIdDestinatario(ListaEnlazada<Relaciones> relaciones, long idUsuarioLogueado) {
@@ -137,8 +135,8 @@ public class Controlador_Interfaz_Enviar_Reporte {
 			}
 			nodoActual = nodoActual.getEnlace();
 		}
-		return -1; // Retorna -1 o algún otro valor que indique que no se encontró una relación
-					// válida
+		return -1; // Retorna -1 o algï¿½n otro valor que indique que no se encontrï¿½ una relaciï¿½n
+					// vï¿½lida
 	}
 
 	@FXML
