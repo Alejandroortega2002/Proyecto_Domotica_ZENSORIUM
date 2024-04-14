@@ -15,6 +15,7 @@ public class Main extends Application {
 	@Override
 	public void start(Stage stage) {
 		try {
+		
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/Pantalla_Inicio_Login.fxml"));
 
 			Controlador_Inicio_Login control = new Controlador_Inicio_Login();
@@ -25,6 +26,8 @@ public class Main extends Application {
 			Stage primaryStage = new Stage();
 			primaryStage.setScene(new Scene(root));
 			primaryStage.show();
+			
+			
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -32,6 +35,8 @@ public class Main extends Application {
 	}
 
 	public static void main(String[] args) {
+		Principal principal = new Principal();
+		principal.MySQLConnect();
 		launch(args);
 	}
 }

@@ -1,1 +1,92 @@
-{"cabeza":{"dato":{"id_user_emisor":15,"id_user_receptor":5,"titulo":"Revision Sensor","queja":"Se tiene que hacer una revision del sensor instalado","fecha":"Jan 21, 2024 2:35:37 PM","id_reporte":1},"enlace":{"dato":{"id_user_emisor":17,"id_user_receptor":3,"titulo":"Mantenimiento","queja":"Se tiene que realizar un mantenimiento al sensor","fecha":"Jan 21, 2024 2:37:56 PM","id_reporte":2},"enlace":{"dato":{"id_user_emisor":18,"id_user_receptor":6,"titulo":"Mantenimiento del sensor","queja":"Se tiene que realizar una tarea de mantenimiento para comprobar el correcto funcionamiento del sensor","fecha":"Jan 21, 2024 2:39:23 PM","id_reporte":3},"enlace":{"dato":{"id_user_emisor":19,"id_user_receptor":7,"titulo":"Comprobar el sensor","queja":"Realizar una comprobacion para ver si funcionan los sensores.","fecha":"Jan 21, 2024 2:40:23 PM","id_reporte":4},"enlace":{"dato":{"id_user_emisor":3,"id_user_receptor":14,"titulo":"Revision","queja":"Se tiene que realizar una revision del sensor.","fecha":"Jan 21, 2024 2:50:18 PM","id_reporte":5},"enlace":{"dato":{"id_user_emisor":4,"id_user_receptor":13,"titulo":"Mantenimiento","queja":"Hay que hacer una tarea de mantenimiento al sensor","fecha":"Jan 21, 2024 2:53:21 PM","id_reporte":6},"enlace":{"dato":{"id_user_emisor":5,"id_user_receptor":12,"titulo":"Revision","queja":"Se tiene que hacer una revision regular del sensor","fecha":"Jan 21, 2024 2:54:05 PM","id_reporte":7},"enlace":{"dato":{"id_user_emisor":6,"id_user_receptor":11,"titulo":"Mantenimiento","queja":"Realizar un mantenimiento de el sensor","fecha":"Jan 21, 2024 2:54:40 PM","id_reporte":8},"enlace":{"dato":{"id_user_emisor":7,"id_user_receptor":10,"titulo":"Hacer visita","queja":"se tiene que hacer una visita para realizar una revision de los sensores","fecha":"Jan 21, 2024 2:55:25 PM","id_reporte":9}}}}}}}}}}}
+{
+	"cabeza": {
+		"dato": {
+			"id_user_emisor": 15,
+			"id_user_receptor": 5,
+			"titulo": "Revision Sensor",
+			"queja": "Se tiene que hacer una revision del sensor instalado",
+			"fecha": "Jan 21, 2024 2:35:37 PM",
+			"id_reporte": 1
+		},
+		"enlace": {
+			"dato": {
+				"id_user_emisor": 17,
+				"id_user_receptor": 3,
+				"titulo": "Mantenimiento",
+				"queja": "Se tiene que realizar un mantenimiento al sensor",
+				"fecha": "Jan 21, 2024 2:37:56 PM",
+				"id_reporte": 2
+			},
+			"enlace": {
+				"dato": {
+					"id_user_emisor": 18,
+					"id_user_receptor": 6,
+					"titulo": "Mantenimiento del sensor",
+					"queja": "Se tiene que realizar una tarea de mantenimiento para comprobar el correcto funcionamiento del sensor",
+					"fecha": "Jan 21, 2024 2:39:23 PM",
+					"id_reporte": 3
+				},
+				"enlace": {
+					"dato": {
+						"id_user_emisor": 19,
+						"id_user_receptor": 7,
+						"titulo": "Comprobar el sensor",
+						"queja": "Realizar una comprobacion para ver si funcionan los sensores.",
+						"fecha": "Jan 21, 2024 2:40:23 PM",
+						"id_reporte": 4
+					},
+					"enlace": {
+						"dato": {
+							"id_user_emisor": 3,
+							"id_user_receptor": 14,
+							"titulo": "Revision",
+							"queja": "Se tiene que realizar una revision del sensor.",
+							"fecha": "Jan 21, 2024 2:50:18 PM",
+							"id_reporte": 5
+						},
+						"enlace": {
+							"dato": {
+								"id_user_emisor": 4,
+								"id_user_receptor": 13,
+								"titulo": "Mantenimiento",
+								"queja": "Hay que hacer una tarea de mantenimiento al sensor",
+								"fecha": "Jan 21, 2024 2:53:21 PM",
+								"id_reporte": 6
+							},
+							"enlace": {
+								"dato": {
+									"id_user_emisor": 5,
+									"id_user_receptor": 12,
+									"titulo": "Revision",
+									"queja": "Se tiene que hacer una revision regular del sensor",
+									"fecha": "Jan 21, 2024 2:54:05 PM",
+									"id_reporte": 7
+								},
+								"enlace": {
+									"dato": {
+										"id_user_emisor": 6,
+										"id_user_receptor": 11,
+										"titulo": "Mantenimiento",
+										"queja": "Realizar un mantenimiento de el sensor",
+										"fecha": "Jan 21, 2024 2:54:40 PM",
+										"id_reporte": 8
+									},
+									"enlace": {
+										"dato": {
+											"id_user_emisor": 7,
+											"id_user_receptor": 10,
+											"titulo": "Hacer visita",
+											"queja": "se tiene que hacer una visita para realizar una revision de los sensores",
+											"fecha": "Jan 21, 2024 2:55:25 PM",
+											"id_reporte": 9
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}
