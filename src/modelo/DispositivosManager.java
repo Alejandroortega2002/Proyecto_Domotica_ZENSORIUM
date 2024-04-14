@@ -1,8 +1,5 @@
 package modelo;
 
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-
 import entidades.Dispositivos;
 import entidades.Nodo;
 import entidades.Relaciones;
@@ -11,9 +8,6 @@ import applications.ConexionDB;
 import java.sql.*;
 
 import javax.swing.JOptionPane;
-
-import java.io.*;
-import java.lang.reflect.Type;
 
 public class DispositivosManager {
 	private static Dispositivos dispositivoSeleccionado;
@@ -37,22 +31,22 @@ public class DispositivosManager {
 	}
 
 	public static void guardarDispositivos(ListaEnlazada<Dispositivos> dispos) {
-	    String query = "REPLACE INTO dispositivos (id_dispo, id_sensor, id_usu_relacionado, estado, Tipo, Nombre) VALUES (?, ?, ?, ?, ?, ?)";
-	    try (Connection conexion = ConexionDB.obtenerConexion();
-	         PreparedStatement stmt = conexion.prepareStatement(query)) {
-	        for (Nodo<Dispositivos> nodo = dispos.getCabeza(); nodo != null; nodo = nodo.getEnlace()) {
-	            Dispositivos dispo = nodo.getDato();
-	            stmt.setLong(1, dispo.getId_dispo());
-	            stmt.setLong(2, dispo.getId_sensor());
-	            stmt.setLong(3, dispo.getId_usu_relacionado());// Asegúrate de que este valor está definido
-	            stmt.setBoolean(4, dispo.isEstado());
-	            stmt.setString(5, dispo.getTipo());
-	            stmt.setString(6, dispo.getNombre());
-	            stmt.executeUpdate();
-	        }
-	    } catch (SQLException ex) {
-	        JOptionPane.showMessageDialog(null, "Error al guardar dispositivos: " + ex.getMessage());
-	    }
+		String query = "REPLACE INTO dispositivos (id_dispo, id_sensor, id_usu_relacionado, estado, Tipo, Nombre) VALUES (?, ?, ?, ?, ?, ?)";
+		try (Connection conexion = ConexionDB.obtenerConexion();
+				PreparedStatement stmt = conexion.prepareStatement(query)) {
+			for (Nodo<Dispositivos> nodo = dispos.getCabeza(); nodo != null; nodo = nodo.getEnlace()) {
+				Dispositivos dispo = nodo.getDato();
+				stmt.setLong(1, dispo.getId_dispo());
+				stmt.setLong(2, dispo.getId_sensor());
+				stmt.setLong(3, dispo.getId_usu_relacionado());// Asegúrate de que este valor está definido
+				stmt.setBoolean(4, dispo.isEstado());
+				stmt.setString(5, dispo.getTipo());
+				stmt.setString(6, dispo.getNombre());
+				stmt.executeUpdate();
+			}
+		} catch (SQLException ex) {
+			JOptionPane.showMessageDialog(null, "Error al guardar dispositivos: " + ex.getMessage());
+		}
 	}
 
 	public static boolean registrarDispos(Dispositivos nuevoDispo) {
@@ -68,38 +62,38 @@ public class DispositivosManager {
 	}
 
 	public static boolean eliminarDispositivo(String nombreDispositivo) {
-	    String queryDispositivo = "SELECT id_sensor FROM dispositivos WHERE Nombre = ?";
-	    String deleteDispositivo = "DELETE FROM dispositivos WHERE Nombre = ?";
-	    String deleteSensor = "DELETE FROM sensores WHERE id_sensor = ?";
-	    long idSensor = -1;
-	    boolean isDeleted = false;
+		String queryDispositivo = "SELECT id_sensor FROM dispositivos WHERE Nombre = ?";
+		String deleteDispositivo = "DELETE FROM dispositivos WHERE Nombre = ?";
+		String deleteSensor = "DELETE FROM sensores WHERE id_sensor = ?";
+		long idSensor = -1;
+		boolean isDeleted = false;
 
-	    try (Connection conexion = ConexionDB.obtenerConexion();
-	         PreparedStatement stmtDispositivo = conexion.prepareStatement(queryDispositivo);
-	         PreparedStatement stmtDeleteDispositivo = conexion.prepareStatement(deleteDispositivo);
-	         PreparedStatement stmtDeleteSensor = conexion.prepareStatement(deleteSensor)) {
+		try (Connection conexion = ConexionDB.obtenerConexion();
+				PreparedStatement stmtDispositivo = conexion.prepareStatement(queryDispositivo);
+				PreparedStatement stmtDeleteDispositivo = conexion.prepareStatement(deleteDispositivo);
+				PreparedStatement stmtDeleteSensor = conexion.prepareStatement(deleteSensor)) {
 
-	        // Primero obtener el id del sensor asociado con el dispositivo
-	        stmtDispositivo.setString(1, nombreDispositivo);
-	        ResultSet rs = stmtDispositivo.executeQuery();
-	        if (rs.next()) {
-	            idSensor = rs.getLong("id_sensor");
-	        }
+			// Primero obtener el id del sensor asociado con el dispositivo
+			stmtDispositivo.setString(1, nombreDispositivo);
+			ResultSet rs = stmtDispositivo.executeQuery();
+			if (rs.next()) {
+				idSensor = rs.getLong("id_sensor");
+			}
 
-	        // Eliminar el dispositivo
-	        stmtDeleteDispositivo.setString(1, nombreDispositivo);
-	        int affectedRows = stmtDeleteDispositivo.executeUpdate();
-	        if (affectedRows > 0) {
-	            // Si se eliminó el dispositivo, ahora eliminar el sensor asociado
-	            stmtDeleteSensor.setLong(1, idSensor);
-	            affectedRows = stmtDeleteSensor.executeUpdate();
-	            isDeleted = affectedRows > 0;
-	        }
-	    } catch (SQLException ex) {
-	        JOptionPane.showMessageDialog(null, "Error al eliminar el dispositivo y sensor: " + ex.getMessage());
-	    }
+			// Eliminar el dispositivo
+			stmtDeleteDispositivo.setString(1, nombreDispositivo);
+			int affectedRows = stmtDeleteDispositivo.executeUpdate();
+			if (affectedRows > 0) {
+				// Si se eliminó el dispositivo, ahora eliminar el sensor asociado
+				stmtDeleteSensor.setLong(1, idSensor);
+				affectedRows = stmtDeleteSensor.executeUpdate();
+				isDeleted = affectedRows > 0;
+			}
+		} catch (SQLException ex) {
+			JOptionPane.showMessageDialog(null, "Error al eliminar el dispositivo y sensor: " + ex.getMessage());
+		}
 
-	    return isDeleted;
+		return isDeleted;
 	}
 
 	public static long obtenerNuevoId() {
@@ -230,7 +224,7 @@ public class DispositivosManager {
 			insertStmt.setString(3, nombre);
 			insertStmt.setString(4, tipo);
 			insertStmt.setInt(5, nextOrden);
-			
+
 			int affectedRows = insertStmt.executeUpdate();
 			if (affectedRows == 0) {
 				throw new SQLException("Inserción de datos del sensor falló, no se afectaron filas.");

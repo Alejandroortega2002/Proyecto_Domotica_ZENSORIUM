@@ -1,20 +1,10 @@
 package modelo;
 
-import com.google.gson.Gson;
-
-import com.google.gson.reflect.TypeToken;
-
 import entidades.Reporte;
-import entidades.Usuario;
 import entidades.Nodo;
 import applications.ConexionDB;
 import java.sql.*;
 import java.util.Date;
-
-import javax.swing.JOptionPane;
-
-import java.io.*;
-import java.lang.reflect.Type;
 
 public class ReporteManager {
 	private static Reporte reporteSeleccionado;

@@ -133,13 +133,13 @@ public class Controlador_Interfaz_Administrar_Dispositivos {
 		}
 	}
 
-	@FXML // hay que actualizar este metodo
+	@FXML 
 	private void anadirDsipositivo() throws IOException {
 		Usuario usuarioActual = Sesion.getInstancia().getUsuarioActual();
 		String Tipo = tipoDispositivo.getValue();
 		String Nombre = txtNombreDispo.getText();
 		long id_dispo = DispositivosManager.obtenerNuevoId();
-		long id_sensor = anadirSensorDispo(Tipo);// hacer con ortega
+		long id_sensor = anadirSensorDispo(Tipo);
 		long id_usu_relacionado = usuarioActual.getId_user();
 
 		if (Tipo != null && !Nombre.isEmpty() && !Tipo.isEmpty()) {
