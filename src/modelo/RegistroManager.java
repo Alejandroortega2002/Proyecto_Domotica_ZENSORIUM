@@ -29,7 +29,10 @@ public class RegistroManager {
 
 	public static void guardarUsuarios(ListaEnlazada<Usuario> usuarios) {
 		try (Connection conexion = ConexionDB.obtenerConexion()) {
-			String query = "REPLACE INTO usuario (id_user, username, email, password) VALUES (?, ?, ?, ?)";
+			String query = "INSERT INTO usuario (id_user, username, email, password, repetirPass, tipodecuenta) "
+					+ "VALUES (?, ?, ?, ?, ?, ?) "
+					+ "ON DUPLICATE KEY UPDATE username=VALUES(username), email=VALUES(email), "
+					+ "password=VALUES(password), repetirPass=VALUES(repetirPass), tipodecuenta=VALUES(tipodecuenta)";
 			PreparedStatement stmt = conexion.prepareStatement(query);
 			Nodo<Usuario> actual = usuarios.getCabeza();
 			while (actual != null) {
@@ -38,6 +41,8 @@ public class RegistroManager {
 				stmt.setString(2, usuario.getUsername());
 				stmt.setString(3, usuario.getEmail());
 				stmt.setString(4, usuario.getPassword());
+				stmt.setString(5, usuario.getRepetirPass());
+				stmt.setString(6, usuario.getTipodecuenta());
 				stmt.executeUpdate();
 				actual = actual.getEnlace();
 			}
@@ -108,12 +113,13 @@ public class RegistroManager {
 	public static boolean guardarRelacion(Relaciones nuevaRelacion) {
 		ListaEnlazada<Relaciones> relaciones = cargarRelaciones();
 		if (!relacionExiste(relaciones, nuevaRelacion)) {
-			String query = "INSERT INTO relaciones (id_user_logeado, id_user_relacion) VALUES (?, ?)";
+			String query = "INSERT INTO relaciones (id_user_logeado, id_user_relacion, tipo_relacion) VALUES (?, ?, ?)";
 			try (Connection conexion = ConexionDB.obtenerConexion();
 					PreparedStatement stmt = conexion.prepareStatement(query)) {
 
 				stmt.setLong(1, nuevaRelacion.getTu_id());
 				stmt.setLong(2, nuevaRelacion.getId_user_relacion());
+				stmt.setString(3, nuevaRelacion.getTipo_relacion());
 				int result = stmt.executeUpdate();
 				return result > 0;
 			} catch (SQLException ex) {
