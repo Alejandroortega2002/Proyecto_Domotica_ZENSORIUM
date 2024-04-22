@@ -5,9 +5,9 @@ import java.sql.SQLException;
 import javax.swing.JOptionPane;
 
 public class ConexionDB {
-    private static final String URL = "jdbc:mysql://localhost:3306/ZENSORIUM";
-    private static final String USERNAME = "root";
-    private static final String PASSWORD = "";
+    private static final String URL = "jdbc:mysql://195.235.211.197/piizensorium";
+    private static final String USERNAME = "piizensorium";
+    private static final String PASSWORD = "Zensorium@2024";
 
     public static Connection obtenerConexion() {
         try {
