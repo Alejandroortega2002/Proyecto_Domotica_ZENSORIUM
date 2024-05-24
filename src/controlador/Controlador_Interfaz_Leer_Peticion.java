@@ -139,7 +139,7 @@ public class Controlador_Interfaz_Leer_Peticion {
 
 		tableReportes.setItems(reportesFiltrados);
 	}
-
+//////////////////////////////////////////////////////////////////////////////////////////7
 	@FXML
 	private void irMenuPerfil(MouseEvent event) throws IOException {
 		try {

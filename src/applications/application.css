@@ -204,5 +204,153 @@
     -fx-background-radius: 10.0px;
     -fx-background-color: transparent;
 }
+/* Estilo del TextArea */
+.txtAreaDescripcion {
+    /* Fuente y tamaño */
+    -fx-font-family: Arial, sans-serif;
+    -fx-font-size: 14px;
 
-/* FIN Ventana Perfil usuario */
+    /* Color de texto */
+    -fx-text-fill: #333333;
+
+    /* Fondo */
+    -fx-background-color: #f8f8f8;
+
+    /* Borde */
+    -fx-border-color: #cccccc;
+    -fx-border-width: 1px;
+    -fx-border-radius: 5px;
+
+    /* Espaciado interno */
+    -fx-padding: 5px;
+
+    /* Deshabilita la decoración del scroll */
+    -fx-background: transparent;
+}
+
+/* Estilo del scroll vertical */
+.txtAreaDescripcion .scroll-pane .scroll-bar:vertical {
+    -fx-background-color: transparent;
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+}
+
+/* Estilo del thumb del scroll vertical */
+.txtAreaDescripcion .scroll-pane .scroll-bar:vertical .thumb {
+    -fx-background-color: #cccccc;
+    -fx-background-insets: 0;
+    -fx-padding: 2px;
+}
+
+/* Estilo del track del scroll vertical */
+.txtAreaDescripcion .scroll-pane .scroll-bar:vertical .track {
+    -fx-background-color: transparent;
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+}
+
+/* Estilo del scroll horizontal */
+.txtAreaDescripcion .scroll-pane .scroll-bar:horizontal {
+    -fx-background-color: transparent;
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+}
+
+/* Estilo del thumb del scroll horizontal */
+.txtAreaDescripcion .scroll-pane .scroll-bar:horizontal .thumb {
+    -fx-background-color: #cccccc;
+    -fx-background-insets: 0;
+    -fx-padding: 2px;
+}
+
+/* Estilo del track del scroll horizontal */
+.txtAreaDescripcion .scroll-pane .scroll-bar:horizontal .track {
+    -fx-background-color: transparent;
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+}
+
+/* Estilo de la tabla */
+.table-convers {
+    /* Fuente y tamaño */
+    -fx-font-family: Arial, sans-serif;
+    -fx-font-size: 14px;
+
+    /* Color de fondo */
+    -fx-background-color: #ffffff;
+
+    /* Borde */
+    -fx-border-color: #cccccc;
+    -fx-border-width: 1px;
+    -fx-border-radius: 5px;
+
+    /* Espaciado interno */
+    -fx-padding: 10px;
+}
+
+/* Estilo de las celdas */
+.table-convers .table-cell {
+    /* Color de texto */
+    -fx-text-fill: #333333;
+
+    /* Alineación del texto al centro */
+    -fx-alignment: center;
+}
+
+/* Estilo de las filas alternadas */
+.table-convers .row-even {
+    -fx-background-color: #f2f2f2; /* Fondo de filas pares */
+}
+
+/* Estilo cuando se selecciona una fila */
+.table-convers .table-row-cell:selected {
+    -fx-background-color: #4682B4; /* Color de fondo cuando se selecciona */
+    -fx-text-fill: white; /* Color de texto cuando se selecciona */
+}
+.table-view .scroll-bar:horizontal {
+    -fx-opacity: 0; /* Oculta la barra de desplazamiento horizontal */
+    -fx-size: 0px; /* Establece el tamaño de la barra horizontal en cero */
+}
+#btnEnviarMensaje {
+    -fx-background-color: #4682B4; /* Color de fondo del botón */
+    -fx-text-fill: white; /* Color del texto del botón */
+    -fx-font-size: 14px; /* Tamaño de la fuente del texto */
+    -fx-padding: 8px 16px; /* Relleno interno del botón */
+    -fx-background-radius: 5px; /* Radio de borde del fondo */
+    -fx-border-radius: 5px; /* Radio de borde del botón */
+}
+
+#btnEnviarMensaje:hover {
+    -fx-background-color: #4169E1; /* Color de fondo del botón al pasar el mouse */
+}
+
+#btnEnviarMensaje:pressed {
+    -fx-background-color: #355086; /* Color de fondo del botón al hacer clic */
+}
+.txtTituloVentanaChat {
+    -fx-font-size: 24px; /* Tamaño de la fuente */
+    -fx-font-family: "Arial"; /* Familia de la fuente */
+    -fx-font-weight: bold; /* Negrita */
+    -fx-text-fill: #2E8B57; /* Color del texto */
+    -fx-padding: 10px; /* Relleno interno */
+}
+.textFieldMensaje {
+    -fx-background-color: transparent; /* Fondo transparente */
+    -fx-border-color: #4682B4; /* Color del borde */
+    -fx-border-width: 2px; /* Ancho del borde */
+    -fx-border-radius: 5px; /* Radio de borde */
+    -fx-font-size: 14px; /* Tamaño de la fuente */
+    -fx-text-fill: #2E8B57; /* Color del texto */
+    -fx-prompt-text-fill: #A9A9A9; /* Color del texto de marcador */
+    -fx-padding: 5px; /* Relleno interno */
+    -fx-background-radius: 5px; /* Radio de fondo */
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.3), 5, 0, 0, 0); /* Sombra */
+    -fx-transition: background-color 0.3s; /* Transición de color de fondo */
+}
+
+.textFieldMensaje:focused {
+    -fx-background-color: transparent; /* Cambio de color de fondo al enfocar */
+}
+
+
+

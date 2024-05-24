@@ -38,14 +38,13 @@ public class Controlador_Pantalla_Perfil {
 
 	@FXML
 	private void initialize() {
-		// Puedes realizar inicializaciones aquí si es necesario
+		// Puedes realizar inicializaciones aquï¿½ si es necesario
 		Usuario usuarioActual = Sesion.getInstancia().getUsuarioActual();
 		if (usuarioActual != null) {
 			String username = usuarioActual.getUsername();
 			String tipoDeCuenta = usuarioActual.getTipodecuenta();
 			LblUsername.setText(username);
 			LblTipoCuenta.setText(tipoDeCuenta);
-			deshabilitarBtns(tipoDeCuenta);
 			cargarYMostrarUsuariosAsociados(usuarioActual);
 
 		}
@@ -72,26 +71,7 @@ public class Controlador_Pantalla_Perfil {
 		}
 	}
 
-	private void deshabilitarBtns(String tipoUsu) {
-		Usuario usuarioActual = Sesion.getInstancia().getUsuarioActual();
 
-		if (usuarioActual != null) {
-			String tipoDeCuenta = usuarioActual.getTipodecuenta();
-
-			switch (tipoDeCuenta) {
-			case "Usuario":
-				btnVerReporte.setDisable(true);
-				btnVerReporte.setManaged(false);
-				btnRelaciones.setManaged(false);
-				break;
-
-			case "Administrador":
-				btnEnviarReporte.setDisable(true);
-				btnEnviarReporte.setManaged(false);
-				break;
-			}
-		}
-	}
 
 	@FXML
 	private void irRelaciones(MouseEvent event) {
@@ -146,9 +126,9 @@ public class Controlador_Pantalla_Perfil {
 				Alert alert = new Alert(Alert.AlertType.WARNING);
 				alert.setTitle("Acceso Restringido");
 				alert.setHeaderText(null);
-				alert.setContentText("No tienes acceso a esta función.");
+				alert.setContentText("No tienes acceso a esta funciï¿½n.");
 				alert.showAndWait();
-				return; // Salir del método sin hacer nada más
+				return; // Salir del mï¿½todo sin hacer nada mï¿½s
 
 			default:
 				// Manejar cualquier otro caso
@@ -187,7 +167,7 @@ public class Controlador_Pantalla_Perfil {
 			if (nombresAsociados.length() > 0) {
 				LblUsuariosAsociados.setText(nombresAsociados.toString());
 			} else {
-				LblUsuariosAsociados.setText(""); // O puedes omitir esta línea si el texto ya está en blanco por
+				LblUsuariosAsociados.setText(""); // O puedes omitir esta lï¿½nea si el texto ya estï¿½ en blanco por
 													// defecto
 			}
 		}
@@ -216,11 +196,11 @@ public class Controlador_Pantalla_Perfil {
 	}
 
 	@FXML
-	private void irEnviarReporte(MouseEvent event) throws IOException {
+	private void irChatear(MouseEvent event) throws IOException {
 		try {
-			FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/Interfaz_Enviar_Reporte.fxml"));
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/Interfaz_Chat.fxml"));
 
-			Controlador_Interfaz_Enviar_Reporte control = new Controlador_Interfaz_Enviar_Reporte();
+			Controlador_Interfaz_Chatear control = new Controlador_Interfaz_Chatear();
 
 			loader.setController(control);
 
@@ -237,27 +217,6 @@ public class Controlador_Pantalla_Perfil {
 		}
 	}
 
-	@FXML
-	private void irLeerReporte(MouseEvent event) throws IOException {
-		try {
-			FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/Interfaz_Leer_Reporte.fxml"));
-
-			Controlador_Interfaz_Leer_Peticion control = new Controlador_Interfaz_Leer_Peticion();
-
-			loader.setController(control);
-
-			Parent root = loader.load();
-			Stage primaryStage = new Stage();
-			primaryStage.setScene(new Scene(root));
-			primaryStage.show();
-
-			Stage ventatnaActual = (Stage) btnRelaciones.getScene().getWindow();
-			ventatnaActual.hide();
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
 
 	@FXML
 	private void irEditarPerfil(MouseEvent event) throws IOException {

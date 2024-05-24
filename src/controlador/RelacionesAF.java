@@ -1,6 +1,7 @@
 package controlador;
 
 import java.io.IOException;
+import java.sql.Timestamp;
 
 import entidades.Nodo;
 import entidades.Relaciones;
@@ -21,6 +22,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import modelo.ConversacionManager;
 import modelo.ListaEnlazada;
 import modelo.RegistroManager;
 import modelo.Sesion;
@@ -30,7 +32,7 @@ public class RelacionesAF {
 	@FXML
 	private Button btnConectar;
 	@FXML
-	private Label lblNombreUsuario; // Debería mostrar el nombre del usuario registrado
+	private Label lblNombreUsuario; // Deberï¿½a mostrar el nombre del usuario registrado
 	@FXML
 	private TextField txtNombreUsuarioFamiliar; // Para ingresar el nombre del usuario familiar
 	@FXML
@@ -40,54 +42,55 @@ public class RelacionesAF {
 	@FXML
 	private TableColumn<Usuario, String> colCorreo;
 
-	// Método que se ejecuta para inicializar la clase controladora
+	// Mï¿½todo que se ejecuta para inicializar la clase controladora
 	public void initialize() {
 
 		this.colNombre.setCellValueFactory(new PropertyValueFactory<>("username"));
 		this.colCorreo.setCellValueFactory(new PropertyValueFactory<>("email"));
-		// Aquí cargarías los usuarios familiares en la tabla y establecerías el nombre
+		// Aquï¿½ cargarï¿½as los usuarios familiares en la tabla y establecerï¿½as el nombre
 		// de usuario actual
 		cargarUsuariosFamiliares();
 		mostrarNombreUsuarioActual();
 	}
 
-	// Este método se invocará cuando el usuario haga clic en un usuario familiar en
+	// Este mï¿½todo se invocarï¿½ cuando el usuario haga clic en un usuario familiar en
 	// la tabla
 	@FXML
 	private void seleccionarUsuarioFamiliar() {
-		// Obtén el usuario seleccionado y actualiza el txtNombreUsuarioFamiliar
+		// Obtï¿½n el usuario seleccionado y actualiza el txtNombreUsuarioFamiliar
 		Usuario usuarioSeleccionado = tblUsuariosFamiliares.getSelectionModel().getSelectedItem();
 		if (usuarioSeleccionado != null) {
 			txtNombreUsuarioFamiliar.setText(usuarioSeleccionado.getUsername());
 		}
 	}
 
-	// Método para manejar la acción del botón CONECTAR
+	// Mï¿½todo para manejar la acciï¿½n del botï¿½n CONECTAR
 //	
 	@FXML
 	private void conectarUsuarios() {
-		// Obtén los datos y crea una relación, luego guárdala en el JSON
+		// Obtï¿½n los datos y crea una relaciï¿½n, luego guï¿½rdala en el JSON
 		String nombreUsuario = lblNombreUsuario.getText();
 		String nombreUsuarioFamiliar = txtNombreUsuarioFamiliar.getText();
-		// Suponiendo que tienes métodos para obtener los ID basados en los nombres de
+		// Suponiendo que tienes mï¿½todos para obtener los ID basados en los nombres de
 		// usuario
 		long idUsuario = obtenerIdPorNombreUsuario(nombreUsuario);
 		long idUsuarioFamiliar = obtenerIdPorNombreUsuario(nombreUsuarioFamiliar);
 
 		if (!RegistroManager.verificarRelacionExistente(idUsuario, idUsuarioFamiliar)) {
-			// Si la relación no existe, crea una nueva y guárdala
+			// Si la relaciï¿½n no existe, crea una nueva y guï¿½rdala
 			Relaciones nuevaRelacion = new Relaciones(idUsuario, idUsuarioFamiliar, "AF"); // Asumiendo "AF" como tipo
-																							// de relación
+																							// de relaciï¿½n
 			RegistroManager.guardarRelacion(nuevaRelacion);
 
-			mostrarMensaje("Se ha completado el enlace", "Relación de AF");
-			// Mostrar mensaje de éxito o actualizar la interfaz según sea necesario
+			mostrarMensaje("Se ha completado el enlace", "Relaciï¿½n de AF");
+			ConversacionManager.enviarMensaje(idUsuario, idUsuarioFamiliar, "", new Timestamp(System.currentTimeMillis()));
+			// Mostrar mensaje de ï¿½xito o actualizar la interfaz segï¿½n sea necesario
 		} else {
-			// Mostrar un mensaje de error indicando que la relación ya existe
+			// Mostrar un mensaje de error indicando que la relaciï¿½n ya existe
 			Alert alert = new Alert(AlertType.WARNING);
-			alert.setTitle("Relación Existente");
+			alert.setTitle("Relaciï¿½n Existente");
 			alert.setHeaderText(null);
-			alert.setContentText("La relación ya existe.");
+			alert.setContentText("La relaciï¿½n ya existe.");
 			alert.showAndWait();
 		}
 	}
