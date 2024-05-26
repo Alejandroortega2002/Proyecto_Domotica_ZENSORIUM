@@ -2,12 +2,13 @@ package modelo;
 
 import entidades.Dispositivos;
 import entidades.Nodo;
-import entidades.Relaciones;
 import entidades.Sensores;
 import applications.ConexionDB;
 import java.sql.*;
-
 import javax.swing.JOptionPane;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.scene.chart.XYChart;
 
 public class DispositivosManager {
 	private static Dispositivos dispositivoSeleccionado;
@@ -30,40 +31,164 @@ public class DispositivosManager {
 		return dispositivos;
 	}
 
-	public static void guardarDispositivos(ListaEnlazada<Dispositivos> dispos) {
-		String query = "REPLACE INTO dispositivos (id_dispo, id_sensor, id_usu_relacionado, estado, Tipo, Nombre) VALUES (?, ?, ?, ?, ?, ?)";
+	public static ListaEnlazada<Dispositivos> cargarDispositivosPorUsuario(long idUsuario) {
+		ListaEnlazada<Dispositivos> dispositivos = new ListaEnlazada<>();
+		String query = "SELECT * FROM dispositivos WHERE id_usu_relacionado = ?";
 		try (Connection conexion = ConexionDB.obtenerConexion();
 				PreparedStatement stmt = conexion.prepareStatement(query)) {
-			for (Nodo<Dispositivos> nodo = dispos.getCabeza(); nodo != null; nodo = nodo.getEnlace()) {
-				Dispositivos dispo = nodo.getDato();
-				stmt.setLong(1, dispo.getId_dispo());
-				stmt.setLong(2, dispo.getId_sensor());
-				stmt.setLong(3, dispo.getId_usu_relacionado());// Asegúrate de que este valor está definido
-				stmt.setBoolean(4, dispo.isEstado());
-				stmt.setString(5, dispo.getTipo());
-				stmt.setString(6, dispo.getNombre());
-				stmt.executeUpdate();
+			stmt.setLong(1, idUsuario);
+			ResultSet rs = stmt.executeQuery();
+			while (rs.next()) {
+				Dispositivos dispo = new Dispositivos(rs.getLong("id_dispo"), rs.getLong("id_sensor"),
+						rs.getLong("id_usu_relacionado"), rs.getBoolean("estado"), rs.getString("Tipo"),
+						rs.getString("Nombre"));
+				dispositivos.insertarAlFinal(new Nodo<>(dispo));
 			}
 		} catch (SQLException ex) {
-			JOptionPane.showMessageDialog(null, "Error al guardar dispositivos: " + ex.getMessage());
+			JOptionPane.showMessageDialog(null, "Error al cargar dispositivos por usuario: " + ex.getMessage());
 		}
+		return dispositivos;
+	}
+
+	public static void guardarDispositivo(Dispositivos dispo) {
+		String query = "INSERT INTO dispositivos (id_dispo, id_sensor, id_usu_relacionado, estado, tipo, nombre) "
+				+ "VALUES (?, ?, ?, ?, ?, ?) "
+				+ "ON DUPLICATE KEY UPDATE id_sensor=VALUES(id_sensor), id_usu_relacionado=VALUES(id_usu_relacionado), "
+				+ "estado=VALUES(estado), tipo=VALUES(tipo), nombre=VALUES(nombre)";
+		try (Connection conexion = ConexionDB.obtenerConexion();
+				PreparedStatement stmt = conexion.prepareStatement(query)) {
+			stmt.setLong(1, dispo.getId_dispo());
+			stmt.setLong(2, dispo.getId_sensor());
+			stmt.setLong(3, dispo.getId_usu_relacionado());
+			stmt.setBoolean(4, dispo.isEstado());
+			stmt.setString(5, dispo.getTipo());
+			stmt.setString(6, dispo.getNombre());
+			stmt.executeUpdate();
+		} catch (SQLException ex) {
+			JOptionPane.showMessageDialog(null, "Error al guardar dispositivo: " + ex.getMessage());
+		}
+	}
+
+	public static void guardarSensor(Sensores sensor) {
+		String query = "INSERT INTO sensores (id_sensor, descripcion, tipo) " + "VALUES (?, ?, ?) "
+				+ "ON DUPLICATE KEY UPDATE descripcion=VALUES(descripcion), tipo=VALUES(tipo)";
+		try (Connection conexion = ConexionDB.obtenerConexion();
+				PreparedStatement stmt = conexion.prepareStatement(query)) {
+			stmt.setLong(1, sensor.getId_sensor());
+			stmt.setString(2, sensor.getDescripcion());
+			stmt.setString(3, sensor.getTipo());
+			stmt.executeUpdate();
+		} catch (SQLException ex) {
+			JOptionPane.showMessageDialog(null, "Error al guardar sensor: " + ex.getMessage());
+		}
+	}
+
+	public static Sensores buscarSensorPorId(long id_sensor) {
+		String query = "SELECT id_sensor, descripcion, tipo FROM sensores WHERE id_sensor = ?";
+		try (Connection conexion = ConexionDB.obtenerConexion();
+				PreparedStatement stmt = conexion.prepareStatement(query)) {
+			stmt.setLong(1, id_sensor);
+			ResultSet rs = stmt.executeQuery();
+			if (rs.next()) {
+				long id = rs.getLong("id_sensor");
+				String descripcion = rs.getString("descripcion");
+				String tipo = rs.getString("tipo");
+				return new Sensores(id, descripcion, tipo);
+			} else {
+				return null; // Sensor no encontrado
+			}
+		} catch (SQLException ex) {
+			JOptionPane.showMessageDialog(null, "Error al buscar sensor: " + ex.getMessage());
+			return null;
+		}
+	}
+
+	public static ObservableList<XYChart.Data<String, Number>> cargarDatosEnGrafico(long sensorId) {
+		ObservableList<XYChart.Data<String, Number>> datos = FXCollections.observableArrayList();
+		String query = "SELECT valor_dato, fecha FROM historicodatos WHERE id_sensor = ? ORDER BY fecha DESC LIMIT 20";
+
+		try (Connection conexion = ConexionDB.obtenerConexion();
+				PreparedStatement stmt = conexion.prepareStatement(query)) {
+
+			stmt.setLong(1, sensorId); // Establece el ID del sensor para la consulta
+			ResultSet rs = stmt.executeQuery();
+
+			while (rs.next()) {
+				String valorDato = rs.getString("valor_dato");
+				String fecha = rs.getString("fecha");
+				double valorNumerico = Double.parseDouble(valorDato.replaceAll("[^0-9.]", ""));
+
+				// Asegurarse de que los valores están en el rango 0-100
+				if (valorNumerico >= 0 && valorNumerico <= 100) {
+					datos.add(new XYChart.Data<>(fecha, valorNumerico));
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			// Manejo adicional del error o log
+		} catch (NullPointerException e) {
+			e.printStackTrace();
+			// Manejo adicional del error o log
+		}
+		return datos;
+	}
+
+	public static ObservableList<Sensores> cargarDatosEnTabla(long sensorId) {
+		ObservableList<Sensores> historicoDatos = FXCollections.observableArrayList();
+		String query = "SELECT id_dato, valor_dato FROM historicodatos WHERE id_sensor = ? ORDER BY fecha DESC LIMIT 20";
+
+		try (Connection conexion = ConexionDB.obtenerConexion();
+				PreparedStatement stmt = conexion.prepareStatement(query)) {
+
+			stmt.setLong(1, sensorId); // Establece el ID del sensor para la consulta
+			ResultSet rs = stmt.executeQuery();
+
+			while (rs.next()) {
+				long idDato = rs.getLong("id_dato");
+				String valorDato = rs.getString("valor_dato");
+				double valorNumerico = Double.parseDouble(valorDato.replaceAll("[^0-9.]", ""));
+
+				// Crear un objeto Sensores temporal para cargar los datos históricos en la
+				// tabla
+				Sensores sensorHistorico = new Sensores(idDato, String.valueOf(valorNumerico), ""); // Uso temporal
+				historicoDatos.add(sensorHistorico);
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			// Manejo adicional del error o log
+		} catch (NullPointerException e) {
+			e.printStackTrace();
+			// Manejo adicional del error o log
+		}
+		return historicoDatos;
 	}
 
 	public static boolean registrarDispos(Dispositivos nuevoDispo) {
-		ListaEnlazada<Dispositivos> dispos = cargarDispos();
-		for (Nodo<Dispositivos> nodo = dispos.getCabeza(); nodo != null; nodo = nodo.getEnlace()) {
-			if (nodo.getDato().getNombre().equals(nuevoDispo.getNombre())) {
-				return false; // Dispositivo ya existe
-			}
+		if (!existeDispositivo(nuevoDispo.getNombre())) {
+			guardarDispositivo(nuevoDispo);
+			return true;
+		} else {
+			return false; // Dispositivo ya existe
 		}
-		dispos.insertarAlFinal(new Nodo<>(nuevoDispo));
-		guardarDispositivos(dispos);
-		return true;
+	}
+
+	private static boolean existeDispositivo(String nombre) {
+		String query = "SELECT 1 FROM dispositivos WHERE nombre = ?";
+		try (Connection conexion = ConexionDB.obtenerConexion();
+				PreparedStatement stmt = conexion.prepareStatement(query)) {
+			stmt.setString(1, nombre);
+			ResultSet rs = stmt.executeQuery();
+			return rs.next();
+		} catch (SQLException ex) {
+			JOptionPane.showMessageDialog(null, "Error al verificar dispositivo: " + ex.getMessage());
+			return false;
+		}
 	}
 
 	public static boolean eliminarDispositivo(String nombreDispositivo) {
-		String queryDispositivo = "SELECT id_sensor FROM dispositivos WHERE Nombre = ?";
-		String deleteDispositivo = "DELETE FROM dispositivos WHERE Nombre = ?";
+		String queryDispositivo = "SELECT id_sensor FROM dispositivos WHERE nombre = ?";
+		String deleteDispositivo = "DELETE FROM dispositivos WHERE nombre = ?";
 		String deleteSensor = "DELETE FROM sensores WHERE id_sensor = ?";
 		long idSensor = -1;
 		boolean isDeleted = false;
@@ -97,39 +222,43 @@ public class DispositivosManager {
 	}
 
 	public static long obtenerNuevoId() {
-		ListaEnlazada<Dispositivos> dispos = cargarDispos();
-		long idMasAlto = 0;
-		for (Nodo<Dispositivos> nodo = dispos.getCabeza(); nodo != null; nodo = nodo.getEnlace()) {
-			long id = nodo.getDato().getId_dispo();
-			if (id > idMasAlto) {
-				idMasAlto = id;
+		String query = "SELECT MAX(id_dispo) AS max_id FROM dispositivos";
+		try (Connection conexion = ConexionDB.obtenerConexion();
+				PreparedStatement stmt = conexion.prepareStatement(query);
+				ResultSet rs = stmt.executeQuery()) {
+			if (rs.next()) {
+				return rs.getLong("max_id") + 1;
 			}
+		} catch (SQLException ex) {
+			JOptionPane.showMessageDialog(null, "Error al obtener nuevo ID: " + ex.getMessage());
 		}
-		return idMasAlto + 1;
+		return 1; // Si no hay dispositivos, el primer ID será 1
 	}
 
 	public static boolean modificarDispositivo(String nombreDispositivo, String nombreNuevoDispositivo) {
-		ListaEnlazada<Dispositivos> dispositivos = cargarDispos();
-		for (Nodo<Dispositivos> nodo = dispositivos.getCabeza(); nodo != null; nodo = nodo.getEnlace()) {
-			Dispositivos dispo = nodo.getDato();
-			if (dispo.getNombre().equals(nombreDispositivo)) {
-				dispo.setNombre(nombreNuevoDispositivo);
-				guardarDispositivos(dispositivos);
-				return true;
-			}
+		String query = "UPDATE dispositivos SET nombre = ? WHERE nombre = ?";
+		try (Connection conexion = ConexionDB.obtenerConexion();
+				PreparedStatement stmt = conexion.prepareStatement(query)) {
+			stmt.setString(1, nombreNuevoDispositivo);
+			stmt.setString(2, nombreDispositivo);
+			int result = stmt.executeUpdate();
+			return result > 0;
+		} catch (SQLException ex) {
+			JOptionPane.showMessageDialog(null, "Error al modificar dispositivo: " + ex.getMessage());
 		}
 		return false;
 	}
 
 	public static boolean modificarEstadoDispositivo(String nombreDispositivo, Boolean estadoDispositivo) {
-		ListaEnlazada<Dispositivos> dispositivos = cargarDispos();
-		for (Nodo<Dispositivos> nodo = dispositivos.getCabeza(); nodo != null; nodo = nodo.getEnlace()) {
-			Dispositivos dispo = nodo.getDato();
-			if (dispo.getNombre().equals(nombreDispositivo)) {
-				dispo.setEstado(estadoDispositivo);
-				guardarDispositivos(dispositivos);
-				return true;
-			}
+		String query = "UPDATE dispositivos SET estado = ? WHERE nombre = ?";
+		try (Connection conexion = ConexionDB.obtenerConexion();
+				PreparedStatement stmt = conexion.prepareStatement(query)) {
+			stmt.setBoolean(1, estadoDispositivo);
+			stmt.setString(2, nombreDispositivo);
+			int result = stmt.executeUpdate();
+			return result > 0;
+		} catch (SQLException ex) {
+			JOptionPane.showMessageDialog(null, "Error al modificar estado del dispositivo: " + ex.getMessage());
 		}
 		return false;
 	}
@@ -149,8 +278,8 @@ public class DispositivosManager {
 				PreparedStatement stmt = conexion.prepareStatement(query);
 				ResultSet rs = stmt.executeQuery()) {
 			while (rs.next()) {
-				Sensores sensor = new Sensores(rs.getLong("id_sensor"), rs.getFloat("dato_actual"),
-						rs.getString("nombre"), rs.getString("tipo"), rs.getLong("orden_registro"));
+				Sensores sensor = new Sensores(rs.getLong("id_sensor"), rs.getString("descripcion"),
+						rs.getString("tipo"));
 				sensores.insertarAlFinal(new Nodo<>(sensor));
 			}
 		} catch (SQLException ex) {
@@ -159,124 +288,28 @@ public class DispositivosManager {
 		return sensores;
 	}
 
-	public static void guardarSensores(ListaEnlazada<Sensores> sensores) {
-		String query = "REPLACE INTO sensores (id_sensor, dato_actual, nombre, tipo, orden_registro) VALUES (?, ?, ?, ?, ?)";
-		try (Connection conexion = ConexionDB.obtenerConexion();
-				PreparedStatement stmt = conexion.prepareStatement(query)) {
-			for (Nodo<Sensores> nodo = sensores.getCabeza(); nodo != null; nodo = nodo.getEnlace()) {
-				Sensores sensor = nodo.getDato();
-				stmt.setLong(1, sensor.getId_sensor());
-				stmt.setFloat(2, sensor.getDato_actual());
-				stmt.setString(3, sensor.getNombre());
-				stmt.setString(4, sensor.getTipo());
-				stmt.setLong(5, sensor.getOrden_registro());
-				stmt.executeUpdate();
-			}
-		} catch (SQLException ex) {
-			JOptionPane.showMessageDialog(null, "Error al guardar sensores: " + ex.getMessage());
-		}
-	}
-
-	public static long crearSensor(float dato_actual, String nombre, String tipo) {
-		// Asumiendo que cada nuevo sensor empieza con un orden_registro de 1
-		String query = "INSERT INTO sensores (dato_actual, nombre, tipo, orden_registro) VALUES (?, ?, ?, 1)";
-		long idGenerado = 0;
+	public static long crearSensor(String descripcion, String tipo) {
+		String query = "INSERT INTO sensores (descripcion, tipo) VALUES (?, ?)";
 		try (Connection conexion = ConexionDB.obtenerConexion();
 				PreparedStatement stmt = conexion.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
-			stmt.setFloat(1, dato_actual);
-			stmt.setString(2, nombre);
-			stmt.setString(3, tipo);
+			stmt.setString(1, descripcion);
+			stmt.setString(2, tipo);
 			int affectedRows = stmt.executeUpdate();
 			if (affectedRows == 0) {
 				throw new SQLException("Creación del sensor falló, no se afectaron filas.");
 			}
+
+			// Obtener el ID generado
 			try (ResultSet generatedKeys = stmt.getGeneratedKeys()) {
 				if (generatedKeys.next()) {
-					idGenerado = generatedKeys.getLong(1);
+					return generatedKeys.getLong(1);
+				} else {
+					throw new SQLException("Creación del sensor falló, no se obtuvo el ID.");
 				}
 			}
 		} catch (SQLException ex) {
 			System.err.println("Error al crear sensor: " + ex.getMessage());
-		}
-		return idGenerado;
-	}
-
-	public static void crearSensorConId(long id_sensor, float dato_actual, String nombre, String tipo) {
-		// Consultar primero el máximo orden_registro para el id_sensor dado
-		String getMaxOrden = "SELECT COALESCE(MAX(orden_registro), 0) + 1 AS next_orden FROM sensores WHERE id_sensor = ?";
-		String insertQuery = "INSERT INTO sensores (id_sensor, dato_actual, nombre, tipo, orden_registro) VALUES (?, ?, ?, ?, ?)";
-
-		try (Connection conexion = ConexionDB.obtenerConexion();
-				PreparedStatement getMaxStmt = conexion.prepareStatement(getMaxOrden);
-				PreparedStatement insertStmt = conexion.prepareStatement(insertQuery)) {
-
-			// Obtener el próximo orden_registro
-			getMaxStmt.setLong(1, id_sensor);
-			ResultSet rs = getMaxStmt.executeQuery();
-			int nextOrden = 0;
-			if (rs.next()) {
-				nextOrden = rs.getInt("next_orden");
-			}
-
-			// Insertar el nuevo registro con el orden_registro incrementado
-			insertStmt.setLong(1, id_sensor);
-			insertStmt.setFloat(2, dato_actual);
-			insertStmt.setString(3, nombre);
-			insertStmt.setString(4, tipo);
-			insertStmt.setInt(5, nextOrden);
-
-			int affectedRows = insertStmt.executeUpdate();
-			if (affectedRows == 0) {
-				throw new SQLException("Inserción de datos del sensor falló, no se afectaron filas.");
-			}
-		} catch (SQLException ex) {
-			System.err.println("Error al insertar datos para el sensor con ID: " + id_sensor + " - " + ex.getMessage());
+			return -1;
 		}
 	}
-
-	public static ListaEnlazada<Dispositivos> cargarDispositivosPorUsuario(long idUsuario) {
-		ListaEnlazada<Dispositivos> dispositivosDelUsuario = new ListaEnlazada<>();
-		String query = "SELECT * FROM dispositivos WHERE id_usu_relacionado = ?";
-		try (Connection conexion = ConexionDB.obtenerConexion();
-				PreparedStatement stmt = conexion.prepareStatement(query)) {
-			stmt.setLong(1, idUsuario);
-			ResultSet rs = stmt.executeQuery();
-			while (rs.next()) {
-				Dispositivos dispositivo = new Dispositivos(rs.getLong("id_dispo"), rs.getLong("id_sensor"),
-						rs.getLong("id_usu_relacionado"), rs.getBoolean("estado"), rs.getString("Tipo"),
-						rs.getString("Nombre"));
-				dispositivosDelUsuario.insertarAlFinal(new Nodo<>(dispositivo));
-			}
-		} catch (SQLException ex) {
-			System.err.println("Error al cargar dispositivos por usuario: " + ex.getMessage());
-		}
-		return dispositivosDelUsuario;
-	}
-
-	public static ListaEnlazada<Dispositivos> cargarDispositivosRelacionados(long idUsuario) {
-		ListaEnlazada<Dispositivos> dispositivosRelacionados = new ListaEnlazada<>();
-		ListaEnlazada<Relaciones> relacionesDelUsuario = RegistroManager.cargarRelacionesPorUsuario(idUsuario);
-		for (Nodo<Relaciones> nodoRel = relacionesDelUsuario.getCabeza(); nodoRel != null; nodoRel = nodoRel
-				.getEnlace()) {
-			Relaciones relacion = nodoRel.getDato();
-			long idRelacionado = (relacion.getTu_id() == idUsuario) ? relacion.getId_user_relacion()
-					: relacion.getTu_id();
-			String query = "SELECT * FROM dispositivos WHERE id_usuario = ?";
-			try (Connection conexion = ConexionDB.obtenerConexion();
-					PreparedStatement stmt = conexion.prepareStatement(query)) {
-				stmt.setLong(1, idRelacionado);
-				ResultSet rs = stmt.executeQuery();
-				while (rs.next()) {
-					Dispositivos dispositivo = new Dispositivos(rs.getLong("id_dispo"), rs.getLong("id_sensor"),
-							rs.getLong("id_usu_relacionado"), rs.getBoolean("estado"), rs.getString("Tipo"),
-							rs.getString("Nombre"));
-					dispositivosRelacionados.insertarAlFinal(new Nodo<>(dispositivo));
-				}
-			} catch (SQLException ex) {
-				System.err.println("Error al cargar dispositivos relacionados: " + ex.getMessage());
-			}
-		}
-		return dispositivosRelacionados;
-	}
-
 }

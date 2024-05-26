@@ -1,11 +1,17 @@
 package controlador;
 
 import java.io.IOException;
+import java.sql.SQLException;
+
+import com.mysql.jdbc.Connection;
+import com.mysql.jdbc.ResultSet;
 
 import entidades.Dispositivos;
 import entidades.Nodo;
 import entidades.Sensores;
 import entidades.Usuario;
+import javafx.animation.Timeline;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -16,6 +22,8 @@ import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -29,11 +37,11 @@ import modelo.Sesion;
 public class Controlador_Ver_Datos {
 
 	@FXML
-	private TableView<Sensores> tblDatosSensores; // La tabla de usuarios familiares
+	private TableView<Sensores> tblDatosSensores; // La tabla de datos históricos
 	@FXML
 	private TableColumn<Sensores, Long> colNRegistro;
 	@FXML
-	private TableColumn<Sensores, Float> colDato;
+	private TableColumn<Sensores, String> colDato; // Usamos String temporalmente
 	@FXML
 	private TableColumn<Sensores, String> colTipo;
 	@FXML
@@ -46,13 +54,13 @@ public class Controlador_Ver_Datos {
 	private Label lblTipoCuenta;
 	@FXML
 	private CategoryAxis xAxis;
-
 	@FXML
 	private NumberAxis yAxis;
 
+	private Timeline timeline;
+
 	@FXML
 	void initialize() {
-		// Initialize the controller
 		Usuario usuarioActual = Sesion.getInstancia().getUsuarioActual();
 		if (usuarioActual != null) {
 			String username = usuarioActual.getUsername();
@@ -62,13 +70,20 @@ public class Controlador_Ver_Datos {
 		}
 
 		Dispositivos dispositivo = DispositivosManager.getDispositivoSeleccionado();
-		this.colNRegistro.setCellValueFactory(new PropertyValueFactory<>("orden_registro"));
-		this.colDato.setCellValueFactory(new PropertyValueFactory<>("dato_actual"));
-		this.colTipo.setCellValueFactory(new PropertyValueFactory<>("tipo"));
-		this.colId.setCellValueFactory(new PropertyValueFactory<>("id_sensor"));
+		this.colNRegistro.setCellValueFactory(new PropertyValueFactory<>("id_sensor")); // Temporalmente usamos
+																						// id_sensor
+		this.colDato.setCellValueFactory(new PropertyValueFactory<>("descripcion")); // Temporalmente usamos descripcion
 		cargarSensoresDelDispositivo(dispositivo);
-		cargarDatosEnGrafico();
+		cargarDatosEnGrafico(dispositivo.getId_sensor());
+		cargarDatosEnTabla(dispositivo.getId_sensor());
 		estilizarGrafico(dispositivo);
+
+		/**
+		 * // Configurar el Timeline para actualizar cada 3 segundos timeline = new
+		 * Timeline(new KeyFrame(Duration.seconds(3), event -> {
+		 * actualizarDatos(dispositivo.getId_sensor()); }));
+		 * timeline.setCycleCount(Timeline.INDEFINITE); timeline.play();
+		 */
 	}
 
 	private void cargarSensoresDelDispositivo(Dispositivos dispositivoSeleccionado) {
@@ -90,58 +105,90 @@ public class Controlador_Ver_Datos {
 		tblDatosSensores.setItems(sensoresRelacionados);
 	}
 
-	private void cargarDatosEnGrafico() {
-		try {
-			barChart.getData().clear(); // Limpia los datos antiguos del gr�fico
-			XYChart.Series<String, Number> series = new XYChart.Series<>();
-			series.setName("Recopilación"); // Nombre de la serie
+	private void cargarDatosEnGrafico(long sensorId) {
+		ObservableList<XYChart.Data<String, Number>> datos = DispositivosManager.cargarDatosEnGrafico(sensorId);
 
-			// Crear un punto de datos para cada sensor y a�adirlo a la serie
-			for (Sensores sensor : tblDatosSensores.getItems()) {
-				XYChart.Data<String, Number> data = new XYChart.Data<>(String.valueOf(sensor.getOrden_registro()),
-						sensor.getDato_actual());
-				series.getData().add(data);
-			}
+		barChart.getData().clear(); // Limpia los datos antiguos del gráfico
+		XYChart.Series<String, Number> series = new XYChart.Series<>();
+		series.setName("Recopilación"); // Nombre de la serie
 
-			// A�ade la serie al gr�fico despu�s de haber agregado todos los datos
-			barChart.getData().add(series);
+		series.getData().addAll(datos);
 
-			// Estilizar las barras despu�s de que se han a�adido al gr�fico
-			barChart.lookupAll(".data0").forEach(bar -> bar.setStyle("-fx-bar-fill: navy;")); // Ajusta el color como
-																								// desees
+		// Añade la serie al gráfico después de haber agregado todos los datos
+		barChart.getData().add(series);
 
-			// Ajustar el ancho de las barras
-			barChart.setCategoryGap(10);
-			barChart.setBarGap(3);
+		// Estilizar las barras después de que se han añadido al gráfico
+		barChart.lookupAll(".data0").forEach(bar -> bar.setStyle("-fx-bar-fill: navy;")); // Ajusta el color como
+																							// desees
 
-		} catch (NullPointerException e) {
-			e.printStackTrace();
-			// Manejo adicional del error o log
+		// Ajustar el ancho de las barras
+		barChart.setCategoryGap(10);
+		barChart.setBarGap(3);
+
+		// Configurar el rango del eje Y
+		yAxis.setAutoRanging(false);
+		yAxis.setLowerBound(0);
+		yAxis.setUpperBound(100);
+		yAxis.setTickUnit(10);
+	}
+
+	private void cargarDatosEnTabla(long sensorId) {
+		ObservableList<Sensores> historicoDatos = DispositivosManager.cargarDatosEnTabla(sensorId);
+
+		if (historicoDatos.isEmpty()) { // Verifica si el ResultSet está vacío
+			mostrarMensajeDesconexion(sensorId);
+			return;
+		}
+
+		// Establecer los datos en la tabla
+		tblDatosSensores.setItems(historicoDatos);
+	}
+
+	private void mostrarMensajeDesconexion(long sensorId) {
+		Sensores sensor = DispositivosManager.buscarSensorPorId(sensorId);
+		if (sensor != null) {
+			Platform.runLater(() -> {
+				Alert alert = new Alert(AlertType.WARNING);
+				alert.setTitle("Sensor Desconectado");
+				alert.setHeaderText(null);
+				alert.setContentText("Sensor desconectado: hay que conectar el sensor de tipo: " + sensor.getTipo()
+						+ " y ID: " + sensor.getId_sensor() + " para que tome los datos.");
+				alert.showAndWait();
+			});
+		} else {
+			Platform.runLater(() -> {
+				Alert alert = new Alert(AlertType.ERROR);
+				alert.setTitle("Sensor No Encontrado");
+				alert.setHeaderText(null);
+				alert.setContentText("El sensor con ID: " + sensorId + " no fue encontrado en la base de datos.");
+				alert.showAndWait();
+			});
 		}
 	}
 
+	/**
+	 * private void actualizarDatos(long sensorId) { cargarDatosEnGrafico(sensorId);
+	 * cargarDatosEnTabla(sensorId); }
+	 */
 	private void estilizarGrafico(Dispositivos dispositivo) {
-
 		switch (dispositivo.getTipo()) {
 		case "Aire":
 			yAxis.setLabel("Temperatura (ºC)");
 			break;
-		case "Puerta":
-			yAxis.setLabel("Movimiento");
+		case "Humidificador":
+			yAxis.setLabel("Humedad (%)");
 			break;
 		case "Luz":
 			yAxis.setLabel("Luminosidad (%)");
 			break;
 		case "Persiana":
-			yAxis.setLabel("Posicionamiento");
+			yAxis.setLabel("Distancia (cm)");
 			break;
 		default:
 			yAxis.setLabel("Valor");
 			break;
 		}
 		xAxis.setLabel("Datos de Sensores");
-
-		// Otras personalizaciones...
 	}
 
 	@FXML
@@ -163,7 +210,6 @@ public class Controlador_Ver_Datos {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
 	}
 
 	@FXML
@@ -186,6 +232,5 @@ public class Controlador_Ver_Datos {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
 	}
 }

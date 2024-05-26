@@ -130,7 +130,6 @@ public class Controlador_Interfaz_Editar_Perfil {
 						alerta.setHeaderText(null);
 						alerta.setContentText("Conntrase�a actualizada");
 						usuarioActual.setPassword(nuevaPass);
-						usuarioActual.setRepetirPass(nuevaPass);
 						passNueva.setText("");
 						passRepetirNuevaPass.setText("");
 

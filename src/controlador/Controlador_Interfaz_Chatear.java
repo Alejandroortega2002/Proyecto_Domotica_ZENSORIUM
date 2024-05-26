@@ -1,26 +1,14 @@
 package controlador;
 
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.sql.Timestamp;
-import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
 
-import com.mysql.jdbc.PreparedStatement;
-
 import applications.ConexionDB;
-import entidades.Reporte;
 import entidades.Conversacion;
 import entidades.Nodo;
 import entidades.Usuario;
@@ -33,7 +21,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -121,7 +108,8 @@ public class Controlador_Interfaz_Chatear {
 
 			// Obtener la conversación completa entre el usuario logueado y el usuario
 			// seleccionado
-			String conversacionCompleta = obtenerConversacionCompleta(idUsuarioLogueado, idUsuarioSeleccionado);
+			String conversacionCompleta = ConversacionManager.obtenerConversacionCompleta(idUsuarioLogueado,
+					idUsuarioSeleccionado);
 
 			// Mostrar la conversación en el TextArea
 			txtAreaDescripcion.setText(conversacionCompleta);
@@ -181,8 +169,9 @@ public class Controlador_Interfaz_Chatear {
 				String nombreUsuario = usuarioActual.getUsername();
 				DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"); // Formato de fecha
 				String fechaFormateada = LocalDateTime.now().format(formatter); // Formatear la fecha actual
-				String mensajeConFecha = nombreUsuario + " - " + fechaFormateada + ": \n " + mensaje; // Incluye la fecha
-																									// en el mensaje
+				String mensajeConFecha = nombreUsuario + " - " + fechaFormateada + ": \n " + mensaje; // Incluye la
+																										// fecha
+																										// en el mensaje
 				txtAreaDescripcion.appendText(mensajeConFecha); // Agrega el mensaje al TextArea
 				textFieldMensaje.clear(); // Limpiar el TextField después de enviar el mensaje
 
@@ -197,39 +186,6 @@ public class Controlador_Interfaz_Chatear {
 				alert.showAndWait();
 			}
 		}
-	}
-
-	private String obtenerConversacionCompleta(long idUsuarioLogueado, long idUsuarioSeleccionado) {
-		StringBuilder conversacionCompleta = new StringBuilder();
-		String query = "SELECT c.texto, c.fecha_envio, u1.username AS emisor, u2.username AS receptor "
-				+ "FROM conversaciones c " + "JOIN usuario u1 ON c.id_e = u1.id_user "
-				+ "JOIN usuario u2 ON c.id_r = u2.id_user "
-				+ "WHERE (c.id_e = ? AND c.id_r = ?) OR (c.id_e = ? AND c.id_r = ?) " + "ORDER BY c.fecha_envio";
-		try (Connection conexion = ConexionDB.obtenerConexion();
-				PreparedStatement stmt = (PreparedStatement) conexion.prepareStatement(query)) {
-			stmt.setLong(1, idUsuarioLogueado);
-			stmt.setLong(2, idUsuarioSeleccionado);
-			stmt.setLong(3, idUsuarioSeleccionado);
-			stmt.setLong(4, idUsuarioLogueado);
-			try (ResultSet rs = stmt.executeQuery()) {
-				while (rs.next()) {
-					String emisor = rs.getString("emisor");
-					String texto = rs.getString("texto");
-
-					// Verificar si el mensaje no está en blanco antes de agregarlo
-					if (!texto.isEmpty()) {
-						Timestamp fechaEnvio = rs.getTimestamp("fecha_envio");
-						SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-						String fechaFormateada = dateFormat.format(fechaEnvio);
-						conversacionCompleta.append(emisor).append(" - ").append(fechaFormateada).append(": \n")
-								.append(texto).append("\n");
-					}
-				}
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return conversacionCompleta.toString();
 	}
 
 	private void iniciarHiloActualizacionChat() {
@@ -254,8 +210,8 @@ public class Controlador_Interfaz_Chatear {
 
 								// Obtener la conversación completa entre el usuario logueado y el usuario
 								// seleccionado
-								String conversacionCompleta = obtenerConversacionCompleta(idUsuarioLogueado,
-										idUsuarioSeleccionado);
+								String conversacionCompleta = ConversacionManager
+										.obtenerConversacionCompleta(idUsuarioLogueado, idUsuarioSeleccionado);
 
 								// Mostrar la conversación en el TextArea
 								txtAreaDescripcion.setText(conversacionCompleta);
@@ -273,8 +229,8 @@ public class Controlador_Interfaz_Chatear {
 		hilo.start();
 	}
 
-///////////////////////////////////////////////////////////////////////////////////////////////////
-///////////////////////////////////////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////////////////////////////////////
 	@FXML
 	private void irMenuPerfil(MouseEvent event) throws IOException {
 		try {

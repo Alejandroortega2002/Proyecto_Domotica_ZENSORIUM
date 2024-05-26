@@ -5,6 +5,7 @@ import java.io.IOException;
 import entidades.Dispositivos;
 import entidades.Nodo;
 import entidades.Relaciones;
+import entidades.Sensores;
 import entidades.Usuario;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -87,11 +88,13 @@ public class Controlador_InterfazDispositivos {
 
 	@FXML
 	private void seleccionarDispositivo(MouseEvent event) {
-		// Obtén el dispo seleccionado y actualiza el txtnombredispo
+		// Obtï¿½n el dispo seleccionado y actualiza el txtnombredispo
 		Dispositivos dispoSeleccionado = tablaDsipositivos.getSelectionModel().getSelectedItem();
 		if (dispoSeleccionado != null) {
 			txtFieldNombreDispo.setText(dispoSeleccionado.getNombre());
-			txtFieldNombreSensorRelacionado.setText(String.valueOf(dispoSeleccionado.getId_sensor()));
+			long idSeleccionado = dispoSeleccionado.getId_sensor();
+			Sensores sensorAsociado = DispositivosManager.buscarSensorPorId(idSeleccionado);
+			txtFieldNombreSensorRelacionado.setText(String.valueOf(sensorAsociado.getTipo()));
 			DispositivosManager.setDispositivoSeleccionado(dispoSeleccionado);
 
 		}
@@ -107,7 +110,7 @@ public class Controlador_InterfazDispositivos {
 	private void cargarDispositivosDeUsuarioYRelacionados(long idUsuario, ObservableList<Dispositivos> dispos,
 			ListaEnlazada<Long> usuariosProcesados) {
 		if (contieneUsuario(usuariosProcesados, idUsuario)) {
-			return; // Evitar procesar el mismo usuario más de una vez
+			return; // Evitar procesar el mismo usuario mï¿½s de una vez
 		}
 		usuariosProcesados.insertarAlFinal(new Nodo<>(idUsuario));
 

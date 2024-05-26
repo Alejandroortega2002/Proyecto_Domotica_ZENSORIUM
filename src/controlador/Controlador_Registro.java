@@ -80,8 +80,7 @@ public class Controlador_Registro {
 
 					if (password.equals(repetirPass)) {
 						long nuevoId = RegistroManager.obtenerNuevoId();
-						Usuario nuevoUsuario = new Usuario(nuevoId, username, email, password, repetirPass,
-								tipoDecuenta);
+						Usuario nuevoUsuario = new Usuario(nuevoId, username, email, password, tipoDecuenta);
 						if (RegistroManager.registrarUsuario(nuevoUsuario)) {
 							try {
 								FXMLLoader loader = new FXMLLoader(
@@ -112,12 +111,12 @@ public class Controlador_Registro {
 
 					} else {
 						Error_Label_Registro.setVisible(true);
-						Error_Label_Registro.setText("La contraseñas no coinciden.");
+						Error_Label_Registro.setText("La contraseÃ±as no coinciden.");
 					}
 
 				} else {
 					Error_Label_Registro.setVisible(true);
-					Error_Label_Registro.setText("La contraseña no es segura.");
+					Error_Label_Registro.setText("La contraseÃ±a no es segura.");
 				}
 
 			} else {
@@ -126,21 +125,21 @@ public class Controlador_Registro {
 			}
 
 		} else {
-			// Mostrar mensaje de error si los campos están vacíos.
+			// Mostrar mensaje de error si los campos estï¿½n vacï¿½os.
 			Error_Label_Registro.setVisible(true);
-			Error_Label_Registro.setText("Hay campos vacíos o no se seleccionó un tipo de cuenta.");
+			Error_Label_Registro.setText("Hay campos vacï¿½os o no se seleccionï¿½ un tipo de cuenta.");
 		}
 	}
 
 	@FXML
 	public void btnRegistrarte(MouseEvent event) throws IOException {
-		// Implementa la lógica para cerrar la aplicación
+		// Implementa la lï¿½gica para cerrar la aplicaciï¿½n
 		registrarUsuario();
 	}
 
 	@FXML
 	public void cerrarApp(MouseEvent event) {
-		// Implementa la lógica para cerrar la aplicación
+		// Implementa la lï¿½gica para cerrar la aplicaciï¿½n
 		System.exit(0);
 	}
 
@@ -173,14 +172,14 @@ public class Controlador_Registro {
 
 	public boolean contrasenaSegura(String contrasena) {
 
-		if (contrasena.length() > 8) { // una contraseña tiene más de 12 caracteres.
+		if (contrasena.length() >= 8) { // una contraseï¿½a tiene mï¿½s de igual o mayor a 8 caracteres.
 			boolean mayuscula = false;
 			boolean numero = false;
 			boolean letraOsimbolo = false;
 			boolean especial = false;
 
 			// Define caracteres especiales
-			Pattern special = Pattern.compile("[?!¡@¿.,´)]");
+			Pattern special = Pattern.compile("[?!ï¿½@ï¿½.,ï¿½)]");
 			Matcher hasSpecial = special.matcher(contrasena);
 
 			int i;
@@ -189,13 +188,13 @@ public class Controlador_Registro {
 			for (i = 0; i < contrasena.length(); i++) {
 				l = contrasena.charAt(i);
 
-				if (Character.isDigit(l)) {// mínimo un número.
+				if (Character.isDigit(l)) {// mï¿½nimo un nï¿½mero.
 					numero = true;
 				}
-				if (Character.isLetter(l)) {// contiene letras o símbolos (?!¡@¿.,´)
+				if (Character.isLetter(l)) {// contiene letras o sï¿½mbolos (?!ï¿½@ï¿½.,ï¿½)
 					letraOsimbolo = true;
 				}
-				if (Character.isUpperCase(l)) { // mínimo una letra mayúscula
+				if (Character.isUpperCase(l)) { // mï¿½nimo una letra mayï¿½scula
 					mayuscula = true;
 				}
 				if (hasSpecial.find()) { // Valida "caracteres especiales".

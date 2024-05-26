@@ -6,9 +6,12 @@ import entidades.Usuario;
 import java.sql.*;
 import javax.swing.JOptionPane;
 
+import org.mindrot.jbcrypt.BCrypt;
+
 import applications.ConexionDB;
 
 public class RegistroManager {
+
 	// Métodos para manejar usuarios
 	public static ListaEnlazada<Usuario> cargarUsuarios() {
 		ListaEnlazada<Usuario> usuarios = new ListaEnlazada<>();
@@ -18,7 +21,7 @@ public class RegistroManager {
 			ResultSet rs = stmt.executeQuery();
 			while (rs.next()) {
 				Usuario usuario = new Usuario(rs.getLong("id_user"), rs.getString("username"), rs.getString("email"),
-						rs.getString("password"), rs.getString("repetirPass"), rs.getString("tipodecuenta"));
+						rs.getString("password"), rs.getString("tipodecuenta"));
 				usuarios.insertarAlFinal(new Nodo<>(usuario));
 			}
 		} catch (SQLException ex) {
@@ -27,54 +30,76 @@ public class RegistroManager {
 		return usuarios;
 	}
 
-	public static void guardarUsuarios(ListaEnlazada<Usuario> usuarios) {
-		try (Connection conexion = ConexionDB.obtenerConexion()) {
-			String query = "INSERT INTO usuario (id_user, username, email, password, repetirPass, tipodecuenta) "
-					+ "VALUES (?, ?, ?, ?, ?, ?) "
-					+ "ON DUPLICATE KEY UPDATE username=VALUES(username), email=VALUES(email), "
-					+ "password=VALUES(password), repetirPass=VALUES(repetirPass), tipodecuenta=VALUES(tipodecuenta)";
-			PreparedStatement stmt = conexion.prepareStatement(query);
-			Nodo<Usuario> actual = usuarios.getCabeza();
-			while (actual != null) {
-				Usuario usuario = actual.getDato();
-				stmt.setLong(1, usuario.getId_user());
-				stmt.setString(2, usuario.getUsername());
-				stmt.setString(3, usuario.getEmail());
-				stmt.setString(4, usuario.getPassword());
-				stmt.setString(5, usuario.getRepetirPass());
-				stmt.setString(6, usuario.getTipodecuenta());
-				stmt.executeUpdate();
-				actual = actual.getEnlace();
-			}
+	public static void guardarUsuario(Usuario usuario) {
+		// Encriptar la contraseña utilizando jBCrypt
+		String encryptedPassword = BCrypt.hashpw(usuario.getPassword(), BCrypt.gensalt());
+
+		String query = "INSERT INTO usuario (id_user, username, email, password, tipodecuenta) "
+				+ "VALUES (?, ?, ?, ?, ?) " + "ON DUPLICATE KEY UPDATE username=VALUES(username), email=VALUES(email), "
+				+ "password=VALUES(password), tipodecuenta=VALUES(tipodecuenta)";
+
+		try (Connection conexion = ConexionDB.obtenerConexion();
+				PreparedStatement stmt = conexion.prepareStatement(query)) {
+			stmt.setLong(1, usuario.getId_user());
+			stmt.setString(2, usuario.getUsername());
+			stmt.setString(3, usuario.getEmail());
+			stmt.setString(4, encryptedPassword);
+			stmt.setString(5, usuario.getTipodecuenta());
+			stmt.executeUpdate();
 		} catch (SQLException ex) {
-			JOptionPane.showMessageDialog(null, "Error al guardar usuarios: " + ex.getMessage());
+			JOptionPane.showMessageDialog(null, "Error al guardar usuario: " + ex.getMessage());
 		}
 	}
 
+	public static boolean verificarUsuario(String email, String password) {
+		String query = "SELECT password FROM usuario WHERE email = ?";
+
+		try (Connection conexion = ConexionDB.obtenerConexion();
+				PreparedStatement stmt = conexion.prepareStatement(query)) {
+			stmt.setString(1, email);
+			try (ResultSet rs = stmt.executeQuery()) {
+				if (rs.next()) {
+					String storedHashedPassword = rs.getString("password");
+					// Verificar la contraseña utilizando BCrypt
+					return BCrypt.checkpw(password, storedHashedPassword);
+				}
+			}
+		} catch (SQLException ex) {
+			JOptionPane.showMessageDialog(null, "Error al verificar usuario: " + ex.getMessage());
+		}
+		return false; // Usuario no encontrado o contraseña incorrecta
+	}
+
 	public static boolean registrarUsuario(Usuario nuevoUsuario) {
-		ListaEnlazada<Usuario> usuarios = cargarUsuarios();
-		for (Nodo<Usuario> nodoActual = usuarios.getCabeza(); nodoActual != null; nodoActual = nodoActual.getEnlace()) {
-			Usuario usuario = nodoActual.getDato();
-			if (usuario.getUsername().equals(nuevoUsuario.getUsername())
-					|| usuario.getEmail().equals(nuevoUsuario.getEmail())) {
+		String query = "SELECT * FROM usuario WHERE username = ? OR email = ?";
+		try (Connection conexion = ConexionDB.obtenerConexion();
+				PreparedStatement stmt = conexion.prepareStatement(query)) {
+			stmt.setString(1, nuevoUsuario.getUsername());
+			stmt.setString(2, nuevoUsuario.getEmail());
+			ResultSet rs = stmt.executeQuery();
+			if (rs.next()) {
 				return false; // Usuario ya existe
 			}
+		} catch (SQLException ex) {
+			JOptionPane.showMessageDialog(null, "Error al registrar usuario: " + ex.getMessage());
+			return false;
 		}
-		usuarios.insertarAlFinal(new Nodo<>(nuevoUsuario));
-		guardarUsuarios(usuarios);
+		guardarUsuario(nuevoUsuario);
 		return true;
 	}
 
 	public static long obtenerNuevoId() {
-		ListaEnlazada<Usuario> usuarios = cargarUsuarios();
-		long idMasAlto = 0;
-		for (Nodo<Usuario> nodoActual = usuarios.getCabeza(); nodoActual != null; nodoActual = nodoActual.getEnlace()) {
-			Usuario usuario = nodoActual.getDato();
-			if (usuario.getId_user() > idMasAlto) {
-				idMasAlto = usuario.getId_user();
+		String query = "SELECT MAX(id_user) AS max_id FROM usuario";
+		try (Connection conexion = ConexionDB.obtenerConexion();
+				PreparedStatement stmt = conexion.prepareStatement(query)) {
+			ResultSet rs = stmt.executeQuery();
+			if (rs.next()) {
+				return rs.getLong("max_id") + 1;
 			}
+		} catch (SQLException ex) {
+			JOptionPane.showMessageDialog(null, "Error al obtener nuevo ID: " + ex.getMessage());
 		}
-		return idMasAlto + 1;
+		return 1; // Si no hay usuarios, el primer ID será 1
 	}
 
 	// Método para cargar relaciones en una lista enlazada
@@ -95,28 +120,29 @@ public class RegistroManager {
 		return relaciones;
 	}
 
-	// Método para verificar si una relación ya existe en la lista enlazada
-	private static boolean relacionExiste(ListaEnlazada<Relaciones> relaciones, Relaciones nuevaRelacion) {
-		for (Nodo<Relaciones> nodo = relaciones.getCabeza(); nodo != null; nodo = nodo.getEnlace()) {
-			Relaciones rel = nodo.getDato();
-			if ((rel.getTu_id() == nuevaRelacion.getTu_id()
-					&& rel.getId_user_relacion() == nuevaRelacion.getId_user_relacion())
-					|| (rel.getTu_id() == nuevaRelacion.getId_user_relacion()
-							&& rel.getId_user_relacion() == nuevaRelacion.getTu_id())) {
-				return true;
-			}
+	// Método para verificar si una relación ya existe en la base de datos
+	public static boolean relacionExiste(long idUserLogeado, long idUserRelacion) {
+		String query = "SELECT * FROM relaciones WHERE (id_user_logeado = ? AND id_user_relacion = ?) OR (id_user_logeado = ? AND id_user_relacion = ?)";
+		try (Connection conexion = ConexionDB.obtenerConexion();
+				PreparedStatement stmt = conexion.prepareStatement(query)) {
+			stmt.setLong(1, idUserLogeado);
+			stmt.setLong(2, idUserRelacion);
+			stmt.setLong(3, idUserRelacion);
+			stmt.setLong(4, idUserLogeado);
+			ResultSet rs = stmt.executeQuery();
+			return rs.next();
+		} catch (SQLException ex) {
+			JOptionPane.showMessageDialog(null, "Error al verificar relación: " + ex.getMessage());
 		}
 		return false;
 	}
 
 	// Método para agregar una nueva relación entre usuarios
 	public static boolean guardarRelacion(Relaciones nuevaRelacion) {
-		ListaEnlazada<Relaciones> relaciones = cargarRelaciones();
-		if (!relacionExiste(relaciones, nuevaRelacion)) {
+		if (!relacionExiste(nuevaRelacion.getTu_id(), nuevaRelacion.getId_user_relacion())) {
 			String query = "INSERT INTO relaciones (id_user_logeado, id_user_relacion, tipo_relacion) VALUES (?, ?, ?)";
 			try (Connection conexion = ConexionDB.obtenerConexion();
 					PreparedStatement stmt = conexion.prepareStatement(query)) {
-
 				stmt.setLong(1, nuevaRelacion.getTu_id());
 				stmt.setLong(2, nuevaRelacion.getId_user_relacion());
 				stmt.setString(3, nuevaRelacion.getTipo_relacion());
@@ -129,75 +155,55 @@ public class RegistroManager {
 		return false;
 	}
 
+	// Método para verificar si una relación ya existe
 	public static boolean verificarRelacionExistente(long idUsuario1, long idUsuario2) {
-		ListaEnlazada<Relaciones> relacionesExistentes = cargarRelaciones();
-		for (Nodo<Relaciones> nodoActual = relacionesExistentes.getCabeza(); nodoActual != null; nodoActual = nodoActual
-				.getEnlace()) {
-			Relaciones rel = nodoActual.getDato();
-			if ((rel.getTu_id() == idUsuario1 && rel.getId_user_relacion() == idUsuario2)
-					|| (rel.getTu_id() == idUsuario2 && rel.getId_user_relacion() == idUsuario1)) {
-				return true;
-			}
-		}
-		return false;
+		return relacionExiste(idUsuario1, idUsuario2);
 	}
 
 	// Métodos adicionales para la gestión de usuarios y relaciones
 	public static boolean modificarUsuario(Long idUsuario, String nombreNuevoUsuario, String correoNuevoUsuario) {
-		ListaEnlazada<Usuario> usuarios = cargarUsuarios();
-		boolean usuarioModificado = false;
-		Nodo<Usuario> nodoActual = usuarios.getCabeza();
-
-		while (nodoActual != null) {
-			Usuario usuarioActual = nodoActual.getDato();
-			if (usuarioActual.getId_user() == idUsuario) {
-				usuarioActual.setUsername(nombreNuevoUsuario);
-				usuarioActual.setEmail(correoNuevoUsuario);
-				usuarioModificado = true;
-				break;
-			}
-			nodoActual = nodoActual.getEnlace();
+		String query = "UPDATE usuario SET username = ?, email = ? WHERE id_user = ?";
+		try (Connection conexion = ConexionDB.obtenerConexion();
+				PreparedStatement stmt = conexion.prepareStatement(query)) {
+			stmt.setString(1, nombreNuevoUsuario);
+			stmt.setString(2, correoNuevoUsuario);
+			stmt.setLong(3, idUsuario);
+			int result = stmt.executeUpdate();
+			return result > 0;
+		} catch (SQLException ex) {
+			JOptionPane.showMessageDialog(null, "Error al modificar usuario: " + ex.getMessage());
 		}
-
-		if (usuarioModificado) {
-			guardarUsuarios(usuarios);
-		}
-		return usuarioModificado;
+		return false;
 	}
 
 	public static boolean actualizarPassword(Long idUsuario, String nuevaPass) {
-		ListaEnlazada<Usuario> usuarios = cargarUsuarios();
-		boolean passwordActualizado = false;
-		Nodo<Usuario> nodoActual = usuarios.getCabeza();
-
-		while (nodoActual != null) {
-			Usuario usuarioActual = nodoActual.getDato();
-			if (usuarioActual.getId_user() == idUsuario) {
-				usuarioActual.setPassword(nuevaPass);
-				usuarioActual.setRepetirPass(nuevaPass);
-				passwordActualizado = true;
-				break;
-			}
-			nodoActual = nodoActual.getEnlace();
+		String query = "UPDATE usuario SET password = ?, WHERE id_user = ?";
+		try (Connection conexion = ConexionDB.obtenerConexion();
+				PreparedStatement stmt = conexion.prepareStatement(query)) {
+			stmt.setString(1, nuevaPass);
+			stmt.setLong(2, idUsuario);
+			int result = stmt.executeUpdate();
+			return result > 0;
+		} catch (SQLException ex) {
+			JOptionPane.showMessageDialog(null, "Error al actualizar contraseña: " + ex.getMessage());
 		}
-
-		if (passwordActualizado) {
-			guardarUsuarios(usuarios);
-		}
-		return passwordActualizado;
+		return false;
 	}
 
 	public static Usuario buscarUsuarioPorId(long idUsuario) {
-		ListaEnlazada<Usuario> usuarios = cargarUsuarios();
-		Nodo<Usuario> nodoActual = usuarios.getCabeza();
-		while (nodoActual != null) {
-			Usuario usuario = nodoActual.getDato();
-			if (usuario.getId_user() == idUsuario) {
-				return usuario; // Usuario encontrado
+		String query = "SELECT * FROM usuario WHERE id_user = ?";
+		try (Connection conexion = ConexionDB.obtenerConexion();
+				PreparedStatement stmt = conexion.prepareStatement(query)) {
+			stmt.setLong(1, idUsuario);
+			ResultSet rs = stmt.executeQuery();
+			if (rs.next()) {
+				return new Usuario(rs.getLong("id_user"), rs.getString("username"), rs.getString("email"),
+						rs.getString("password"), rs.getString("tipodecuenta"));
 			}
-			nodoActual = nodoActual.getEnlace();
+		} catch (SQLException ex) {
+			JOptionPane.showMessageDialog(null, "Error al buscar usuario: " + ex.getMessage());
 		}
-		return null; // Usuario no encontrado
+		return null;
 	}
 
 	public static ListaEnlazada<Relaciones> cargarRelacionesPorUsuario(long idUsuario) {

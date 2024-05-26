@@ -8,17 +8,14 @@ public class Usuario implements Serializable {
 	private String username;
 	private String email;
 	private String password;
-	private String repetirPass;
 	private String tipodecuenta;
 
-	public Usuario(long id_user, String username, String email, String password, String repetirPass,
-			String tipodecuenta) {
+	public Usuario(long id_user, String username, String email, String password, String tipodecuenta) {
 		super();
 		this.id_user = id_user;
 		this.username = username;
 		this.email = email;
 		this.password = password;
-		this.repetirPass = repetirPass;
 		this.tipodecuenta = tipodecuenta;
 	}
 
@@ -52,14 +49,6 @@ public class Usuario implements Serializable {
 
 	public void setPassword(String password) {
 		this.password = password;
-	}
-
-	public String getRepetirPass() {
-		return repetirPass;
-	}
-
-	public void setRepetirPass(String repetirPass) {
-		this.repetirPass = repetirPass;
 	}
 
 	public String getTipodecuenta() {

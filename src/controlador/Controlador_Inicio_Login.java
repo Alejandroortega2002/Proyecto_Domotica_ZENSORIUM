@@ -2,6 +2,8 @@ package controlador;
 
 import java.io.IOException;
 
+import org.mindrot.jbcrypt.BCrypt;
+
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 
@@ -55,13 +57,14 @@ public class Controlador_Inicio_Login {
 		// Cargar la lista de usuarios desde el archivo JSON
 		ListaEnlazada<Usuario> usuarios = RegistroManager.cargarUsuarios();
 
-		// Verificar si las credenciales coinciden con algun usuario registrado
+		// Verificar si las credenciales coinciden con algún usuario registrado
 		Nodo<Usuario> nodoActual = usuarios.getCabeza();
 		while (nodoActual != null) {
 			Usuario usuario = nodoActual.getDato();
-			if (usuario.getEmail().equals(email) && usuario.getPassword().equals(password)) {
+			// Comprobar el email y la contraseña encriptada
+			if (usuario.getEmail().equals(email) && BCrypt.checkpw(password, usuario.getPassword())) {
 				Sesion.getInstancia().setUsuarioActual(usuario);
-				return true; // Credenciales validas
+				return true; // Credenciales válidas
 			}
 			nodoActual = nodoActual.getEnlace();
 		}

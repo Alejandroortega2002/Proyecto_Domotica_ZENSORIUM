@@ -1,9 +1,6 @@
 package controlador;
 
 import java.io.IOException;
-
-import java.util.Random;
-
 import entidades.Dispositivos;
 import entidades.Nodo;
 import entidades.Relaciones;
@@ -38,7 +35,8 @@ public class Controlador_Interfaz_Administrar_Dispositivos {
 	@FXML
 	private ComboBox<String> tipoDispositivo;
 
-	ObservableList<String> listaTipoDeDispo = FXCollections.observableArrayList("Aire", "Puerta", "Luz", "Persiana");
+	ObservableList<String> listaTipoDeDispo = FXCollections.observableArrayList("Aire", "Humidificador", "Luz",
+			"Persiana");
 
 	@FXML
 	private TextField txtNombreDispo;
@@ -60,7 +58,6 @@ public class Controlador_Interfaz_Administrar_Dispositivos {
 
 	@FXML
 	public void initialize() {
-
 		Usuario usuarioActual = Sesion.getInstancia().getUsuarioActual();
 		if (usuarioActual != null) {
 			String username = usuarioActual.getUsername();
@@ -74,12 +71,10 @@ public class Controlador_Interfaz_Administrar_Dispositivos {
 		this.columnaIdSensor.setCellValueFactory(new PropertyValueFactory<>("id_sensor"));
 		cargarDispositivos(usuarioActual.getId_user());
 		tipoDispositivo.setItems(listaTipoDeDispo);
-
 	}
 
 	@FXML
 	private void seleccionarDispositivo() {
-		// Obt�n el dispo seleccionado y actualiza el txtnombredispo
 		Dispositivos dispoSeleccionado = tableAdministrarDispos.getSelectionModel().getSelectedItem();
 		if (dispoSeleccionado != null) {
 			lblNombreDispoSelec.setText(dispoSeleccionado.getNombre());
@@ -97,18 +92,16 @@ public class Controlador_Interfaz_Administrar_Dispositivos {
 	private void cargarDispositivosDeUsuarioYRelacionados(long idUsuario, ObservableList<Dispositivos> dispos,
 			ListaEnlazada<Long> usuariosProcesados) {
 		if (contieneUsuario(usuariosProcesados, idUsuario)) {
-			return; // Evitar procesar el mismo usuario m�s de una vez
+			return;
 		}
 		usuariosProcesados.insertarAlFinal(new Nodo<>(idUsuario));
 
-		// Cargar dispositivos del usuario actual
 		ListaEnlazada<Dispositivos> dispositivosUsuario = DispositivosManager.cargarDispositivosPorUsuario(idUsuario);
 		for (Nodo<Dispositivos> nodo = dispositivosUsuario.getCabeza(); nodo != null; nodo = nodo.getEnlace()) {
 			Dispositivos dispositivo = nodo.getDato();
 			agregarSiNoEstaDuplicado(dispos, dispositivo);
 		}
 
-		// Cargar dispositivos de usuarios relacionados
 		ListaEnlazada<Relaciones> relaciones = RegistroManager.cargarRelacionesPorUsuario(idUsuario);
 		for (Nodo<Relaciones> nodoRel = relaciones.getCabeza(); nodoRel != null; nodoRel = nodoRel.getEnlace()) {
 			Relaciones relacion = nodoRel.getDato();
@@ -133,7 +126,7 @@ public class Controlador_Interfaz_Administrar_Dispositivos {
 		}
 	}
 
-	@FXML 
+	@FXML
 	private void anadirDsipositivo() throws IOException {
 		Usuario usuarioActual = Sesion.getInstancia().getUsuarioActual();
 		String Tipo = tipoDispositivo.getValue();
@@ -143,11 +136,10 @@ public class Controlador_Interfaz_Administrar_Dispositivos {
 		long id_usu_relacionado = usuarioActual.getId_user();
 
 		if (Tipo != null && !Nombre.isEmpty() && !Tipo.isEmpty()) {
-
-			Dispositivos nuevoUsuario = new Dispositivos(id_dispo, id_sensor, id_usu_relacionado, false, Tipo, Nombre);
-			if (DispositivosManager.registrarDispos(nuevoUsuario)) {
-				// hacer alerta de dispo a�adido
-				System.out.println(nuevoUsuario.toString());
+			Dispositivos nuevoDispositivo = new Dispositivos(id_dispo, id_sensor, id_usu_relacionado, false, Tipo,
+					Nombre);
+			if (DispositivosManager.registrarDispos(nuevoDispositivo)) {
+				System.out.println(nuevoDispositivo.toString());
 				Error_Label_Registro.setVisible(false);
 				cargarDispositivos(usuarioActual.getId_user());
 			} else {
@@ -163,40 +155,22 @@ public class Controlador_Interfaz_Administrar_Dispositivos {
 	private long anadirSensorDispo(String tipo) {
 		String tipoSensor;
 		long id_sensor = 0;
-		Random random = new Random();
-
 		switch (tipo) {
 		case "Aire":
 			tipoSensor = "Temperatura";
-			id_sensor = DispositivosManager.crearSensor(0, "Sensor de Temperatura", tipoSensor);
-			for (int i = 0; i < 20; i++) {
-				float datoTemperatura = 12.0f + random.nextFloat() * 20.0f;
-				DispositivosManager.crearSensorConId(id_sensor, datoTemperatura, "Sensor de Temperatura", tipoSensor);
-			}
+			id_sensor = DispositivosManager.crearSensor("Sensor de Temperatura en ºC", tipoSensor);
 			break;
-		case "Puerta":
-			tipoSensor = "Movimiento";
-			id_sensor = DispositivosManager.crearSensor(0, "Sensor de Movimiento", tipoSensor);
-			for (int i = 0; i < 20; i++) {
-				float datoMovimiento = random.nextFloat() * 10.0f;
-				DispositivosManager.crearSensorConId(id_sensor, datoMovimiento, "Sensor de Movimiento", tipoSensor);
-			}
+		case "Humidificador":
+			tipoSensor = "Humedad";
+			id_sensor = DispositivosManager.crearSensor("Sensor de Humedad en %", tipoSensor);
 			break;
 		case "Luz":
 			tipoSensor = "Luz";
-			id_sensor = DispositivosManager.crearSensor(0, "Sensor de Luz", tipoSensor);
-			for (int i = 0; i < 20; i++) {
-				float datoLuz = random.nextFloat() * 100.0f;
-				DispositivosManager.crearSensorConId(id_sensor, datoLuz, "Sensor de Luz", tipoSensor);
-			}
+			id_sensor = DispositivosManager.crearSensor("Sensor de Luz en %", tipoSensor);
 			break;
 		case "Persiana":
-			tipoSensor = "Posición";
-			id_sensor = DispositivosManager.crearSensor(0, "Sensor de Posición", tipoSensor);
-			for (int i = 0; i < 20; i++) {
-				float datoPosicion = random.nextFloat() * 180.0f;
-				DispositivosManager.crearSensorConId(id_sensor, datoPosicion, "Sensor de Posición", tipoSensor);
-			}
+			tipoSensor = "Distancia";
+			id_sensor = DispositivosManager.crearSensor("Sensor de Distancia en cm", tipoSensor);
 			break;
 		default:
 			tipoSensor = "Tipo de Sensor Desconocido";
@@ -214,7 +188,6 @@ public class Controlador_Interfaz_Administrar_Dispositivos {
 	public void btnEliminar(MouseEvent event) throws IOException {
 		Dispositivos dispoSeleccionado = tableAdministrarDispos.getSelectionModel().getSelectedItem();
 		if (dispoSeleccionado != null) {
-
 			if (DispositivosManager.eliminarDispositivo(dispoSeleccionado.getNombre())) {
 				Error_Label_Registro.setVisible(false);
 				Usuario usuarioActual = Sesion.getInstancia().getUsuarioActual();
@@ -227,19 +200,15 @@ public class Controlador_Interfaz_Administrar_Dispositivos {
 	}
 
 	private void modificarDispositivo() throws IOException {
-
 		String nombre = lblNombreDispoSelec.getText();
-
 		if (!nombre.isEmpty()) {
-
 			if (DispositivosManager.modificarDispositivo(aux, nombre)) {
-				// Hacer alerta de dispositivo modificado
 				Usuario usuarioActual = Sesion.getInstancia().getUsuarioActual();
 				Error_Label_Registro.setVisible(false);
 				cargarDispositivos(usuarioActual.getId_user());
 			} else {
 				Error_Label_Registro.setVisible(true);
-				Error_Label_Registro.setText("No se encontr� el dispositivo con ese nombre");
+				Error_Label_Registro.setText("No se encontró el dispositivo con ese nombre");
 			}
 		} else {
 			Error_Label_Registro.setVisible(true);
@@ -251,7 +220,6 @@ public class Controlador_Interfaz_Administrar_Dispositivos {
 	public void btnIrModiDispo(MouseEvent event) throws IOException {
 		modificarDispositivo();
 		lblNombreDispoSelec.setText("");
-
 	}
 
 	@FXML
@@ -273,7 +241,6 @@ public class Controlador_Interfaz_Administrar_Dispositivos {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
 	}
 
 	@FXML
@@ -290,12 +257,10 @@ public class Controlador_Interfaz_Administrar_Dispositivos {
 			primaryStage.setScene(new Scene(root));
 			primaryStage.show();
 
-			Stage ventatnaActual = (Stage) lblNombreUsu.getScene().getWindow();
-			ventatnaActual.hide();
-
+			Stage ventanaActual = (Stage) lblNombreUsu.getScene().getWindow();
+			ventanaActual.hide();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
 	}
 }
