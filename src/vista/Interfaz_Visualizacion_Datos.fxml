@@ -114,20 +114,20 @@
 						<Insets left="-65.0" top="-425.0" />
 					</GridPane.margin>
 				</Label>
-            <Label fx:id="lblMedia" prefHeight="30.0" prefWidth="146.0">
+            <Label fx:id="lblMedia" prefHeight="30.0" prefWidth="63.0">
                <font>
                   <Font name="System Bold" size="20.0" />
                </font>
                <GridPane.margin>
-                  <Insets left="40.0" top="450.0" />
+                  <Insets left="160.0" top="450.0" />
                </GridPane.margin>
             </Label>
-            <Label fx:id="lblMedia1" prefHeight="30.0" prefWidth="279.0" text="Media:">
+            <Label fx:id="lblMedia1" prefHeight="30.0" prefWidth="73.0" text="Media:">
                <font>
                   <Font name="System Bold" size="20.0" />
                </font>
                <GridPane.margin>
-                  <Insets left="40.0" top="450.0" />
+                  <Insets left="-50.0" top="450.0" />
                </GridPane.margin>
             </Label>
 			</children>
