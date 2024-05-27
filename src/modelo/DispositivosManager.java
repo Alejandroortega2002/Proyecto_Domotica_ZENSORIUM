@@ -1,5 +1,5 @@
 package modelo;
-
+import java.util.*;
 import entidades.Dispositivos;
 import entidades.Nodo;
 import entidades.Sensores;
@@ -121,6 +121,37 @@ public class DispositivosManager {
 				// Asegurarse de que los valores están en el rango 0-100
 				if (valorNumerico >= 0 && valorNumerico <= 100) {
 					datos.add(new XYChart.Data<>(fecha, valorNumerico));
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			// Manejo adicional del error o log
+		} catch (NullPointerException e) {
+			e.printStackTrace();
+			// Manejo adicional del error o log
+		}
+		return datos;
+	}
+	
+	
+	
+	
+	public static List<Double>  cargarDatosMedia(long sensorId) {
+		List<Double> datos = new ArrayList<>();
+		String query = "SELECT valor_dato FROM historicodatos WHERE id_sensor = ?";
+
+		try (Connection conexion = ConexionDB.obtenerConexion();
+				PreparedStatement stmt = conexion.prepareStatement(query)) {
+
+			stmt.setLong(1, sensorId); // Establece el ID del sensor para la consulta
+			ResultSet rs = stmt.executeQuery();
+			
+			while (rs.next()) {
+				String valorDato = rs.getString("valor_dato");
+				double valorNumerico = Double.parseDouble(valorDato.replaceAll("[^0-9.]", ""));
+				// Asegurarse de que los valores están en el rango 0-100
+				if (valorNumerico >= 0 && valorNumerico <= 100) {
+					datos.add(valorNumerico);
 				}
 			}
 		} catch (SQLException e) {
