@@ -29,7 +29,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
-import modelo.ReporteManager;
 import modelo.ConversacionManager;
 import modelo.ListaEnlazada;
 import modelo.RegistroManager;
