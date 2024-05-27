@@ -119,7 +119,7 @@
                   <Font name="System Bold" size="20.0" />
                </font>
                <GridPane.margin>
-                  <Insets left="160.0" top="450.0" />
+                  <Insets left="130.0" top="450.0" />
                </GridPane.margin>
             </Label>
             <Label fx:id="lblMedia1" prefHeight="30.0" prefWidth="73.0" text="Media:">
@@ -127,7 +127,7 @@
                   <Font name="System Bold" size="20.0" />
                </font>
                <GridPane.margin>
-                  <Insets left="-50.0" top="450.0" />
+                  <Insets top="450.0" />
                </GridPane.margin>
             </Label>
 			</children>

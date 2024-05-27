@@ -116,7 +116,7 @@ public class Controlador_Ver_Datos {
 		DecimalFormat formato = new DecimalFormat("#.00");
 		String media = formato.format(a);
 
-		lblMedia.setText(media.toString());
+		lblMedia.setText(media);
 
 		// ponerlo a un textpanel
 
