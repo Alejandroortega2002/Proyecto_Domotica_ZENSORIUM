@@ -2,6 +2,7 @@ package controlador;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.text.DecimalFormat;
 import java.util.List;
 
 import com.mysql.jdbc.Connection;
@@ -89,37 +90,37 @@ public class Controlador_Ver_Datos {
 		 * timeline.setCycleCount(Timeline.INDEFINITE); timeline.play();
 		 */
 	}
-	
-	
-	
+
 	public static double calcularMediaDivideYVenceras(List<Double> vector) {
-        if (vector.isEmpty()) {
-            return 0;
-        }
+		if (vector.isEmpty()) {
+			return 0;
+		}
 
-        double sumaTotal = sumaDivideYVenceras(vector, 0, vector.size());
-        return sumaTotal / vector.size();
-    }
+		double sumaTotal = sumaDivideYVenceras(vector, 0, vector.size());
+		return sumaTotal / vector.size();
+	}
 
-    private static double sumaDivideYVenceras(List<Double> vector, int inicio, int fin) {
-        if (inicio == fin - 1) {
-            return vector.get(inicio);
-        } else {
-            int mid = (inicio + fin) / 2;
-            double leftSum = sumaDivideYVenceras(vector, inicio, mid);
-            double rightSum = sumaDivideYVenceras(vector, mid, fin);
-            return leftSum + rightSum;
-        }
-    }
-    
-    
-    private void cargarDatosMedia(long SensorID) {
-    	Double a = calcularMediaDivideYVenceras(DispositivosManager.cargarDatosMedia(SensorID));
-    	lblMedia.setText(a.toString());
-    	
-    	//ponerlo a un textpanel
-    	
-    }
+	private static double sumaDivideYVenceras(List<Double> vector, int inicio, int fin) {
+		if (inicio == fin - 1) {
+			return vector.get(inicio);
+		} else {
+			int mid = (inicio + fin) / 2;
+			double leftSum = sumaDivideYVenceras(vector, inicio, mid);
+			double rightSum = sumaDivideYVenceras(vector, mid, fin);
+			return leftSum + rightSum;
+		}
+	}
+
+	private void cargarDatosMedia(long SensorID) {
+		Double a = calcularMediaDivideYVenceras(DispositivosManager.cargarDatosMedia(SensorID));
+		DecimalFormat formato = new DecimalFormat("#.00");
+		String media = formato.format(a);
+
+		lblMedia.setText(media.toString());
+
+		// ponerlo a un textpanel
+
+	}
 
 	private void cargarSensoresDelDispositivo(Dispositivos dispositivoSeleccionado) {
 		if (dispositivoSeleccionado == null)

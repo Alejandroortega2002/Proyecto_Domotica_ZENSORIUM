@@ -177,10 +177,14 @@ public class RegistroManager {
 	}
 
 	public static boolean actualizarPassword(Long idUsuario, String nuevaPass) {
-		String query = "UPDATE usuario SET password = ?, WHERE id_user = ?";
+		String query = "UPDATE usuario SET password = ? WHERE id_user = ?";
 		try (Connection conexion = ConexionDB.obtenerConexion();
 				PreparedStatement stmt = conexion.prepareStatement(query)) {
-			stmt.setString(1, nuevaPass);
+
+			// Encriptar la nueva contraseña
+			String nuevaPassEncriptada = BCrypt.hashpw(nuevaPass, BCrypt.gensalt());
+
+			stmt.setString(1, nuevaPassEncriptada);
 			stmt.setLong(2, idUsuario);
 			int result = stmt.executeUpdate();
 			return result > 0;
