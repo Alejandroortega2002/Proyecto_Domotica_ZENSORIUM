@@ -1,0 +1,57 @@
+DOCUMENTO INFORMATIVO Y NECESARIO PARA PROBAR LA APLICACIÓN
+
+LINK DE GITHUB CON PORYECTO 100% ACTUALIZADO
+https://github.com/ProyectoInformatica/pii23-jositosclub.git
+
+Usuarios con contraseñas para que puedas probar la aplicación:
+
+INSERT INTO `usuario` (`id_user`, `username`, `email`, `password`, `repetirPass`, `tipodecuenta`) VALUES
+(1, 'anatorres55', 'anatorres55@gmail.com', 'Ana@2006', 'Ana@2006', 'Familiar'),
+(2, 'carlosruiz44', 'carlosruiz45@gmail.com', 'Carlos@2016', 'Carlos@2016', 'Familiar'),
+(3, 'martagomez16', 'martagomez16@gmail.com', 'Marta@2014', 'Marta@2014', 'Familiar'),
+(4, 'luisfernandez97', 'luisfernandez97@gmail.com', 'Luis@2013', 'Luis@2013', 'Familiar'),
+(5, 'sofiarodriguez38', 'sofiarodriguez38@gmail.com', 'Sofia@2004', 'Sofia@2004', 'Familiar'),
+(6, 'javierlopez28', 'javierlopez28@gmail.com', 'Javier@2002', 'Javier@2002', 'Familiar'),
+(7, 'patriciamartinez62', 'patriciamartinez62@gmail.com', 'Patricia@2017', 'Patricia@2017', 'Familiar'),
+(8, 'manuelsanchez73', 'manuelsanchez73@gmail.com', 'Manuel@2011', 'Manuel@2011', 'Familiar'),
+(9, 'lauragarcia59', 'lauragarcia59@gmail.com', 'Laura@2010', 'Laura@2010', 'Familiar'),
+(10, 'elenajimenez40', 'elenajimenez40@gmail.com', 'Elena@2009', 'Elena@2009', 'Administrador'),
+(11, 'ricardoperez54', 'ricardoperez54@gmail.com', 'Ricardo@2008', 'Ricardo@2008', 'Administrador'),
+(12, 'sandragonzalez25', 'sandragonzalez25@gmail.com', 'Sandra@2007', 'Sandra@2007', 'Administrador'),
+(13, 'oscordiaz71', 'oscordiaz71@gmail.com', 'Oscar@2005', 'Oscar@2005', 'Administrador'),
+(14, 'irenealvarez93', 'irenealvarez93@gmail.com', 'Irene@2003', 'Irene@2003', 'Administrador'),
+(15, 'mariovidal77', 'mariovidal77@gmail.com', 'Mario@2001', 'Mario@2001', 'Usuario'),
+(16, 'luciamolina88', 'luciamolina88@gmail.com', 'Lucia@1999', 'Lucia@1999', 'Usuario'),
+(17, 'raulortiz66', 'raulortiz66@gmail.com', 'Raul@1998', 'Raul@1998', 'Usuario'),
+(18, 'beatrizmoreno50', 'beatrizmoreno50@gmail.com', 'Beatriz@1997', 'Beatriz@1997', 'Usuario'),
+(19, 'victorramos91', 'victorramos91@gmail.com', 'Victor@1996', 'Victor@1996', 'Usuario');
+
+
+
+(Cuando crees un Nuevo dispositivo y un Nuevo sensor) Para poder leer datos del nuevo sensor y que se muestren correctamente en la aplicación es necesario que cambies el id al del nuevo sensor en las consultas SQL para insertar los datos:
+
+EN EL CÓDIGO ARDUINO DEBES MODIFICAR EL ID_SENSOR POR EL ID DE TU NUEVO SENSOR EN LA QUERY DE EL TIPO DE SENSOR QUE TENGAS Y EJECUTAR EL CÓDIGO ASÍ RECOGERÁ DATOS DE ESE NUEVO SENSOR Y LOS SUBIRÁ A LA BASE DE DATOS.
+
+    //PARA SENSOR DE TIPO TEMPERATURA
+    String queryTemp = "INSERT INTO historicodatos (id_sensor, valor_dato, fecha) VALUES (58, '" + String(t) + "ºC', NOW());";
+
+    //PARA SENSOR DE TIPO HUMEDAD
+    String queryHum = "INSERT INTO historicodatos (id_sensor, valor_dato, fecha) VALUES (59, '" + String(h) + "%', NOW());";
+
+    //PARA SENSOR DE TIPO LUZ/LUMINOSIDAD
+    String queryLuz = "INSERT INTO historicodatos (id_sensor, valor_dato, fecha) VALUES (60, '" + String(brightness) + "%', NOW());";
+
+    //PARA SENSOR DE TIPO DISTANCIA
+    String queryDistancia = "INSERT INTO historicodatos (id_sensor, valor_dato, fecha) VALUES (61, '" + String(distance_cm) + "cm', NOW());";
+
+
+Ejemplo: 
+
+Hemos creado un nuevo sensor con id 70 y es de tipo temperatura:
+
+    //PARA SENSOR DE TIPO TEMPERATURA
+    String queryTemp = "INSERT INTO historicodatos (id_sensor, valor_dato, fecha) VALUES (70, '" + String(t) + "ºC', NOW());";
+
+y con es QUERY guardará los datos en la base de datos para ese sensor.
+
+
